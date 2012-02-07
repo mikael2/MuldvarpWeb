@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.hials.muldvarpweb.web;
+package no.hials.muldvarp.web;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import no.hials.muldvarpweb.domain.Course;
-import no.hials.muldvarpweb.service.CourseService;
+import no.hials.muldvarp.web.domain.Course;
+import no.hials.muldvarp.web.service.CourseService;
 
 /**
  *

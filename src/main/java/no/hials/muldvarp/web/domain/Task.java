@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.hials.muldvarpweb.domain;
+package no.hials.muldvarp.web.domain;
 
 import java.io.Serializable;
 

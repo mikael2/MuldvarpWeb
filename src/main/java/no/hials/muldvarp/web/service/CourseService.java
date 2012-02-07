@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.hials.muldvarpweb.service;
+package no.hials.muldvarp.web.service;
 
 import java.util.List;
 import javax.ejb.Stateless;
@@ -14,7 +14,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import no.hials.muldvarpweb.domain.Course;
+import no.hials.muldvarp.web.domain.Course;
 
 /**
  *
