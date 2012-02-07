@@ -49,6 +49,7 @@ public class CourseService {
     
     @GET
     @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON})
     public Course getCourse(@PathParam("id") Short id) {
 //        TypedQuery<Course> q = em.createQuery("Select c from Course c where c.id = :id", Course.class);
 //        q.setParameter("id", id);
