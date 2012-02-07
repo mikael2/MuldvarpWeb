@@ -4,6 +4,7 @@
  */
 package no.hials.muldvarpweb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,7 +30,13 @@ public class CourseService {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Course> findCourses() {       
-        return em.createQuery("SELECT c from Course c", Course.class).getResultList();
+        //return em.createQuery("SELECT c from Course c", Course.class).getResultList();
+        
+        //testdata
+        Course c = new Course("Test");
+        List<Course> retVal = new ArrayList<Course>();
+        retVal.add(c);
+        return retVal;
     }
     
     @GET
