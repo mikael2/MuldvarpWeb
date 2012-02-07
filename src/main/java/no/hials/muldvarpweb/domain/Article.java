@@ -1,4 +1,4 @@
-package no.hials.muldvarp.domain;
+package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
