@@ -50,9 +50,15 @@ public class CourseService {
     @GET
     @Path("{id}")
     public Course getCourse(@PathParam("id") Short id) {
-        TypedQuery<Course> q = em.createQuery("Select c from Course c where c.id = :id", Course.class);
-        q.setParameter("id", id);
-        return q.getSingleResult();
+//        TypedQuery<Course> q = em.createQuery("Select c from Course c where c.id = :id", Course.class);
+//        q.setParameter("id", id);
+//        return q.getSingleResult();
+        
+        
+        // testdata
+        Course retVal = new Course("Fagnavn");
+        retVal.setDetail("Details");
+        return retVal;
     }
     
     public List<Course> getCourse(String name) {       
