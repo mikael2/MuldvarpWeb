@@ -93,14 +93,9 @@
         </dependency>
         <dependency>  
             <groupId>org.primefaces</groupId>  
-            <artifactId>mobile</artifactId>  
-            <version>0.9.1</version>  
-        </dependency>
-        <dependency>  
-            <groupId>org.primefaces</groupId>  
             <artifactId>primefaces</artifactId>  
-            <version>3.0.1</version>  
-        </dependency>          
+            <version>3.1</version>  
+        </dependency>         
     </dependencies>
 
     <build>
