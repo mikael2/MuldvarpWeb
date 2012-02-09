@@ -6,6 +6,7 @@ package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,7 +39,11 @@ public class Course implements Serializable {
     String name;
     String detail;
     String imageurl;
+    
     Integer revision;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date revision_date;
+    
     ArrayList<Theme> themes;
 
     public Course() {
