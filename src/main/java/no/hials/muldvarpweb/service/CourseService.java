@@ -16,6 +16,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Course;
+import no.hials.muldvarpweb.domain.Task;
+import no.hials.muldvarpweb.domain.Theme;
 
 /**
  *
@@ -59,6 +61,31 @@ public class CourseService {
         // testdata
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
+        
+        ArrayList<Theme> themes = new ArrayList<Theme>();
+        
+        
+        Theme theme1 = new Theme("Kult tema");
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        Task task = new Task("Oppgave 1.1");
+        tasks.add(task);
+        task = new Task("Oppgave 1.2");
+        tasks.add(task);
+        theme1.setTasks(tasks);
+        themes.add(theme1);
+        
+        Theme theme2 = new Theme("Dummy tema");
+        ArrayList<Task> tasks2 = new ArrayList<Task>();
+        task = new Task("Oppgave 2.1");
+        tasks2.add(task);
+        task = new Task("Oppgave 2.2");
+        tasks2.add(task);
+        theme2.setTasks(tasks2);
+        themes.add(theme2);
+        
+        
+        retVal.setThemes(themes);
+        
         return retVal;
     }
     
