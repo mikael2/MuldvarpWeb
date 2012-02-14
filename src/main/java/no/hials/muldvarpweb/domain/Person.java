@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
@@ -25,7 +21,7 @@ public class Person implements Serializable {
     String position;    //f.eks. Dekan
     String department;  //f.eks. Internasjonal markedsføring
     String email;       //f.eks. per@hials.no
-    String office;      //f.eks. A214 
+    String location;    //f.eks. A214 eller kunnskapsparken eller Oslo
 
     public String getAffiliation() {
         return affiliation;
@@ -59,12 +55,12 @@ public class Person implements Serializable {
         this.name = name;
     }
 
-    public String getOffice() {
-        return office;
+    public String getLocation() {
+        return location;
     }
 
-    public void setOffice(String office) {
-        this.office = office;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public int getPhone() {

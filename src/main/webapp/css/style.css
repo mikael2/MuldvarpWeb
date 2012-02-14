@@ -1,0 +1,27 @@
+/* 
+    Document   : TLCstyle
+    Created on : Feb 9, 2012, 3:55:47 PM
+    Author     : TLC
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+    background-color: #C0C0C0;
+    font-family: Arial,Helvetica,sans-serif;
+    margin: 0 auto;
+    width: 1300px;
+}
+
+body > form {
+    display : inline;
+    padding-top: 7%;
+}
+
+body > form#form1 {
+    float : left;
+}
+
+body > form#form2 {
+    float : left;   
+}

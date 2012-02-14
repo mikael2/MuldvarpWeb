@@ -4,6 +4,7 @@
  */
 package no.hials.muldvarpweb.web;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -17,7 +18,7 @@ import no.hials.muldvarpweb.service.VideoService;
  */
 @Named
 @SessionScoped
-public class VideoController {
+public class VideoController implements Serializable {
     @Inject VideoService videoService;
     Video newVideo;
     List<Video> videoList;

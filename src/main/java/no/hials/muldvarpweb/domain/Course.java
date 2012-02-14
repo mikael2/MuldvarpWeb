@@ -6,6 +6,7 @@ package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,8 +39,14 @@ public class Course implements Serializable {
     String name;
     String detail;
     String imageurl;
+    
     Integer revision;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date revision_date;
+    
     ArrayList<Theme> themes;
+    ArrayList<ObligatoryTask> obligatoryTasks;
+    ArrayList<Exam> exams;
 
     public Course() {
     }
@@ -86,6 +94,28 @@ public class Course implements Serializable {
     public void setThemes(ArrayList<Theme> themes) {
         this.themes = themes;
     }
-    
-    
+
+    public ArrayList<ObligatoryTask> getObligatoryTasks() {
+        return obligatoryTasks;
+    }
+
+    public void setObligatoryTasks(ArrayList<ObligatoryTask> obligatoryTasks) {
+        this.obligatoryTasks = obligatoryTasks;
+    }
+
+    public Date getRevision_date() {
+        return revision_date;
+    }
+
+    public void setRevision_date(Date revision_date) {
+        this.revision_date = revision_date;
+    }
+
+    public ArrayList<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(ArrayList<Exam> exams) {
+        this.exams = exams;
+    }
 }
