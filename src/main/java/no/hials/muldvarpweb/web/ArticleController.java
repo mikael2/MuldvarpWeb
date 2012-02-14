@@ -1,5 +1,6 @@
 package no.hials.muldvarpweb.web;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -13,7 +14,7 @@ import no.hials.muldvarpweb.service.ArticleService;
  */
 @Named
 @SessionScoped
-public class ArticleController {
+public class ArticleController implements Serializable {
     
     @Inject ArticleService articleService;
     Article newArticle;
