@@ -15,7 +15,7 @@ import no.hials.muldvarpweb.service.PersonService;
 @SessionScoped
 public class PersonController {
     
-    @Inject PersonService videoService;
+    @Inject PersonService personService;
     Person newPerson;
     List<Person> personList;
     Person selectedPerson;

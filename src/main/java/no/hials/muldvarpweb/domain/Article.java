@@ -1,10 +1,8 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Date;
+import javax.persistence.*;
 
 /**
  *
@@ -18,6 +16,52 @@ public class Article implements Serializable {
     private Long id;
     
     String title;
+    String category;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date publishdate;
+    String ingress;
+    String author;
+    String text;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getIngress() {
+        return ingress;
+    }
+
+    public void setIngress(String ingress) {
+        this.ingress = ingress;
+    }
+
+    public Date getPublishdate() {
+        return publishdate;
+    }
+
+    public void setPublishdate(Date publishdate) {
+        this.publishdate = publishdate;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
     String description;
 
     public String getDescription() {
