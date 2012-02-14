@@ -1,0 +1,92 @@
+/* 
+    Document   : html5reset
+    Created on : 20.okt.2011, 18:32:27
+    Author     : Lena
+    Description: Reset html elements
+        
+    Purpose of the stylesheet follows:
+
+    This stylesheet will reset all the html elements, and the "style.css" 
+    stylesheet will define the style of the page. This is done to make sure 
+    the html5 mark-up renders properly in different browsers.
+*/
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, 
+p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, 
+em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, 
+b, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, 
+caption, tbody, tfoot, thead, tr, th, td, article, aside, audio, canvas, 
+details, figcaption, figure, footer, header, hgroup, mark, menu, meter, nav, 
+output, progress, section, summary, time, video {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    font-size: 100%;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
+}
+body {
+    line-height: 1;
+}
+article, aside, dialog, figure, footer, header, hgroup, nav, section, blockquote {
+    display: block;
+}
+nav ul {
+    list-style: none outside none;
+}
+ol {
+    list-style: decimal outside none;
+}
+ul {
+    list-style: disc outside none;
+}
+ul ul {
+    list-style: circle outside none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: none;
+}
+ins {
+    text-decoration: underline;
+}
+del {
+    text-decoration: line-through;
+}
+mark {
+    background: none repeat scroll 0 0 transparent;
+}
+abbr[title], dfn[title] {
+    border-bottom: 1px dotted #000000;
+    cursor: help;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #CCCCCC;
+    border-right: 0 none;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+    display: block;
+    height: 1px;
+    margin: 1em 0;
+    padding: 0;
+}
+input[type="submit"], input[type="button"], button {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+input, select, a img {
+    vertical-align: middle;
+}
