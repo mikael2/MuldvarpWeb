@@ -23,5 +23,5 @@ body > form#form1 {
 }
 
 body > form#form2 {
-    float : right;
+    float : left;   
 }

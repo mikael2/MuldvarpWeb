@@ -12,49 +12,52 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form id="form1">
-            <p:panelGrid columns="2">  
-                <f:facet name="header">  
-                    Basic PanelGrid  
-                </f:facet>  
+        <f:view id="newarticle">
+            <h:form id="form1">
+                <p:panelGrid columns="2">  
+                    <f:facet name="header">  
+                        Basic PanelGrid  
+                    </f:facet>  
 
-                <h:outputLabel for="title" value="Title: *" />  
-                <p:inputText id="title" value="" required="true" label="Title" />  
+                    <h:outputLabel for="title" value="Title: *" />  
+                    <p:inputText id="title" value="" required="true" label="Title" />  
 
-                <h:outputLabel for="date" value="Date: *" />  
-                <p:inputText id="date" value="" required="true" label="Date"/>  
+                    <h:outputLabel for="date" value="Date: *" />  
+                    <p:inputText id="date" value="" required="false" label="Date"/>  
 
-                <h:outputLabel for="author" value="Author: *" />  
-                <p:inputText id="author" value="" required="true" label="Author"/> 
+                    <h:outputLabel for="author" value="Author: *" />  
+                    <p:inputText id="author" value="" required="false" label="Author"/> 
 
-                <h:outputLabel for="category" value="Category: *" />  
-                <p:inputText id="category" value="" required="true" label="Category"/>  
+                    <h:outputLabel for="category" value="Category: *" />  
+                    <p:inputText id="category" value="" required="false" label="Category"/>  
 
-                <h:outputLabel for="ingress" value="Ingress: *" /> 
-                <p:inputTextarea id="ingress" value="" required="true" rows="5" cols="30"/>  
+                    <h:outputLabel for="ingress" value="Ingress: *" /> 
+                    <p:inputTextarea id="ingress" value="" required="false" rows="5" cols="30"/>  
 
-                <f:facet name="footer">  
-                    <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>  
-                </f:facet>  
-            </p:panelGrid> 
-        </h:form>
+                    <f:facet name="footer">  
+                        <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>  
+                    </f:facet>  
+                </p:panelGrid> 
+            </h:form>
 
-        <h:form id="form2">  
-            <p:editor id="editor" value="#{editorBean.value}" width="600" height="400" />  
+            
+            <h:form id="form2">
+                <p:editor id="editor" value="#{articleController.body}" width="600" height="323" />  
 
-            <h:panelGrid columns="2" style="margin-top:10px">  
-                <p:commandButton id="submitButton" value="Submit" update="display" oncomplete="dlg.show()"  
-                                 icon="ui-icon-disk" />  
-                <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
-                                 icon="ui-icon-close" />  
-            </h:panelGrid>  
+                <h:panelGrid columns="2" style="margin-top:10px">  
+                    <p:commandButton id="submitButton" value="Submit" update="display"
+                                      actionListener="#{articleController.saveArticle()}"  
+                                     icon="ui-icon-disk" />  
+                    <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
+                                     icon="ui-icon-close" />  
+                </h:panelGrid>  
 
-            <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade" modal="true">  
-                <h:outputText id="display" value="#{editorBean.value}" escape="false" />  
-            </p:dialog>  
+                <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade" modal="true">  
+                    <h:outputText id="display" value="#{editorBean.value}" escape="false" />  
+                </p:dialog>  
 
-        </h:form>  
-
+            </h:form>  
+        </f:view>
     </h:body>
 </html>
 

@@ -2,10 +2,8 @@ package no.hials.muldvarpweb.web;
 
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Article;
-import no.hials.muldvarpweb.service.ArticleService;
 
 /**
  *
@@ -14,11 +12,41 @@ import no.hials.muldvarpweb.service.ArticleService;
 @Named
 @SessionScoped
 public class ArticleController {
-    
-    @Inject ArticleService articleService;
+    /*@Inject ArticleService service;*/
     Article newArticle;
     List<Article> articleList;
     Article selectedArticle;
     Article filter;
     
+    String body;
+    
+    public Article getArticle() {
+        if(newArticle == null)
+            newArticle = new Article();
+
+        return newArticle;
+    }
+    
+    public void setArticle(Article article) {
+        this.newArticle = article;
+    }
+    
+    public void addArticle() {
+        /*if(newArticle != null) {
+            
+            service.addArticle(newArticle);
+        }*/
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+    
+    public void saveArticle() {
+        System.out.println("Body: " + body);
+    }
 }

@@ -23,16 +23,28 @@ public class ArticleService {
     
     @GET
     @Path("{id}")
-    public Article getArticle(@PathParam("id") short id) {
+    public Article getArticle (@PathParam("id") short id) {
         TypedQuery<Article> q = em.createQuery("Select a from Article a where a.id = :id", Article.class);
         q.setParameter("id", id);
         return q.getSingleResult();
     }
     
-    public List<Article> getArticle(String title) {       
+    public List<Article> findArticles (String title) {       
         TypedQuery<Article> q = em.createQuery("Select a from Article a where a.title LIKE :title", Article.class);
         q.setParameter("name", "%" + title + "%");
         return q.getResultList();
     }
+    
+    public Article addArticle(Article newArticle) {
+        newArticle= em.merge(newArticle);
+        em.persist(newArticle);
+        return newArticle;
+    }
+
+    public void removeArticle(Article article) {
+        article = em.merge(article);
+        em.remove(article);
+    }
+    
     
 }
