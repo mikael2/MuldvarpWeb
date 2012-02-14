@@ -45,6 +45,8 @@ public class Course implements Serializable {
     Date revision_date;
     
     ArrayList<Theme> themes;
+    ArrayList<ObligatoryTask> obligatoryTasks;
+    ArrayList<Exam> exams;
 
     public Course() {
     }
@@ -92,6 +94,28 @@ public class Course implements Serializable {
     public void setThemes(ArrayList<Theme> themes) {
         this.themes = themes;
     }
-    
-    
+
+    public ArrayList<ObligatoryTask> getObligatoryTasks() {
+        return obligatoryTasks;
+    }
+
+    public void setObligatoryTasks(ArrayList<ObligatoryTask> obligatoryTasks) {
+        this.obligatoryTasks = obligatoryTasks;
+    }
+
+    public Date getRevision_date() {
+        return revision_date;
+    }
+
+    public void setRevision_date(Date revision_date) {
+        this.revision_date = revision_date;
+    }
+
+    public ArrayList<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(ArrayList<Exam> exams) {
+        this.exams = exams;
+    }
 }
