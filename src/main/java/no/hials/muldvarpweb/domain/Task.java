@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class Task implements Serializable  {
     String name;
-    enum content {EXTERNAL,VIDEO,PDF}
+    public enum content {EXTERNAL,VIDEO,PDF}
     Boolean done = false;
     String content_url;
     
@@ -22,6 +22,10 @@ public class Task implements Serializable  {
 
     public Task(String name) {
         this.name = name;
+    }
+    
+    public void acceptTask() {
+        done = true;
     }
 
     public String getContent_url() {
@@ -46,7 +50,5 @@ public class Task implements Serializable  {
 
     public void setName(String name) {
         this.name = name;
-    }
-    
-    
+    }    
 }
