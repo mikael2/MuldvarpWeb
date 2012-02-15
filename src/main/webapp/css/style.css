@@ -10,18 +10,48 @@ body {
     background-color: #C0C0C0;
     font-family: Arial,Helvetica,sans-serif;
     margin: 0 auto;
-    width: 1300px;
+    
 }
 
-body > form {
-    display : inline;
-    padding-top: 7%;
+body > header {
+    background: none repeat scroll 0 0 #666666;
+    clear: both;
+    height: 12px;
+    padding-bottom: 8%;
+    padding-top: 1%;
+    padding-left: 10%;
+    padding-right: 20%;
+    background-color: cornflowerblue;
 }
 
-body > form#form1 {
+body > header hgroup#top h1 {
+    color: #FFFFFF;
+    font-size: 5em;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    color: black;
+    padding-bottom: 10px;
+    display: inline;
+}
+
+body > form#menu {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+img#logo {
+    padding-right: 20%;
+}
+
+section > form#form1 {
     float : left;
+    display: inline;
 }
 
-body > form#form2 {
-    float : left;   
+section > form#form2 {
+    float : left;  
+    display: inline;
+}
+
+section {
+    padding-left: 10%;
 }

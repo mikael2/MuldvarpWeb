@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -12,52 +12,111 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <f:view id="newarticle">
-            <h:form id="form1">
-                <p:panelGrid columns="2">  
-                    <f:facet name="header">  
-                        Basic PanelGrid  
-                    </f:facet>  
+        
+        
 
-                    <h:outputLabel for="title" value="Title: *" />  
-                    <p:inputText id="title" value="" required="true" label="Title" />  
+        <header>
+            <hgroup id="top">              
+                <h1><img id="logo" src="img/hialsBilde.jpg" alt="hials bilde" width="120" heigth="150"/>HiALS news4u</h1>
+                <h2></h2>
+            </hgroup>
+        </header>
 
-                    <h:outputLabel for="date" value="Date: *" />  
-                    <p:inputText id="date" value="" required="false" label="Date"/>  
+        <h:form id="menu">  
 
-                    <h:outputLabel for="author" value="Author: *" />  
-                    <p:inputText id="author" value="" required="false" label="Author"/> 
+            <p:growl id="messages"/>  
 
-                    <h:outputLabel for="category" value="Category: *" />  
-                    <p:inputText id="category" value="" required="false" label="Category"/>  
+            <p:menubar>  
+                <p:submenu label="File" icon="ui-icon-document">  
+                    <p:submenu label="New" icon="ui-icon-contact">  
+                        <p:menuitem value="Project" url="#" />  
+                        <p:menuitem value="Other" url="#" />  
+                    </p:submenu>  
+                    <p:menuitem value="Open" url="#" />  
+                    <p:separator />  
+                    <p:menuitem value="Quit" url="#" />  
+                </p:submenu>  
 
-                    <h:outputLabel for="ingress" value="Ingress: *" /> 
-                    <p:inputTextarea id="ingress" value="" required="false" rows="5" cols="30"/>  
+                <p:submenu label="Edit" icon="ui-icon-pencil">  
+                    <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
+                    <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />  
+                </p:submenu>  
 
-                    <f:facet name="footer">  
-                        <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>  
-                    </f:facet>  
-                </p:panelGrid> 
-            </h:form>
+                <p:submenu label="Help" icon="ui-icon-help">  
+                    <p:menuitem value="Contents" url="#" />  
+                    <p:submenu label="Search" icon="ui-icon-search">  
+                        <p:submenu label="Text">  
+                            <p:menuitem value="Workspace" url="#" />  
+                        </p:submenu>  
+                        <p:menuitem value="File" url="#" />  
+                    </p:submenu>  
+                </p:submenu>  
 
-            
-            <h:form id="form2">
-                <p:editor id="editor" value="#{articleController.body}" width="600" height="323" />  
+                <p:submenu label="Actions" icon="ui-icon-gear">  
+                    <p:submenu label="Ajax" icon="ui-icon-refresh">  
+                        <p:menuitem value="Save" actionListener="#{buttonBean.save}" icon="ui-icon-disk" update="messages"/>  
+                        <p:menuitem value="Update" actionListener="#{buttonBean.update}" icon="ui-icon-arrowrefresh-1-w" update="messages"/>  
+                    </p:submenu>  
+                    <p:submenu label="Non-Ajax" icon="ui-icon-newwin">  
+                        <p:menuitem value="Delete" actionListener="#{buttonBean.delete}" icon="ui-icon-close" update="messages" ajax="false"/>  
+                    </p:submenu>  
+                </p:submenu>  
 
-                <h:panelGrid columns="2" style="margin-top:10px">  
-                    <p:commandButton id="submitButton" value="Submit" update="display"
-                                      actionListener="#{articleController.saveArticle()}"  
-                                     icon="ui-icon-disk" />  
-                    <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
-                                     icon="ui-icon-close" />  
-                </h:panelGrid>  
+                <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />  
+            </p:menubar>  
 
-                <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade" modal="true">  
-                    <h:outputText id="display" value="#{editorBean.value}" escape="false" />  
-                </p:dialog>  
+        </h:form>  
 
-            </h:form>  
+        <f:view>
+            <section>
+
+                <h:form id="form1">
+                    <p:panelGrid columns="2">  
+                        <f:facet name="header">  
+                            Basic PanelGrid  
+                        </f:facet>  
+
+                        <h:outputLabel for="title" value="Title: *" />  
+                        <p:inputText id="title" value="" required="true" label="Title" />  
+
+                        <h:outputLabel for="date" value="Date: *" />  
+                        <p:inputText id="date" value="" required="false" label="Date"/>  
+
+                        <h:outputLabel for="author" value="Author: *" />  
+                        <p:inputText id="author" value="" required="false" label="Author"/> 
+
+                        <h:outputLabel for="category" value="Category: *" />  
+                        <p:inputText id="category" value="" required="false" label="Category"/>  
+
+                        <h:outputLabel for="ingress" value="Ingress: *" /> 
+                        <p:inputTextarea id="ingress" value="" required="false" rows="5" cols="30"/>  
+
+                        <f:facet name="footer">  
+                            <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>  
+                        </f:facet>  
+                    </p:panelGrid> 
+                </h:form>
+
+
+                <h:form id="form2">
+                    <p:editor id="editor" value="#{articleController.body}" width="790" height="323" />  
+
+                    <h:panelGrid columns="2" style="margin-top:10px">  
+                        <p:commandButton id="submitButton" value="Submit" update="display"
+                                         actionListener="#{articleController.saveArticle()}"  
+                                         icon="ui-icon-disk" />  
+                        <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
+                                         icon="ui-icon-close" />  
+                    </h:panelGrid>  
+
+                    <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade" modal="true">  
+                        <h:outputText id="display" value="#{editorBean.value}" escape="false" />  
+                    </p:dialog>  
+
+                </h:form>  
+            </section>
         </f:view>
+
     </h:body>
 </html>
 
