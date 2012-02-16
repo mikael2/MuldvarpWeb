@@ -33,10 +33,6 @@ body > header hgroup#top h1 {
     display: inline;
 }
 
-body > form#menu {
-    padding-left: 10%;
-    padding-right: 10%;
-}
 
 img#logo {
     padding-right: 20%;
@@ -50,8 +46,10 @@ section > form#form1 {
 section > form#form2 {
     float : left;  
     display: inline;
+    
 }
 
 section {
     padding-left: 10%;
+    padding-top: 5%;
 }

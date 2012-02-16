@@ -36,10 +36,10 @@ public class ArticleController implements Serializable {
     }
     
     public void addArticle() {
-        if(newArticle != null) {
+        //if(newArticle != null) {
             
             service.addArticle(newArticle);
-        }
+       // }
     }
 
     public String getBody() {
