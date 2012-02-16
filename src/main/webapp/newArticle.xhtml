@@ -34,26 +34,25 @@
                             </f:facet>  
 
                             <h:outputLabel for="title" value="Title: *" />  
-                            <p:inputText id="title" value="#{ArticleController.article.title}" required="true" label="Title" />  
+                            <p:inputText id="title" value="#{articleController.article.title}" required="true" label="Title" />  
 
                             <h:outputLabel for="date" value="Date: *" />  
-                            <p:inputText id="date" value="" required="false" label="Date"/>  
+                            <p:inputText id="date" required="false" label="Date"/>  
 
                             <h:outputLabel for="author" value="Author: *" />  
-                            <p:inputText id="author" value="" required="false" label="Author"/> 
+                            <p:inputText id="author" required="false" label="Author"/> 
 
                             <h:outputLabel for="category" value="Category: *" />  
-                            <p:inputText id="category" value="" required="false" label="Category"/>  
+                            <p:inputText id="category" required="false" label="Category"/>  
 
                             <h:outputLabel for="ingress" value="Ingress: *" /> 
-                            <p:inputTextarea id="ingress" value="" required="false" rows="5" cols="30"/>  
+                            <p:inputTextarea id="ingress" required="false" rows="5" cols="30"/>  
                         </p:panelGrid>                      
                     
                         <p:editor id="editor" value="#{articleController.article.text}" width="790" height="322" />  
                     </p:panelGrid>
                     <h:panelGrid columns="2" style="margin-top:10px">  
-                        <p:commandButton id="submitButton" value="Submit" update="display"
-                                         actionListener="#{articleController.addArticle()}"
+                        <p:commandButton id="submitButton" value="Submit" actionListener="#{articleController.addArticle()}" ajax="false"
                                          icon="ui-icon-disk" />  
                         <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
                                          icon="ui-icon-close" />  
