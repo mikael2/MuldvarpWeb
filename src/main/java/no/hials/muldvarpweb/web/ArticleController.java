@@ -35,12 +35,15 @@ public class ArticleController implements Serializable {
     
     public void addArticle() {
 
-        
         //if(newArticle != null) {
             System.out.println("Saving article " + newArticle);
             newArticle = service.addArticle(newArticle);
             System.out.println("Saved article " + newArticle);
-       // }
+        //}
+    }
+    
+    public void clearArticle () {
+        newArticle = null;
     }
 
     

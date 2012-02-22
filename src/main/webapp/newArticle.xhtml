@@ -27,45 +27,54 @@
             <section>
 
                 <h:form id="form1">
-                    
-                    
-                    <p:panelGrid columns="2">  
-                        <f:facet name="header">  
-                            Basic PanelGrid  
-                        </f:facet>  
 
-                        <h:outputLabel for="title" value="Title: *" />  
-                        <p:inputText id="title" value="#{articleController.article.title}" required="false" label="Title" />  
+                    <div id="panelgrid">
+                        <p:panelGrid columns="2">  
+                            <f:facet name="header">  
+                                Ny artikkel  
+                            </f:facet>  
 
-
-                        <h:outputLabel for="author" value="Author: *" />  
-                        <p:inputText id="author" value="#{articleController.article.author}" required="false" label="Author"/> 
-
-                        <h:outputLabel for="category" value="Category: *" />  
-                        <p:inputText id="category" value="#{articleController.article.category}" required="false" label="Category"/>  
-
-                        <h:outputLabel for="date" value="Date: " />
-                        <p:calendar value="#{articleController.article.date}" id="date" label="Date" />  
-                        
-                        <h:outputLabel for="description" value="Description: *" />  
-                        <p:inputText id="description" value="#{articleController.article.description}" required="false" label="Description"/>
-                        
-                        <h:outputLabel for="ingress" value="Ingress: *" /> 
-                        <p:inputTextarea id="ingress" value="#{articleController.article.ingress}" required="false" rows="5" cols="30"/>  
-
-                    </p:panelGrid> 
- 
-
-                    <p:editor id="editor" value="#{articleController.article.text}" width="790" height="322" />  
+                            <h:outputLabel for="title" value="Tittel: *" />  
+                            <p:inputText id="title" value="#{articleController.article.title}" required="true" label="Title" >  
+                                <f:validateLength minimum="2" />  
+                            </p:inputText> 
 
 
-                    <h:panelGrid columns="2" style="margin-top:10px">  
+                            <h:outputLabel for="author" value="Forfatter: "/>  
+                            <p:inputText id="author" value="#{articleController.article.author}" required="false" label="Author"/> 
 
-                        <p:commandButton id="submitButton" value="Submit" actionListener="#{articleController.addArticle()}" ajax="false" />
+                            <h:outputLabel for="category" value="Kategori: " />  
+                            <p:inputText id="category" value="#{articleController.article.category}" required="false" label="Category"/>  
 
-                        <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
-                                         icon="ui-icon-close" />  
-                    </h:panelGrid>  
+                            <h:outputLabel for="date" value="Dato: " />
+                            <p:calendar value="#{articleController.article.publishdate}" id="date" label="Date" />  
+
+                            <h:outputLabel for="description" value="Beskrivelse: " />  
+                            <p:inputText id="description" value="#{articleController.article.description}" required="false" label="Description"/>
+
+                            <h:outputLabel for="ingress" value="Ingress: *" /> 
+                            <p:inputTextarea id="ingress" value="#{articleController.article.ingress}" required="false" rows="5" cols="30"/>  
+
+                        </p:panelGrid> 
+                    </div>
+
+                    <div id="editor">
+
+                        <p:editor id="editor" value="#{articleController.article.text}" width="790" height="364" />  
+
+
+
+
+                        <h:panelGrid columns="2" style="margin-top:10px">  
+
+                            <p:commandButton id="saveButton" value="Save" actionListener="#{articleController.addArticle()}" ajax="true" />
+                            
+                            <p:commandButton id="submitButton" value="Submit" actionListener="#{articleController.addArticle()}" ajax="false" onclick="#{articleController.clearArticle()}" />
+
+                            <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
+                                             icon="ui-icon-close" />  
+                        </h:panelGrid>  
+                    </div>
                 </h:form>
 
             </section>

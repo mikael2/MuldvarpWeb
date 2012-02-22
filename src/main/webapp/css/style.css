@@ -49,7 +49,18 @@ img#logo {
 }
 
 section {
-    padding-left: 5%;
-    padding-right: 5%;
+    
     padding-top: 5%;
+}
+
+#panelgrid {
+    float : left;  
+    display: inline;
+    padding-left: 9%
+}
+
+#editor {
+    float : right;  
+    display: inline;
+    padding-right: 9%;
 }

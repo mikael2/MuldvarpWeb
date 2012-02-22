@@ -18,7 +18,7 @@ public class Article implements Serializable {
     String title;
     String category;
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date date;
+    Date publishdate;
     String ingress;
     String author;
     String text;
@@ -47,12 +47,12 @@ public class Article implements Serializable {
         this.ingress = ingress;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getPublishdate() {
+        return publishdate;
     }
 
-    public void setDate(Date publishdate) {
-        this.date = publishdate;
+    public void setPublishdate(Date publishdate) {
+        this.publishdate = publishdate;
     }
 
     public String getText() {
