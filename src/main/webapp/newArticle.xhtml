@@ -44,6 +44,9 @@
                         <h:outputLabel for="category" value="Category: *" />  
                         <p:inputText id="category" value="#{articleController.article.category}" required="false" label="Category"/>  
 
+                        <h:outputLabel for="date" value="Date: " />
+                        <p:calendar value="#{articleController.article.date}" id="date" label="Date" />  
+                        
                         <h:outputLabel for="description" value="Description: *" />  
                         <p:inputText id="description" value="#{articleController.article.description}" required="false" label="Description"/>
                         

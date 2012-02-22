@@ -38,25 +38,18 @@ img#logo {
     padding-right: 20%;
 }
 
-section > form1 > div#basicGrid {
-    float : left;
-    display: inline;
-}
-
-#form1 {
+#form2 { 
     float : left;  
     display: inline;
-    
 }
 
-#form2 {
+#form3 { 
     float : right;  
     display: inline;
-    
 }
 
 section {
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
     padding-top: 5%;
 }
