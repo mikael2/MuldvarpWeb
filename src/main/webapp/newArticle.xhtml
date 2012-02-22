@@ -27,43 +27,49 @@
             <section>
 
                 <h:form id="form1">
-                    <p:panelGrid columns="2" >  
-                        <p:panelGrid columns="2" >  
-                            <f:facet name="header">  
-                                Basic PanelGrid  
-                            </f:facet>  
+      
+                    <p:panelGrid columns="2">  
+                        <f:facet name="header">  
+                            Basic PanelGrid  
+                        </f:facet>  
 
-                            <h:outputLabel for="title" value="Title: *" />  
-                            <p:inputText id="title" value="#{ArticleController.article.title}" required="true" label="Title" />  
+                        <h:outputLabel for="title" value="Title: *" />  
+                        <p:inputText id="title" value="#{articleController.article.title}" required="false" label="Title" />  
 
-                            <h:outputLabel for="date" value="Date: *" />  
-                            <p:inputText id="date" value="" required="false" label="Date"/>  
+                        
+                        <h:outputLabel for="author" value="Author: *" />  
+                        <p:inputText id="author" value="#{articleController.article.author}" required="false" label="Author"/> 
 
-                            <h:outputLabel for="author" value="Author: *" />  
-                            <p:inputText id="author" value="" required="false" label="Author"/> 
+                        <h:outputLabel for="category" value="Category: *" />  
+                        <p:inputText id="category" value="#{articleController.article.category}" required="false" label="Category"/>  
 
-                            <h:outputLabel for="category" value="Category: *" />  
-                            <p:inputText id="category" value="" required="false" label="Category"/>  
+                        <h:outputLabel for="date" value="Date: *" />  
+                        <p:inputText id="date" value="#{articleController.article.publishdate}" required="false" label="Date"/>  
+                        
+                        <h:outputLabel for="ingress" value="Ingress: *" /> 
+                        <p:inputTextarea id="ingress" value="#{articleController.article.ingress}" required="false" rows="5" cols="30"/>  
 
-                            <h:outputLabel for="ingress" value="Ingress: *" /> 
-                            <p:inputTextarea id="ingress" value="" required="false" rows="5" cols="30"/>  
-                        </p:panelGrid>                      
-                    
-                        <p:editor id="editor" value="#{articleController.article.text}" width="790" height="322" />  
-                    </p:panelGrid>
+                        <f:facet name="footer">  
+                            <p:commandButton type="button" value="Save" icon="ui-icon-check" 
+                                             style="margin:0" actionListener="#{articleController.addArticle()}"/>  
+                        </f:facet>  
+                    </p:panelGrid> 
+                    </h:form>
+                  
+                
+                <h:form id="form2">
+                    <p:editor id="editor" value="#{articleController.article.text}" required="false" width="790" height="323" />  
+              
+
                     <h:panelGrid columns="2" style="margin-top:10px">  
-                        <p:commandButton id="submitButton" value="Submit" update="display"
-                                         actionListener="#{articleController.addArticle()}"
+                        <p:commandButton id="submitButton" value="Submit" type ="button"
+                                         actionListener="#{articleController.addArticle()}"  
                                          icon="ui-icon-disk" />  
                         <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
                                          icon="ui-icon-close" />  
                     </h:panelGrid>  
-
-                    <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade" modal="true">  
-                        <h:outputText id="display" value="#{editorBean.value}" escape="false" />  
-                    </p:dialog>  
-
-                </h:form>  
+                    </h:form>
+ 
             </section>
         </f:view>
 

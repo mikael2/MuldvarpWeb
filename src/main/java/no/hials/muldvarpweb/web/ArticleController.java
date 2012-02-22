@@ -1,7 +1,6 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,12 +17,11 @@ public class ArticleController implements Serializable {
     
     @Inject ArticleService service;
     Article newArticle;
-    List<Article> articleList;
-    Article selectedArticle;
-    Article filter;
-    
-    String body;
-    
+
+    public ArticleService getService() {
+        return service;
+    }
+
     public Article getArticle() {
         if(newArticle == null)
             newArticle = new Article();
@@ -36,21 +34,11 @@ public class ArticleController implements Serializable {
     }
     
     public void addArticle() {
-        //if(newArticle != null) {
+        if(newArticle != null) {
             
             service.addArticle(newArticle);
-       // }
+        }
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
     
-    public void saveArticle() {
-        System.out.println("Body: " + body);
-    }
 }
