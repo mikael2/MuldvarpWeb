@@ -16,51 +16,41 @@ body {
 body > header {
     background: none repeat scroll 0 0 #666666;
     clear: both;
-    height: 12px;
-    padding-bottom: 8%;
-    padding-top: 1%;
+    padding-bottom: 3%;
+    padding-top: 3%;
     padding-left: 10%;
-    padding-right: 20%;
+    padding-right: 10%;
     background-color: cornflowerblue;
 }
 
-body > header hgroup#top h1 {
+body > header > hgroup#top > h1 {
     color: #FFFFFF;
-    font-size: 5em;
+    font-size: 350%;
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     color: black;
-    padding-bottom: 10px;
+    padding-bottom: 5%;
     display: inline;
 }
 
 
 img#logo {
-    padding-right: 20%;
-}
-
-#form2 { 
-    float : left;  
-    display: inline;
-}
-
-#form3 { 
-    float : right;  
-    display: inline;
+    padding-right: 5%;
 }
 
 section {
     
-    padding-top: 5%;
+    padding-top: 4%;
 }
 
 #panelgrid {
     float : left;  
     display: inline;
-    padding-left: 9%
+    padding-left: 5%
 }
 
-#editor {
-    float : right;  
+#editordiv {
+    float : left;  
     display: inline;
-    padding-right: 9%;
+    padding-left: 5%;
+    padding-right: 5%
 }

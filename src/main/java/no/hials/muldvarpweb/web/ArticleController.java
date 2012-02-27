@@ -33,17 +33,34 @@ public class ArticleController implements Serializable {
         this.newArticle = article;
     }
     
-    public void addArticle() {
+    public void submitArticle() {
+
+        //if(newArticle != null) {
+            System.out.println("Submitting article " + newArticle);
+            newArticle = service.addArticle(newArticle);
+            System.out.println("Submitted article " + newArticle);
+            clearArticle();
+       // }
+    }
+    
+    public void saveArticle() {
 
         //if(newArticle != null) {
             System.out.println("Saving article " + newArticle);
             newArticle = service.addArticle(newArticle);
             System.out.println("Saved article " + newArticle);
-        //}
+       // }
     }
     
     public void clearArticle () {
         newArticle = null;
+    }
+    
+    public void deleteArticle () {
+        System.out.println("Deleting article " + newArticle);
+        service.removeArticle(newArticle);
+        System.out.println("Clearing article " + newArticle);
+        clearArticle();
     }
 
     

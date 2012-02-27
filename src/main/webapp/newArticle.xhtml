@@ -9,7 +9,7 @@
     <h:head>
         <link rel="stylesheet" href="css/html5reset.css" type="text/css" /> 
         <link rel="stylesheet" href="css/style.css" type="text/css" /> 
-        <title>Facelet Title</title>
+        <title>HiALS nyheter</title>
     </h:head>
     <h:body>
 
@@ -17,7 +17,7 @@
 
         <header>
             <hgroup id="top">              
-                <h1><img id="logo" src="img/hialsBilde.jpg" alt="hials bilde" width="120" heigth="150"/>HiALS news4u</h1>
+                <h1><img id="logo" src="img/hialsBilde.jpg" alt="hials bilde" width="120" heigth="150"/>HiALS</h1>
                 <h2></h2>
             </hgroup>
         </header>
@@ -58,21 +58,28 @@
                         </p:panelGrid> 
                     </div>
 
-                    <div id="editor">
+                    <div id="editordiv">
 
-                        <p:editor id="editor" value="#{articleController.article.text}" width="790" height="364" />  
-
-
+                        <p:editor id="editor" value="#{articleController.article.text}" width="700" height="364" widgetVar="myEdit" />  
 
 
-                        <h:panelGrid columns="2" style="margin-top:10px">  
 
-                            <p:commandButton id="saveButton" value="Save" actionListener="#{articleController.addArticle()}" ajax="true" />
+
+                        <h:panelGrid columns="5" style="margin-top:2%; margin-bottom: 5%">  
                             
-                            <p:commandButton id="submitButton" value="Submit" actionListener="#{articleController.addArticle()}" ajax="false" onclick="#{articleController.clearArticle()}" />
+                            <p:commandButton  id="submitButton" value="Submit" actionListener="#{articleController.submitArticle()}" ajax="false"/>
 
-                            <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()"  
-                                             icon="ui-icon-close" />  
+                            <p:commandButton id="saveButton" value="Save" actionListener="#{articleController.saveArticle()}" ajax="true" 
+                                             />
+
+                            <p:commandButton id="deleteButton" value="Delete" actionListener="#{articleController.deleteArticle()}" ajax="false"/> 
+                            
+                            <p:commandButton id="clearButton" type="button" value="Clear Editor"
+                                             onclick="myEdit.clear()"/>
+                            
+                            <p:commandButton id="clearAllButton" type="button" value="Clear All"
+                                             onclick="myEdit.clear();document.getElementById('form1').reset()"/>
+                        
                         </h:panelGrid>  
                     </div>
                 </h:form>
