@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -69,16 +70,31 @@ public class CourseService {
         // testdata
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
-        
-        ArrayList<ObligatoryTask> obligTasks = new ArrayList<ObligatoryTask>();
-        ObligatoryTask oblig1 = new ObligatoryTask("Obligatorisk 1");
-        obligTasks.add(oblig1);
-        oblig1 = new ObligatoryTask("Obligatorisk 2");
-        obligTasks.add(oblig1);
-        retVal.setObligatoryTasks(obligTasks);
-        
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
         Date date = new Date();
+        
+        ArrayList<ObligatoryTask> obligTasks = new ArrayList<ObligatoryTask>();
+        try {
+            date = df.parse("2013-11-28T12:34:56");
+        } catch (ParseException ex) {
+            Logger.getLogger(CourseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ObligatoryTask oblig1 = new ObligatoryTask("Obligatorisk 1");
+        oblig1.setDueDate(date);
+        obligTasks.add(oblig1);
+        oblig1 = new ObligatoryTask("Obligatorisk 2");
+        Calendar c = Calendar.getInstance();
+        int year = 2012;
+        int month = 11;
+        int day = 28;
+        int hour = 12;
+        int minute = 34;
+        c.set(year, month, day, hour, minute);
+        oblig1.setDueDate(c.getTime());
+        oblig1.setDone(true);
+        obligTasks.add(oblig1);
+        retVal.setObligatoryTasks(obligTasks); 
+        
         try {
             date = df.parse("2011-12-31T12:34:56");
         } catch (ParseException ex) {
