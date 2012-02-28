@@ -89,6 +89,7 @@ public class CourseService {
         int day = 28;
         int hour = 12;
         int minute = 34;
+        c.clear();
         c.set(year, month, day, hour, minute);
         oblig1.setDueDate(c.getTime());
         oblig1.setDone(true);
