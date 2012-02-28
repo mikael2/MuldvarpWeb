@@ -4,9 +4,14 @@
  */
 package no.hials.muldvarpweb.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -72,9 +77,20 @@ public class CourseService {
         obligTasks.add(oblig1);
         retVal.setObligatoryTasks(obligTasks);
         
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = df.parse("2011-12-31T12:34:56");
+        } catch (ParseException ex) {
+            Logger.getLogger(CourseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ArrayList<Exam> exams = new ArrayList<Exam>();
-        exams.add(new Exam("Eksamen 1"));
-        exams.add(new Exam("Eksamen 2"));
+        Exam exam = new Exam("Eksamen 1");
+        exam.setExamDate(date);
+        exams.add(exam);
+        exam = new Exam("Eksamen 2");
+        exam.setExamDate(date);
+        exams.add(exam);
         retVal.setExams(exams);
         
         ArrayList<Theme> themes = new ArrayList<Theme>();
