@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author kristoffer
  */
-public class Exam implements Serializable{
+public class Exam implements Serializable {
     String name;
     String room;
     String info;
