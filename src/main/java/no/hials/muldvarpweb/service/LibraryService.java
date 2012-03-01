@@ -31,7 +31,7 @@ public class LibraryService {
     public ArrayList<LibraryItem> getlibraryTestData() {  
         ArrayList<LibraryItem> libraryList = new ArrayList<LibraryItem>();
         for (int i = 0; i < 10; i++) {
-            libraryList.add(new LibraryItem("this is a title", "This is a summary"));
+            libraryList.add(new LibraryItem("A tale of two men" + i, "How to make money", "Carl Brooke", "Austin Maxwell", "15.03.1998", "29.02.2012", "239", "This is a book explaining how a pair of people can make money", "http://unrestrictedstock.com/wp-content/uploads/office-icons-book-free-stock-vector.jpg", "http://whhs.cps-k12.org/library/images/icon_book.gif", "http://www.hials.no/nor/content/download/49530/977307/file/PB01%20ETABLERING%20AV%20NYE%20STUDIETILBUD%20TIL%20OG%20MED%2030%20STUDIEPOENG.pdf"));
         }
         return libraryList;
     }
@@ -52,7 +52,7 @@ public class LibraryService {
         @GET
         @Produces({MediaType.APPLICATION_JSON})
         public LibraryItem getTestLibrary(){
-            LibraryItem lI = new LibraryItem("this is a title", "This is a summary");
+            LibraryItem lI = new LibraryItem("A tale of two men", "How to make money", "Carl Brooke", "Austin Maxwell", "15.03.1998", "29.02.2012", "239", "This is a book explaining how a pair of people can make money", "http://unrestrictedstock.com/wp-content/uploads/office-icons-book-free-stock-vector.jpg", "http://whhs.cps-k12.org/library/images/icon_book.gif", "http://www.hials.no/nor/content/download/49530/977307/file/PB01%20ETABLERING%20AV%20NYE%20STUDIETILBUD%20TIL%20OG%20MED%2030%20STUDIEPOENG.pdf");
             return lI;
         }
     
