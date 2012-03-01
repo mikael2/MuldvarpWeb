@@ -33,9 +33,9 @@ public class VideoService {
         
         List<Video> videoList = new ArrayList<Video>();
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             
-            videoList.add(new Video("Video" + i, "www.vg.no","Video INC", "Thisvideo is not an actual video.", "www.db.no", "www.smp.no"));
+            videoList.add(new Video("Video " + i, "www.vg.no","Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
             
         }
         

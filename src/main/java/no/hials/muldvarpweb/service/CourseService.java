@@ -44,9 +44,23 @@ public class CourseService {
         c = new Course("Hei fra muldvarpweb");
         c.setImageurl("http://developer.android.com/assets/images/bg_logo.png");
         retVal.add(c);
-        for(int i = 0; i <= 20; i++) {
+        for(int i = 0; i <= 30; i++) {
+            
            c = new Course("Fagnavn numero " + i);
-           c.setDetail("Details");
+           
+           //Just adding a few ifs to add variety
+           //No big deal
+           if(i >= 20){
+               
+               c.setDetail("Linje 3");
+               
+           } else if (i >= 10) {
+               c.setDetail("Linje 2");
+               
+           } else  {
+               c.setDetail("Linje 1");
+           }
+           
            retVal.add(c); 
         }
         return retVal;
