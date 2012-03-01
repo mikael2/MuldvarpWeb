@@ -6,13 +6,30 @@ package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author kristoffer
  */
+@Entity
+@Table(name = "obligatory_task")
 public class ObligatoryTask extends Task implements Serializable  {
+    @Id
+    @GeneratedValue
+    private Integer id;
+    
+    @Column(name = "dueDate")
+    @Temporal(javax.persistence.TemporalType.DATE)
     Date dueDate;
+    
+    @Column(name = "acceptedDate")
+    @Temporal(javax.persistence.TemporalType.DATE)
     Date acceptedDate;
 
     public ObligatoryTask(String name) {
@@ -20,6 +37,16 @@ public class ObligatoryTask extends Task implements Serializable  {
     }
 
     public ObligatoryTask() {
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
     
     @Override

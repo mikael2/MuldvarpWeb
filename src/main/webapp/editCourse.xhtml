@@ -1,0 +1,76 @@
+<ui:composition template="/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        #{courseController.selected.name}
+    </ui:define>
+    
+    <ui:define name="mainsingle">
+        <h:form id="courseForm">                
+            <p:fieldset legend="#{courseController.selected.name}">
+            <p:dataTable 
+                value="#{courseController.selected}" 
+                var="course">
+                <p:column headerText="Name">  
+                    <h:inputText value="#{course.name}" />
+                </p:column>
+                <p:column headerText="Detail">  
+                    <h:inputText value="#{course.detail}" />
+                </p:column>
+                <p:column headerText="Image url">  
+                    <h:inputText value="#{course.imageurl}" />
+                </p:column>
+                <p:column headerText="Image url">  
+                    <h:outputText value="#{course.revision}" />
+                </p:column>
+                <p:column headerText="Image url">  
+                    <h:outputText value="#{course.revision_date}" />
+                </p:column>
+                <p:column>
+                    <p:dataTable 
+                        value="#{course.themes}" 
+                        var="themes">
+                        <p:column headerText="Name">  
+                            <h:inputText value="#{themes.name}" />
+                        </p:column>
+                        <p:column>
+                            <p:dataTable 
+                                value="#{themes.tasks}" 
+                                var="tasks">
+                                <p:column headerText="Name">  
+                                    <h:inputText value="#{tasks.name}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column>
+                    <p:dataTable 
+                        value="#{course.obligatoryTasks}" 
+                        var="obligtasks">
+                        <p:column headerText="Name">  
+                            <h:inputText value="#{obligtasks.name}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column>
+                    <p:dataTable 
+                        value="#{course.exams}" 
+                        var="exams">
+                        <p:column headerText="Name">  
+                            <h:inputText value="#{exams.name}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+            </p:dataTable>
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+    
+   
+</ui:composition>
