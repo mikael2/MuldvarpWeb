@@ -4,9 +4,15 @@
  */
 package no.hials.muldvarpweb.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -78,17 +84,44 @@ public class CourseService {
         // testdata
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
+        Date date = new Date();
         
         ArrayList<ObligatoryTask> obligTasks = new ArrayList<ObligatoryTask>();
+        try {
+            date = df.parse("2013-11-28T12:34:56");
+        } catch (ParseException ex) {
+            Logger.getLogger(CourseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ObligatoryTask oblig1 = new ObligatoryTask("Obligatorisk 1");
+        oblig1.setDueDate(date);
         obligTasks.add(oblig1);
         oblig1 = new ObligatoryTask("Obligatorisk 2");
+        Calendar c = Calendar.getInstance();
+        int year = 2012;
+        int month = 11;
+        int day = 28;
+        int hour = 12;
+        int minute = 34;
+        c.clear();
+        c.set(year, month, day, hour, minute);
+        oblig1.setDueDate(c.getTime());
+        oblig1.setDone(true);
         obligTasks.add(oblig1);
-        retVal.setObligatoryTasks(obligTasks);
+        retVal.setObligatoryTasks(obligTasks); 
         
+        try {
+            date = df.parse("2011-12-31T12:34:56");
+        } catch (ParseException ex) {
+            Logger.getLogger(CourseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ArrayList<Exam> exams = new ArrayList<Exam>();
-        exams.add(new Exam("Eksamen 1"));
-        exams.add(new Exam("Eksamen 2"));
+        Exam exam = new Exam("Eksamen 1");
+        exam.setExamDate(date);
+        exams.add(exam);
+        exam = new Exam("Eksamen 2");
+        exam.setExamDate(date);
+        exams.add(exam);
         retVal.setExams(exams);
         
         ArrayList<Theme> themes = new ArrayList<Theme>();

@@ -1,7 +1,6 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,14 +15,13 @@ import no.hials.muldvarpweb.service.ArticleService;
 @SessionScoped
 public class ArticleController implements Serializable {
     
-    @Inject ArticleService articleService;
+    @Inject ArticleService service;
     Article newArticle;
-    List<Article> articleList;
-    Article selectedArticle;
-    Article filter;
-    
-    String body;
-    
+
+    public ArticleService getService() {
+        return service;
+    }
+
     public Article getArticle() {
         if(newArticle == null)
             newArticle = new Article();
@@ -35,22 +33,35 @@ public class ArticleController implements Serializable {
         this.newArticle = article;
     }
     
-    public void addArticle() {
-        /*if(newArticle != null) {
-            
-            service.addArticle(newArticle);
-        }*/
-    }
+    public void submitArticle() {
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
+        //if(newArticle != null) {
+            System.out.println("Submitting article " + newArticle);
+            newArticle = service.addArticle(newArticle);
+            System.out.println("Submitted article " + newArticle);
+            clearArticle();
+       // }
     }
     
     public void saveArticle() {
-        System.out.println("Body: " + body);
+
+        //if(newArticle != null) {
+            System.out.println("Saving article " + newArticle);
+            newArticle = service.addArticle(newArticle);
+            System.out.println("Saved article " + newArticle);
+       // }
     }
+    
+    public void clearArticle () {
+        newArticle = null;
+    }
+    
+    public void deleteArticle () {
+        System.out.println("Deleting article " + newArticle);
+        service.removeArticle(newArticle);
+        System.out.println("Clearing article " + newArticle);
+        clearArticle();
+    }
+
+    
 }
