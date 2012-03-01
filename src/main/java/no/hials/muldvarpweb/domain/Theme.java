@@ -74,4 +74,8 @@ public class Theme implements Serializable {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+    
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
 }

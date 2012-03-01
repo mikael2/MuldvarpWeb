@@ -123,4 +123,40 @@ public class Course implements Serializable {
     public void setExams(List<Exam> exams) {
         this.exams = exams;
     }
+    
+    public void addTheme(Theme theme) {
+        themes.add(theme);
+    }
+    
+    public void removeTheme(Theme theme) {
+        
+    }
+    
+    public void addTask(Theme theme, Task task) {
+        for(int i = 0; i < themes.size(); i++) {
+            if(themes.get(i).name.equals(theme.name)) {
+                themes.get(i).addTask(task);
+            }
+        }
+    }
+    
+    public void removeTask(Theme theme, Task task) {
+        
+    }
+    
+    public void addObligatoryTask(ObligatoryTask obligtask) {   
+        obligatoryTasks.add(obligtask);
+    }
+    
+    public void removeObligatoryTask(ObligatoryTask obligtask) {
+        
+    }
+    
+    public void addExam(Exam exam) {
+        exams.add(exam);
+    }
+    
+    public void removeExam(Exam exam) {
+        
+    }
 }

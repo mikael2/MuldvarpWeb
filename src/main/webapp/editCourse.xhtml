@@ -7,7 +7,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="title">
-        #{courseController.selected.name}
+        Editing #{courseController.selected.name}
     </ui:define>
     
     <ui:define name="mainsingle">
@@ -25,50 +25,105 @@
                 <p:column headerText="Image url">  
                     <h:inputText value="#{course.imageurl}" />
                 </p:column>
-                <p:column headerText="Image url">  
+                <p:column headerText="Revision">  
                     <h:outputText value="#{course.revision}" />
                 </p:column>
-                <p:column headerText="Image url">  
+                <p:column headerText="Revision date">  
                     <h:outputText value="#{course.revision_date}" />
                 </p:column>
-                <p:column>
-                    <p:dataTable 
+                <p:column headerText="Themes">
+                    <p:dataTable id="themeTable"
                         value="#{course.themes}" 
                         var="themes">
                         <p:column headerText="Name">  
-                            <h:inputText value="#{themes.name}" />
+                            <h:outputText value="#{themes.name}" />
                         </p:column>
-                        <p:column>
-                            <p:dataTable 
+                        <p:column headerText="Tasks">
+                            <p:dataTable id="taskTable"
                                 value="#{themes.tasks}" 
                                 var="tasks">
                                 <p:column headerText="Name">  
-                                    <h:inputText value="#{tasks.name}" />
+                                    <h:outputText value="#{tasks.name}" />
+                                </p:column>
+                                <p:column headerText="Done">  
+                                    <h:outputText value="#{tasks.done}" />
                                 </p:column>
                             </p:dataTable>
+                            <p:row>
+                                <p:column>  
+                                    <h:inputText value="#{courseController.task.name}" />
+                                </p:column> 
+                                <p:column>
+                                    <p:commandButton value="Add Task" action="#{courseController.addTask(themes)}" update="taskTable"/>
+                                </p:column>
+                            </p:row>
                         </p:column>
                     </p:dataTable>
+                    <p:row>
+                        <p:column>  
+                            <h:inputText value="#{courseController.theme.name}" />
+                        </p:column> 
+                        <p:column>
+                            <p:commandButton value="Add Theme" action="#{courseController.addTheme()}" update="themeTable"/>
+                        </p:column>
+                    </p:row>
                 </p:column>
-                <p:column>
-                    <p:dataTable 
+                <p:column headerText="Obligatory Tasks">
+                    <p:dataTable id="obligTable"
                         value="#{course.obligatoryTasks}" 
                         var="obligtasks">
                         <p:column headerText="Name">  
-                            <h:inputText value="#{obligtasks.name}" />
+                            <h:outputText value="#{obligtasks.name}" />
+                        </p:column>
+                        <p:column headerText="Done">  
+                            <h:outputText value="#{obligtasks.done}" />
+                        </p:column>
+                        <p:column headerText="Due Date">  
+                            <h:outputText value="#{obligtasks.dueDate}" />
+                        </p:column>
+                        <p:column headerText="Accepted Date">  
+                            <h:outputText value="#{obligtasks.acceptedDate}" />
                         </p:column>
                     </p:dataTable>
+                    <p:row>
+                        <p:column>  
+                            <h:inputText value="#{courseController.obligatoryTask.name}" />
+                        </p:column> 
+                        <p:column>
+                            <p:commandButton value="Add Obligatory Task" action="#{courseController.addObligatoryTask()}" update="obligTable"/>
+                        </p:column>
+                    </p:row>
                 </p:column>
-                <p:column>
-                    <p:dataTable 
+                <p:column headerText="Exams">
+                    <p:dataTable id="examTable"
                         value="#{course.exams}" 
                         var="exams">
                         <p:column headerText="Name">  
-                            <h:inputText value="#{exams.name}" />
+                            <h:outputText value="#{exams.name}" />
+                        </p:column>
+                        <p:column headerText="Room">  
+                            <h:outputText value="#{exams.room}" />
+                        </p:column>
+                        <p:column headerText="Info">  
+                            <h:outputText value="#{exams.info}" />
+                        </p:column>
+                        <p:column headerText="Date">  
+                            <h:outputText value="#{exams.examDate}" />
                         </p:column>
                     </p:dataTable>
+                    <p:row>
+                        <p:column>  
+                            <h:inputText value="#{courseController.exam.name}" />
+                        </p:column> 
+                        <p:column>
+                            <p:commandButton value="Add Exam" action="#{courseController.addExam()}" update="examTable"/>
+                        </p:column>
+                    </p:row>
                 </p:column>
             </p:dataTable>
             </p:fieldset>
+            <p:commandButton value="Register" action="#{courseController.addCourse()}"/>
+            <p:commandButton value="Delete" action="#{courseController.removeCourse(course)}"/>
         </h:form>
     </ui:define>
     
