@@ -6,12 +6,7 @@ package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -46,18 +41,18 @@ public class Theme implements Serializable {
         this.id = id;
     }
 
-    public Integer getCompletion() {
-        Integer numberOfTasks = 0;
-        Integer completedTasks = 0;
-        for(Task task : tasks) {
-            numberOfTasks++;
-            if(task.getDone() == true) {
-                completedTasks++;
-            }
-        }
-        Integer completion = (completedTasks*100)/numberOfTasks;
-        return completion;
-    }
+//    public Integer getCompletion() {
+//        Integer numberOfTasks = 0;
+//        Integer completedTasks = 0;
+//        for(Task task : tasks) {
+//            numberOfTasks++;
+//            if(task.getDone() == true) {
+//                completedTasks++;
+//            }
+//        }
+//        Integer completion = (completedTasks*100)/numberOfTasks;
+//        return completion;
+//    }
 
     public String getName() {
         return name;

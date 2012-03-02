@@ -51,7 +51,7 @@
                             </p:dataTable>
                             <p:row>
                                 <p:column>  
-                                    <h:inputText value="#{courseController.task.name}" />
+                                    <h:inputText id="task_#{courseController.task.id}" value="#{courseController.task.name}" />
                                 </p:column> 
                                 <p:column>
                                     <p:commandButton value="Add Task" action="#{courseController.addTask(themes)}" update="taskTable"/>

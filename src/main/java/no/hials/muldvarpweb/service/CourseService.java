@@ -41,22 +41,7 @@ public class CourseService {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Course> findCourses() {       
-        makeTestData();
         return em.createQuery("SELECT c from Course c", Course.class).getResultList();
-        
-        //testdata
-//        Course c = new Course("Test");
-//        List<Course> retVal = new ArrayList<Course>();
-//        retVal.add(c);
-//        c = new Course("Hei fra muldvarpweb");
-//        c.setImageurl("http://developer.android.com/assets/images/bg_logo.png");
-//        retVal.add(c);
-//        for(int i = 0; i <= 20; i++) {
-//           c = new Course("Fagnavn numero " + i);
-//           c.setDetail("Details");
-//           retVal.add(c); 
-//        }
-//        return retVal;
     }
     
     @GET

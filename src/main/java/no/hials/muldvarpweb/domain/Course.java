@@ -134,7 +134,7 @@ public class Course implements Serializable {
     
     public void addTask(Theme theme, Task task) {
         for(int i = 0; i < themes.size(); i++) {
-            if(themes.get(i).name.equals(theme.name)) {
+            if(themes.get(i).getId() == theme.getId()) {
                 themes.get(i).addTask(task);
             }
         }

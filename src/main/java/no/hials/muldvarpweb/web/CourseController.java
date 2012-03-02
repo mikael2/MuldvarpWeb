@@ -30,9 +30,9 @@ public class CourseController implements Serializable {
     Course filter;
 
     public List<Course> getCourses() {
-        if(courses == null) {
+        //if(courses == null) {
             courses = service.findCourses();
-        }
+        //}
         return courses;
     }
 
@@ -174,5 +174,9 @@ public class CourseController implements Serializable {
 
     public void setTheme(Theme newTheme) {
         this.newTheme = newTheme;
+    }
+    
+    public void makeTestData() {
+        service.makeTestData();
     }
 }
