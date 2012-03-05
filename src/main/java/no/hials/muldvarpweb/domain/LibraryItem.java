@@ -22,16 +22,37 @@ public class LibraryItem implements Serializable {
     @Column(name="id")
     private Long id;
     
+    @Column(name="title")
     String title;
+    
+    @Column(name="alternateTitle")
     String alternateTitle;
+    
+    @Column(name="author")
     String author;
+    
+    @Column(name="coAuthor")
     String coAuthor;
+    
+    @Column(name="published")
     String published;
+    
+    @Column(name="uploaded")
     String uploaded;
+    
+    @Column(name="pageNo")
     String pageNo;
+    
+    @Column(name="summary")
     String summary;
+    
+    @Column(name="iconURL")
     String iconURL;
+    
+    @Column(name="thumbURL")
     String thumbURL;
+    
+    @Column(name="URL")
     String URL;
 
     public LibraryItem() {
