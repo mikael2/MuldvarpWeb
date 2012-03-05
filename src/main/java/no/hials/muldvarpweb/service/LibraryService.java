@@ -25,6 +25,7 @@ import no.hials.muldvarpweb.domain.LibraryItem;
 public class LibraryService {
     @PersistenceContext
     EntityManager entityManager;
+    Boolean flag = true;
         
     
     
@@ -55,7 +56,9 @@ public class LibraryService {
         @GET
         @Produces({MediaType.APPLICATION_JSON})
         public List<LibraryItem> getLibrary(){
+            if(flag){
             makeTestData();
+            flag = false;}
             return entityManager.createQuery("SELECT l from LibraryItem l", LibraryItem.class).getResultList();
         }
     
