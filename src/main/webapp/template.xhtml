@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title><ui:insert name="title" /></title>
+        <link rel="stylesheet" type="text/css" href="/WareHouseProject/css/css.css" />
+        <ui:insert name="extrascript" />
+    </h:head>
+    <h:body>
+        <div id="container">
+            <div id="news">
+                <div id="login" style="position: absolute; top: 10px; right:160px;">
+                    
+                </div>
+                <div id="help" style="position: absolute; right: 10px; top: 10px;">
+                    <h:form>
+                        <h:commandButton action="/help" value="Help" />
+                    </h:form>
+                    
+                </div>
+                <h1><ui:insert name="title" /></h1>
+            </div>
+            <div id="center">
+                <div id="mainsingle">
+                    <ui:insert name="mainsingle" />
+                </div>  
+                <div id="left">
+                    <ui:insert name="left" />
+                </div>    
+                <div id="right">
+                    <ui:insert name="right" />
+                </div>	
+            </div>
+            <div style="clear:both" />
+            <div id="footer">
+                © 2011 Leif Prosjektnes Testefjes AS - <a href="mailto:blabla@bbbbb.com">Mail</a> 
+            </div>
+        </div>
+    </h:body>
+</html>
+

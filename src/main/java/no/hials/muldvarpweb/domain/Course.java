@@ -5,20 +5,9 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
@@ -26,29 +15,45 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "course")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")})
 public class Course implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
-    private Short id;
+    @GeneratedValue
+    private Integer id;
+    
+    @Column(name = "name")
     String name;
+    
+    @Column(name = "detail")
     String detail;
+    
+    @Column(name = "imageurl")
     String imageurl;
     
-    Integer revision;
+    @Column(name = "revision")
+    Integer revision = 0;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "revision_date")
     Date revision_date;
     
-    ArrayList<Theme> themes;
-    ArrayList<ObligatoryTask> obligatoryTasks;
-    ArrayList<Exam> exams;
+    @OneToMany
+    List<Theme> themes;
+    
+    @OneToMany
+    List<ObligatoryTask> obligatoryTasks;
+    
+    @OneToMany
+    List<Exam> exams;
 
     public Course() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Course(String name) {
@@ -87,19 +92,19 @@ public class Course implements Serializable {
         this.revision = revision;
     }
 
-    public ArrayList<Theme> getThemes() {
+    public List<Theme> getThemes() {
         return themes;
     }
 
-    public void setThemes(ArrayList<Theme> themes) {
+    public void setThemes(List<Theme> themes) {
         this.themes = themes;
     }
 
-    public ArrayList<ObligatoryTask> getObligatoryTasks() {
+    public List<ObligatoryTask> getObligatoryTasks() {
         return obligatoryTasks;
     }
 
-    public void setObligatoryTasks(ArrayList<ObligatoryTask> obligatoryTasks) {
+    public void setObligatoryTasks(List<ObligatoryTask> obligatoryTasks) {
         this.obligatoryTasks = obligatoryTasks;
     }
 
@@ -111,11 +116,47 @@ public class Course implements Serializable {
         this.revision_date = revision_date;
     }
 
-    public ArrayList<Exam> getExams() {
+    public List<Exam> getExams() {
         return exams;
     }
 
-    public void setExams(ArrayList<Exam> exams) {
+    public void setExams(List<Exam> exams) {
         this.exams = exams;
+    }
+    
+    public void addTheme(Theme theme) {
+        themes.add(theme);
+    }
+    
+    public void removeTheme(Theme theme) {
+        
+    }
+    
+    public void addTask(Theme theme, Task task) {
+        for(int i = 0; i < themes.size(); i++) {
+            if(themes.get(i).getId() == theme.getId()) {
+                themes.get(i).addTask(task);
+            }
+        }
+    }
+    
+    public void removeTask(Theme theme, Task task) {
+        
+    }
+    
+    public void addObligatoryTask(ObligatoryTask obligtask) {   
+        obligatoryTasks.add(obligtask);
+    }
+    
+    public void removeObligatoryTask(ObligatoryTask obligtask) {
+        
+    }
+    
+    public void addExam(Exam exam) {
+        exams.add(exam);
+    }
+    
+    public void removeExam(Exam exam) {
+        
     }
 }

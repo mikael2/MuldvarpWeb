@@ -41,47 +41,75 @@ public class CourseService {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Course> findCourses() {       
-        //return em.createQuery("SELECT c from Course c", Course.class).getResultList();
-        
-        //testdata
-        Course c = new Course("Test");
-        List<Course> retVal = new ArrayList<Course>();
-        retVal.add(c);
-        c = new Course("Hei fra muldvarpweb");
-        c.setImageurl("http://developer.android.com/assets/images/bg_logo.png");
-        retVal.add(c);
-        for(int i = 0; i <= 30; i++) {
-            
-           c = new Course("Fagnavn numero " + i);
-           
-           //Just adding a few ifs to add variety
-           //No big deal
-           if(i >= 20){
-               
-               c.setDetail("Linje 3");
-               
-           } else if (i >= 10) {
-               c.setDetail("Linje 2");
-               
-           } else  {
-               c.setDetail("Linje 1");
-           }
-           
-           retVal.add(c); 
-        }
-        return retVal;
+        return em.createQuery("SELECT c from Course c", Course.class).getResultList();
     }
     
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Course getCourse(@PathParam("id") Short id) {
-//        TypedQuery<Course> q = em.createQuery("Select c from Course c where c.id = :id", Course.class);
-//        q.setParameter("id", id);
-//        return q.getSingleResult();
+        TypedQuery<Course> q = em.createQuery("Select c from Course c where c.id = :id", Course.class);
+        q.setParameter("id", id);
+        return q.getSingleResult();
+    }
+    
+    public List<Course> getCourse(String name) {       
+        TypedQuery<Course> q =  em.createQuery("Select c from Course c where c.name LIKE :name", Course.class);
+        q.setParameter("name", "%" + name + "%");
+        return q.getResultList();
+    }
+    
+    public void addCourse(Course course) {
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void removeCourse(Course course) {
+        em.remove(course);
+        em.persist(course);
+   }
+    
+    public void addTheme(Course course, Theme theme) {
+        course.addTheme(theme);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void removeTheme(Course course, Theme theme) {
         
+    }
+    
+    public void addTask(Course course, Theme theme, Task task) {
+        course.addTask(theme, task);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void removeTask(Course course, Theme theme, Task task) {
         
-        // testdata
+    }
+    
+    public void addObligatoryTask(Course course, ObligatoryTask obligtask) {
+        course.addObligatoryTask(obligtask);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void removeObligatoryTask(Course course, ObligatoryTask obligtask) {
+        
+    }
+    
+    public void addExam(Course course, Exam exam) {
+        course.addExam(exam);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void removeExam(Course course, Exam exam) {
+        
+    }
+    
+    public void makeTestData() {
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
@@ -149,12 +177,7 @@ public class CourseService {
         
         retVal.setThemes(themes);
         
-        return retVal;
-    }
-    
-    public List<Course> getCourse(String name) {       
-        TypedQuery<Course> q =  em.createQuery("Select c from Course c where c.name LIKE :name", Course.class);
-        q.setParameter("name", "%" + name + "%");
-        return q.getResultList();
+        retVal = em.merge(retVal);
+        em.persist(retVal);
     }
 }

@@ -14,8 +14,9 @@ import no.hials.muldvarpweb.service.ArticleService;
 @Named
 @SessionScoped
 public class ArticleController implements Serializable {
-    
-    @Inject ArticleService service;
+
+    @Inject
+    ArticleService service;
     Article newArticle;
 
     public ArticleService getService() {
@@ -23,45 +24,45 @@ public class ArticleController implements Serializable {
     }
 
     public Article getArticle() {
-        if(newArticle == null)
+        if (newArticle == null) {
             newArticle = new Article();
+        }
 
         return newArticle;
     }
-    
+
     public void setArticle(Article article) {
         this.newArticle = article;
     }
-    
+
     public void submitArticle() {
 
         //if(newArticle != null) {
-            System.out.println("Submitting article " + newArticle);
-            newArticle = service.addArticle(newArticle);
-            System.out.println("Submitted article " + newArticle);
-            clearArticle();
-       // }
+        System.out.println("Submitting article " + newArticle);
+        newArticle = service.addArticle(newArticle);
+        System.out.println("Submitted article " + newArticle);
+        clearArticle();
+        // }
     }
-    
+
     public void saveArticle() {
 
         //if(newArticle != null) {
-            System.out.println("Saving article " + newArticle);
-            newArticle = service.addArticle(newArticle);
-            System.out.println("Saved article " + newArticle);
-       // }
+        System.out.println("Saving article " + newArticle);
+        newArticle = service.addArticle(newArticle);
+        System.out.println("Saved article " + newArticle);
+        // }
     }
     
-    public void clearArticle () {
+    public void clearArticle() {
         newArticle = null;
     }
-    
-    public void deleteArticle () {
+
+    public void deleteArticle() {
         System.out.println("Deleting article " + newArticle);
         service.removeArticle(newArticle);
         System.out.println("Clearing article " + newArticle);
         clearArticle();
     }
 
-    
 }

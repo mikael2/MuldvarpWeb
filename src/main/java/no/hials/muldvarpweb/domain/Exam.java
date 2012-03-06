@@ -6,15 +6,35 @@ package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author kristoffer
  */
+@Entity
+@Table(name = "exam")
 public class Exam implements Serializable {
+    @Id
+    @GeneratedValue
+    private Integer id;
+    
+    @Column(name = "name")
     String name;
+    
+    @Column(name = "room")
     String room;
+    
+    @Column(name = "info")
     String info;
+    
+    @Column(name = "examDate")
+    @Temporal(javax.persistence.TemporalType.DATE)
     Date examDate;
 
     public Exam(String name) {
@@ -23,6 +43,14 @@ public class Exam implements Serializable {
     
     public Exam() {
         
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Date getExamDate() {
