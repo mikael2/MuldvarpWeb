@@ -129,7 +129,7 @@ public class Course implements Serializable {
     }
     
     public void removeTheme(Theme theme) {
-        
+        themes.remove(theme);
     }
     
     public void addTask(Theme theme, Task task) {
@@ -141,7 +141,11 @@ public class Course implements Serializable {
     }
     
     public void removeTask(Theme theme, Task task) {
-        
+        for(int i = 0; i < themes.size(); i++) {
+            if(themes.get(i).getId() == theme.getId()) {
+                themes.get(i).removeTask(task);
+            }
+        }
     }
     
     public void addObligatoryTask(ObligatoryTask obligtask) {   
@@ -149,7 +153,7 @@ public class Course implements Serializable {
     }
     
     public void removeObligatoryTask(ObligatoryTask obligtask) {
-        
+        obligatoryTasks.remove(obligtask);
     }
     
     public void addExam(Exam exam) {
@@ -157,6 +161,6 @@ public class Course implements Serializable {
     }
     
     public void removeExam(Exam exam) {
-        
+        exams.remove(exam);
     }
 }

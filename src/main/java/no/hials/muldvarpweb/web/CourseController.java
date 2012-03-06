@@ -97,8 +97,10 @@ public class CourseController implements Serializable {
         }
     }
     
-    public String removeCourse(Course course) {
-        service.removeCourse(course);
+    public String removeCourse() {
+        if(selected != null) {
+            service.removeCourse(selected);
+        }
         return "listCourses";
     }
     
@@ -110,7 +112,9 @@ public class CourseController implements Serializable {
     }
     
     public void removeTheme(Theme theme) {
-        
+        if(selected != null) {
+            service.removeTheme(selected, theme);
+        }
     }
     
     public void addExam() {
@@ -121,7 +125,9 @@ public class CourseController implements Serializable {
     }
     
     public void removeExam(Exam exam) {
-        
+        if(selected != null) {
+            service.removeExam(selected, exam);
+        }
     }
     
     public void addTask(Theme theme) {
@@ -132,13 +138,21 @@ public class CourseController implements Serializable {
     }
     
     public void removeTask(Theme theme, Task task) {
-        
+        if(selected != null) {
+            service.removeTask(selected, theme, task);
+        }
     }
     
     public void addObligatoryTask() {
         if(newObligatoryTask != null && selected != null) {
             service.addObligatoryTask(selected, newObligatoryTask);
             newObligatoryTask = null;
+        }
+    }
+    
+    public void removeObligatoryTask(ObligatoryTask obligtask) {
+        if(selected != null) {
+            service.removeObligatoryTask(selected, obligtask);
         }
     }
 

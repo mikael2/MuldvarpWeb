@@ -65,7 +65,8 @@ public class CourseService {
     }
     
     public void editCourse(Course course) {
-        
+        course.setRevision(course.getRevision()+1);
+        em.persist(course);
     }
     
     public void removeCourse(Course course) {
@@ -80,7 +81,9 @@ public class CourseService {
     }
     
     public void removeTheme(Course course, Theme theme) {
-        
+        course.removeTheme(theme);
+        course = em.merge(course);
+        em.persist(course);
     }
     
     public void addTask(Course course, Theme theme, Task task) {
@@ -90,7 +93,9 @@ public class CourseService {
     }
     
     public void removeTask(Course course, Theme theme, Task task) {
-        
+        course.removeTask(theme, task);
+        course = em.merge(course);
+        em.persist(course);
     }
     
     public void addObligatoryTask(Course course, ObligatoryTask obligtask) {
@@ -100,7 +105,9 @@ public class CourseService {
     }
     
     public void removeObligatoryTask(Course course, ObligatoryTask obligtask) {
-        
+        course.removeObligatoryTask(obligtask);
+        course = em.merge(course);
+        em.persist(course);
     }
     
     public void addExam(Course course, Exam exam) {
@@ -110,7 +117,9 @@ public class CourseService {
     }
     
     public void removeExam(Course course, Exam exam) {
-        
+        course.removeExam(exam);
+        course = em.merge(course);
+        em.persist(course);
     }
     
     public void makeTestData() {
