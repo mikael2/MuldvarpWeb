@@ -1,0 +1,19 @@
+/* 
+    Document   : desktop
+    Created on : Mar 5, 2012, 9:54:58 PM
+    Author     : Lena
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Arial;
+}        
+
+a { font-style: italic; }
+h1 a { font-style: italic; }
+
+.loud { font-style: italic; } 
+#highlight { background-color: yellow; }

@@ -5,16 +5,16 @@ body {
     font-family: arial;
 }
 
-#header, #footer {
+#news, #footer {
     text-shadow:1px 1px #888;
 }
 
-#header {
+#news {
     padding-top: 20px;
     position: relative;
 }
 
-#header h1 {
+#news h1 {
     font-size: 45px;
 }
 
