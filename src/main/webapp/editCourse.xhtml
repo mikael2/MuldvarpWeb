@@ -48,6 +48,9 @@
                                 <p:column headerText="Done">  
                                     <h:outputText value="#{tasks.done}" />
                                 </p:column>
+                                <p:column>
+                                    <p:commandButton value="Edit" action="#{courseController.editCourse()}" update="taskTable"/>
+                                </p:column>
                             </p:dataTable>
                             <p:row>
                                 <p:column>  
@@ -57,6 +60,9 @@
                                     <p:commandButton value="Add Task" action="#{courseController.addTask(themes)}" update="taskTable"/>
                                 </p:column>
                             </p:row>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Edit" action="#{courseController.editCourse()}" update="themeTable"/>
                         </p:column>
                     </p:dataTable>
                     <p:row>
@@ -84,6 +90,9 @@
                         <p:column headerText="Accepted Date">  
                             <h:outputText value="#{obligtasks.acceptedDate}" />
                         </p:column>
+                        <p:column>
+                            <p:commandButton value="Edit" action="#{courseController.editCourse()}" update="obligTable"/>
+                        </p:column>
                     </p:dataTable>
                     <p:row>
                         <p:column>  
@@ -110,6 +119,9 @@
                         <p:column headerText="Date">  
                             <h:outputText value="#{exams.examDate}" />
                         </p:column>
+                        <p:column>
+                            <p:commandButton value="Edit" action="#{courseController.editCourse()}" update="examTable"/>
+                        </p:column>
                     </p:dataTable>
                     <p:row>
                         <p:column>  
@@ -122,7 +134,7 @@
                 </p:column>
             </p:dataTable>
             </p:fieldset>
-            <p:commandButton value="Register" action="#{courseController.addCourse()}"/>
+            <p:commandButton value="Register" action="#{courseController.editCourse()}"/>
             <p:commandButton value="Delete" action="#{courseController.removeCourse(course)}"/>
         </h:form>
     </ui:define>

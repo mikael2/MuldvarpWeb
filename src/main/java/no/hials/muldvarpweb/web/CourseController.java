@@ -91,6 +91,12 @@ public class CourseController implements Serializable {
         return "listCourses";
     }
     
+    public void editCourse() {
+        if(selected != null) {
+            service.editCourse(selected);
+        }
+    }
+    
     public String removeCourse(Course course) {
         service.removeCourse(course);
         return "listCourses";

@@ -64,9 +64,13 @@ public class CourseService {
         em.persist(course);
     }
     
+    public void editCourse(Course course) {
+        
+    }
+    
     public void removeCourse(Course course) {
+        course = em.merge(course);
         em.remove(course);
-        em.persist(course);
    }
     
     public void addTheme(Course course, Theme theme) {
