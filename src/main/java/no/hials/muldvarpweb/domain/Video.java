@@ -31,7 +31,7 @@ public class Video implements Serializable{
     @NotNull
     @Column(name = "id")
     
-    private short id;
+    private long id;
     String videoName;
     String videoURL;
     String videoDetail;
@@ -70,11 +70,11 @@ public class Video implements Serializable{
         
     }
 
-    public short getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(long id) {
         this.id = id;
     }
 

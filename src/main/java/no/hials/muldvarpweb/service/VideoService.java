@@ -67,20 +67,20 @@ public class VideoService {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Video getVideo(@PathParam("id") short id) {
+    public List<Video> getVideo(@PathParam("id") long id) {
         TypedQuery<Video> q = entityManager.createQuery("Select v from Video v where v.id = :id", Video.class);
         q.setParameter("id", id);
-        return q.getSingleResult();
-    }
-    
-    @GET
-    @Path("{name}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Video> getVideo(String name) {       
-        TypedQuery<Video> q = entityManager.createQuery("Select v from Video c where v.name LIKE :name", Video.class);
-        q.setParameter("name", "%" + name + "%");
         return q.getResultList();
     }
+    
+//    @GET
+//    @Path("{name}")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public List<Video> getVideo(String name) {       
+//        TypedQuery<Video> q = entityManager.createQuery("Select v from Video c where v.name LIKE :name", Video.class);
+//        q.setParameter("name", "%" + name + "%");
+//        return q.getResultList();
+//    }
     
     
     
