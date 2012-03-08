@@ -66,6 +66,8 @@ public class CourseService {
     
     public void editCourse(Course course) {
         course.setRevision(course.getRevision()+1);
+        course.setRevision_date(new Date());
+        course = em.merge(course);
         em.persist(course);
     }
     
@@ -80,6 +82,12 @@ public class CourseService {
         em.persist(course);
     }
     
+    public void editTheme(Course course, Theme theme) {
+        course.editTheme(theme);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
     public void removeTheme(Course course, Theme theme) {
         course.removeTheme(theme);
         course = em.merge(course);
@@ -88,6 +96,12 @@ public class CourseService {
     
     public void addTask(Course course, Theme theme, Task task) {
         course.addTask(theme, task);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void editTask(Course course, Theme theme, Task task) {
+        course.editTask(theme, task);
         course = em.merge(course);
         em.persist(course);
     }

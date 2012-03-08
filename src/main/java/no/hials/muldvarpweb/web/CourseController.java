@@ -28,6 +28,8 @@ public class CourseController implements Serializable {
     List<Course> courses;
     Course selected;
     Course filter;
+    Theme selectedTheme;
+    Task selectedTask;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -66,6 +68,24 @@ public class CourseController implements Serializable {
     public String setSelected(Course selected) {
         this.selected = selected;
         return "editCourse";
+    }
+    
+    public String setSelectedTheme(Theme selectedTheme) {
+        this.selectedTheme = selectedTheme;
+        return "editTheme";
+    }
+
+    public Theme getSelectedTheme() {
+        return selectedTheme;
+    }
+
+    public Task getSelectedTask() {
+        return selectedTask;
+    }
+    
+    public String setSelectedTask(Task selectedTask) {
+        this.selectedTask = selectedTask;
+        return "editTask";
     }
 
     public CourseService getService() {
@@ -111,6 +131,12 @@ public class CourseController implements Serializable {
         }
     }
     
+    public void editTheme() {
+        if(selectedTheme != null) {
+            service.editTheme(selected, selectedTheme);
+        }
+    }
+    
     public void removeTheme(Theme theme) {
         if(selected != null) {
             service.removeTheme(selected, theme);
@@ -134,6 +160,12 @@ public class CourseController implements Serializable {
         if(newTask != null && selected != null) {
             service.addTask(selected, theme, newTask);
             newTask = null;
+        }
+    }
+    
+    public void editTask() {
+        if(selectedTask != null) {
+            service.editTask(selected, selectedTheme, selectedTask);
         }
     }
     

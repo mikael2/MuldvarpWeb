@@ -128,6 +128,14 @@ public class Course implements Serializable {
         themes.add(theme);
     }
     
+    public void editTheme(Theme theme) {
+        for(int i = 0; i < themes.size(); i++) {
+            if(themes.get(i).getId() == theme.getId()) {
+                themes.set(i, theme);
+            }
+        }
+    }
+    
     public void removeTheme(Theme theme) {
         themes.remove(theme);
     }
@@ -136,6 +144,14 @@ public class Course implements Serializable {
         for(int i = 0; i < themes.size(); i++) {
             if(themes.get(i).getId() == theme.getId()) {
                 themes.get(i).addTask(task);
+            }
+        }
+    }
+    
+    public void editTask(Theme theme, Task task) {
+        for(int i = 0; i < themes.size(); i++) {
+            if(themes.get(i).getId() == theme.getId()) {
+                themes.get(i).editTask(task);
             }
         }
     }

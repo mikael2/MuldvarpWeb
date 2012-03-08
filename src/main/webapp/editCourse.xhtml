@@ -36,7 +36,7 @@
                         value="#{course.themes}" 
                         var="themes">
                         <p:column headerText="Name">  
-                            <h:outputText value="#{themes.name}" />
+                            <h:commandLink value="#{themes.name}" action="#{courseController.setSelectedTheme(themes)}"/>
                         </p:column>
                         <p:column headerText="Tasks">
                             <p:dataTable id="taskTable"
@@ -48,24 +48,7 @@
                                 <p:column headerText="Done">  
                                     <h:outputText value="#{tasks.done}" />
                                 </p:column>
-                                <p:column>
-                                    <p:commandButton value="Edit" action="#{courseController.editCourse()}" update="taskTable"/>
-                                </p:column>
-                                <p:column>
-                                    <p:commandButton value="Delete" action="#{courseController.removeTask(themes, tasks)}" update="taskTable"/>
-                                </p:column>
                             </p:dataTable>
-                            <p:row>
-                                <p:column>  
-                                    <h:inputText id="task_#{courseController.task.id}" value="#{courseController.task.name}" />
-                                </p:column> 
-                                <p:column>
-                                    <p:commandButton value="Add Task" action="#{courseController.addTask(themes)}" update="taskTable"/>
-                                </p:column>
-                            </p:row>
-                        </p:column>
-                        <p:column>
-                            <p:commandButton value="Edit" action="#{courseController.editCourse()}" update="themeTable"/>
                         </p:column>
                         <p:column>
                             <p:commandButton value="Delete" action="#{courseController.removeTheme(themes)}" update="themeTable"/>
@@ -97,9 +80,6 @@
                             <h:outputText value="#{obligtasks.acceptedDate}" />
                         </p:column>
                         <p:column>
-                            <p:commandButton value="Edit" action="#{courseController.editCourse()}" update="obligTable"/>
-                        </p:column>
-                        <p:column>
                             <p:commandButton value="Delete" action="#{courseController.removeObligatoryTask(obligtasks)}" update="obligTable"/>
                         </p:column>
                     </p:dataTable>
@@ -127,9 +107,6 @@
                         </p:column>
                         <p:column headerText="Date">  
                             <h:outputText value="#{exams.examDate}" />
-                        </p:column>
-                        <p:column>
-                            <p:commandButton value="Edit" action="#{courseController.editCourse()}" update="examTable"/>
                         </p:column>
                         <p:column>
                             <p:commandButton value="Delete" action="#{courseController.removeExam(exams)}" update="examTable"/>

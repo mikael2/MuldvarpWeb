@@ -74,6 +74,14 @@ public class Theme implements Serializable {
         tasks.add(task);
     }
     
+    public void editTask(Task task) {
+        for(int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).getId() == task.getId()) {
+                tasks.set(i, task);
+            }
+        }
+    }
+    
     public void removeTask(Task task) {
         for(int i = 0; i < tasks.size(); i++) {
             if(tasks.get(i).getId() == task.getId()) {
