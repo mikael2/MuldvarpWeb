@@ -29,17 +29,29 @@ public class ArticleService {
         return q.getSingleResult();
     }
     
+    public Article findArticle (String title) {
+        TypedQuery<Article> q = em.createQuery("Select a from Article a where a.id = :id", Article.class);
+        q.setParameter("title", title);
+        return q.getSingleResult();
+    }
+    
     public List<Article> findArticles (String title) {       
         TypedQuery<Article> q = em.createQuery("Select a from Article a where a.title LIKE :title", Article.class);
         q.setParameter("name", "%" + title + "%");
         return q.getResultList();
     }
     
+    public List<Article> findMostRecentArticles () {       
+        TypedQuery<Article> q = em.createQuery("Select a from Article a", Article.class);
+        return q.getResultList();
+    }
+    
+    
     public Article addArticle(Article newArticle) {
         newArticle= em.merge(newArticle);
         em.persist(newArticle);
         return newArticle;
-    }
+        }
 
     public void removeArticle(Article article) {
         article = em.merge(article);

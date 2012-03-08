@@ -1,9 +1,12 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import no.hials.muldvarpweb.domain.Article;
 import no.hials.muldvarpweb.service.ArticleService;
 
@@ -18,17 +21,30 @@ public class ArticleController implements Serializable {
     @Inject
     ArticleService service;
     Article newArticle;
-
-    public ArticleService getService() {
+    
+    public ArticleService getService() {     
         return service;
     }
 
+    public Article getOldArticle() {
+        HttpServletRequest hsr = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        long id = Long.parseLong(hsr.getParameter("articleid"));
+        return getService().getArticle((short)id);
+    }
+    
     public Article getArticle() {
         if (newArticle == null) {
             newArticle = new Article();
         }
-
+        
         return newArticle;
+    }
+    public List<Article> getMostRecentArticles () { 
+        return service.findMostRecentArticles();
+    }
+    
+    public Article getArticleByTitle(String title) {
+        return service.findArticle(title);
     }
 
     public void setArticle(Article article) {

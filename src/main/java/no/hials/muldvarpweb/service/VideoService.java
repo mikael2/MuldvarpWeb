@@ -31,11 +31,19 @@ public class VideoService {
     
     public List<Video> getVideoTestData() {
         
+        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
+        
         List<Video> videoList = new ArrayList<Video>();
         
         for (int i = 0; i < 15; i++) {
             
-            videoList.add(new Video("Video " + i, "www.vg.no","Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
+            //annenhver
+            int n = 1;
+            if(i % 2 == 0){
+                n = 0;
+            }
+            
+            videoList.add(new Video("Video " + i, testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
             
         }
         
