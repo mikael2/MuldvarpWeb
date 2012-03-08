@@ -44,6 +44,9 @@ public class Course implements Serializable {
     
     @OneToMany
     List<Exam> exams;
+    
+    @ManyToMany
+    List<Person> teachers;
 
     public Course() {
     }
@@ -84,6 +87,22 @@ public class Course implements Serializable {
         this.name = name;
     }
 
+    public List<Person> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(List<Person> teachers) {
+        this.teachers = teachers;
+    }
+    
+    public void addTeacher(Person teacher) {
+        teachers.add(teacher);
+    }
+    
+    public void removeTeacher(Person teacher) {
+        teachers.remove(teacher);
+    }
+    
     public Integer getRevision() {
         return revision;
     }
@@ -168,12 +187,28 @@ public class Course implements Serializable {
         obligatoryTasks.add(obligtask);
     }
     
+    public void editObligatoryTask(ObligatoryTask obligtask) {
+        for(int i = 0; i < obligatoryTasks.size(); i++) {
+            if(obligatoryTasks.get(i).getId() == obligtask.getId()) {
+                obligatoryTasks.set(i, obligtask);
+            }
+        }
+    }
+    
     public void removeObligatoryTask(ObligatoryTask obligtask) {
         obligatoryTasks.remove(obligtask);
     }
     
     public void addExam(Exam exam) {
         exams.add(exam);
+    }
+    
+    public void editExam(Exam exam) {
+        for(int i = 0; i < exams.size(); i++) {
+            if(exams.get(i).getId() == exam.getId()) {
+                exams.set(i, exam);
+            }
+        }
     }
     
     public void removeExam(Exam exam) {

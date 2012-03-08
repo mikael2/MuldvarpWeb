@@ -30,6 +30,8 @@ public class CourseController implements Serializable {
     Course filter;
     Theme selectedTheme;
     Task selectedTask;
+    ObligatoryTask selectedObligatoryTask;
+    Exam selectedExam;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -88,6 +90,24 @@ public class CourseController implements Serializable {
         return "editTask";
     }
 
+    public Exam getSelectedExam() {
+        return selectedExam;
+    }
+
+    public String setSelectedExam(Exam selectedExam) {
+        this.selectedExam = selectedExam;
+        return "editExam";
+    }
+
+    public ObligatoryTask getSelectedObligatoryTask() {
+        return selectedObligatoryTask;
+    }
+
+    public String setSelectedObligatoryTask(ObligatoryTask selectedObligatoryTask) {
+        this.selectedObligatoryTask = selectedObligatoryTask;
+        return "editObligTask";
+    }
+
     public CourseService getService() {
         return service;
     }
@@ -114,6 +134,12 @@ public class CourseController implements Serializable {
     public void editCourse() {
         if(selected != null) {
             service.editCourse(selected);
+        }
+    }
+    
+    public void addNewRevCourse() {
+        if(selected != null ) {
+            service.addNewRevCourse(selected);
         }
     }
     
@@ -182,6 +208,12 @@ public class CourseController implements Serializable {
         }
     }
     
+    public void editObligatoryTask() {
+        if(selectedObligatoryTask != null) {
+            service.editObligatoryTask(selected, selectedObligatoryTask);
+        }
+    }
+    
     public void removeObligatoryTask(ObligatoryTask obligtask) {
         if(selected != null) {
             service.removeObligatoryTask(selected, obligtask);
@@ -192,6 +224,12 @@ public class CourseController implements Serializable {
         if(newExam == null)
             newExam = new Exam();
         return newExam;
+    }
+    
+    public void editExam() {
+        if(selectedExam != null) {
+            service.editExam(selected, selectedExam);
+        }
     }
 
     public void setExam(Exam newExam) {

@@ -1,6 +1,7 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -9,6 +10,8 @@ import javax.persistence.*;
  */
 @Entity
 public class Person implements Serializable {
+    @ManyToMany(mappedBy = "teachers")
+    private List<Course> courses;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
