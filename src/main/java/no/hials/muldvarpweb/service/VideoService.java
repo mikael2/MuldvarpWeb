@@ -43,7 +43,7 @@ public class VideoService {
                 n = 0;
             }
             
-            videoList.add(new Video("Video " + i, testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
+            videoList.add(new Video("Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
             
         }
         

@@ -33,6 +33,7 @@ public class Video implements Serializable{
     
     private long id;
     String videoName;
+    String videoType;
     String videoURL;
     String videoDetail;
     String videoDescription;
@@ -44,15 +45,17 @@ public class Video implements Serializable{
      * Used for testing
      * 
      * @param videoName String value of the video name
+     * @param videoURL String value of the video type
      * @param videoURL String value of the video URL
      * @param videoDetail String value of the video detail
      * @param videoDescription String value of the video description
      * @param videoIconURL String value of the icon's URL path
      * @param videoThumbURL String value of the thumbnails URL path (unless one is generated)
      */
-    public Video(String videoName, String videoURL, String videoDetail, String videoDescription, String videoIconURL, String videoThumbURL) {
+    public Video(String videoName, String videoType, String videoURL, String videoDetail, String videoDescription, String videoIconURL, String videoThumbURL) {
         
         this.videoName = videoName;
+        this.videoType = videoType;
         this.videoURL = videoURL;
         this.videoDetail = videoDetail;
         this.videoDescription = videoDescription;
