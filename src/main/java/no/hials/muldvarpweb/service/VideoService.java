@@ -31,11 +31,19 @@ public class VideoService {
     
     public List<Video> getVideoTestData() {
         
+        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
+        
         List<Video> videoList = new ArrayList<Video>();
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             
-            videoList.add(new Video("Video" + i, "www.vg.no","Video INC", "Thisvideo is not an actual video.", "www.db.no", "www.smp.no"));
+            //annenhver
+            int n = 1;
+            if(i % 2 == 0){
+                n = 0;
+            }
+            
+            videoList.add(new Video("Video " + i, testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
             
         }
         
@@ -58,17 +66,21 @@ public class VideoService {
     
     @GET
     @Path("{id}")
-    public Video getVideo(@PathParam("id") short id) {
+    @Produces({MediaType.APPLICATION_JSON})
+    public Video getVideo(@PathParam("id") Integer id) {
         TypedQuery<Video> q = entityManager.createQuery("Select v from Video v where v.id = :id", Video.class);
         q.setParameter("id", id);
         return q.getSingleResult();
     }
     
-    public List<Video> getVideo(String name) {       
-        TypedQuery<Video> q = entityManager.createQuery("Select v from Video c where v.name LIKE :name", Video.class);
-        q.setParameter("name", "%" + name + "%");
-        return q.getResultList();
-    }
+//    @GET
+//    @Path("{name}")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public List<Video> getVideo(String name) {       
+//        TypedQuery<Video> q = entityManager.createQuery("Select v from Video c where v.name LIKE :name", Video.class);
+//        q.setParameter("name", "%" + name + "%");
+//        return q.getResultList();
+//    }
     
     
     

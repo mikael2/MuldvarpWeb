@@ -28,6 +28,10 @@ public class CourseController implements Serializable {
     List<Course> courses;
     Course selected;
     Course filter;
+    Theme selectedTheme;
+    Task selectedTask;
+    ObligatoryTask selectedObligatoryTask;
+    Exam selectedExam;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -67,6 +71,42 @@ public class CourseController implements Serializable {
         this.selected = selected;
         return "editCourse";
     }
+    
+    public String setSelectedTheme(Theme selectedTheme) {
+        this.selectedTheme = selectedTheme;
+        return "editTheme";
+    }
+
+    public Theme getSelectedTheme() {
+        return selectedTheme;
+    }
+
+    public Task getSelectedTask() {
+        return selectedTask;
+    }
+    
+    public String setSelectedTask(Task selectedTask) {
+        this.selectedTask = selectedTask;
+        return "editTask";
+    }
+
+    public Exam getSelectedExam() {
+        return selectedExam;
+    }
+
+    public String setSelectedExam(Exam selectedExam) {
+        this.selectedExam = selectedExam;
+        return "editExam";
+    }
+
+    public ObligatoryTask getSelectedObligatoryTask() {
+        return selectedObligatoryTask;
+    }
+
+    public String setSelectedObligatoryTask(ObligatoryTask selectedObligatoryTask) {
+        this.selectedObligatoryTask = selectedObligatoryTask;
+        return "editObligTask";
+    }
 
     public CourseService getService() {
         return service;
@@ -97,6 +137,12 @@ public class CourseController implements Serializable {
         }
     }
     
+    public void addNewRevCourse() {
+        if(selected != null ) {
+            service.addNewRevCourse(selected);
+        }
+    }
+    
     public String removeCourse() {
         if(selected != null) {
             service.removeCourse(selected);
@@ -108,6 +154,12 @@ public class CourseController implements Serializable {
         if(newTheme != null && selected != null) {
             service.addTheme(selected, newTheme);
             newTheme = null;
+        }
+    }
+    
+    public void editTheme() {
+        if(selectedTheme != null) {
+            service.editTheme(selected, selectedTheme);
         }
     }
     
@@ -137,6 +189,12 @@ public class CourseController implements Serializable {
         }
     }
     
+    public void editTask() {
+        if(selectedTask != null) {
+            service.editTask(selected, selectedTheme, selectedTask);
+        }
+    }
+    
     public void removeTask(Theme theme, Task task) {
         if(selected != null) {
             service.removeTask(selected, theme, task);
@@ -150,6 +208,12 @@ public class CourseController implements Serializable {
         }
     }
     
+    public void editObligatoryTask() {
+        if(selectedObligatoryTask != null) {
+            service.editObligatoryTask(selected, selectedObligatoryTask);
+        }
+    }
+    
     public void removeObligatoryTask(ObligatoryTask obligtask) {
         if(selected != null) {
             service.removeObligatoryTask(selected, obligtask);
@@ -160,6 +224,12 @@ public class CourseController implements Serializable {
         if(newExam == null)
             newExam = new Exam();
         return newExam;
+    }
+    
+    public void editExam() {
+        if(selectedExam != null) {
+            service.editExam(selected, selectedExam);
+        }
     }
 
     public void setExam(Exam newExam) {

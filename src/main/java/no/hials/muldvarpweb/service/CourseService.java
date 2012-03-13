@@ -22,11 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import no.hials.muldvarpweb.domain.Course;
-import no.hials.muldvarpweb.domain.Exam;
-import no.hials.muldvarpweb.domain.ObligatoryTask;
-import no.hials.muldvarpweb.domain.Task;
-import no.hials.muldvarpweb.domain.Theme;
+import no.hials.muldvarpweb.domain.*;
 
 /**
  *
@@ -47,7 +43,7 @@ public class CourseService {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Course getCourse(@PathParam("id") Short id) {
+    public Course getCourse(@PathParam("id") Integer id) {
         TypedQuery<Course> q = em.createQuery("Select c from Course c where c.id = :id", Course.class);
         q.setParameter("id", id);
         return q.getSingleResult();
@@ -64,8 +60,15 @@ public class CourseService {
         em.persist(course);
     }
     
-    public void editCourse(Course course) {
+    public void addNewRevCourse(Course course) {
         course.setRevision(course.getRevision()+1);
+        course.setRevision_date(new Date());
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void editCourse(Course course) {        
+        course = em.merge(course);
         em.persist(course);
     }
     
@@ -76,6 +79,12 @@ public class CourseService {
     
     public void addTheme(Course course, Theme theme) {
         course.addTheme(theme);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void editTheme(Course course, Theme theme) {
+        course.editTheme(theme);
         course = em.merge(course);
         em.persist(course);
     }
@@ -92,6 +101,12 @@ public class CourseService {
         em.persist(course);
     }
     
+    public void editTask(Course course, Theme theme, Task task) {
+        course.editTask(theme, task);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
     public void removeTask(Course course, Theme theme, Task task) {
         course.removeTask(theme, task);
         course = em.merge(course);
@@ -104,6 +119,12 @@ public class CourseService {
         em.persist(course);
     }
     
+    public void editObligatoryTask(Course course, ObligatoryTask obligtask) {
+        course.editObligatoryTask(obligtask);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
     public void removeObligatoryTask(Course course, ObligatoryTask obligtask) {
         course.removeObligatoryTask(obligtask);
         course = em.merge(course);
@@ -112,6 +133,12 @@ public class CourseService {
     
     public void addExam(Course course, Exam exam) {
         course.addExam(exam);
+        course = em.merge(course);
+        em.persist(course);
+    }
+    
+    public void editExam(Course course, Exam exam) {
+        course.editExam(exam);
         course = em.merge(course);
         em.persist(course);
     }

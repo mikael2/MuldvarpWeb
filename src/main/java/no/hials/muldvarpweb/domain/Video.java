@@ -26,12 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Video implements Serializable{
     
     @Id
-    @GeneratedValue
-    @Basic(optional =false)
-    @NotNull
-    @Column(name = "id")
-    
-    private short id;
+    @GeneratedValue   
+    private Integer id;
     String videoName;
     String videoURL;
     String videoDetail;
@@ -70,11 +66,11 @@ public class Video implements Serializable{
         
     }
 
-    public short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

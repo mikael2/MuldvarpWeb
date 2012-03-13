@@ -1,0 +1,32 @@
+<ui:composition template="/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        <h:form>
+            <h:link value="Courses" outcome="listCourses" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selectedTheme.name}" outcome="editTheme" /> -> <h:link value="#{courseController.selectedTask.name}" outcome="editTask" />
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="mainsingle">
+        <h:form id="themeForm">                
+            <p:fieldset legend="#{courseController.selectedTask.name}">
+                <p:dataTable 
+                    value="#{courseController.selectedTask}" 
+                    var="task">
+                    <p:column headerText="Name">  
+                        <h:inputText value="#{task.name}" />
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+            <p:commandButton value="Save" action="#{courseController.editTask()}"/>
+            <p:commandButton value="Delete" action="#{courseController.removeTask(selectedTheme, task)}"/>
+        </h:form>
+    </ui:define>
+    
+   
+</ui:composition>
