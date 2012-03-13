@@ -68,6 +68,9 @@ public class CourseController implements Serializable {
     }
 
     public String setSelected(Course selected) {
+        if(selected == null) {
+            selected = getCourse();
+        }
         this.selected = selected;
         return "editCourse";
     }
@@ -131,16 +134,18 @@ public class CourseController implements Serializable {
         return "listCourses";
     }
     
-    public void editCourse() {
+    public String editCourse() {
         if(selected != null) {
             service.editCourse(selected);
         }
+        return "listCourses";
     }
     
-    public void addNewRevCourse() {
+    public String addNewRevCourse() {
         if(selected != null ) {
             service.addNewRevCourse(selected);
         }
+        return "listCourses";
     }
     
     public String removeCourse() {
@@ -157,16 +162,18 @@ public class CourseController implements Serializable {
         }
     }
     
-    public void editTheme() {
+    public String editTheme() {
         if(selectedTheme != null) {
             service.editTheme(selected, selectedTheme);
         }
+        return "editCourse";
     }
     
-    public void removeTheme(Theme theme) {
+    public String removeTheme(Theme theme) {
         if(selected != null) {
             service.removeTheme(selected, theme);
         }
+        return "editCourse";
     }
     
     public void addExam() {
@@ -176,29 +183,32 @@ public class CourseController implements Serializable {
         }
     }
     
-    public void removeExam(Exam exam) {
+    public String removeExam(Exam exam) {
         if(selected != null) {
             service.removeExam(selected, exam);
         }
+        return "editCourse";
     }
     
-    public void addTask(Theme theme) {
+    public void addTask() {
         if(newTask != null && selected != null) {
-            service.addTask(selected, theme, newTask);
+            service.addTask(selected, selectedTheme, newTask);
             newTask = null;
         }
     }
     
-    public void editTask() {
+    public String editTask() {
         if(selectedTask != null) {
             service.editTask(selected, selectedTheme, selectedTask);
         }
+        return "editCourse";
     }
     
-    public void removeTask(Theme theme, Task task) {
+    public String removeTask(Task task) {
         if(selected != null) {
-            service.removeTask(selected, theme, task);
+            service.removeTask(selected, selectedTheme, task);
         }
+        return "editTheme";
     }
     
     public void addObligatoryTask() {
@@ -208,16 +218,18 @@ public class CourseController implements Serializable {
         }
     }
     
-    public void editObligatoryTask() {
+    public String editObligatoryTask() {
         if(selectedObligatoryTask != null) {
             service.editObligatoryTask(selected, selectedObligatoryTask);
         }
+        return "editCourse";
     }
     
-    public void removeObligatoryTask(ObligatoryTask obligtask) {
+    public String removeObligatoryTask(ObligatoryTask obligtask) {
         if(selected != null) {
             service.removeObligatoryTask(selected, obligtask);
         }
+        return "editCourse";
     }
 
     public Exam getExam() {

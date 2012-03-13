@@ -13,121 +13,151 @@
     </ui:define>
     
     <ui:define name="mainsingle">
-        <h:form id="courseForm">                
+        <h:form id="courseForm">
             <p:fieldset legend="#{courseController.selected.name}">
-            <p:dataTable 
-                value="#{courseController.selected}" 
-                var="course">
-                <p:column headerText="Name">  
-                    <h:inputText value="#{course.name}" />
-                </p:column>
-                <p:column headerText="Detail">  
-                    <h:inputText value="#{course.detail}" />
-                </p:column>
-                <p:column headerText="Image url">  
-                    <h:inputText value="#{course.imageurl}" />
-                </p:column>
-                <p:column headerText="Revision">  
-                    <h:outputText value="#{course.revision}" />
-                </p:column>
-                <p:column headerText="Revision date">  
-                    <h:outputText value="#{course.revision_date}" />
-                </p:column>
-                <p:column headerText="Themes">
-                    <p:dataTable id="themeTable"
-                        value="#{course.themes}" 
-                        var="themes">
-                        <p:column headerText="Name">  
-                            <h:commandLink value="#{themes.name}" action="#{courseController.setSelectedTheme(themes)}"/>
-                        </p:column>
-                        <p:column headerText="Tasks">
-                            <p:dataTable id="taskTable"
-                                value="#{themes.tasks}" 
-                                var="tasks">
-                                <p:column headerText="Name">  
-                                    <h:outputText value="#{tasks.name}" />
-                                </p:column>
-                                <p:column headerText="Done">  
-                                    <h:outputText value="#{tasks.done}" />
-                                </p:column>
-                            </p:dataTable>
-                        </p:column>
-                        <p:column>
-                            <p:commandButton value="Delete" action="#{courseController.removeTheme(themes)}" update="themeTable"/>
-                        </p:column>
-                    </p:dataTable>
-                    <p:row>
+                <div style="width:1100px">
+                    <div style="float:left; width: 500px;">
+                        <div>
+                            <div class="column_left">
+                                <h:outputText value="Name: " />
+                            </div>
+                            <div class="column_right">
+                                <h:inputText value="#{courseController.selected.name}" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="column_left">
+                                <h:outputText value="Detail: " />
+                            </div>
+                            <div class="column_right">
+                                <h:inputText value="#{courseController.selected.detail}" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="column_left">
+                                <h:outputText value="Image url: " />
+                            </div>
+                            <div class="column_right">
+                                <h:inputText value="#{courseController.selected.imageurl}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float:left; width:400px;">
+                        <div>
+                            <div class="column_left">
+                                <h:outputText value="Revision: " />
+                            </div>
+                            <div class="column_right">
+                                <h:outputText value="#{courseController.selected.revision}" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="column_left">
+                                <h:outputText value="Revision Date: " />
+                            </div>
+                            <div class="column_right">
+                                <h:outputText value="#{courseController.selected.revision_date}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float:left; width: 200px;">
+                        <h:commandLink value="Save" action="#{courseController.editCourse()}"/> <br />
+                        <h:commandLink value="New Revision" action="#{courseController.addNewRevCourse()}"/> <br />
+                        <h:commandLink value="Delete" action="#{courseController.removeCourse()}"/>
+                    </div>
+                </div>
+                <div style="clear:both;" />
+                <div class="column">
+                    <p:fieldset legend="Themes">
+                        <p:dataTable id="themeTable"
+                            value="#{courseController.selected.themes}" 
+                            var="themes">
+                            <p:column headerText="Name">  
+                                <h:commandLink value="#{themes.name}" action="#{courseController.setSelectedTheme(themes)}"/>
+                            </p:column>
+                            <p:column headerText="Tasks">
+                                <p:dataTable id="taskTable"
+                                    value="#{themes.tasks}" 
+                                    var="tasks">
+                                    <p:column headerText="Name">  
+                                        <h:outputText value="#{tasks.name}" />
+                                    </p:column>
+                                    <p:column headerText="Done">  
+                                        <h:outputText value="#{tasks.done}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:column>
+                            <p:column>
+                                <h:commandLink value="Delete" action="#{courseController.removeTheme(themes)}"/>
+                            </p:column>
+                        </p:dataTable>
                         <p:column>  
                             <h:inputText value="#{courseController.theme.name}" />
                         </p:column> 
                         <p:column>
                             <p:commandButton value="Add Theme" action="#{courseController.addTheme()}" update="themeTable"/>
                         </p:column>
-                    </p:row>
-                </p:column>
-                <p:column headerText="Obligatory Tasks">
-                    <p:dataTable id="obligTable"
-                        value="#{course.obligatoryTasks}" 
-                        var="obligtasks">
-                        <p:column headerText="Name">
-                            <h:commandLink value="#{obligtasks.name}" action="#{courseController.setSelectedObligatoryTask(obligtasks)}"/>
-                        </p:column>
-                        <p:column headerText="Done">  
-                            <h:outputText value="#{obligtasks.done}" />
-                        </p:column>
-                        <p:column headerText="Due Date">  
-                            <h:outputText value="#{obligtasks.dueDate}" />
-                        </p:column>
-                        <p:column headerText="Accepted Date">  
-                            <h:outputText value="#{obligtasks.acceptedDate}" />
-                        </p:column>
-                        <p:column>
-                            <p:commandButton value="Delete" action="#{courseController.removeObligatoryTask(obligtasks)}" update="obligTable"/>
-                        </p:column>
-                    </p:dataTable>
-                    <p:row>
+                    </p:fieldset>    
+                </div>
+                <div class="column">
+                    <p:fieldset legend="Obligatory Tasks">
+                        <p:dataTable id="obligTable"
+                            value="#{courseController.selected.obligatoryTasks}" 
+                            var="obligtasks">
+                            <p:column headerText="Name">
+                                <h:commandLink value="#{obligtasks.name}" action="#{courseController.setSelectedObligatoryTask(obligtasks)}"/>
+                            </p:column>
+                            <p:column headerText="Done">  
+                                <h:outputText value="#{obligtasks.done}" />
+                            </p:column>
+                            <p:column headerText="Due Date">  
+                                <h:outputText value="#{obligtasks.dueDate}" />
+                            </p:column>
+                            <p:column headerText="Accepted Date">  
+                                <h:outputText value="#{obligtasks.acceptedDate}" />
+                            </p:column>
+                            <p:column>
+                                <h:commandLink value="Delete" action="#{courseController.removeObligatoryTask(obligtasks)}"/>
+                            </p:column>
+                        </p:dataTable>
                         <p:column>  
                             <h:inputText value="#{courseController.obligatoryTask.name}" />
                         </p:column> 
                         <p:column>
                             <p:commandButton value="Add Obligatory Task" action="#{courseController.addObligatoryTask()}" update="obligTable"/>
                         </p:column>
-                    </p:row>
-                </p:column>
-                <p:column headerText="Exams">
-                    <p:dataTable id="examTable"
-                        value="#{course.exams}" 
-                        var="exams">
-                        <p:column headerText="Name">  
-                            <h:commandLink value="#{exams.name}" action="#{courseController.setSelectedExam(exams)}"/>
-                        </p:column>
-                        <p:column headerText="Room">  
-                            <h:outputText value="#{exams.room}" />
-                        </p:column>
-                        <p:column headerText="Info">  
-                            <h:outputText value="#{exams.info}" />
-                        </p:column>
-                        <p:column headerText="Date">  
-                            <h:outputText value="#{exams.examDate}" />
-                        </p:column>
-                        <p:column>
-                            <p:commandButton value="Delete" action="#{courseController.removeExam(exams)}" update="examTable"/>
-                        </p:column>
-                    </p:dataTable>
-                    <p:row>
+                    </p:fieldset>
+                </div>
+                <div class="column">    
+                    <p:fieldset legend="Exams">
+                        <p:dataTable id="examTable"
+                            value="#{courseController.selected.exams}" 
+                            var="exams">
+                            <p:column headerText="Name">  
+                                <h:commandLink value="#{exams.name}" action="#{courseController.setSelectedExam(exams)}"/>
+                            </p:column>
+                            <p:column headerText="Room">  
+                                <h:outputText value="#{exams.room}" />
+                            </p:column>
+                            <p:column headerText="Info">  
+                                <h:outputText value="#{exams.info}" />
+                            </p:column>
+                            <p:column headerText="Date">  
+                                <h:outputText value="#{exams.examDate}" />
+                            </p:column>
+                            <p:column>
+                                <h:commandLink value="Delete" action="#{courseController.removeExam(exams)}"/>
+                            </p:column>
+                        </p:dataTable>
                         <p:column>  
                             <h:inputText value="#{courseController.exam.name}" />
                         </p:column> 
                         <p:column>
                             <p:commandButton value="Add Exam" action="#{courseController.addExam()}" update="examTable"/>
                         </p:column>
-                    </p:row>
-                </p:column>
-            </p:dataTable>
+                    </p:fieldset>
+                </div>
             </p:fieldset>
-            <p:commandButton value="Save" action="#{courseController.editCourse()}"/>
-            <p:commandButton value="New Revision" action="#{courseController.addNewRevCourse()}"/>
-            <p:commandButton value="Delete" action="#{courseController.removeCourse()}"/>
         </h:form>
     </ui:define>
     
