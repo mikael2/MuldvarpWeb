@@ -7,7 +7,9 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="title">
-        Editing #{courseController.selected.name}
+        <h:form>
+            <h:link value="Courses" outcome="listCourses" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" />
+        </h:form>
     </ui:define>
     
     <ui:define name="mainsingle">
@@ -67,8 +69,8 @@
                     <p:dataTable id="obligTable"
                         value="#{course.obligatoryTasks}" 
                         var="obligtasks">
-                        <p:column headerText="Name">  
-                            <h:outputText value="#{obligtasks.name}" />
+                        <p:column headerText="Name">
+                            <h:commandLink value="#{obligtasks.name}" action="#{courseController.setSelectedObligatoryTask(obligtasks)}"/>
                         </p:column>
                         <p:column headerText="Done">  
                             <h:outputText value="#{obligtasks.done}" />
@@ -97,7 +99,7 @@
                         value="#{course.exams}" 
                         var="exams">
                         <p:column headerText="Name">  
-                            <h:outputText value="#{exams.name}" />
+                            <h:commandLink value="#{exams.name}" action="#{courseController.setSelectedExam(exams)}"/>
                         </p:column>
                         <p:column headerText="Room">  
                             <h:outputText value="#{exams.room}" />
@@ -123,8 +125,8 @@
                 </p:column>
             </p:dataTable>
             </p:fieldset>
-            <p:commandButton value="Save" action="#{courseController.addCourse()}"/>
-            <p:commandButton value="New Revision" action="#{courseController.editCourse()}"/>
+            <p:commandButton value="Save" action="#{courseController.editCourse()}"/>
+            <p:commandButton value="New Revision" action="#{courseController.addNewRevCourse()}"/>
             <p:commandButton value="Delete" action="#{courseController.removeCourse()}"/>
         </h:form>
     </ui:define>

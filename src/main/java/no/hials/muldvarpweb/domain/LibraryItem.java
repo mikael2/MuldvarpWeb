@@ -19,7 +19,6 @@ public class LibraryItem implements Serializable {
     
     @Id
     @GeneratedValue
-    @Column(name="id")
     private Long id;
     
     @Column(name="title")
