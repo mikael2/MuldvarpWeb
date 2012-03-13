@@ -8,7 +8,7 @@
 
     <ui:define name="title">
         <h:form>
-            <h:link value="Courses" outcome="listCourses" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selectedTheme.name}" outcome="editTheme" />
+            <h:link value="Courses" outcome="listCourses" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selectedTheme.name}" outcome="editTheme" />
         </h:form>
     </ui:define>
     
@@ -32,7 +32,7 @@
                                 <h:outputText value="#{task.done}" />
                             </p:column>
                             <p:column headerText="Done">  
-                                <p:commandButton value="Delete" action="#{courseController.removeTask(theme, task)}" update="taskTable"/>
+                                <p:commandButton value="Delete" action="#{courseController.removeTask(task)}" update="taskTable"/>
                             </p:column>
                         </p:dataTable>
                         <p:row>
@@ -40,7 +40,7 @@
                                 <h:inputText value="#{courseController.task.name}" />
                             </p:column> 
                             <p:column>
-                                <p:commandButton value="New Task" action="#{courseController.addTask(theme)}" update="taskTable"/>
+                                <p:commandButton value="New Task" action="#{courseController.addTask()}" update="taskTable"/>
                             </p:column>
                         </p:row>
                     </p:column>

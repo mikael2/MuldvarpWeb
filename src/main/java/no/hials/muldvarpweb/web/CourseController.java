@@ -68,6 +68,9 @@ public class CourseController implements Serializable {
     }
 
     public String setSelected(Course selected) {
+        if(selected == null) {
+            selected = getCourse();
+        }
         this.selected = selected;
         return "editCourse";
     }
@@ -182,9 +185,9 @@ public class CourseController implements Serializable {
         }
     }
     
-    public void addTask(Theme theme) {
+    public void addTask() {
         if(newTask != null && selected != null) {
-            service.addTask(selected, theme, newTask);
+            service.addTask(selected, selectedTheme, newTask);
             newTask = null;
         }
     }
@@ -195,9 +198,9 @@ public class CourseController implements Serializable {
         }
     }
     
-    public void removeTask(Theme theme, Task task) {
+    public void removeTask(Task task) {
         if(selected != null) {
-            service.removeTask(selected, theme, task);
+            service.removeTask(selected, selectedTheme, task);
         }
     }
     

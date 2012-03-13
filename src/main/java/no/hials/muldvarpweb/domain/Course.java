@@ -49,6 +49,19 @@ public class Course implements Serializable {
     List<Person> teachers;
 
     public Course() {
+        this.revision_date = new Date();
+    }
+
+    public Course(String name, String detail, String imageurl, Integer revision, List<Theme> themes, List<ObligatoryTask> obligatoryTasks, List<Exam> exams, List<Person> teachers) {
+        this.name = name;
+        this.detail = detail;
+        this.imageurl = imageurl;
+        this.revision = revision;
+        this.revision_date = new Date();
+        this.themes = themes;
+        this.obligatoryTasks = obligatoryTasks;
+        this.exams = exams;
+        this.teachers = teachers;
     }
 
     public Integer getId() {

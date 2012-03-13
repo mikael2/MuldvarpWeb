@@ -22,11 +22,12 @@
                             action="#{courseController.setSelected(course)}" 
                             value="#{course.name}" />
                     </p:column>
-                    <p:column headerText="Name">  
+                    <p:column headerText="Revision">  
                         <h:outputText value="#{course.revision}" />
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>
+            <h:commandLink value="New Course" action="#{courseController.setSelected(null)}" update="courseTable"/>
             <p:commandButton value="Make testdata" action="#{courseController.makeTestData()}" update="courseTable"/>
         </h:form>
     </ui:define>
