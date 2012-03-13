@@ -23,8 +23,8 @@
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
-            <p:commandButton value="Save" action="#{courseController.editExam()}"/>
-            <p:commandButton value="Delete" action="#{courseController.removeExam(selectedExam)}"/>
+            <h:commandLink value="Save" action="#{courseController.editExam()}"/>
+            <h:commandLink value="Delete" action="#{courseController.removeExam(selectedExam)}"/>
         </h:form>
     </ui:define>
     
