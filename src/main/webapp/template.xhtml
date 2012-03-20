@@ -9,10 +9,12 @@
     </h:head>
     <h:body>        
         <div id="container">
-            <div id="menu">
-                <ui:insert name="menu" />
+            <div id="header">
+                 <h1><ui:insert name="title" /></h1>
             </div>
-                <h1><ui:insert name="title" /></h1>
+            <div id="menu">
+                <ui:include src="menu.xhtml" />
+            </div>
             <div id="center">
                 <div id="mainsingle">
                     <ui:insert name="mainsingle" />

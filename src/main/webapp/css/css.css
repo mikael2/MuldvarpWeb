@@ -20,16 +20,36 @@ body {
     float:left;
 }
 
-menu ul {
+#container, #header, #menu, #center, #footer {
+    width: 1200px;
+}
+
+#header {
+    text-align:center;
+}
+
+#menu {
+    text-align:center;
+}
+
+#menu ul {
     list-style: none;
 }
 
-menu ul li {
+#menu ul li {
     float:left;
+    padding: 20px;
 }
 
-container {
+#center {
+    clear:both;
+}
+
+#container {
     background-color: #fff;
-    width:1200px;
     margin:auto;
+}
+
+#footer {
+    text-align: center;
 }
