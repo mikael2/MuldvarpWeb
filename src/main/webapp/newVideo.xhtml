@@ -31,30 +31,30 @@
                             </f:facet> 
         
             <h:outputLabel value="Title: " />
-            <p:inputText value="#{videoController.selectedVideo.videoName}"/><br />
+            <p:inputText value="#{videoController.selectedVideo.videoName}"/>
             
             <h:outputLabel value="Video Type: " />
-            <p:inputText value="#{videoController.selectedVideo.videoType}"/><br />
+            <p:inputText value="#{videoController.selectedVideo.videoType}"/>
             
             <h:outputLabel value="Video URI: " />
-            <p:inputText value="#{videoController.selectedVideo.videoIconURI}"/><br />
+            <p:inputText value="#{videoController.selectedVideo.videoURI}"/>
             
             <h:outputLabel value="Video Detail: " />
-            <p:inputText value="#{videoController.selectedVideo.videoDetail}"/><br />
+            <p:inputText value="#{videoController.selectedVideo.videoDetail}"/>
                         
             <h:outputLabel value="Video Description: " />
-            <p:inputText value="#{videoController.selectedVideo.videoDescription}"/><br />
+            <p:inputText value="#{videoController.selectedVideo.videoDescription}"/>
             
             <h:outputLabel value="Video Icon URI: " />
-            <p:inputText value="#{videoController.selectedVideo.videoIconURI}"/><br />
+            <p:inputText value="#{videoController.selectedVideo.videoIconURI}"/>
             
             <h:outputLabel value="Video Thumbnail URI: " />
-            <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/><br />
+            <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/>
             
             </p:panelGrid>
        </h:form>
-            <input type="submit" value="Submit"/>
-            <h:commandButton id="submitButton" value="Submit" actionListener="#{videoController.addVideo(newVideo)}" ></h:commandButton>
+            
+        <h:commandButton id="submitButton" value="Submit" actionListener="#{videoController.addVideo()}" ></h:commandButton>
        
             
        

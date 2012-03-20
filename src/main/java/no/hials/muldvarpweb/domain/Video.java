@@ -49,21 +49,21 @@ public class Video implements Serializable{
      * 
      * @param videoName String value of the video name
      * @param videoType String value of the video type
-     * @param videoURI String value of the video URL
+     * @param videoURI String value of the video URI
      * @param videoDetail String value of the video detail
      * @param videoDescription String value of the video description
      * @param videoIconURI String value of the icon's URI path
      * @param videoThumbURI String value of the thumbnails URI (unless one is generated)
      */
-    public Video(String videoName, String videoType, String videoURI, String videoDetail, String videoDescription, String videoIconURL, String videoThumbURL) {
+    public Video(String videoName, String videoType, String videoURI, String videoDetail, String videoDescription, String videoIconURI, String videoThumbURI) {
         
         this.videoName = videoName;
         this.videoType = videoType;
         this.videoURI = videoURI;
         this.videoDetail = videoDetail;
         this.videoDescription = videoDescription;
-        this.videoIconURI = videoIconURL;
-        this.videoThumbURI = videoThumbURL;
+        this.videoIconURI = videoIconURI;
+        this.videoThumbURI = videoThumbURI;
         
         
     }
@@ -132,8 +132,8 @@ public class Video implements Serializable{
         return videoThumbURI;
     }
 
-    public void setVideoThumbURI(String videoThumbURL) {
-        this.videoThumbURI = videoThumbURL;
+    public void setVideoThumbURI(String videoThumbURI) {
+        this.videoThumbURI = videoThumbURI;
     }
 
         

@@ -50,12 +50,12 @@ public class VideoController implements Serializable {
      * @param newVideo The Video to be added.
      * @return 
      */
-    public Video addVideo(Video newVideo) {
+    public Video addVideo() {
         
         //Check if there is a video to add
         if(selectedVideo != null){
         
-            videoService.addVideo(newVideo);
+            videoService.addVideo(selectedVideo);
         }
         
         return newVideo;

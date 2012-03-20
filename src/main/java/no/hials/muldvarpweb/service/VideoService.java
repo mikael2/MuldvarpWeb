@@ -78,9 +78,9 @@ public class VideoService {
         
 //        Return videos
 //        Removed for now as no database exist
-        return entityManager.createQuery("SELECT v from Video v", Video.class).getResultList();
+//        return entityManager.createQuery("SELECT v from Video v", Video.class).getResultList();
         
-        //return getVideoTestData();
+        return getVideoTestData();
         
     }
     
