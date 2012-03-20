@@ -19,3 +19,17 @@ body {
     max-width: 500px; 
     float:left;
 }
+
+menu ul {
+    list-style: none;
+}
+
+menu ul li {
+    float:left;
+}
+
+container {
+    background-color: #fff;
+    width:1200px;
+    margin:auto;
+}
