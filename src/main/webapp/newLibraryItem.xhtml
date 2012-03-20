@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <link rel="stylesheet" href="css/news/html5reset.css" type="text/css" /> 
+        <link rel="stylesheet" href="css/news/style.css" type="text/css" /> 
+        <title>Add document</title>
+    </h:head>
+    <h:body>
+
+
+
+        <header>
+            <hgroup id="top">              
+                <h1><img id="logo" src="img/hialsBilde.jpg" alt="hials bilde" width="120" heigth="150"/>HiALS</h1>
+                <h2></h2>
+            </hgroup>
+        </header>
+        <p style="background-color : #cccccc;">
+        <h1> Add a document </h1><br /><br />
+        <table>
+<tr>
+<td>
+        <div>
+            <form method="post" action="">
+            Title :          <input type="text" name="title" /><br />
+            Alternate title: <input type="text" name="alternate title" /><br />
+            Author:          <input type="text" name="author" /><br />
+            Co-author:       <input type="text" name="co-author" /><br />
+            Published:       <input type="text" name="published" /><br />
+            Number of pages  <input type="text" name="nopages" /><br />
+            Summary:         <br />
+            </form>
+            <textarea rows="10" cols="30"></textarea><br />
+        <div>
+                Upload document:
+                <input id="myfile" name="myfile" type="file"/>
+        </div>
+            <input type="submit" value="Submit"/>
+        </div>
+</td>
+</tr>
+</table>
+        </p>
+    </h:body>
+</html>
+
