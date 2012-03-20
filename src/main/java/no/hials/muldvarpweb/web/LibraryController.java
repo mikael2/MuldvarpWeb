@@ -23,4 +23,19 @@ public class LibraryController implements Serializable {
     @Inject LibraryService service;
     LibraryItem newLibraryItem;
     List<LibraryItem> libraryList;
+
+    public LibraryItem getLibraryItem() {
+        if(newLibraryItem != null)
+        newLibraryItem = new LibraryItem();
+        return newLibraryItem;
+    }
+
+    public void setLibraryItem(LibraryItem newLibraryItem) {
+        this.newLibraryItem = newLibraryItem;
+    }
+    
+    public LibraryItem addLibraryItem(LibraryItem newLibraryItem){
+        service.addLibraryItem(newLibraryItem);
+        return newLibraryItem;
+    }
 }

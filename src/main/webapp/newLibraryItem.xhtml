@@ -23,29 +23,40 @@
         </header>
         <p style="background-color : #cccccc;">
         <h1> Add a document </h1><br /><br />
-        <table>
-<tr>
-<td>
+        <p:panelGrid columns="2">
         <div>
             <form method="post" action="">
-            Title :          <input type="text" name="title" /><br />
-            Alternate title: <input type="text" name="alternate title" /><br />
-            Author:          <input type="text" name="author" /><br />
-            Co-author:       <input type="text" name="co-author" /><br />
-            Published:       <input type="text" name="published" /><br />
-            Number of pages  <input type="text" name="nopages" /><br />
-            Summary:         <br />
+                
+            <h:outputLabel value="Title: " />
+            <p:inputText value="#{libraryController.libraryItem.title}"/><br />
+            
+            <h:outputLabel value="Alternate title: " />
+            <p:inputText value="#{libraryController.libraryItem.alternateTitle}"/><br />
+            
+            <h:outputLabel value="Author: " />
+            <p:inputText value="#{libraryController.libraryItem.author}"/><br />
+            
+            <h:outputLabel value="Co-Author: " />
+            <p:inputText value="#{libraryController.libraryItem.coAuthor}"/><br />
+            
+            <h:outputLabel value="Published: " />
+            <p:inputText value="#{libraryController.libraryItem.published}"/><br />
+            
+            <h:outputLabel value="Number of pages: " />
+            <p:inputText value="#{libraryController.libraryItem.pageNo}"/><br />
+            
+            <h:outputLabel value="Summary: " /> 
+            <p:inputTextarea value="#{articleController.article.ingress}" rows="5" cols="30"/>
+            
             </form>
-            <textarea rows="10" cols="30"></textarea><br />
         <div>
                 Upload document:
                 <input id="myfile" name="myfile" type="file"/>
         </div>
             <input type="submit" value="Submit"/>
         </div>
-</td>
-</tr>
-</table>
+       </p:panelGrid>
+            
         </p>
     </h:body>
 </html>
