@@ -21,12 +21,15 @@
                 <h2></h2>
             </hgroup>
         </header>
-        <p style="background-color : #cccccc;">
-        <h1> Add a Video </h1><br /><br />
-        <p:panelGrid columns="2">
-        <div>
-            <form method="post" action="">
-                
+        
+        
+        
+        <h:form id="metaform">
+                        <p:panelGrid columns="2">
+                            <f:facet name="header">  
+                                Add document 
+                            </f:facet> 
+        
             <h:outputLabel value="Title: " />
             <p:inputText value="#{videoController.selectedVideo.videoName}"/><br />
             
@@ -46,14 +49,15 @@
             <p:inputText value="#{videoController.selectedVideo.videoIconURI}"/><br />
             
             <h:outputLabel value="Video Thumbnail URI: " />
-            <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/><br />s
+            <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/><br />
             
-            </form>
+            </p:panelGrid>
+       </h:form>
             <input type="submit" value="Submit"/>
-        </div>
-       </p:panelGrid>
+            <h:commandButton id="submitButton" value="Submit" actionListener="#{videoController.addVideo(newVideo)}" ></h:commandButton>
+       
             
-        </p>
+       
     </h:body>
 </html>
 

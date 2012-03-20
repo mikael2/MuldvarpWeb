@@ -76,11 +76,11 @@ public class VideoService {
     @Produces({MediaType.APPLICATION_JSON})
     public List<Video> findVideos() {
         
-        //Return videos
-        //Removed for now as no database exist
-        //return entityManager.createQuery("SELECT v from Video v", Video.class).getResultList();
+//        Return videos
+//        Removed for now as no database exist
+        return entityManager.createQuery("SELECT v from Video v", Video.class).getResultList();
         
-        return getVideoTestData();
+        //return getVideoTestData();
         
     }
     
