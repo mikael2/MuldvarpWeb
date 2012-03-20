@@ -18,11 +18,11 @@ public class Person implements Serializable {
     @Column(nullable=false)
     String name;
     
-    String username;
-    String password;
-    public enum Roles {
-        STUDENT,TEACHER
-    }
+//    String username;
+//    String password;
+//    public enum Roles {
+//        STUDENT,TEACHER
+//    }
     
     @ManyToMany(mappedBy = "teachers")
     private List<Course> courses;
