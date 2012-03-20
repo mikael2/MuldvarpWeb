@@ -25,8 +25,9 @@ public class LibraryController implements Serializable {
     List<LibraryItem> libraryList;
 
     public LibraryItem getLibraryItem() {
-        if(newLibraryItem != null)
-        newLibraryItem = new LibraryItem();
+        if(newLibraryItem == null)
+            newLibraryItem = new LibraryItem();
+        
         return newLibraryItem;
     }
 
