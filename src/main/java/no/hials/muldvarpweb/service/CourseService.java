@@ -17,10 +17,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.*;
 
@@ -53,6 +50,13 @@ public class CourseService {
         TypedQuery<Course> q =  em.createQuery("Select c from Course c where c.name LIKE :name", Course.class);
         q.setParameter("name", "%" + name + "%");
         return q.getResultList();
+    }
+    
+    @POST
+    @Path("{id}")
+    public void setTask(@PathParam("id") Integer id) {
+        // Sette task som done
+        // ide: bruke lagre knapp og lagre alt i ett
     }
     
     public void addCourse(Course course) {

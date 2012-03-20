@@ -21,43 +21,54 @@
                 <h2></h2>
             </hgroup>
         </header>
-        <p style="background-color : #cccccc;">
-        <h1> Add a document </h1><br /><br />
-        <p:panelGrid columns="2">
-        <div>
-            <form method="post" action="">
+
+            <h:form id="metaform">
+                        <p:panelGrid columns="2">
+                            <f:facet name="header">  
+                                Add document 
+                            </f:facet> 
                 
             <h:outputLabel value="Title: " />
-            <p:inputText value="#{libraryController.libraryItem.title}"/><br />
+            <p:inputText value="#{libraryController.libraryItem.title}"/>
             
             <h:outputLabel value="Alternate title: " />
-            <p:inputText value="#{libraryController.libraryItem.alternateTitle}"/><br />
+            <p:inputText value="#{libraryController.libraryItem.alternateTitle}"/>
             
             <h:outputLabel value="Author: " />
-            <p:inputText value="#{libraryController.libraryItem.author}"/><br />
+            <p:inputText value="#{libraryController.libraryItem.author}"/>
             
             <h:outputLabel value="Co-Author: " />
-            <p:inputText value="#{libraryController.libraryItem.coAuthor}"/><br />
+            <p:inputText value="#{libraryController.libraryItem.coAuthor}"/>
             
             <h:outputLabel value="Published: " />
-            <p:inputText value="#{libraryController.libraryItem.published}"/><br />
+            <p:inputText value="#{libraryController.libraryItem.published}"/>
             
             <h:outputLabel value="Number of pages: " />
-            <p:inputText value="#{libraryController.libraryItem.pageNo}"/><br />
+            <p:inputText value="#{libraryController.libraryItem.pageNo}"/>
+            
+            <h:outputLabel value="Icon URL: " />
+            <p:inputText value="#{libraryController.libraryItem.iconURL}"/>
+            
+            <h:outputLabel value="Thumb URL: " />
+            <p:inputText value="#{libraryController.libraryItem.thumbURL}"/>
+            
+            <h:outputLabel value="Document URL: " />
+            <p:inputText value="#{libraryController.libraryItem.URL}"/>
             
             <h:outputLabel value="Summary: " /> 
-            <p:inputTextarea value="#{articleController.article.ingress}" rows="5" cols="30"/>
-            
-            </form>
-        <div>
-                Upload document:
-                <input id="myfile" name="myfile" type="file"/>
-        </div>
-            <input type="submit" value="Submit"/>
-        </div>
-       </p:panelGrid>
-            
-        </p>
+            <p:inputTextarea value="#{libraryController.libraryItem.summary}" rows="5" cols="30"/>
+                        
+            </p:panelGrid>
+            <h:panelGrid columns="2" style="margin-top:2%; margin-bottom: 5%">  
+
+                <p:commandButton  id="submitButton" value="Submit" actionListener="#{libraryController.addLibraryItem(newLibraryItem)}" ajax="false"/>
+
+                <p:commandButton id="clearAllButton" type="button" value="Clear All"
+                                    onclick="document.getElementById('metaform').reset()"/>
+
+            </h:panelGrid>  
+            </h:form>
+
     </h:body>
 </html>
 
