@@ -13,7 +13,8 @@ import no.hials.muldvarpweb.domain.Video;
 import no.hials.muldvarpweb.service.VideoService;
 
 /**
- *
+ * This is the controller class for Video.
+ * 
  * @author johan
  */
 @Named
@@ -24,4 +25,52 @@ public class VideoController implements Serializable {
     List<Video> videoList;
     Video selectedVideo;
     Video filter;
+    
+    
+    /**
+     * This function returns the selectedVideo variable.
+     * 
+     * @return The selected Video
+     */
+    public Video getSelectedVideo(){
+        
+        //Check if the selectedVideo variable is null, and set new Video if it is
+        if (selectedVideo == null) {
+            
+            selectedVideo = new Video();
+        }
+                
+        return selectedVideo;
+    }
+    
+    
+    /**
+     * This function makes a call to the VideoService instantiation and adds the supplied Video.
+     * 
+     * @param newVideo The Video to be added.
+     * @return 
+     */
+    public Video addVideo(Video newVideo) {
+        
+        //Check if there is a video to add
+        if(selectedVideo != null){
+        
+            videoService.addVideo(newVideo);
+        }
+        
+        return newVideo;
+    }
+    
+    
+    /**
+     * This function generates a URI for a locally stored asset,
+     * NYI
+     * 
+     * @return String value of URI
+     */
+    public String generateURI() {
+        
+        return "URIEXAMPLE";
+    }
+    
 }

@@ -18,7 +18,8 @@ import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Video;
 
 /**
- *
+ * Video service class providing EM functionality.
+ * 
  * @author johan
  */
 @Stateless
@@ -29,6 +30,25 @@ public class VideoService {
     EntityManager entityManager;
     
     
+    /**
+     * This function merges and persists a Video item .
+     * 
+     * @param newVideo The video to be added.
+     */
+    public void addVideo(Video newVideo){
+        
+        newVideo = entityManager.merge(newVideo);
+        entityManager.persist(newVideo);
+    }
+    
+    
+    
+    
+    /**
+     * This function creates test data.
+     * 
+     * @return test data
+     */
     public List<Video> getVideoTestData() {
         
         String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
@@ -64,6 +84,7 @@ public class VideoService {
         
     }
     
+        
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})

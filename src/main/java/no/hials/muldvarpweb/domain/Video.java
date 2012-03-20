@@ -5,13 +5,10 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,44 +27,48 @@ public class Video implements Serializable{
     private Integer id;
     String videoName;
     String videoType;
-    String videoURL;
+    String videoURI;
     String videoDetail;
     String videoDescription;
-    String videoIconURL;
-    String videoThumbURL;
+    String videoIconURI;
+    String videoThumbURI;
+    
+    
+    /**
+     * The empty constructor for the Video JPA-entity class.
+     */
+    public Video() {
+        
+        
+    }
+    
     
     /**
      * Constructor for the Video JPA entity
      * Used for testing
      * 
      * @param videoName String value of the video name
-     * @param videoURL String value of the video type
-     * @param videoURL String value of the video URL
+     * @param videoType String value of the video type
+     * @param videoURI String value of the video URL
      * @param videoDetail String value of the video detail
      * @param videoDescription String value of the video description
-     * @param videoIconURL String value of the icon's URL path
-     * @param videoThumbURL String value of the thumbnails URL path (unless one is generated)
+     * @param videoIconURI String value of the icon's URI path
+     * @param videoThumbURI String value of the thumbnails URI (unless one is generated)
      */
-    public Video(String videoName, String videoType, String videoURL, String videoDetail, String videoDescription, String videoIconURL, String videoThumbURL) {
+    public Video(String videoName, String videoType, String videoURI, String videoDetail, String videoDescription, String videoIconURL, String videoThumbURL) {
         
         this.videoName = videoName;
         this.videoType = videoType;
-        this.videoURL = videoURL;
+        this.videoURI = videoURI;
         this.videoDetail = videoDetail;
         this.videoDescription = videoDescription;
-        this.videoIconURL = videoIconURL;
-        this.videoThumbURL = videoThumbURL;
+        this.videoIconURI = videoIconURL;
+        this.videoThumbURI = videoThumbURL;
         
         
     }
     
-    
-    
-    //Empty constructor
-    public Video() {
-        
-        
-    }
+
 
     public Integer getId() {
         return id;
@@ -75,6 +76,38 @@ public class Video implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
+
+    public String getVideoType() {
+        return videoType;
+    }
+
+    public void setVideoType(String videoType) {
+        this.videoType = videoType;
+    }
+    
+    public String getVideoURI() {
+        return videoURI;
+    }
+
+    public void setVideoURI(String videoURI) {
+        this.videoURI = videoURI;
+    }
+    
+    public String getVideoDetail() {
+        return videoDetail;
+    }
+
+    public void setVideoDetail(String videoDetail) {
+        this.videoDetail = videoDetail;
     }
 
     public String getVideoDescription() {
@@ -85,45 +118,24 @@ public class Video implements Serializable{
         this.videoDescription = videoDescription;
     }
 
-    public String getVideoDetail() {
-        return videoDetail;
-    }
-
-    public void setVideoDetail(String videoDetail) {
-        this.videoDetail = videoDetail;
-    }
-
-    public String getVideoIconURL() {
-        return videoIconURL;
-    }
-
-    public void setVideoIconURL(String videoIconURL) {
-        this.videoIconURL = videoIconURL;
-    }
-
-    public String getVideoName() {
-        return videoName;
-    }
-
-    public void setVideoName(String videoName) {
-        this.videoName = videoName;
-    }
-
-    public String getVideoThumbURL() {
-        return videoThumbURL;
-    }
-
-    public void setVideoThumbURL(String videoThumbURL) {
-        this.videoThumbURL = videoThumbURL;
-    }
-
-    public String getVideoURL() {
-        return videoURL;
-    }
-
-    public void setVideoURL(String videoURL) {
-        this.videoURL = videoURL;
-    }
     
+    public String getVideoIconURI() {
+        return videoIconURI;
+    }
+
+    public void setVideoIconURI(String videoIconURI) {
+        this.videoIconURI = videoIconURI;
+    }
+
+    
+    public String getVideoThumbURI() {
+        return videoThumbURI;
+    }
+
+    public void setVideoThumbURI(String videoThumbURL) {
+        this.videoThumbURI = videoThumbURL;
+    }
+
+        
     
 }
