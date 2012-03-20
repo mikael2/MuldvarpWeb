@@ -30,7 +30,7 @@ public class Course implements Serializable {
     String imageurl;
     
     @Column(name = "revision")
-    Integer revision = 0;
+    Integer revision;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "revision_date")
@@ -49,6 +49,7 @@ public class Course implements Serializable {
     List<Person> teachers;
 
     public Course() {
+        this.revision = 0;
         this.revision_date = new Date();
     }
 

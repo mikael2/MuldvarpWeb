@@ -1,14 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title><ui:insert name="title" /></title>
+        <title>Muldvarp</title>
         <link rel="stylesheet" type="text/css" href="/muldvarp/css/css.css" />
         <ui:insert name="extrascript" />
     </h:head>
     <h:body>
+        <div id="menu">
+            <ui:insert name="menu" />
+        </div>
         <div id="container">
                 <h1><ui:insert name="title" /></h1>
             <div id="center">
@@ -24,7 +26,7 @@
             </div>
             <div style="clear:both" />
             <div id="footer">
-                © 2011 Leif Prosjektnes Testefjes AS - <a href="mailto:blabla@bbbbb.com">Mail</a> 
+                © 2012 Muldvarp Organization
             </div>
         </div>
     </h:body>

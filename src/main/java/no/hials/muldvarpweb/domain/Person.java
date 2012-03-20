@@ -9,16 +9,23 @@ import javax.persistence.*;
  * @author Lena
  */
 @Entity
-public class Person implements Serializable {
-    @ManyToMany(mappedBy = "teachers")
-    private List<Course> courses;
+public class Person implements Serializable { 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     
     @Column(nullable=false)
     String name;
+    
+    String username;
+    String password;
+    public enum Roles {
+        STUDENT,TEACHER
+    }
+    
+    @ManyToMany(mappedBy = "teachers")
+    private List<Course> courses;
     
     String affiliation; //f.eks. Faglig ledelse
     String position;    //f.eks. Dekan

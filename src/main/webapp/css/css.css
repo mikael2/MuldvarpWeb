@@ -19,3 +19,7 @@ body {
     max-width: 500px; 
     float:left;
 }
+
+menu ul li {
+    float:left;
+}
