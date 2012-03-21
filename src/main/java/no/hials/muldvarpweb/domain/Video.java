@@ -45,8 +45,9 @@ public class Video implements Serializable{
     
     /**
      * Constructor for the Video JPA entity
-     * Used for testing
+     * Used for testing purposes.
      * 
+     * @param videoId  Integer value of the video ID
      * @param videoName String value of the video name
      * @param videoType String value of the video type
      * @param videoURI String value of the video URI
@@ -55,8 +56,9 @@ public class Video implements Serializable{
      * @param videoIconURI String value of the icon's URI path
      * @param videoThumbURI String value of the thumbnails URI (unless one is generated)
      */
-    public Video(String videoName, String videoType, String videoURI, String videoDetail, String videoDescription, String videoIconURI, String videoThumbURI) {
+    public Video(Integer videoId, String videoName, String videoType, String videoURI, String videoDetail, String videoDescription, String videoIconURI, String videoThumbURI) {
         
+        this.id = videoId;
         this.videoName = videoName;
         this.videoType = videoType;
         this.videoURI = videoURI;
