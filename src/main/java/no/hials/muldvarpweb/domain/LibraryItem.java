@@ -5,6 +5,8 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -55,20 +57,29 @@ public class LibraryItem implements Serializable {
     String URL;
 
     public LibraryItem() {
+        Calendar cal = new GregorianCalendar();
+        int d = cal.get(Calendar.DATE);
+        int m = cal.get(Calendar.MONTH);
+        int y = cal.get(Calendar.YEAR);
+        setUploaded(d + "." + m + "." + y);
     }
 
-    public LibraryItem(String title, String alternateTitle, String author, String coAuthor, String published, String uploaded, String pageNo, String summary, String iconURL, String thumbURL, String URL) {
+    public LibraryItem(String title, String alternateTitle, String author, String coAuthor, String published, String pageNo, String summary, String iconURL, String thumbURL, String URL) {
         this.title = title;
         this.alternateTitle = alternateTitle;
         this.author = author;
         this.coAuthor = coAuthor;
         this.published = published;
-        this.uploaded = uploaded;
         this.pageNo = pageNo;
         this.summary = summary;
         this.iconURL = iconURL;
         this.thumbURL = thumbURL;
         this.URL = URL;
+        Calendar cal = new GregorianCalendar();
+        int d = cal.get(Calendar.DATE);
+        int m = cal.get(Calendar.MONTH);
+        int y = cal.get(Calendar.YEAR);
+        setUploaded(d + "." + m + "." + y);
     }
     
     public LibraryItem(String title, String summary){
