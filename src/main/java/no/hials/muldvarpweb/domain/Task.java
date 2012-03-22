@@ -5,11 +5,8 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
@@ -32,6 +29,9 @@ public class Task implements Serializable  {
     
     @Column(name = "content_url")
     String content_url;
+    
+    @OneToMany
+    List<Video> videos;
     
     public Task() {
         
@@ -75,5 +75,15 @@ public class Task implements Serializable  {
 
     public void setName(String name) {
         this.name = name;
-    }    
+    }
+
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+    
+    
 }

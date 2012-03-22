@@ -5,10 +5,7 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -19,18 +16,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 //JPA-Annotation
 @Entity
 @Table(name="video")
-@XmlRootElement
 public class Video implements Serializable{
     
     @Id
     @GeneratedValue   
     private Integer id;
+    
+    @Column(name = "videoName")
     String videoName;
+    
+    @Column(name = "videoType")
     String videoType;
+    
+    @Column(name = "videoURI")
     String videoURI;
+    
+    @Column(name = "videoDetail")
     String videoDetail;
+    
+    @Column(name = "videoDescription")
     String videoDescription;
+    
+    @Column(name = "videoIconURI")
     String videoIconURI;
+    
+    @Column(name = "videoThumbURI")
     String videoThumbURI;
     
     
