@@ -6,7 +6,6 @@ package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * JPA-class defining a Video

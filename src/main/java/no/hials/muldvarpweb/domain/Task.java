@@ -30,8 +30,8 @@ public class Task implements Serializable  {
     @Column(name = "content_url")
     String content_url;
     
-    @OneToMany
-    List<Video> videos;
+//    @OneToMany
+//    List<Video> videos;
     
     public Task() {
         
@@ -77,13 +77,13 @@ public class Task implements Serializable  {
         this.name = name;
     }
 
-    public List<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
-    }
+//    public List<Video> getVideos() {
+//        return videos;
+//    }
+//
+//    public void setVideos(List<Video> videos) {
+//        this.videos = videos;
+//    }
     
     
 }

@@ -27,9 +27,12 @@
         <h:form id="metaform">
                         <p:panelGrid columns="2">
                             <f:facet name="header">  
-                                Add document 
+                                Add video
                             </f:facet> 
         
+            <h:outputLabel value="ID: " />
+            <p:inputText value="#{videoController.selectedVideo.id}"/>                            
+                            
             <h:outputLabel value="Title: " />
             <p:inputText value="#{videoController.selectedVideo.videoName}"/>
             
@@ -52,9 +55,11 @@
             <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/>
             
             </p:panelGrid>
+            
+            <h:commandButton id="submitButton" value="Submit" actionListener="#{videoController.addVideo()}" ></h:commandButton>
        </h:form>
             
-        <h:commandButton id="submitButton" value="Submit" actionListener="#{videoController.addVideo()}" ></h:commandButton>
+        <h:commandButton id="submitButton" value="Testdata" actionListener="#{videoController.makeVideoTestData()}" ></h:commandButton>
        
             
        
