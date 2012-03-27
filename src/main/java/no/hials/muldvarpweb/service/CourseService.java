@@ -215,6 +215,10 @@ public class CourseService {
         task = new Task("Oppgave 2.2");
         task.setDone(true);
         tasks2.add(task);
+        task = new Task("Læringsvideo 1");
+        task.setContent_url("XsFR8DbSRQE");
+        task.setDone(true);
+        tasks2.add(task);
         theme2.setTasks(tasks2);
         themes.add(theme2);
         

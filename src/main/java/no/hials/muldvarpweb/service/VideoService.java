@@ -63,7 +63,7 @@ public class VideoService {
                 n = 0;
             }
             
-            videoList.add(new Video(i, "Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
+            videoList.add(new Video("Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
             
         }
         
@@ -119,7 +119,39 @@ public class VideoService {
     
     
     
-    
+    /**
+     * This function creates test data.
+     * 
+     * @return test data
+     */
+    public void makeVideoTestData() {
+        
+        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
+        
+        
+        for (int i = 0; i < 15; i++) {
+            
+            //annenhver
+            int n = 1;
+            if(i % 2 == 0){
+                n = 0;
+            }
+            
+            Video newVideo = new Video("Video " + i,
+                    "Youtube/ID" ,
+                    testURL[n],
+                    "Video INC",
+                    "This video is not an actual video.",
+                    "www.db.no",
+                    "www.sWmp.no");
+            
+            newVideo = entityManager.merge(newVideo);
+            entityManager.persist(newVideo);
+            
+        }
+        
+                
+    }
     
     
     

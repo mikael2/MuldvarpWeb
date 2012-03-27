@@ -81,25 +81,10 @@ public class VideoController implements Serializable {
      * 
      * @return test data
      */
-    public List<Video> makeVideoTestData() {
+    public void makeVideoTestData() {
         
-        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
-        
-        
-        for (int i = 0; i < 15; i++) {
-            
-            //annenhver
-            int n = 1;
-            if(i % 2 == 0){
-                n = 0;
-            }
-            
-            videoService.addVideo(new Video(i+5, "Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
-            
-        }
-        
-        return videoList;
-        
+        videoService.makeVideoTestData();        
+                
     }
     
 }
