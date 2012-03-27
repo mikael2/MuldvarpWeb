@@ -53,11 +53,11 @@ public class VideoController implements Serializable {
      */
     public Video addVideo() {
         
-        //Check if there is a video to add
-        if(selectedVideo != null){
-        
-            
-        }
+//        //Check if there is a video to add
+//        if(selectedVideo != null){
+//        
+//            
+//        }
         
         videoService.addVideo(selectedVideo);
         
@@ -94,7 +94,7 @@ public class VideoController implements Serializable {
                 n = 0;
             }
             
-            videoService.addVideo(new Video(i, "Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
+            videoService.addVideo(new Video(i+5, "Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
             
         }
         
