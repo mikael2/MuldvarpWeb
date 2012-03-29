@@ -5,7 +5,7 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
-import java.util.List;
+import javax.faces.model.SelectItem;
 import javax.persistence.*;
 
 /**
@@ -22,7 +22,29 @@ public class Task implements Serializable  {
     @Column(name = "name")
     String name;
     
-    public enum content {EXTERNAL,VIDEO,PDF}
+    
+    public enum ContentType {
+        
+        EXTERNAL("External"),
+        
+        VIDEO("Video"),
+        
+        PDF("PDF");
+        
+        private String contentType;
+        
+        private ContentType(String contentType) {
+            
+            this.contentType = contentType;
+        }
+        
+        public String getContentType() {
+            
+            return contentType;
+        }
+        
+        
+    }
     
     @Column(name = "done")
     Boolean done = false;
@@ -35,6 +57,26 @@ public class Task implements Serializable  {
     
     public Task() {
         
+    }
+    
+    /**
+     * This function returns a SelectItem[] containing the string values of the ContentType enum values.
+     * 
+     * @return SelectItem[]
+     */
+    public SelectItem[] getContentTypes() {
+        
+        //Set up SelectItem the size of the enum
+        SelectItem[] selectItems = new SelectItem[ContentType.values().length];
+        
+        int i = 0;
+        
+        for (ContentType contentType : ContentType.values()) {
+            
+            selectItems[i++] = new SelectItem(contentType, contentType.getContentType());
+        }
+        
+        return selectItems;
     }
 
     public Task(String name) {
@@ -76,6 +118,7 @@ public class Task implements Serializable  {
     public void setName(String name) {
         this.name = name;
     }
+    
 
 //    public List<Video> getVideos() {
 //        return videos;
