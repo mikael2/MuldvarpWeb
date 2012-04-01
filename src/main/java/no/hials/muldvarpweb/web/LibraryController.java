@@ -35,8 +35,11 @@ public class LibraryController implements Serializable {
         this.newLibraryItem = newLibraryItem;
     }
     
-    public LibraryItem addLibraryItem(LibraryItem newLibraryItem){
+    public void addLibraryItem(LibraryItem newLibraryItem){
         service.addLibraryItem(newLibraryItem);
-        return newLibraryItem;
+    }
+    
+    public void makeTestData(){
+        service.makeTestData();
     }
 }
