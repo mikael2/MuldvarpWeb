@@ -20,7 +20,8 @@ import no.hials.muldvarpweb.service.LibraryService;
 @Named
 @SessionScoped
 public class LibraryController implements Serializable {
-    @Inject LibraryService service;
+    @Inject 
+    LibraryService service;
     LibraryItem newLibraryItem;
     List<LibraryItem> libraryList;
 
@@ -35,11 +36,16 @@ public class LibraryController implements Serializable {
         this.newLibraryItem = newLibraryItem;
     }
     
-    public void addLibraryItem(LibraryItem newLibraryItem){
+    public void addLibraryItem(){
         service.addLibraryItem(newLibraryItem);
+        clearItem();
     }
     
     public void makeTestData(){
         service.makeTestData();
+    }
+    
+    public void clearItem(){
+        newLibraryItem = null;
     }
 }
