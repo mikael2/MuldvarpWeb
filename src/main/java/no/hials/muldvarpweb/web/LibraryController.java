@@ -9,6 +9,7 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.service.LibraryService;
 
@@ -23,6 +24,7 @@ public class LibraryController implements Serializable {
     @Inject 
     LibraryService service;
     LibraryItem newLibraryItem;
+    LibraryItem selected;
     List<LibraryItem> libraryList;
 
     public LibraryItem getLibraryItem() {
@@ -48,4 +50,24 @@ public class LibraryController implements Serializable {
     public void clearItem(){
         newLibraryItem = null;
     }
+    
+    public List<LibraryItem> getLibraryItems(){
+        return service.getLibrary();
+    }
+    
+    public void setLibraryItems(List<LibraryItem> libraryList){
+        this.libraryList = libraryList;
+    }
+    
+     public String setSelected(LibraryItem selected) {
+        if(selected == null) {
+            selected = getLibraryItem();
+        }
+        this.selected = selected;
+        return "editLibraryItem";
+    }
+     
+     public void deleteLibraryItem(){
+         //Not yet implemented
+     }
 }
