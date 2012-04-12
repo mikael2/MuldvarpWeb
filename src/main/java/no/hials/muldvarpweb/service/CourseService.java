@@ -60,14 +60,13 @@ public class CourseService {
     @PathParam("val") Integer val) {
         // Sette task som done
         // ide: bruke lagre knapp og lagre alt i ett
-        String retval = "";
+        String retval = "ERROR";
         Course c = getCourse(cid);
         List<Theme> themes = c.getThemes();
         Theme theme = null;
         for(int i = 0; i < themes.size(); i++) {
             if(themes.get(i).getId() == themeid) {
                 theme = themes.get(i);
-                retval += "fant tema ";
             }
         }
         
@@ -81,7 +80,7 @@ public class CourseService {
                     task.setDone(false);
                 }
                 editTask(c, theme, task);
-                retval += "fant task ";
+                retval = "Task completed";
             }
         }
         return retval;
