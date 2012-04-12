@@ -47,11 +47,11 @@
                                 <h:outputText value="Programme: " />
                             </div>
                             <div class="column_right">
-                                <h:selectOneMenu value="#{courseController.selected.programme}">
+                                <h:selectManyCheckbox value="#{courseController.selected.programme}">
                                     
-                                    <f:selectItems value="#{programmeController.programmes}"/>
+                                    <f:selectItems value="#{programmeController.programmeItems}"/>
                                     
-                                </h:selectOneMenu>    
+                                </h:selectManyCheckbox>    
                             </div>
                         </div>
                         
