@@ -41,6 +41,21 @@
                                 <h:inputText value="#{courseController.selected.imageurl}" />
                             </div>
                         </div>
+                        
+                        <div>
+                            <div class="column_left">
+                                <h:outputText value="Programme: " />
+                            </div>
+                            <div class="column_right">
+                                <h:selectOneMenu value="#{courseController.selected.programme}">
+                                    
+                                    <f:selectItems value="#{programmeController.programmes}">
+                                    
+                                </h:selectOneMenu>    
+                            </div>
+                        </div>
+                        
+                        
                     </div>
                     <div style="float:left; width:400px;">
                         <div>
