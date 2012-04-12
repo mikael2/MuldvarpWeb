@@ -52,11 +52,39 @@ public class CourseService {
         return q.getResultList();
     }
     
-    @POST
-    @Path("edit/{cid}/{tid}/{val}")
-    public void setTask(@PathParam("cid") Integer cid, @PathParam("tid") Integer tid, @PathParam("val") Integer val) {
+    @GET
+    @Path("edit/{cid}/{themeid}/{taskid}/{val}")
+    public String setTask(@PathParam("cid") Integer cid,
+    @PathParam("themeid") Integer themeid,
+    @PathParam("taskid") Integer taskid,
+    @PathParam("val") Integer val) {
         // Sette task som done
         // ide: bruke lagre knapp og lagre alt i ett
+        String retval = "";
+        Course c = getCourse(cid);
+        List<Theme> themes = c.getThemes();
+        Theme theme = null;
+        for(int i = 0; i < themes.size(); i++) {
+            if(themes.get(i).getId() == themeid) {
+                theme = themes.get(i);
+                retval += "fant tema ";
+            }
+        }
+        
+        List<Task> tasks = theme.getTasks();
+        for(int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).getId() == taskid) {
+                Task task = tasks.get(i);
+                if(val == 1) {
+                    task.setDone(true);
+                } else if (val == 0) {
+                    task.setDone(false);
+                }
+                editTask(c, theme, task);
+                retval += "fant task ";
+            }
+        }
+        return retval;
     }
     
     public void addCourse(Course course) {
@@ -79,7 +107,7 @@ public class CourseService {
     public void removeCourse(Course course) {
         course = em.merge(course);
         em.remove(course);
-   }
+    }
     
     public void addTheme(Course course, Theme theme) {
         course.addTheme(theme);
