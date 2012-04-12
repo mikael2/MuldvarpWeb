@@ -1,0 +1,42 @@
+<ui:composition template="/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        <h:form>
+            <h:link value="Courses" outcome="listCourses" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selectedTheme.name}" outcome="editTheme" /> -> <h:link value="#{courseController.selectedTask.name}" outcome="editTask" />
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="mainsingle">
+        <h:form id="themeForm">                
+            <p:fieldset legend="#{courseController.selectedTask.name}">
+                <p:dataTable 
+                    value="#{courseController.selectedTask}" 
+                    var="task">
+                    <p:column headerText="Name">  
+                        <h:inputText value="#{task.name}" />
+                    </p:column>
+                    <p:column headerText="Type">  
+                        <h:selectOneListbox headerText="Content Type">
+                            <f:selectItem id="item1" itemLabel="External" itemValue="1" />
+                            <f:selectItem id="item2" itemLabel="Video" itemValue="2" />
+                            <f:selectItem id="item3" itemLabel="PDF" itemValue="3" />                            
+                        </h:selectOneListbox>
+                    </p:column>
+                    <p:column headerText="Content URL">  
+                        <h:inputText value="#{task.content_url}" />
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+            <h:commandLink value="Save" action="#{courseController.editTask()}"/>
+            <h:commandLink value="Delete" action="#{courseController.removeTask(task)}"/>
+        </h:form>
+    </ui:define>
+    
+   
+</ui:composition>
