@@ -65,7 +65,7 @@ public class CourseService {
     }
     
     public void addNewRevCourse(Course course) {
-        course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers());
+        course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers(), course.getProgramme());
         course.setRevision(course.getRevision()+1);
         course = em.merge(course);
         em.persist(course);
