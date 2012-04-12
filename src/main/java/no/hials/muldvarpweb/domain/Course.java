@@ -48,7 +48,7 @@ public class Course implements Serializable {
     @ManyToMany
     List<Person> teachers;
     
-    @ManyToOne
+    @ManyToMany
     Programme programme;
     
     public Course() {
