@@ -1,0 +1,33 @@
+
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        List of Documents
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="docForm">                
+            <p:fieldset legend="Documents">
+                <p:dataTable
+                    id="documentTable"
+                    value="#{libraryController.libraryList}" 
+                    var="LibraryItem">
+                    <p:column headerText="Name">  
+                        <h:commandLink 
+                            action="#{libraryController.setSelected(LibraryItem)}}" 
+                            value="#{LibraryItem.title}" />
+                    </p:column>
+                    <p:column headerText="Revision">  
+                        <p:commandButton  id="deleteButton" value="Delete document" actionListener="#{libraryController.deleteLibraryItem()}}" ajax="false"/>
+                    </p:column>
+                </p:dataTable>          
+            </p:fieldset>
+            <h:commandLink value="New Course" action="#{libraryController.setSelected(null)}" />
+            <p:commandButton value="Make testdata" action="#{libraryController.makeTestData()}" update="documentTable"/>
+        </h:form>
+    </ui:define>
+</html>

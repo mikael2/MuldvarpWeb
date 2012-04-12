@@ -59,13 +59,14 @@
             <p:inputTextarea value="#{libraryController.libraryItem.summary}" rows="5" cols="30"/>
                         
             </p:panelGrid>
-            <h:panelGrid columns="2" style="margin-top:2%; margin-bottom: 5%">  
+            <h:panelGrid columns="3" style="margin-top:2%; margin-bottom: 5%">  
 
-                <p:commandButton  id="submitButton" value="Submit" actionListener="#{libraryController.addLibraryItem(newLibraryItem)}" ajax="false"/>
+                <p:commandButton  id="submitButton" value="Submit" actionListener="#{libraryController.addLibraryItem()}" ajax="false"/>
 
                 <p:commandButton id="clearAllButton" type="button" value="Clear All"
                                     onclick="document.getElementById('metaform').reset()"/>
-
+                
+                <p:commandButton  id="testDataButton" value="Make test data" actionListener="#{libraryController.makeTestData()}" ajax="false"/>
             </h:panelGrid>  
             </h:form>
 
