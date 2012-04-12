@@ -53,8 +53,8 @@ public class CourseService {
     }
     
     @POST
-    @Path("{id}")
-    public void setTask(@PathParam("id") Integer id) {
+    @Path("edit/{cid}/{tid}/{val}")
+    public void setTask(@PathParam("cid") Integer cid, @PathParam("tid") Integer tid, @PathParam("val") Integer val) {
         // Sette task som done
         // ide: bruke lagre knapp og lagre alt i ett
     }
