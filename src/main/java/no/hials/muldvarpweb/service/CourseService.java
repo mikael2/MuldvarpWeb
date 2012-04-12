@@ -183,10 +183,7 @@ public class CourseService {
     
     public void makeTestData() {
         
-        Programme programme = new Programme();
-        programme.setName("Helsefag");
-        programme.setDetail("Fag som har med helse å gjøre.");
-        
+               
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
@@ -257,7 +254,13 @@ public class CourseService {
         
         
         retVal.setThemes(themes);
-        retVal.setProgramme(programme);
+        
+        List<Programme> programmes = new ArrayList<Programme>();
+        programmes.add(new Programme("Helsefag", "Ting som har med helse å gjøre."));
+        programmes.add(new Programme("Biologiske fag", "Ting som har med Biologi å gjøre."));
+        
+        
+        retVal.setProgramme(programmes);
         
         retVal = em.merge(retVal);
         em.persist(retVal);

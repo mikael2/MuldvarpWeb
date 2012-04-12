@@ -49,14 +49,14 @@ public class Course implements Serializable {
     List<Person> teachers;
     
     @ManyToMany
-    Programme programme;
+    List<Programme> programme;
     
     public Course() {
         this.revision = 0;
         this.revision_date = new Date();
     }
 
-    public Course(String name, String detail, String imageurl, Integer revision, List<Theme> themes, List<ObligatoryTask> obligatoryTasks, List<Exam> exams, List<Person> teachers, Programme programme) {
+    public Course(String name, String detail, String imageurl, Integer revision, List<Theme> themes, List<ObligatoryTask> obligatoryTasks, List<Exam> exams, List<Person> teachers, List<Programme> programme) {
         this.name = name;
         this.detail = detail;
         this.imageurl = imageurl;
@@ -233,13 +233,15 @@ public class Course implements Serializable {
         exams.remove(exam);
     }
 
-    public Programme getProgramme() {
+    public List<Programme> getProgramme() {
         return programme;
     }
 
-    public void setProgramme(Programme programme) {
+    public void setProgramme(List<Programme> programme) {
         this.programme = programme;
     }
+
+
     
     
 }
