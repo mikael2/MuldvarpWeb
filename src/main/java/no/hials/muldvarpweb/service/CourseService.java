@@ -154,6 +154,11 @@ public class CourseService {
     }
     
     public void makeTestData() {
+        
+        Programme programme = new Programme();
+        programme.setName("Helsefag");
+        programme.setDetail("Fag som har med helse å gjøre.");
+        
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
@@ -224,6 +229,7 @@ public class CourseService {
         
         
         retVal.setThemes(themes);
+        retVal.setProgramme(programme);
         
         retVal = em.merge(retVal);
         em.persist(retVal);

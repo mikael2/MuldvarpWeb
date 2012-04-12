@@ -79,7 +79,7 @@ public class VideoService {
     public List<Video> findVideos() {
         
 //        Return videos
-//        Removed for now as no database exist
+//        Removed for now as no database existf
         return entityManager.createQuery("SELECT v from Video v", Video.class).getResultList();
         
 //        return getVideoTestData();
