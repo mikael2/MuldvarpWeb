@@ -1,5 +1,4 @@
-
-<html   xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/template.xhtml"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui"
         xmlns:h="http://java.sun.com/jsf/html"
@@ -14,20 +13,20 @@
             <p:fieldset legend="Documents">
                 <p:dataTable
                     id="documentTable"
-                    value="#{libraryController.libraryList}" 
+                    value="#{libraryController.libraryItems}" 
                     var="LibraryItem">
                     <p:column headerText="Name">  
                         <h:commandLink 
-                            action="#{libraryController.setSelected(LibraryItem)}}" 
+                            action="#{libraryController.selected(selected)}" 
                             value="#{LibraryItem.title}" />
                     </p:column>
-                    <p:column headerText="Revision">  
-                        <p:commandButton  id="deleteButton" value="Delete document" actionListener="#{libraryController.deleteLibraryItem()}}" ajax="false"/>
+                    <p:column headerText="Delete">  
+                        <p:commandButton  id="deleteButton" value="Delete document" action="#{libraryController.deleteLibraryItem()}" ajax="false"/>
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>
-            <h:commandLink value="New Course" action="#{libraryController.setSelected(null)}" />
             <p:commandButton value="Make testdata" action="#{libraryController.makeTestData()}" update="documentTable"/>
+            <p:commandButton value="New document" action="newDocument?faces-redirect=true"/>
         </h:form>
     </ui:define>
-</html>
+</ui:composition>

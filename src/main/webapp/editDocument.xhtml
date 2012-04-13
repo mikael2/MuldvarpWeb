@@ -1,0 +1,56 @@
+<ui:composition template="/template.xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        List of Documents
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="docForm">                
+            <p:fieldset legend="Documents">
+                <p:panelGrid columns="2">  
+                    <f:facet name="header">  
+                        Documents  
+                    </f:facet>  
+
+                        <h:outputLabel value="Title: " />
+                        <h:outputLabel value="#{libraryController.libraryItem.title}" />
+
+                        <h:outputLabel value="Alternate title: " />
+                        <p:inputText value="#{libraryController.libraryItem.alternateTitle}"/>
+
+                        <h:outputLabel value="Author: " />
+                        <p:inputText value="#{libraryController.libraryItem.author}"/>
+
+                        <h:outputLabel value="Co-Author: " />
+                        <p:inputText value="#{libraryController.libraryItem.coAuthor}"/>
+
+                        <h:outputLabel value="Published: " />
+                        <p:inputText value="#{libraryController.libraryItem.published}"/>
+
+                        <h:outputLabel value="Number of pages: " />
+                        <p:inputText value="#{libraryController.libraryItem.pageNo}"/>
+
+                        <h:outputLabel value="Icon URL: " />
+                        <p:inputText value="#{libraryController.libraryItem.iconURL}"/>
+
+                        <h:outputLabel value="Thumb URL: " />
+                        <p:inputText value="#{libraryController.libraryItem.thumbURL}"/>
+
+                        <h:outputLabel value="Document URL: " />
+                        <p:inputText value="#{libraryController.libraryItem.URL}"/>
+
+                        <h:outputLabel value="Summary: " /> 
+                        <p:inputTextarea value="#{libraryController.libraryItem.summary}" rows="5" cols="30"/>
+  
+                    <f:facet name="footer">  
+                        <p:commandButton  id="submitButton" value="save" action="listDocuments?faces-redirect=true" actionListener="#{libraryController.addLibraryItem()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                    </f:facet>
+                </p:panelGrid>  
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+</ui:composition>

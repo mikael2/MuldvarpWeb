@@ -76,8 +76,8 @@ public class LibraryService {
         }
         
         public void removeLibraryItem(LibraryItem lI){
+            lI = entityManager.merge(lI);
             entityManager.remove(lI);
-            entityManager.persist(lI);
         }
         
         public void makeTestData(){
