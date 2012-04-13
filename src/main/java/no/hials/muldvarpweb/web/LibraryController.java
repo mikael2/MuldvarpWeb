@@ -66,9 +66,9 @@ public class LibraryController implements Serializable {
         this.selected = selected;
     }
      
-     public void deleteLibraryItem(){
-        if(selected != null) {
-            service.removeLibraryItem(selected);
+     public void deleteLibraryItem(LibraryItem lI){
+        if(lI != null) {
+            service.removeLibraryItem(lI);
         }
     }
      

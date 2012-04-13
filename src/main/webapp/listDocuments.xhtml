@@ -21,7 +21,7 @@
                             value="#{LibraryItem.title}" />
                     </p:column>
                     <p:column headerText="Delete">  
-                        <p:commandButton  id="deleteButton" value="Delete document" action="#{libraryController.deleteLibraryItem()}" ajax="false"/>
+                        <p:commandButton  id="deleteButton" value="Delete document" action="#{libraryController.deleteLibraryItem(LibraryItem)}" ajax="false"/>
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>
