@@ -5,15 +5,15 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="title">
-        List of Documents
+        New Document
     </ui:define>
     
     <ui:define name="right">
         <h:form id="docForm">                
-            <p:fieldset legend="Documents">
+            <p:fieldset legend="New Document">
                 <p:panelGrid columns="2">  
                     <f:facet name="header">  
-                        Documents  
+                        Document  
                     </f:facet>  
 
                     <h:outputLabel value="Title: " />
@@ -47,6 +47,7 @@
                         <p:inputTextarea value="#{libraryController.libraryItem.summary}" rows="5" cols="30"/>
   
                     <f:facet name="footer">  
+                        <p:commandButton id="back" value="Back" ajax="false" action="listDocuments?faces-redirect=true" />
                         <p:commandButton  id="submitButton" value="save" action="listDocuments?faces-redirect=true" actionListener="#{libraryController.addLibraryItem()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
                     </f:facet>
                 </p:panelGrid>  
