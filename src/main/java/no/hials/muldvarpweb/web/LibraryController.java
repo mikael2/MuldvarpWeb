@@ -59,16 +59,27 @@ public class LibraryController implements Serializable {
         this.libraryList = libraryList;
     }
     
-     public void setSelected(LibraryItem selected) {
+     public String setSelected(LibraryItem selected) {
         if(selected == null) {
             selected = getLibraryItem();
         }
         this.selected = selected;
+        return "editDocument";
     }
+     
+     public void select(LibraryItem s){
+         this.selected = s;
+     }
      
      public void deleteLibraryItem(LibraryItem lI){
         if(lI != null) {
             service.removeLibraryItem(lI);
+        }
+    }
+     
+     public void deleteSelectedLibraryItem(){
+        if(selected != null) {
+            service.removeLibraryItem(selected);
         }
     }
      
