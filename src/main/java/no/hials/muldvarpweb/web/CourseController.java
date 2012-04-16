@@ -74,7 +74,7 @@ public class CourseController implements Serializable {
             selected = getCourse();
         }
         this.selected = selected;
-        return "editCourse";
+        return "editCourse?faces-redirect=true";
     }
     
     public String setSelectedTheme(Theme selectedTheme) {
@@ -168,7 +168,7 @@ public class CourseController implements Serializable {
         if(selectedTheme != null) {
             service.editTheme(selected, selectedTheme);
         }
-        return "editCourse";
+        return "editCourse?faces-redirect=true";
     }
     
     public String removeTheme(Theme theme) {
@@ -186,10 +186,10 @@ public class CourseController implements Serializable {
     }
     
     public String removeExam(Exam exam) {
-        if(selected != null) {
+        if(selectedExam != null) {
             service.removeExam(selected, exam);
         }
-        return "editCourse";
+        return "editCourse?faces-redirect=true";
     }
     
     public void addTask() {
@@ -203,14 +203,14 @@ public class CourseController implements Serializable {
         if(selectedTask != null) {
             service.editTask(selected, selectedTheme, selectedTask);
         }
-        return "editCourse";
+        return "editTheme?faces-redirect=true";
     }
     
     public String removeTask(Task task) {
         if(selected != null) {
             service.removeTask(selected, selectedTheme, task);
         }
-        return "editTheme";
+        return "editTheme?faces-redirect=true";
     }
     
     public void addObligatoryTask() {
@@ -224,14 +224,14 @@ public class CourseController implements Serializable {
         if(selectedObligatoryTask != null) {
             service.editObligatoryTask(selected, selectedObligatoryTask);
         }
-        return "editCourse";
+        return "editCourse?faces-redirect=true";
     }
     
     public String removeObligatoryTask(ObligatoryTask obligtask) {
         if(selected != null) {
             service.removeObligatoryTask(selected, obligtask);
         }
-        return "editCourse";
+        return "editCourse?faces-redirect=true";
     }
 
     public Exam getExam() {
@@ -240,10 +240,11 @@ public class CourseController implements Serializable {
         return newExam;
     }
     
-    public void editExam() {
+    public String editExam() {
         if(selectedExam != null) {
             service.editExam(selected, selectedExam);
         }
+        return "editCourse?faces-redirect=true";
     }
 
     public void setExam(Exam newExam) {

@@ -28,7 +28,7 @@
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>
-            <h:commandLink value="New Course" action="#{courseController.setSelected(null)}" />
+            <p:commandButton value="New Course" action="#{courseController.setSelected(null)}" />
             <p:commandButton value="Make testdata" action="#{courseController.makeTestData()}" update="courseTable"/>
         </h:form>
     </ui:define>

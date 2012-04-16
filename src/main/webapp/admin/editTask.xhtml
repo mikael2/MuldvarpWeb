@@ -34,8 +34,8 @@
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
-            <h:commandLink value="Save" action="#{courseController.editTask()}" actionListener="#{courseController.addInfo(1)}"/>
-            <h:commandLink value="Delete" action="#{courseController.removeTask(task)}"/>
+            <p:commandButton value="Save" action="#{courseController.editTask()}"/>
+            <p:commandButton value="Delete" action="#{courseController.removeTask(task)}"/>
         </h:form>
     </ui:define>
     

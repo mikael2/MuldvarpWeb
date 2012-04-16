@@ -47,8 +47,8 @@
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
-            <h:commandLink value="Save" action="#{courseController.editTheme()}" actionListener="#{courseController.addInfo(1)}"/>
-            <h:commandLink value="Delete" action="#{courseController.removeTheme(theme)}"/>
+            <p:commandButton value="Save" action="#{courseController.editTheme()}"/>
+            <p:commandButton value="Delete" action="#{courseController.removeTheme(theme)}"/>
         </h:form>
     </ui:define>
     
