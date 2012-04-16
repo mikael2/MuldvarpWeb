@@ -7,6 +7,8 @@ package no.hials.muldvarpweb.web;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.*;
@@ -280,5 +282,22 @@ public class CourseController implements Serializable {
     
     public void makeTestData() {
         service.makeTestData();
+    }
+    
+    public void addInfo(int i) {  
+        switch(i) {
+            case 1:
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "INFO: ", "Changes saved"));
+                break;
+            case 2:
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "INFO: ", "Course deleted"));
+                break;
+            case 3:
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "INFO: ", "New revision created"));
+                break;
+         }
     }
 }

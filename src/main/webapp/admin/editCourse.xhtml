@@ -16,6 +16,7 @@
         <h:form id="courseForm">
             <p:fieldset legend="#{courseController.selected.name}">
                 <div style="width:1100px">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true"/>
                     <div style="float:left; width: 500px;">
                         <div>
                             <div class="column_left">
@@ -46,13 +47,13 @@
                             <div class="column_left">
                                 <h:outputText value="Programme: " />
                             </div>
-                            <div class="column_right">
+                            <!--<div class="column_right">
                                 <h:selectOneMenu value="#{courseController.selected.programme}">
                                     
                                     <f:selectItems value="#{programmeController.programmes}"/>
                                     
                                 </h:selectOneMenu>    
-                            </div>
+                            </div>-->
                         </div>
                         
                         
@@ -76,9 +77,9 @@
                         </div>
                     </div>
                     <div style="float:left; width: 200px;">
-                        <h:commandLink value="Save" action="#{courseController.editCourse()}"/> <br />
-                        <h:commandLink value="New Revision" action="#{courseController.addNewRevCourse()}"/> <br />
-                        <h:commandLink value="Delete" action="#{courseController.removeCourse()}"/>
+                        <h:commandLink value="Save" action="#{courseController.editCourse()}" actionListener="#{courseController.addInfo(1)}"/> <br />
+                        <h:commandLink value="New Revision" action="#{courseController.addNewRevCourse()}" actionListener="#{courseController.addInfo(3)}"/> <br />
+                        <h:commandLink value="Delete" action="#{courseController.removeCourse()}" actionListener="#{courseController.addInfo(2)}"/>
                     </div>
                 </div>
                 <div style="clear:both;" />

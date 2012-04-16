@@ -13,7 +13,8 @@
     </ui:define>
     
     <ui:define name="mainsingle">
-        <h:form id="obligForm">                
+        <h:form id="obligForm">   
+            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
             <p:fieldset legend="#{courseController.selectedObligatoryTask.name}">
                 <p:dataTable 
                     value="#{courseController.selectedObligatoryTask}" 
@@ -23,7 +24,7 @@
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
-            <h:commandLink value="Save" action="#{courseController.editObligatoryTask()}"/>
+            <h:commandLink value="Save" action="#{courseController.editObligatoryTask()}" actionListener="#{courseController.addInfo(1)}"/>
             <h:commandLink value="Delete" action="#{courseController.removeObligatoryTask(selectedObligatoryTask)}"/>
         </h:form>
     </ui:define>

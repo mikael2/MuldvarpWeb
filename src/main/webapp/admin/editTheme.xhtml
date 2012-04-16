@@ -13,7 +13,8 @@
     </ui:define>
     
     <ui:define name="mainsingle">
-        <h:form id="themeForm">                
+        <h:form id="themeForm">      
+            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
             <p:fieldset legend="#{courseController.selectedTheme.name}">
                 <p:dataTable 
                     value="#{courseController.selectedTheme}" 
@@ -46,7 +47,7 @@
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
-            <h:commandLink value="Save" action="#{courseController.editTheme()}"/>
+            <h:commandLink value="Save" action="#{courseController.editTheme()}" actionListener="#{courseController.addInfo(1)}"/>
             <h:commandLink value="Delete" action="#{courseController.removeTheme(theme)}"/>
         </h:form>
     </ui:define>
