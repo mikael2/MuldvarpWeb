@@ -13,7 +13,8 @@
     </ui:define>
     
     <ui:define name="mainsingle">
-        <h:form id="examForm">                
+        <h:form id="examForm">    
+            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
             <p:fieldset legend="#{courseController.selectedExam.name}">
                 <p:dataTable 
                     value="#{courseController.selectedExam}" 
@@ -23,8 +24,8 @@
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
-            <h:commandLink value="Save" action="#{courseController.editExam()}"/>
-            <h:commandLink value="Delete" action="#{courseController.removeExam(selectedExam)}"/>
+            <p:commandButton value="Save" action="#{courseController.editExam()}"/>
+            <p:commandButton value="Delete" action="#{courseController.removeExam(selectedExam)}"/>
         </h:form>
     </ui:define>
     

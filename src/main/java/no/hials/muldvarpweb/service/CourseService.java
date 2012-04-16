@@ -60,14 +60,13 @@ public class CourseService {
     @PathParam("val") Integer val) {
         // Sette task som done
         // ide: bruke lagre knapp og lagre alt i ett
-        String retval = "";
+        String retval = "ERROR";
         Course c = getCourse(cid);
         List<Theme> themes = c.getThemes();
         Theme theme = null;
         for(int i = 0; i < themes.size(); i++) {
             if(themes.get(i).getId() == themeid) {
                 theme = themes.get(i);
-                retval += "fant tema ";
             }
         }
         
@@ -81,7 +80,7 @@ public class CourseService {
                     task.setDone(false);
                 }
                 editTask(c, theme, task);
-                retval += "fant task ";
+                retval = "Task completed";
             }
         }
         return retval;
@@ -93,7 +92,7 @@ public class CourseService {
     }
     
     public void addNewRevCourse(Course course) {
-        course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers());
+        course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers(), course.getProgramme());
         course.setRevision(course.getRevision()+1);
         course = em.merge(course);
         em.persist(course);
@@ -182,6 +181,8 @@ public class CourseService {
     }
     
     public void makeTestData() {
+        
+               
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
@@ -252,6 +253,13 @@ public class CourseService {
         
         
         retVal.setThemes(themes);
+        
+        List<Programme> programmes = new ArrayList<Programme>();
+        programmes.add(new Programme("Helsefag", "Ting som har med helse å gjøre."));
+        programmes.add(new Programme("Biologiske fag", "Ting som har med Biologi å gjøre."));
+        
+        
+        retVal.setProgramme(programmes);
         
         retVal = em.merge(retVal);
         em.persist(retVal);

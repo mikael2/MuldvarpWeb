@@ -1,1 +1,10 @@
 /target/
+src/main/webapp/Admin/editExam.xhtml
+
+src/main/webapp/Admin/editObligTask.xhtml
+
+src/main/webapp/Admin/editTask.xhtml
+
+src/main/webapp/Admin/editTheme.xhtml
+
+src/main/webapp/Admin/listCourses.xhtml

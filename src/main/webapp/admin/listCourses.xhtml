@@ -11,7 +11,8 @@
     </ui:define>
     
     <ui:define name="right">
-        <h:form id="productForm">                
+        <h:form id="productForm">
+            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
             <p:fieldset legend="Courses">
                 <p:dataTable
                     id="courseTable"
@@ -27,7 +28,7 @@
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>
-            <h:commandLink value="New Course" action="#{courseController.setSelected(null)}" />
+            <p:commandButton value="New Course" action="#{courseController.setSelected(null)}" />
             <p:commandButton value="Make testdata" action="#{courseController.makeTestData()}" update="courseTable"/>
         </h:form>
     </ui:define>
