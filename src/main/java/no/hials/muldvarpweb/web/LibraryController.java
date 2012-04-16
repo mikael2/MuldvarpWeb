@@ -4,17 +4,17 @@
  */
 package no.hials.muldvarpweb.web;
 
+import java.io.DataInputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.service.LibraryService;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -48,7 +48,7 @@ public class LibraryController implements Serializable {
     
     public void editSelected(){
         service.addLibraryItem(selected);
-    //    addInfo(ActionEvent e);
+        addInfo(3);
     }
     
     public void makeTestData(){
@@ -101,13 +101,28 @@ public class LibraryController implements Serializable {
          }
     }
      
-     public void addInfo(int i) {  
-         if(i==1){
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "Testdata produced"));
-         }
-         else if(i==2){
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HELP: ", "Press the edit buttons on the right side to edit the document details."));
+     public void addInfo(int i) { 
+         switch(i){
+             case 1:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "Testdata produced."));
+                 break;
+                 
+             case 2:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HELP: ", "Press the edit buttons on the right side to edit the document details."));
+                 break;
+                 
+             case 3:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "Changes registered."));
+                 break;
+                 
+             case 4:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "This method is not yet implemented."));
+                 break;
          }
     }
-     
+     public void handleFileUpload(FileUploadEvent event) {  
+        FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");  
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+    }
 }

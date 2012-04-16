@@ -18,7 +18,7 @@
                     </f:facet>  
 
                         <h:outputLabel value="Title: " />
-                        <h:outputLabel value="#{libraryController.selected.title}" />
+                        <h:outputLabel value="#{libraryController.selected.title}" id="title"/>
                         <p:commandButton id="editTitle" value="Edit" onclick="dlg1.show();" type="button" />
                         
                         
@@ -71,7 +71,7 @@
 
                         <h:outputLabel value="Document URL: " />
                         <h:outputLabel value="#{libraryController.selected.URL}"/>
-                        <p:commandButton id="editURL" value="Edit" onclick="dlg9.show();" type="button" />
+                        <br/>
                         
                         
 
@@ -85,109 +85,82 @@
                         <p:commandButton id="back" value="Back" ajax="false" action="listDocuments?faces-redirect=true" />
                         <p:commandButton id="deleteButton" value="Delete document" actionListener="#{libraryController.deleteSelectedLibraryItem()}" ajax="false" action="listDocuments?faces-redirect=true" />
                         <p:commandButton id="helpButton" value="Help" actionListener="#{libraryController.addInfo(2)}"/>
+                        <p:commandButton  id="submitButton" value="save" action="listDocuments?faces-redirect=true" actionListener="#{libraryController.editSelected()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
                     </f:facet>
                 </p:panelGrid>  
             </p:fieldset>
+            </h:form>
             <p:dialog id="summaryDialog" header="Edit summary" widgetVar="dlg10"> 
+                <h:form id="summaryForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New summary: " />  
                             <p:inputTextarea value="#{libraryController.libraryItem.summary}" rows="5" cols="30"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg10.hide();" type="button" />
-                                <p:commandButton value="Cancel" onclick="dlg10.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
-            <p:dialog id="URLDialog" header="Edit document URL" widgetVar="dlg9"> 
-                            <p:panelGrid columns="2">
-                            <h:outputText value="New document URL: " />  
-                            <p:inputText value="#{libraryController.selected.URL}"/>
-                            </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg9.hide();" type="button" ajax="false"/>
-                                <p:commandButton value="Cancel" onclick="dlg9.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
+                </h:form>
+            </p:dialog>
             <p:dialog id="thumbURLDialog" header="Edit thumb URL" widgetVar="dlg8"> 
+                <h:form id="thumbURLForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New thumb URL: " />  
                             <p:inputText value="#{libraryController.selected.thumbURL}"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg8.hide();" type="button" />
-                                <p:commandButton value="Cancel" onclick="dlg8.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
+                </h:form>
+            </p:dialog>
             <p:dialog id="iconURLDialog" header="Edit icon URL" widgetVar="dlg7"> 
+                <h:form id="iconURLForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New icon URL: " />  
                             <p:inputText value="#{libraryController.selected.iconURL}"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg7.hide();" type="button" />
-                                <p:commandButton value="Cancel" onclick="dlg7.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
-            <p:dialog id="pageNoDialog" header="Edit number of pages" widgetVar="dlg6"> 
+                </h:form>
+            </p:dialog>
+            <p:dialog id="pageNoDialog" header="Edit number of pages" widgetVar="dlg6">
+                <h:form id="pageNoForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New number of pages: " />  
                             <p:inputText value="#{libraryController.selected.pageNo}"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg6.hide();" type="button" />
-                                <p:commandButton value="Cancel" onclick="dlg6.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
+                </h:form>
+            </p:dialog>
             <p:dialog id="publishedDialog" header="Edit date of publishing" widgetVar="dlg5"> 
+                <h:form id="publishedForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New publishing date: " />  
                             <p:inputText value="#{libraryController.selected.published}"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg5.hide();" type="button" />
-                                <p:commandButton value="Cancel" onclick="dlg5.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
+                </h:form>
+            </p:dialog>
             <p:dialog id="coAuthorDialog" header="Edit co author" widgetVar="dlg4"> 
+                <h:form id="coAuthorForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New co author: " />  
                             <p:inputText value="#{libraryController.selected.coAuthor}"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg4.hide();" type="button" />
-                                <p:commandButton value="Cancel" onclick="dlg4.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
-            <p:dialog id="authorDialog" header="Edit author" widgetVar="dlg3"> 
+                </h:form>
+            </p:dialog>
+            <p:dialog id="authorDialog" header="Edit author" widgetVar="dlg3">
+                <h:form id="authorForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New author: " />  
                             <p:inputText value="#{libraryController.selected.author}"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg3.hide();" type="button" />
-                                <p:commandButton value="Cancel" onclick="dlg3.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
-            <p:dialog id="altTitleDialog" header="Edit alternate title" widgetVar="dlg2"> 
+                </h:form>
+            </p:dialog>
+            <p:dialog id="altTitleDialog" header="Edit alternate title" widgetVar="dlg2">
+                <h:form id="altTitleForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New alternate title: " />  
                             <p:inputText value="#{libraryController.selected.alternateTitle}"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" onclick="dlg2.hide();" type="button" />
-                                <p:commandButton value="Cancel" onclick="dlg2.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
-            <p:dialog id="titleDialog" header="Edit title" widgetVar="dlg1"> 
+                </h:form>
+            </p:dialog>
+            <p:dialog id="titleDialog" header="Edit title" widgetVar="dlg1">
+                <h:form id="titleForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New title: " />  
                             <p:inputText value="#{libraryController.selected.title}"/>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton value="save" action="#{libraryController.editSelected()}" ajax="false" onclick="dlg1.hide();" type="button" update="docForm"/>
-                                <p:commandButton value="Cancel" onclick="dlg1.hide();" type="button" />
-                            </f:facet>
-                        </p:dialog>
-        </h:form>
+                </h:form>
+            </p:dialog>
     </ui:define>
 </ui:composition>
