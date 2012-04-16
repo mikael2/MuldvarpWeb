@@ -11,7 +11,24 @@
     </ui:define>
    
     <ui:define name="mainsingle">
-        Welcome to muldvarp blablablabla
+        <p:panelGrid columns="4">
+            <h:link outcome="admin/newArticle" >
+                <h:graphicImage value="img/Sites-alt-icon.png" />
+            </h:link>
+            <h:link outcome="listDocuments" >
+                <h:graphicImage value="img/Document-icon.png" />
+            </h:link>
+            <h:link outcome="admin/newVideo" >
+                <h:graphicImage value="img/Movies-icon.png" />
+            </h:link>
+            <h:link outcome="admin/listCourses" >
+                <h:graphicImage value="img/Library-alt-icon.png" />
+            </h:link>
+            <h:outputLabel value="News"/>
+            <h:outputLabel value="Documents"/>
+            <h:outputLabel value="Videos"/>
+            <h:outputLabel value="Courses"/>
+        </p:panelGrid>
     </ui:define>
     
 </ui:composition>
