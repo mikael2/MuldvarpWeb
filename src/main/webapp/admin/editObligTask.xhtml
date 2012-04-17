@@ -22,6 +22,15 @@
                     <p:column headerText="Name">  
                         <h:inputText value="#{oblig.name}" />
                     </p:column>
+                    <p:column headerText="Due date">
+                        <p:calendar value="#{oblig.dueDate}" id="dueDate" />
+                    </p:column>
+                    <p:column headerText="Accepted date">
+                        <h:outputText value="#{oblig.acceptedDate}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton action="#{courseController.acceptObligatoryTask()}" value="Accept"/>
+                    </p:column>
                 </p:dataTable>
             </p:fieldset>
             <p:commandButton value="Save" action="#{courseController.editObligatoryTask()}"/>

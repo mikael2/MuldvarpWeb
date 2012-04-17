@@ -233,6 +233,13 @@ public class CourseController implements Serializable {
         }
         return "editCourse?faces-redirect=true";
     }
+    
+    public String acceptObligatoryTask() {
+        if(selectedObligatoryTask != null) {
+            service.acceptObligatoryTask(selected, selectedObligatoryTask);
+        }
+        return "editObligTask?faces-redirect=true";
+    }
 
     public Exam getExam() {
         if(newExam == null)

@@ -167,6 +167,11 @@ public class CourseService {
         em.persist(course);
     }
     
+    public void acceptObligatoryTask(Course course, ObligatoryTask obligtask) {
+        obligtask.acceptTask();
+        editObligatoryTask(course, obligtask);
+    }
+    
     public void addExam(Course course, Exam exam) {
         course.addExam(exam);
         course = em.merge(course);
