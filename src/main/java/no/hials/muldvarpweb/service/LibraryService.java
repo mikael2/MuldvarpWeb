@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.LibraryItem;
 
 /**
@@ -76,8 +77,8 @@ public class LibraryService {
         }
         
         public void removeLibraryItem(LibraryItem lI){
+            lI = entityManager.merge(lI);
             entityManager.remove(lI);
-            entityManager.persist(lI);
         }
         
         public void makeTestData(){
