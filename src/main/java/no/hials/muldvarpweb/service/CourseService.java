@@ -190,6 +190,11 @@ public class CourseService {
         em.persist(course);
     }
     
+    public void addProgramme(Course c, Programme p) {
+        c.addProgramme(p);
+        editCourse(c);
+    }
+    
     public void makeTestData() {     
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");

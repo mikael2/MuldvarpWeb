@@ -318,5 +318,7 @@ public class CourseController implements Serializable {
         this.programmes = programmes;
     }
     
-    
+    public void addProgramme(Programme p) {
+        service.addProgramme(selected, p);
+    }
 }

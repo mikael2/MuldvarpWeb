@@ -252,4 +252,7 @@ public class Course implements Serializable {
         this.programmes = programmes;
     }
     
+    public void addProgramme(Programme p) {
+        programmes.add(p);
+    }
 }

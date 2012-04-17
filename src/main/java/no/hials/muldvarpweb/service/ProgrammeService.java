@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.Programme;
 
 /**
@@ -69,5 +70,10 @@ public class ProgrammeService {
     public void editProgramme(Programme selected) {
         selected = em.merge(selected);
         em.persist(selected);
+    }
+
+    public void removeCourseFromProgramme(Programme selected, Course c) {
+        selected.removeCourse(c);
+        editProgramme(selected);
     }
 }

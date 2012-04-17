@@ -117,6 +117,6 @@ public class ProgrammeController implements Serializable{
     }
     
     public void removeCourseFromProgramme(Course c) {
-        
+        service.removeCourseFromProgramme(selected, c);
     }
 }

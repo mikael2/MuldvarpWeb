@@ -84,4 +84,13 @@ public class Programme implements Serializable{
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+
+    public void removeCourse(Course c) {
+        courses.remove(c);
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
