@@ -97,7 +97,7 @@ public class CourseService {
     }
     
     public void addNewRevCourse(Course course) {
-        course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers(), course.getProgramme());
+        course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers(), course.getProgrammes());
         course.setRevision(course.getRevision()+1);
         course = em.merge(course);
         em.persist(course);
@@ -190,9 +190,7 @@ public class CourseService {
         em.persist(course);
     }
     
-    public void makeTestData() {
-        
-               
+    public void makeTestData() {     
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
@@ -261,15 +259,7 @@ public class CourseService {
         theme2.setTasks(tasks2);
         themes.add(theme2);
         
-        
         retVal.setThemes(themes);
-        
-        List<Programme> programmes = new ArrayList<Programme>();
-        programmes.add(new Programme("Helsefag", "Ting som har med helse å gjøre."));
-        programmes.add(new Programme("Biologiske fag", "Ting som har med Biologi å gjøre."));
-        
-        
-        retVal.setProgramme(programmes);
         
         retVal = em.merge(retVal);
         em.persist(retVal);

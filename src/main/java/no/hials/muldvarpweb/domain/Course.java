@@ -26,6 +26,9 @@ public class Course implements Serializable {
     @Column(name = "detail")
     String detail;
     
+//    @Column(name = "description")
+//    String description;
+    
     @Column(name = "imageurl")
     String imageurl;
     
@@ -48,8 +51,8 @@ public class Course implements Serializable {
     @ManyToMany
     List<Person> teachers;
     
-    @ManyToMany
-    List<Programme> programme;
+    @ManyToMany(mappedBy = "courses")
+    private List<Programme> programmes;
     
     public Course() {
         this.revision = 0;
@@ -66,7 +69,7 @@ public class Course implements Serializable {
         this.obligatoryTasks = obligatoryTasks;
         this.exams = exams;
         this.teachers = teachers;
-        this.programme = programme;
+        this.programmes = programme;
     }
 
     public Integer getId() {
@@ -233,15 +236,20 @@ public class Course implements Serializable {
         exams.remove(exam);
     }
 
-    public List<Programme> getProgramme() {
-        return programme;
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
+
+    public List<Programme> getProgrammes() {
+        return programmes;
     }
 
-    public void setProgramme(List<Programme> programme) {
-        this.programme = programme;
+    public void setProgrammes(List<Programme> programmes) {
+        this.programmes = programmes;
     }
-
-
-    
     
 }

@@ -34,6 +34,7 @@ public class CourseController implements Serializable {
     Task selectedTask;
     ObligatoryTask selectedObligatoryTask;
     Exam selectedExam;
+    List<Programme> programmes;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -308,4 +309,14 @@ public class CourseController implements Serializable {
                 break;
          }
     }
+
+    public List<Programme> getProgrammes() {
+        return programmes;
+    }
+
+    public void setProgrammes(List<Programme> programmes) {
+        this.programmes = programmes;
+    }
+    
+    
 }
