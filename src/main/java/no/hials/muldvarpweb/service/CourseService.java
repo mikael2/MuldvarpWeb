@@ -92,7 +92,7 @@ public class CourseService {
     }
     
     public void addNewRevCourse(Course course) {
-        course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers(), course.getProgramme());
+        course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers(), course.getProgrammes());
         course.setRevision(course.getRevision()+1);
         course = em.merge(course);
         em.persist(course);
@@ -259,7 +259,7 @@ public class CourseService {
         programmes.add(new Programme("Biologiske fag", "Ting som har med Biologi å gjøre."));
         
         
-        retVal.setProgramme(programmes);
+        retVal.setProgrammes(programmes);
         
         retVal = em.merge(retVal);
         em.persist(retVal);

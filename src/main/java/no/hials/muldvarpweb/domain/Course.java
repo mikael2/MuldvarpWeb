@@ -233,11 +233,11 @@ public class Course implements Serializable {
         exams.remove(exam);
     }
 
-    public List<Programme> getProgramme() {
+    public List<Programme> getProgrammes() {
         return programme;
     }
 
-    public void setProgramme(List<Programme> programme) {
+    public void setProgrammes(List<Programme> programme) {
         this.programme = programme;
     }
 

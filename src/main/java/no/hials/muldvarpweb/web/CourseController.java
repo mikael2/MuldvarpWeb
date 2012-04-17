@@ -5,8 +5,10 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.*;
@@ -280,5 +282,40 @@ public class CourseController implements Serializable {
     
     public void makeTestData() {
         service.makeTestData();
+    }
+    
+        /**
+     * This function retrieves a list of programs and creates a list of Select Items for use with JSF
+     * 
+     * 
+     * @return List of SelectItem
+     */
+    public List<SelectItem> getProgrammeItems(List<Programme> programmeList) {
+        
+        
+        List<SelectItem> selectItems = new ArrayList<SelectItem>();
+        
+        
+        
+        for (int i = 0; i < programmeList.size(); i++) {
+            
+            SelectItem currentSelectItem;
+            
+            
+            for(int n = 0; n < selected.getProgrammes().size() ; n++) {
+                
+                
+                if(programmeList.get(i).getId() == selected.getProgrammes().get(n).getId()){
+
+                    
+                }
+                
+            }
+            
+            selectItems.add(new SelectItem(programmeList.get(i), programmeList.get(i).getName()));
+            
+        }
+        
+        return selectItems;
     }
 }
