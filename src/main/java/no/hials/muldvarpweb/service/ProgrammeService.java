@@ -76,4 +76,9 @@ public class ProgrammeService {
         selected.removeCourse(c);
         editProgramme(selected);
     }
+
+    public void removeProgramme(Programme p) {
+        p = em.merge(p);
+        em.remove(p);
+    }
 }

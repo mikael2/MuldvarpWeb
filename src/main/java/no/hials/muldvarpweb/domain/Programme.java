@@ -89,8 +89,8 @@ public class Programme implements Serializable{
         courses.remove(c);
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
+//    @Override
+//    public String toString() {
+//        return name;
+//    }
 }

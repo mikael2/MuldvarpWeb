@@ -67,7 +67,14 @@ public class ProgrammeController implements Serializable{
         if(selected != null) {
             service.editProgramme(selected);
         }
-        return "listProgrammes";
+        return "listProgramme";
+    }
+    
+    public String removeProgramme() {
+        if(selected != null ) {
+            service.removeProgramme(selected);
+        }
+        return "listProgramme?faces-redirect=true";
     }
     
     /**
@@ -79,7 +86,10 @@ public class ProgrammeController implements Serializable{
         programmeList = service.findProgrammes();
         return programmeList;
     }
-    
+
+    public void setProgramme(List<Programme> programmeList) {
+        this.programmeList = programmeList;
+    }
     
     /**
      * This function makes a call to the ProgrammeService instantiation and adds the supplied Programme.

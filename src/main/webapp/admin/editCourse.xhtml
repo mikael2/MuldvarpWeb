@@ -41,20 +41,17 @@
                             <div class="column_right">
                                 <h:inputText value="#{courseController.selected.imageurl}" />
                             </div>
-                        </div>
-                        
+                        </div>                        
                         <div>
                             <div class="column_left">
                                 <h:outputText value="Programme: " />
                             </div>
                             <div class="column_right">
                                 <h:selectManyCheckbox value="#{courseController.programmes}">
-                                    <f:selectItems value="#{programmeController.programmes}" />
+                                    <f:selectItems value="#{programmeController.programmes}" var="p" itemLabel="#{p.name}" />
                                 </h:selectManyCheckbox>
                             </div>
                         </div>
-                        
-                        
                     </div>
                     <div style="float:left; width:400px;">
                         <div>
