@@ -45,15 +45,21 @@
                         
                         <div>
                             <div class="column_left">
-                                <h:outputText value="Programme: " />
+                                <h:outputText value="Programme: "/>
                             </div>
-                            <!--<div class="column_right">
-                                <h:selectOneMenu value="#{courseController.selected.programme}">
+                            <div class="column_right">
+                               <!-- <h:selectManyCheckbox value="#{courseController.selected.programmes}">
                                     
-                                    <f:selectItems value="#{programmeController.programmeItems}"/>
+                                    <f:selectItems value="#{courseController.programmeItems(programmeController.programmeItems)}"/>
                                     
-                                </h:selectOneMenu>    
-                            </div>-->
+                                </h:selectManyCheckbox> -->   
+                                
+                                <h:selectManyCheckbox value="#{courseController.selected.programmes}">
+                                    
+                                    <f:selectItems value="#{programmeController.programmes}}"/>
+                                    
+                                </h:selectManyCheckbox>
+                            </div>
                         </div>
                         
                         

@@ -1,0 +1,138 @@
+<ui:composition template="/template.xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        Document Details
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="docForm">                
+            <p:fieldset legend="Video details">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                <p:panelGrid columns="3">  
+                    <f:facet name="header">  
+                        #{videoController.selectedVideo.videoName}  
+                    </f:facet>  
+
+                        <h:outputLabel value="Video Title: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoName}" id="title"/>
+                        <p:commandButton id="editTitle" value="Edit" onclick="dlg1.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Video Description: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoDescription}"/>
+                        <p:commandButton id="editAltTitle" value="Edit" onclick="dlg2.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Video Type: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoType}"/>
+                        <p:commandButton id="editAuthor" value="Edit" onclick="dlg3.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Video URI: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoURI}"/>
+                        <p:commandButton id="editCoAuthor" value="Edit" onclick="dlg4.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Video Icon URI: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoIconURI}"/>
+                        <p:commandButton id="editPublished" value="Edit" onclick="dlg5.show();" type="button" />
+                        
+                       
+                        
+                        <h:outputLabel value="Video Thumb URI: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoThumbURI}"/>
+                        <br/>
+                        
+                        
+  
+                    <f:facet name="footer">  
+                        <p:commandButton id="back" value="Back" ajax="false" action="listVideos?faces-redirect=true" />
+                        <p:commandButton id="deleteButton" value="Delete video" actionListener="#{videoController.deleteVideo()}" ajax="false" action="listVideos?faces-redirect=true" />
+                        <p:commandButton id="helpButton" value="Help" actionListener="#{libraryController.addInfo(2)}"/>
+                        <p:commandButton  id="submitButton" value="save" action="FW?faces-redirect=true" actionListener="#{libraryController.editSelected()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                    </f:facet>
+                </p:panelGrid>  
+            </p:fieldset>
+            </h:form>
+            <p:dialog id="summaryDialog" header="Edit summary" widgetVar="dlg10"> 
+                <h:form id="summaryForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New summary: " />  
+                            <p:inputTextarea value="#{libraryController.libraryItem.summary}" rows="5" cols="30"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="thumbURLDialog" header="Edit thumb URL" widgetVar="dlg8"> 
+                <h:form id="thumbURLForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New thumb URL: " />  
+                            <p:inputText value="#{libraryController.selected.thumbURL}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="iconURLDialog" header="Edit icon URL" widgetVar="dlg7"> 
+                <h:form id="iconURLForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New icon URL: " />  
+                            <p:inputText value="#{libraryController.selected.iconURL}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="pageNoDialog" header="Edit number of pages" widgetVar="dlg6">
+                <h:form id="pageNoForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New number of pages: " />  
+                            <p:inputText value="#{libraryController.selected.pageNo}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="publishedDialog" header="Edit date of publishing" widgetVar="dlg5"> 
+                <h:form id="publishedForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New publishing date: " />  
+                            <p:inputText value="#{libraryController.selected.published}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="coAuthorDialog" header="Edit co author" widgetVar="dlg4"> 
+                <h:form id="coAuthorForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New co author: " />  
+                            <p:inputText value="#{libraryController.selected.coAuthor}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="authorDialog" header="Edit author" widgetVar="dlg3">
+                <h:form id="authorForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New author: " />  
+                            <p:inputText value="#{libraryController.selected.author}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="altTitleDialog" header="Edit alternate title" widgetVar="dlg2">
+                <h:form id="altTitleForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New alternate title: " />  
+                            <p:inputText value="#{libraryController.selected.alternateTitle}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="titleDialog" header="Edit title" widgetVar="dlg1">
+                <h:form id="titleForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New title: " />  
+                            <p:inputText value="#{libraryController.selected.title}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+    </ui:define>
+</ui:composition>
