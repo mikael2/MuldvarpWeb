@@ -4,17 +4,31 @@
  */
 package no.hials.muldvarpweb.domain;
 
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.*;
 
 /**
  *
  * @author kristoffer
  */
-public class Question {
+@Entity
+@Table(name = "question")
+public class Question implements Serializable {
+    @Id
+    @GeneratedValue
     long id;
     String name;
+    
+    @OneToMany
     List<Alternative> alternatives;
-    int answer;
+    
+    @OneToOne
+    Alternative answer;
+
+    public long getId() {
+        return id;
+    }
 
     public List<Alternative> getAlternatives() {
         return alternatives;
@@ -24,11 +38,11 @@ public class Question {
         this.alternatives = alternatives;
     }
 
-    public int getAnswer() {
+    public Alternative getAnswer() {
         return answer;
     }
 
-    public void setAnswer(int answer) {
+    public void setAnswer(Alternative answer) {
         this.answer = answer;
     }
 
@@ -39,20 +53,8 @@ public class Question {
     public void setName(String name) {
         this.name = name;
     }
-    
-    public static class Alternative {
-        int id;
-        String name;
-        
-        public Alternative() {
-        }
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
+    public void addAlternative(Alternative newAlternative) {
+        alternatives.add(newAlternative);
     }
 }

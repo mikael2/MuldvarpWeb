@@ -5,6 +5,7 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.faces.model.SelectItem;
 import javax.persistence.*;
 
@@ -21,6 +22,21 @@ public class Task implements Serializable  {
     
     @Column(name = "name")
     String name;
+    
+    @OneToMany
+    List<Question> questions;
+
+    public void addQuestion(Question newQuestion) {
+        questions.add(newQuestion);
+    }
+
+    public void editQuestion(Question q) {
+        for(int i = 0; i < questions.size(); i++) {
+            if(questions.get(i).getId() == q.getId()) {
+                questions.set(i, q);
+            }
+        }
+    }
     
     
     public enum ContentType {
@@ -127,6 +143,14 @@ public class Task implements Serializable  {
 //    public void setVideos(List<Video> videos) {
 //        this.videos = videos;
 //    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
     
     
 }
