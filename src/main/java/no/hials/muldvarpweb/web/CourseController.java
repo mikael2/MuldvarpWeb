@@ -27,6 +27,8 @@ public class CourseController implements Serializable {
     Task newTask;
     ObligatoryTask newObligatoryTask;
     Exam newExam;
+    Question newQuestion;
+    Alternative newAlternative;
     List<Course> courses;
     Course selected;
     Course filter;
@@ -34,6 +36,8 @@ public class CourseController implements Serializable {
     Task selectedTask;
     ObligatoryTask selectedObligatoryTask;
     Exam selectedExam;
+    Question selectedQuestion;
+    Alternative selectedAlternative;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -111,6 +115,15 @@ public class CourseController implements Serializable {
     public String setSelectedObligatoryTask(ObligatoryTask selectedObligatoryTask) {
         this.selectedObligatoryTask = selectedObligatoryTask;
         return "editObligTask";
+    }
+
+    public Question getSelectedQuestion() {
+        return selectedQuestion;
+    }
+
+    public String setSelectedQuestion(Question selectedQuestion) {
+        this.selectedQuestion = selectedQuestion;
+        return "editQuestion";
     }
 
     public CourseService getService() {
@@ -320,4 +333,44 @@ public class CourseController implements Serializable {
     public void addProgramme(Programme p) {
         selected.addProgramme(p);
     }
+
+    public Question getQuestion() {
+        if(newQuestion == null)
+            newQuestion = new Question();
+        return newQuestion;
+    }
+    
+    public void addQuestion() {
+        if(newQuestion != null && selected != null) {
+            service.addQuestion(selected, selectedTheme, selectedTask, newQuestion);
+            newQuestion = null;
+        }
+    }
+    
+    public void setAnswer(Alternative a) {
+        if(selectedQuestion != null) {
+            service.setAnswer(selected, selectedTheme, selectedTask, selectedQuestion, a);
+        }
+    }
+    
+    public void addAlternative() {
+        if(newAlternative != null && selected != null) {
+            service.addAlternative(selected, selectedTheme, selectedTask, selectedQuestion, newAlternative);
+            newAlternative = null;
+        }
+    }
+
+    public Alternative getAlternative() {
+        if(newAlternative == null)
+            newAlternative = new Alternative();
+        return newAlternative;
+    }
+    public Alternative getSelectedAlternative() {
+        return selectedAlternative;
+    }
+
+    public void setSelectedAlternative(Alternative selectedAlternative) {
+        this.selectedAlternative = selectedAlternative;
+    }
+    
 }
