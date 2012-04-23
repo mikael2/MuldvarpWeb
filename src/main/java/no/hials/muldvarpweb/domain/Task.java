@@ -37,6 +37,10 @@ public class Task implements Serializable  {
             }
         }
     }
+
+    public void removeQuestion(Question q) {
+        questions.remove(q);
+    }
     
     
     public enum ContentType {

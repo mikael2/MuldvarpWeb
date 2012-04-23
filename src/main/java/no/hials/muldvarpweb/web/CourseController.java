@@ -347,6 +347,20 @@ public class CourseController implements Serializable {
         }
     }
     
+    public String editQuestion() {
+       if(selectedQuestion != null) {
+            service.editQuestion(selected, selectedTheme, selectedTask, selectedQuestion);
+        }
+        return "editTask?faces-redirect=true"; 
+    }
+    
+    public String removeQuestion(Question q) {
+        if(selected != null) {
+            service.removeQuestion(selected, selectedTheme, selectedTask, q);
+        }
+        return "editTask?faces-redirect=true";
+    }
+    
     public void setAnswer(Alternative a) {
         if(selectedQuestion != null) {
             service.setAnswer(selected, selectedTheme, selectedTask, selectedQuestion, a);
@@ -358,6 +372,13 @@ public class CourseController implements Serializable {
             service.addAlternative(selected, selectedTheme, selectedTask, selectedQuestion, newAlternative);
             newAlternative = null;
         }
+    }
+    
+    public String removeAlternative(Alternative a) {
+        if(selected != null) {
+            service.removeAlternative(selected, selectedTheme, selectedTask, selectedQuestion, a);
+        }
+        return "editTask?faces-redirect=true";
     }
 
     public Alternative getAlternative() {

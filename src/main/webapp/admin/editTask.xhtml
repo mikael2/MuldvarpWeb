@@ -39,6 +39,9 @@
                             <p:column headerText="Name">
                                 <h:commandLink value="#{q.name}" action="#{courseController.setSelectedQuestion(q)}"/>
                             </p:column>
+                            <p:column>  
+                                <h:commandLink value="Delete" action="#{courseController.removeQuestion(q)}"/>
+                            </p:column>
                         </p:dataTable>
                         <p:column>  
                             <h:inputText value="#{courseController.question.name}" />

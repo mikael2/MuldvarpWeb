@@ -209,6 +209,16 @@ public class CourseService {
         editQuestion(selected, selectedTheme, selectedTask, q);
     }
     
+    public void removeQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question q) {
+        selectedTask.removeQuestion(q);
+        editTask(selected, selectedTheme, selectedTask);
+    }
+    
+    public void removeAlternative(Course selected, Theme selectedTheme, Task selectedTask, Question selectedQuestion, Alternative a) {
+        selectedQuestion.removeAlternative(a);
+        editQuestion(selected, selectedTheme, selectedTask, selectedQuestion);
+    }
+    
     public void makeTestData() {     
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");

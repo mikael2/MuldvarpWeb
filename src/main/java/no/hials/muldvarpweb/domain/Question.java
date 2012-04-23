@@ -57,4 +57,8 @@ public class Question implements Serializable {
     public void addAlternative(Alternative newAlternative) {
         alternatives.add(newAlternative);
     }
+
+    public void removeAlternative(Alternative a) {
+        alternatives.remove(a);
+    }
 }
