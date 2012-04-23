@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link rel="stylesheet" href="css/news/html5reset.css" type="text/css" /> 
+        <link rel="stylesheet" href="css/news/style.css" type="text/css" /> 
+        <title>HiALS personer</title>
+    </h:head>
+    <h:body>
+
+        <f:view>
+            <section>
+
+                <h:form id="form1">
+
+                    <div id="panelgrid">
+                        <p:panelGrid columns="2">  
+                            <f:facet name="header">  
+                                Ny person  
+                            </f:facet>  
+
+                            <h:outputLabel for="name" value="Navn: *" />  
+                            <p:inputText id="name" value="#{personController.person.name}" required="true" label="Navn" >  
+                                <f:validateLength minimum="2" />  
+                            </p:inputText> 
+
+
+                            <h:outputLabel for="affiliation" value="Affiliasjon: "/>  
+                            <p:inputText id="affiliation" value="#{personController.person.affiliation}" required="false" label="Affiliation"/> 
+
+                            <h:outputLabel for="position" value="Stilling: " />  
+                            <p:inputText id="position" value="#{personController.person.position}" required="false" label="Position"/>  
+
+                            <h:outputLabel for="department" value="Avdeling: " />
+                            <p:inputText value="#{personController.person.department}" id="department" label="Department" />  
+
+                            <h:outputLabel for="email" value="Epost: " />  
+                            <p:inputText id="email" value="#{personController.person.email}" required="false" label="Email"/>
+
+                            <h:outputLabel for="phone" value="Tlf: " />  
+                            <p:inputText id="phone" value="#{personController.person.phone}" required="false" label="Phone"/>
+
+                            <h:outputLabel for="location" value="Lokasjon: *" /> 
+                            <p:inputText id="location" value="#{personController.person.location}" required="false" rows="5" cols="30"/>  
+
+                        </p:panelGrid> 
+                        
+                        <p:commandButton  id="submitButton" value="Submit" actionListener="#{personController.savePerson()}" ajax="false"/>
+
+                        <p:commandButton id="deleteButton" value="Delete" actionListener="#{personController.deletePerson()}" ajax="false"/> 
+
+
+                        <p:commandButton id="clearAllButton" type="button" value="Clear All"
+                                         onclick="document.getElementById('form1').reset()"/>
+                    </div>
+
+
+                </h:form>
+
+            </section>
+        </f:view>
+
+    </h:body>
+</html>
+
