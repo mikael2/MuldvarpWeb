@@ -1,35 +1,35 @@
 <ui:composition template="/template.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="title">
-        List of Courses
+        List of Documents
     </ui:define>
     
     <ui:define name="right">
-        <h:form id="productForm">
-            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
-            <p:fieldset legend="Videos">
+        <h:form id="docForm">                
+            <p:fieldset legend="Documents">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
                 <p:dataTable
-                    id="videoTable"
-                    value="#{videoController.selectedVideo}" 
-                    var="course">
+                    id="documentTable"
+                    value="#{libraryController.libraryItems}" 
+                    var="LibraryItem">
                     <p:column headerText="Name">  
-                        <h:commandLink 
-                            action="#{videoController.addVideo()}" 
-                            value="#{videoController.selectedVideo.videoName}" />
+                        <h:commandLink
+                            actionListener="#{libraryController.select(LibraryItem)}"
+                            action="editDocument?faces-redirect=true}"
+                            value="#{LibraryItem.title}" />
                     </p:column>
-                    <p:column headerText="Revision">  
-                        <h:outputText value="#{course.revision}" />
+                    <p:column headerText="Delete">  
+                        <p:commandButton  id="deleteButton" value="Delete document" action="#{libraryController.deleteLibraryItem(LibraryItem)}" actionListener="#{libraryController.addInfo(1, LibraryItem)}" ajax="false"/>
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>
-            <p:commandButton value="New Video" action="#{courseController.setSelected(null)}" />
+            <p:commandButton value="Make testdata" action="#{libraryController.makeTestData()}" actionListener="#{libraryController.addInfo(1)}" update="documentTable"/>
+            <p:commandButton value="Home" action="index?faces-redirect=true"/>
+            <p:commandButton value="New document" action="newDocument?faces-redirect=true"/>
         </h:form>
     </ui:define>
-   
 </ui:composition>

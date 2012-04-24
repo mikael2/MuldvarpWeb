@@ -22,6 +22,15 @@
                     <p:column headerText="Name">  
                         <h:inputText value="#{exam.name}" />
                     </p:column>
+                    <p:column headerText="Room">
+                        <h:inputText value="#{exam.room}" />
+                    </p:column>
+                    <p:column headerText="Info">
+                        <h:inputText value="#{exam.info}" />
+                    </p:column>
+                    <p:column headerText="Date">
+                        <p:calendar value="#{exam.examDate}" id="examDate" />
+                    </p:column>
                 </p:dataTable>
             </p:fieldset>
             <p:commandButton value="Save" action="#{courseController.editExam()}"/>

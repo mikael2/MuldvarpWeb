@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.Programme;
 
 /**
@@ -27,8 +28,7 @@ import no.hials.muldvarpweb.domain.Programme;
 public class ProgrammeService {
     
     @PersistenceContext
-    EntityManager entityManager;
-    
+    EntityManager em;
     
     /**
      * This function merges and persists a Programme item .
@@ -36,11 +36,9 @@ public class ProgrammeService {
      * @param newProgramme The Programme to be added.
      */
     public void addProgramme(Programme newProgramme){
-        
-        newProgramme = entityManager.merge(newProgramme);
-        entityManager.persist(newProgramme);
+        newProgramme = em.merge(newProgramme);
+        em.persist(newProgramme);
     }
-    
     
     /**
      * Function that returns all Programmes based on 
@@ -50,9 +48,7 @@ public class ProgrammeService {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Programme> findProgrammes() {
-        
-        return entityManager.createQuery("SELECT v from Programme v", Programme.class).getResultList();
-        
+        return em.createQuery("SELECT v from Programme v", Programme.class).getResultList();
     }    
         
     /**
@@ -65,11 +61,24 @@ public class ProgrammeService {
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Programme getProgrammes(@PathParam("id") Integer id) {
-        TypedQuery<Programme> q = entityManager.createQuery("Select v from Programme v where v.id = :id", Programme.class);
+        TypedQuery<Programme> q = em.createQuery("Select v from Programme v where v.id = :id", Programme.class);
         q.setParameter("id", id);
-        
         
         return q.getSingleResult();
     }
-    
+
+    public void editProgramme(Programme selected) {
+        selected = em.merge(selected);
+        em.persist(selected);
+    }
+
+    public void removeCourseFromProgramme(Programme selected, Course c) {
+        selected.removeCourse(c);
+        editProgramme(selected);
+    }
+
+    public void removeProgramme(Programme p) {
+        p = em.merge(p);
+        em.remove(p);
+    }
 }

@@ -235,6 +235,13 @@ public class CourseController implements Serializable {
         }
         return "editCourse?faces-redirect=true";
     }
+    
+    public String acceptObligatoryTask() {
+        if(selectedObligatoryTask != null) {
+            service.acceptObligatoryTask(selected, selectedObligatoryTask);
+        }
+        return "editObligTask?faces-redirect=true";
+    }
 
     public Exam getExam() {
         if(newExam == null)
@@ -349,5 +356,17 @@ public class CourseController implements Serializable {
                         "INFO: ", "New revision created"));
                 break;
          }
+    }
+
+    public List<Programme> getProgrammes() {
+        return selected.getProgrammes();
+    }
+
+    public void setProgrammes(List<Programme> programmes) {
+        selected.setProgrammes(programmes);
+    }
+    
+    public void addProgramme(Programme p) {
+        selected.addProgramme(p);
     }
 }

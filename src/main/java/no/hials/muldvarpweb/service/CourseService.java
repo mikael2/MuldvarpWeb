@@ -60,7 +60,7 @@ public class CourseService {
     @PathParam("val") Integer val) {
         // Sette task som done
         // ide: bruke lagre knapp og lagre alt i ett
-        String retval = "ERROR";
+        String retval = "ERROR\n";
         Course c = getCourse(cid);
         List<Theme> themes = c.getThemes();
         Theme theme = null;
@@ -70,19 +70,24 @@ public class CourseService {
             }
         }
         
-        List<Task> tasks = theme.getTasks();
-        for(int i = 0; i < tasks.size(); i++) {
-            if(tasks.get(i).getId() == taskid) {
-                Task task = tasks.get(i);
-                if(val == 1) {
-                    task.setDone(true);
-                } else if (val == 0) {
-                    task.setDone(false);
+        if(theme != null) {
+            List<Task> tasks = theme.getTasks();
+            for(int i = 0; i < tasks.size(); i++) {
+                if(tasks.get(i).getId() == taskid) {
+                    Task task = tasks.get(i);
+                    if(val == 1) {
+                        task.setDone(true);
+                    } else if (val == 0) {
+                        task.setDone(false);
+                    }
+                    editTask(c, theme, task);
+                    retval = "Task completed";
                 }
-                editTask(c, theme, task);
-                retval = "Task completed";
             }
+        } else {
+            retval += "Theme == null";
         }
+        
         return retval;
     }
     
@@ -162,6 +167,11 @@ public class CourseService {
         em.persist(course);
     }
     
+    public void acceptObligatoryTask(Course course, ObligatoryTask obligtask) {
+        obligtask.acceptTask();
+        editObligatoryTask(course, obligtask);
+    }
+    
     public void addExam(Course course, Exam exam) {
         course.addExam(exam);
         course = em.merge(course);
@@ -180,9 +190,12 @@ public class CourseService {
         em.persist(course);
     }
     
-    public void makeTestData() {
-        
-               
+    public void addProgramme(Course c, Programme p) {
+        c.addProgramme(p);
+        editCourse(c);
+    }
+    
+    public void makeTestData() {     
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
@@ -251,15 +264,7 @@ public class CourseService {
         theme2.setTasks(tasks2);
         themes.add(theme2);
         
-        
         retVal.setThemes(themes);
-        
-        List<Programme> programmes = new ArrayList<Programme>();
-        programmes.add(new Programme("Helsefag", "Ting som har med helse å gjøre."));
-        programmes.add(new Programme("Biologiske fag", "Ting som har med Biologi å gjøre."));
-        
-        
-        retVal.setProgrammes(programmes);
         
         retVal = em.merge(retVal);
         em.persist(retVal);

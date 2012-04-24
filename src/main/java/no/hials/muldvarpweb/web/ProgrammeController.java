@@ -8,9 +8,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.Programme;
 import no.hials.muldvarpweb.service.ProgrammeService;
 
@@ -23,11 +25,11 @@ import no.hials.muldvarpweb.service.ProgrammeService;
 @SessionScoped
 public class ProgrammeController implements Serializable{
     
-    @Inject ProgrammeService programmeService;
+    @Inject ProgrammeService service;
     
     List<Programme> programmeList;
     Programme newProgramme;
-    Programme selectedProgramme;
+    Programme selected;
     
     
     /**
@@ -35,15 +37,45 @@ public class ProgrammeController implements Serializable{
      * 
      * @return The selected Programme
      */
-    public Programme getSelectedProgramme(){
+    public Programme getSelected(){
         
         //Check if the selectedProgramme variable is null, and set new Programme if it is
-        if (selectedProgramme == null) {
+        if (selected == null) {
             
-            selectedProgramme = new Programme();
+            selected = new Programme();
         }
                 
-        return selectedProgramme;
+        return selected;
+    }
+    
+    public String setSelected(Programme selected) {
+        if(selected == null) {
+            selected = getProgramme();
+        }
+        this.selected = selected;
+        return "editProgramme?faces-redirect=true";
+    }
+
+    public Programme getProgramme() {
+        return newProgramme;
+    }
+
+    public void setNewProgramme(Programme newProgramme) {
+        this.newProgramme = newProgramme;
+    }
+    
+    public String editProgramme() {
+        if(selected != null) {
+            service.editProgramme(selected);
+        }
+        return "listProgramme";
+    }
+    
+    public String removeProgramme() {
+        if(selected != null ) {
+            service.removeProgramme(selected);
+        }
+        return "listProgramme?faces-redirect=true";
     }
     
     /**
@@ -52,35 +84,13 @@ public class ProgrammeController implements Serializable{
      * @return List of Programmes
      */
     public List<Programme> getProgrammes() {
-        
-        programmeList = programmeService.findProgrammes();
-        
+        programmeList = service.findProgrammes();
         return programmeList;
-        
     }
-    
-    /**
-     * This function retrieves a list of programs and creates a list of Select Items for use with JSF
-     * 
-     * 
-     * @return List of SelectItem
-     */
-    public List<SelectItem> getProgrammeItems() {
-        
-        //To make sure the list is current
-        getProgrammes();
-        
-        List<SelectItem> selectItems = new ArrayList<SelectItem>();
-        
-        for (int i = 0; i < programmeList.size(); i++) {
-            
-            selectItems.add(new SelectItem(programmeList.get(i), programmeList.get(i).getName()));
-            
-        }
-        
-        return selectItems;
+
+    public void setProgramme(List<Programme> programmeList) {
+        this.programmeList = programmeList;
     }
-    
     
     /**
      * This function makes a call to the ProgrammeService instantiation and adds the supplied Programme.
@@ -96,8 +106,28 @@ public class ProgrammeController implements Serializable{
 //            
 //        }
         
-        programmeService.addProgramme(selectedProgramme);
-        
+        service.addProgramme(selected);
         return newProgramme;
+    }
+    
+    public void addInfo(int i) {  
+        switch(i) {
+            case 1:
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "INFO: ", "Changes saved"));
+                break;
+            case 2:
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "INFO: ", "Course deleted"));
+                break;
+            case 3:
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "INFO: ", "New revision created"));
+                break;
+         }
+    }
+    
+    public void removeCourseFromProgramme(Course c) {
+        service.removeCourseFromProgramme(selected, c);
     }
 }
