@@ -47,7 +47,7 @@ public class Programme implements Serializable{
      */
     public Programme(String name, String detail) {
         this.name = name;
-        this.detail = name;   
+        this.detail = detail;   
     }
     
     public Long getId() {

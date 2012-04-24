@@ -50,7 +50,7 @@ public class Course implements Serializable {
     List<Person> teachers;
     
     @ManyToMany(mappedBy = "courses")
-    private List<Programme> programmes;
+    List<Programme> programmes;
     
     public Course() {
         this.revision = 0;
