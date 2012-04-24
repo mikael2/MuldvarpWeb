@@ -1,6 +1,7 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -49,7 +50,7 @@ public class Course implements Serializable {
     List<Person> teachers;
     
     @ManyToMany(mappedBy = "courses")
-    private List<Programme> programmes;
+    List<Programme> programmes;
     
     public Course() {
         this.revision = 0;
