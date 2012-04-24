@@ -308,7 +308,6 @@ public class CourseService {
         retVal.setThemes(themes);
         em.persist(retVal);
         
-        ArrayList<Programme> programmes = new ArrayList<Programme>();
         Programme prog = new Programme("Test program", "blablabla");
         prog.addCourse(retVal);
         retVal.addProgramme(prog);
