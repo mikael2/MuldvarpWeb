@@ -288,12 +288,14 @@ public class CourseService {
         theme2.setTasks(tasks2);
         themes.add(theme2);
         
+      
         retVal.setThemes(themes);
+        em.persist(retVal);
         
         Programme prog = new Programme("Test program", "blablabla");
+        prog.addCourse(retVal);
         retVal.addProgramme(prog);
         
-        retVal = em.merge(retVal);
-        em.persist(retVal);
+        retVal = em.merge(retVal);       
     }
 }

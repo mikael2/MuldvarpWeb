@@ -1,6 +1,7 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -243,6 +244,9 @@ public class Course implements Serializable {
 
     @XmlTransient
     public List<Programme> getProgrammes() {
+        if(programmes == null) {
+            programmes = new ArrayList<Programme>();
+        }
         return programmes;
     }
 
@@ -251,6 +255,9 @@ public class Course implements Serializable {
     }
     
     public void addProgramme(Programme p) {
+        if(programmes == null) {
+            programmes = new ArrayList<Programme>();
+        }
         programmes.add(p);
     }
 }

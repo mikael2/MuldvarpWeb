@@ -5,6 +5,7 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -74,10 +75,14 @@ public class Programme implements Serializable{
     }
     
     public void addCourse(Course c) {
-        courses.add(c);
+        getCourses().add(c);
     }
 
     public List<Course> getCourses() {
+        if(courses == null) {
+            courses = new ArrayList<Course>();
+        }
+        
         return courses;
     }
 
@@ -86,7 +91,7 @@ public class Programme implements Serializable{
     }
 
     public void removeCourse(Course c) {
-        courses.remove(c);
+        getCourses().remove(c);
     }
 
 //    @Override
