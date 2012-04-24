@@ -41,86 +41,35 @@ public class VideoService {
         entityManager.persist(newVideo);
     }
     
-    
-    
-    
     /**
-     * This function creates test data.
+     * This function merges and removes a Video item.
      * 
-     * @return test data
+     * @param video video The Video to be removed.
      */
-    public List<Video> getVideoTestData() {
+    public void removeVideo(Video video){
         
-        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
-        
-        List<Video> videoList = new ArrayList<Video>();
-        
-        for (int i = 0; i < 15; i++) {
-            
-            //annenhver
-            int n = 1;
-            if(i % 2 == 0){
-                n = 0;
-            }
-            
-            videoList.add(new Video("Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
-            
-        }
-        
-        return videoList;
-        
+        video = entityManager.merge(video);
+        entityManager.remove(video);
     }
-    
-    
-    
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Video> findVideos() {
         
-//        Return videos
-//        Removed for now as no database existf
-        return entityManager.createQuery("SELECT v from Video v", Video.class).getResultList();
-        
-//        return getVideoTestData();
-        
-    }
-    
+        return entityManager.createQuery("SELECT v from Video v", Video.class).getResultList();        
+    }    
         
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Video getVideos(@PathParam("id") Integer id) {
         TypedQuery<Video> q = entityManager.createQuery("Select v from Video v where v.id = :id", Video.class);
-        q.setParameter("id", id);
-        
+        q.setParameter("id", id);        
         
         return q.getSingleResult();
     }
-    
-//    @GET
-//    @Path("{name}")
-//    @Produces({MediaType.APPLICATION_JSON})
-//    public List<Video> getVideoByName(String name) {       
-//        TypedQuery<Video> q = entityManager.createQuery("Select v from Video c where v.name LIKE :name", Video.class);
-//        q.setParameter("name", "%" + name + "%");
-//        return q.getResultList();
-//    }
-    
-//    @GET
-//    @Path("{name}")
-//    @Produces({MediaType.APPLICATION_JSON})
-//    public List<Video> getVideo(String name) {       
-//        TypedQuery<Video> q = entityManager.createQuery("Select v from Video c where v.name LIKE :name", Video.class);
-//        q.setParameter("name", "%" + name + "%");
-//        return q.getResultList();
-//    }
-    
-    
-    
-    
-    
-    
+       
+       
     /**
      * This function creates test data.
      * 
@@ -153,6 +102,33 @@ public class VideoService {
         }
         
                 
+    }
+    
+    /**
+     * This function creates test data.
+     * 
+     * @return test data
+     */
+    public List<Video> getVideoTestData() {
+        
+        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
+        
+        List<Video> videoList = new ArrayList<Video>();
+        
+        for (int i = 0; i < 15; i++) {
+            
+            //annenhver
+            int n = 1;
+            if(i % 2 == 0){
+                n = 0;
+            }
+            
+            videoList.add(new Video("Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
+            
+        }
+        
+        return videoList;
+        
     }
     
     

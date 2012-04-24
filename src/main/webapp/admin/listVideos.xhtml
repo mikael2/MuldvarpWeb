@@ -5,31 +5,31 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="title">
-        List of Documents
+        List of Videos
     </ui:define>
     
     <ui:define name="right">
         <h:form id="docForm">                
-            <p:fieldset legend="Documents">
+            <p:fieldset legend="Videos">
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
                 <p:dataTable
-                    id="documentTable"
-                    value="#{libraryController.libraryItems}" 
-                    var="LibraryItem">
+                    id="videoTable"
+                    value="#{videoController.videos}" 
+                    var="videoItem">
                     <p:column headerText="Name">  
                         <h:commandLink
-                            actionListener="#{libraryController.select(LibraryItem)}"
-                            action="editDocument?faces-redirect=true}"
-                            value="#{LibraryItem.title}" />
+                            actionListener="#{videoController.selectVideo(videoItem)}"
+                            action="editVideo?faces-redirect=true}"
+                            value="#{VideoItem.videoName}" />
                     </p:column>
                     <p:column headerText="Delete">  
-                        <p:commandButton  id="deleteButton" value="Delete document" action="#{libraryController.deleteLibraryItem(LibraryItem)}" actionListener="#{libraryController.addInfo(1, LibraryItem)}" ajax="false"/>
+                        <p:commandButton  id="deleteButton" value="Delete Video" action="#{videoController.removeVideo(videoItem)}" actionListener="#{libraryController.addInfo(1, videoItem)}" ajax="false"/>
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>
-            <p:commandButton value="Make testdata" action="#{libraryController.makeTestData()}" actionListener="#{libraryController.addInfo(1)}" update="documentTable"/>
+            <p:commandButton value="Make testdata" action="#{videoController.makeVideoTestData()}" actionListener="#{videoController.addInfo(1)}" update="VideoTable"/>
             <p:commandButton value="Home" action="index?faces-redirect=true"/>
-            <p:commandButton value="New document" action="newDocument?faces-redirect=true"/>
+            <p:commandButton value="New Video" action="newVideo?faces-redirect=true"/>
         </h:form>
     </ui:define>
 </ui:composition>

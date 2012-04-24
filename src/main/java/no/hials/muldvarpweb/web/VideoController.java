@@ -5,9 +5,10 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Video;
@@ -27,6 +28,15 @@ public class VideoController implements Serializable {
     Video selectedVideo;
     Video filter;
     
+    
+    /**
+     * This function returns a list of videos.
+     * @return List<Video>
+     */
+    public List<Video> getVideos(){
+        
+        return videoService.findVideos();
+    }
     
     /**
      * This function returns the selectedVideo variable.
@@ -53,17 +63,49 @@ public class VideoController implements Serializable {
      */
     public Video addVideo() {
         
-//        //Check if there is a video to add
-//        if(selectedVideo != null){
-//        
-//            
-//        }
-        
         videoService.addVideo(selectedVideo);
         
         return newVideo;
     }
     
+    public void selectVideo(Video video){
+        
+        this.selectedVideo = video;
+    }
+    
+    public void removeVideo(Video video){
+        
+        if(video != null){
+            videoService.removeVideo(video);
+        }
+    }
+    
+    public void addInfo(int i, Video video){
+        
+        if (i == 1) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Document deleted: ", video.getVideoName()));
+        }        
+    }
+    
+    public void addInfo(int i) { 
+         switch(i){
+             case 1:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "Testdata produced."));
+                 break;
+                 
+             case 2:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HELP: ", "Press the edit buttons on the right side to edit the video details."));
+                 break;
+                 
+             case 3:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "Changes registered."));
+                 break;
+                 
+             case 4:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "This method is not yet implemented."));
+                 break;
+         }
+    }
     
     /**
      * This function generates a URI for a locally stored asset,
