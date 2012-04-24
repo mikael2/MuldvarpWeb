@@ -290,6 +290,9 @@ public class CourseService {
         
         retVal.setThemes(themes);
         
+        Programme prog = new Programme("Test program", "blablabla");
+        retVal.addProgramme(prog);
+        
         retVal = em.merge(retVal);
         em.persist(retVal);
     }

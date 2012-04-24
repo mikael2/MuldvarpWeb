@@ -23,8 +23,8 @@ public class Course implements Serializable {
     @Column(name = "detail")
     String detail;
     
-//    @Column(name = "description")
-//    String description;
+    @Column(name = "description")
+    String description;
     
     @Column(name = "imageurl")
     String imageurl;

@@ -56,10 +56,12 @@ public class ProgrammeController implements Serializable{
     }
 
     public Programme getProgramme() {
+        if(newProgramme == null)
+            newProgramme = new Programme();
         return newProgramme;
     }
 
-    public void setNewProgramme(Programme newProgramme) {
+    public void setProgramme(Programme newProgramme) {
         this.newProgramme = newProgramme;
     }
     

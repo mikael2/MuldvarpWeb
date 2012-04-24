@@ -23,10 +23,10 @@
                         <h:inputText value="#{task.name}" />
                     </p:column>
                     <p:column headerText="Type">  
-                        <h:selectOneListbox headerText="Content Type">
-                            <f:selectItem id="item1" itemLabel="External" itemValue="1" />
-                            <f:selectItem id="item2" itemLabel="Video" itemValue="2" />
-                            <f:selectItem id="item3" itemLabel="PDF" itemValue="3" />                            
+                        <h:selectOneListbox value="#{task.contentType}">
+                            <f:selectItem id="item1" itemLabel="External" itemValue="External" />
+                            <f:selectItem id="item2" itemLabel="Video" itemValue="Video" />
+                            <f:selectItem id="item3" itemLabel="PDF" itemValue="PDF" />                            
                         </h:selectOneListbox>
                     </p:column>
                     <p:column headerText="Content URL">  

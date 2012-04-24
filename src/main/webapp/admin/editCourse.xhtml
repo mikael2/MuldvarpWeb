@@ -47,9 +47,10 @@
                                 <h:outputText value="Programme: " />
                             </div>
                             <div class="column_right">
-                                <h:selectManyCheckbox value="#{courseController.programmes}">
+                                
+                                <h:selectManyListbox value="#{courseController.programmes}">
                                     <f:selectItems value="#{programmeController.programmes}" var="p" itemLabel="#{p.name}" />
-                                </h:selectManyCheckbox>
+                                </h:selectManyListbox>
                             </div>
                         </div>
                     </div>
