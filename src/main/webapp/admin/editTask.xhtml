@@ -32,6 +32,24 @@
                     <p:column headerText="Content URL">  
                         <h:inputText value="#{task.content_url}" />
                     </p:column>
+                    <p:column headerText="Questions">  
+                        <p:dataTable id="questTable"
+                            value="#{task.questions}" 
+                            var="q">
+                            <p:column headerText="Name">
+                                <h:commandLink value="#{q.name}" action="#{courseController.setSelectedQuestion(q)}"/>
+                            </p:column>
+                            <p:column>  
+                                <h:commandLink value="Delete" action="#{courseController.removeQuestion(q)}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:column>  
+                            <h:inputText value="#{courseController.question.name}" />
+                        </p:column> 
+                        <p:column>
+                            <p:commandButton value="Add Question" action="#{courseController.addQuestion()}" update="questTable"/>
+                        </p:column>
+                    </p:column>
                 </p:dataTable>
             </p:fieldset>
             <p:commandButton value="Save" action="#{courseController.editTask()}"/>

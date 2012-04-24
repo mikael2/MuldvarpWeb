@@ -29,7 +29,7 @@ public class ArticleController implements Serializable {
     public Article getOldArticle() {
         HttpServletRequest hsr = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         long id = Long.parseLong(hsr.getParameter("articleid"));
-        return getService().getArticle((short)id);
+        return getService().getArticle((Long)id);
     }
     
     public Article getArticle() {

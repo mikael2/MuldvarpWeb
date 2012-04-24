@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -244,6 +241,7 @@ public class Course implements Serializable {
 //        this.description = description;
 //    }
 
+    @XmlTransient
     public List<Programme> getProgrammes() {
         return programmes;
     }

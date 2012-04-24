@@ -23,7 +23,7 @@ public class ArticleService {
     
     @GET
     @Path("{id}")
-    public Article getArticle (@PathParam("id") short id) {
+    public Article getArticle (@PathParam("id") Long id) {
         TypedQuery<Article> q = em.createQuery("Select a from Article a where a.id = :id", Article.class);
         q.setParameter("id", id);
         return q.getSingleResult();

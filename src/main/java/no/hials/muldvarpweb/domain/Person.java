@@ -3,12 +3,14 @@ package no.hials.muldvarpweb.domain;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Lena
  */
 @Entity
+@XmlRootElement
 public class Person implements Serializable { 
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,6 +33,7 @@ public class Person implements Serializable {
     String position;    //f.eks. Dekan
     String department;  //f.eks. Internasjonal markedsføring
     String email;       //f.eks. per@hials.no
+    int phone;          //f.eks. 70161310
     String location;    //f.eks. A214 eller kunnskapsparken eller Oslo
 
     public String getAffiliation() {
@@ -88,7 +91,6 @@ public class Person implements Serializable {
     public void setPosition(String position) {
         this.position = position;
     }
-    int phone;          //f.eks. 70161310
 
     public Long getId() {
         return id;

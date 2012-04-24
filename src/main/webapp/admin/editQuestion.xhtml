@@ -1,0 +1,53 @@
+<ui:composition template="/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        <h:form>
+            <h:link value="Courses" outcome="listCourses" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selectedTheme.name}" outcome="editTheme" /> -> <h:link value="#{courseController.selectedTask.name}" outcome="editTask" />
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="mainsingle">
+        <h:form id="questForm">        
+            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+            <p:fieldset legend="#{courseController.selectedQuestion.name}">
+                <p:dataTable 
+                    value="#{courseController.selectedQuestion}" 
+                    var="q">
+                    <p:column headerText="Name">  
+                        <h:inputText value="#{q.name}" />
+                    </p:column>
+                    <p:column headerText="Alternatives">  
+                        <p:dataTable id="altTable"
+                            value="#{q.alternatives}" 
+                            var="a">
+                            <p:column headerText="Name">
+                                <h:commandLink value="#{a.name}" action="#{courseController.setAnswer(a)}"/>
+                            </p:column>
+                            <p:column>  
+                                <h:commandLink value="Delete" action="#{courseController.removeAlternative(a)}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:column>  
+                            <h:inputText value="#{courseController.alternative.name}" />
+                        </p:column> 
+                        <p:column>
+                            <p:commandButton value="Add Alternative" action="#{courseController.addAlternative()}" update="altTable"/>
+                        </p:column>
+                    </p:column>
+                    <p:column headerText="Answer">  
+                        <h:outputText value="#{q.answer.name}" />
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+            <p:commandButton value="Save" action="#{courseController.editQuestion()}"/>
+        </h:form>
+    </ui:define>
+    
+   
+</ui:composition>
