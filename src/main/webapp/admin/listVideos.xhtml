@@ -20,14 +20,26 @@
                         <h:commandLink
                             actionListener="#{videoController.selectVideo(videoItem)}"
                             action="editVideo?faces-redirect=true}"
-                            value="#{VideoItem.videoName}" />
+                            value="#{videoItem.videoName}" />
+                    </p:column>
+                    <p:column headerText="Detail">  
+                        <h:commandLink
+                            actionListener="#{videoController.selectVideo(videoItem)}"
+                            action="editVideo?faces-redirect=true}"
+                            value="#{videoItem.videoDetail}" />
+                    </p:column>
+                    <p:column headerText="Type">  
+                        <h:commandLink
+                            actionListener="#{videoController.selectVideo(videoItem)}"
+                            action="editVideo?faces-redirect=true}"
+                            value="#{videoItem.videoType}" />
                     </p:column>
                     <p:column headerText="Delete">  
                         <p:commandButton  id="deleteButton" value="Delete Video" action="#{videoController.removeVideo(videoItem)}" actionListener="#{libraryController.addInfo(1, videoItem)}" ajax="false"/>
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>
-            <p:commandButton value="Make testdata" action="#{videoController.makeVideoTestData()}" actionListener="#{videoController.addInfo(1)}" update="VideoTable"/>
+            <p:commandButton value="Make testdata" action="#{videoController.makeVideoTestData()}" actionListener="#{videoController.addInfo(1)}" update="videoTable"/>
             <p:commandButton value="Home" action="index?faces-redirect=true"/>
             <p:commandButton value="New Video" action="newVideo?faces-redirect=true"/>
         </h:form>
