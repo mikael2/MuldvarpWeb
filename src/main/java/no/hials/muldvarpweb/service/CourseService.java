@@ -224,6 +224,8 @@ public class CourseService {
         retVal.setDetail("Details");
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
         Date date = new Date();
+        retVal.setRevision(1);
+        retVal.setRevision_date(new Date());
         
         ArrayList<ObligatoryTask> obligTasks = new ArrayList<ObligatoryTask>();
         try {
