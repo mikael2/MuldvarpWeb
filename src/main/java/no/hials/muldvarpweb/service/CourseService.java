@@ -275,22 +275,43 @@ public class CourseService {
         
         Theme theme2 = new Theme("Dummy tema");
         ArrayList<Task> tasks2 = new ArrayList<Task>();
-        task = new Task("Oppgave 2.1");
+        task = new Task("Les dette");
         task.setDone(true);
+        task.setContentType("PDF");
         tasks2.add(task);
-        task = new Task("Oppgave 2.2");
-        task.setDone(true);
+        
+        task = new Task("Quiz");
+        task.setContentType("Quiz");
+        ArrayList<Question> questions = new ArrayList<Question>();
+        Question q = new Question();
+        q.setName("Spørsmål");
+        ArrayList<Alternative> alts = new ArrayList<Alternative>();
+        Alternative a = new Alternative();
+        a.setName("Alternativ 1");
+        alts.add(a);
+        a = new Alternative();
+        a.setName("Alternativ 2");
+        alts.add(a);
+        q.setAlternatives(alts);
+        questions.add(q);
+        task.setQuestions(questions);
         tasks2.add(task);
+        
         task = new Task("Læringsvideo 1");
         task.setContent_url("XsFR8DbSRQE");
-        task.setDone(true);
+        task.setContentType("Video");
         tasks2.add(task);
         theme2.setTasks(tasks2);
         themes.add(theme2);
         
+      
         retVal.setThemes(themes);
-        
-        retVal = em.merge(retVal);
         em.persist(retVal);
+        
+        Programme prog = new Programme("Test program", "blablabla");
+        prog.addCourse(retVal);
+        retVal.addProgramme(prog);
+        
+        retVal = em.merge(retVal);       
     }
 }
