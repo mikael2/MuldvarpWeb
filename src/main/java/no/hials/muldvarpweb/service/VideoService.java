@@ -75,6 +75,7 @@ public class VideoService {
      * @return List of Videos, produces JAYSON
      */
     @GET
+    @Path("stud")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Video> findStudentVideos() {
         
