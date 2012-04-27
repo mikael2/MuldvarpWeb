@@ -74,23 +74,23 @@ public class VideoService {
      * 
      * @return List of Videos, produces JAYSON
      */
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Video> findStudentVideos() {
-        
-        List<Video> videoList = new ArrayList<Video>();
-        
-        videoList.add(new Video("Et lite stykke Høgskolen i Ålesund",
-                                "YouTube/ID",
-                                "wjoKkILj9PA",
-                                "HiALS Studier",
-                                "Presentasjon av studietilbudene ved Høgskolen i Ålesund.",
-                                "lol no",
-                                "nooope"));
-        
-        
-        return videoList;        
-    }    
+//////    @GET
+//////    @Produces({MediaType.APPLICATION_JSON})
+//////    public List<Video> findStudentVideos() {
+//////        
+//////        List<Video> videoList = new ArrayList<Video>();
+//////        
+//////        videoList.add(new Video("Et lite stykke Høgskolen i Ålesund",
+//////                                "YouTube/ID",
+//////                                "wjoKkILj9PA",
+//////                                "HiALS Studier",
+//////                                "Presentasjon av studietilbudene ved Høgskolen i Ålesund.",
+//////                                "lol no",
+//////                                "nooope"));
+//////        
+//////        
+//////        return videoList;        
+//////    }    
        
        
     /**
