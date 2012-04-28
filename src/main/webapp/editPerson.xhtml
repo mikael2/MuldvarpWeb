@@ -1,0 +1,124 @@
+<ui:composition template="/template.xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        Person
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="docForm">                
+            <p:fieldset legend="Person">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                <p:panelGrid columns="3">  
+                    <f:facet name="header">  
+                        #{personController.selected.name}  
+                    </f:facet>  
+
+                        <h:outputLabel value="Navn: " />
+                        <h:outputLabel value="#{personController.selected.name}" id="name"/>
+                        <p:commandButton id="editName" value="Edit" onclick="dlg1.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Affiliasjon: " />
+                        <h:outputLabel value="#{personController.selected.affiliation}"/>
+                        <p:commandButton id="editAffiliation" value="Edit" onclick="dlg2.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Stilling: " />
+                        <h:outputLabel value="#{personController.selected.position}"/>
+                        <p:commandButton id="editPosition" value="Edit" onclick="dlg3.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Avdeling: " />
+                        <h:outputLabel value="#{personController.selected.department}"/>
+                        <p:commandButton id="editDepartment" value="Edit" onclick="dlg4.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Epost: " />
+                        <h:outputLabel value="#{personController.selected.email}"/>
+                        <p:commandButton id="editEmail" value="Edit" onclick="dlg5.show();" type="button" />
+                        
+                        
+                        <h:outputLabel value="Tlf: " />
+                        <h:outputLabel value="#{personController.selected.phone}"/>
+                        <p:commandButton id="editphone" value="Edit" onclick="dlg6.show();" type="button" />
+                        
+                        <h:outputLabel value="Lokasjon: " />
+                        <h:outputLabel value="#{personController.selected.location}"/>
+                        <p:commandButton id="editLocation" value="Edit" onclick="dlg7.show();" type="button" />
+                        
+  
+                    <f:facet name="footer">  
+                        <p:commandButton id="back" value="Back" ajax="false" action="listPeople?faces-redirect=true" />
+                        <p:commandButton id="deleteButton" value="Delete person" actionListener="#{personController.deleteSelectedPerson()}" ajax="false" action="listPeople?faces-redirect=true" />
+                        <p:commandButton  id="submitButton" value="save" action="listPeople?faces-redirect=true" actionListener="#{personController.editSelected()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                    </f:facet>
+                </p:panelGrid>  
+            </p:fieldset>
+            </h:form>
+           
+            <p:dialog id="locationDialog" header="Edit location" widgetVar="dlg7"> 
+                <h:form id="locationForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New location: " />  
+                            <p:inputText value="#{personController.selected.location}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="phoneDialog" header="Edit phone" widgetVar="dlg6">
+                <h:form id="phoneForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New phone: " />  
+                            <p:inputText value="#{personController.selected.phone}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="emailDialog" header="Edit email" widgetVar="dlg5"> 
+                <h:form id="emailForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New email: " />  
+                            <p:inputText value="#{personController.selected.email}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="departmentDialog" header="Edit department" widgetVar="dlg4"> 
+                <h:form id="departmentForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New department: " />  
+                            <p:inputText value="#{personController.selected.department}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="positionDialog" header="Edit position" widgetVar="dlg3">
+                <h:form id="positionForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New position: " />  
+                            <p:inputText value="#{personController.selected.position}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="affiliationDialog" header="Edit affiliation" widgetVar="dlg2">
+                <h:form id="affiliationForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New affiliation: " />  
+                            <p:inputText value="#{personController.selected.affiliation}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="nameDialog" header="Edit name" widgetVar="dlg1">
+                <h:form id="nameForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New name: " />  
+                            <p:inputText value="#{personController.selected.name}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+    </ui:define>
+</ui:composition>
