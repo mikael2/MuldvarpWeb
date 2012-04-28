@@ -58,8 +58,8 @@ public class CourseService {
     @GET
     @Path("/videos/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Video> findVideosInProgrammes(@PathParam("id") Integer id) {
-        TypedQuery<Video> q = em.createQuery("SELECT v.videos from Programme v where v.id = :id", Video.class);
+    public List<Video> findVideosInCourse(@PathParam("id") Integer id) {
+        TypedQuery<Video> q = em.createQuery("SELECT v.videos from Course v where v.id = :id", Video.class);
         q.setParameter("id", id);
         return q.getResultList();
     }
@@ -202,6 +202,18 @@ public class CourseService {
         
         video.addCourse(course);
         editCourse(course);
+    }
+    
+    public void editVideo(Course course, Video video){
+        
+        course.addVideo(video);
+        persist(course);
+    }
+    
+    public void removeVideo(Course course, Video video){
+        
+        course.removeVideo(video);
+        persist(course);
     }
     
     public void addQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question newQuestion) {

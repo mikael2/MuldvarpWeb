@@ -169,6 +169,29 @@
                         </p:column>
                     </p:fieldset>
                 </div>
+                <div class="column">    
+                    <p:fieldset legend="Videos">
+                        <p:dataTable id="videoTable"
+                            value="#{courseController.selected.videos}" 
+                            var="videos">
+                            <p:column headerText="Name">  
+                                <h:commandLink value="#{videos.videoName}" action="#{videoController.selectVideo(videos)}"/>
+                            </p:column>
+                            <p:column headerText="Details">  
+                                <h:outputText value="#{videos.videoDetail}" />
+                            </p:column>
+                            <p:column>
+                                <h:commandLink value="Delete" action="#{courseController.removeVideo(video)}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:column>  
+                            <h:inputText value="#{courseController.exam.name}" />
+                        </p:column> 
+                        <p:column>
+                            <p:commandButton value="Add Video" action="#{courseController.addVideo()}" update="videoTable"/>
+                        </p:column>
+                    </p:fieldset>
+                </div>
             </p:fieldset>
         </h:form>
     </ui:define>
