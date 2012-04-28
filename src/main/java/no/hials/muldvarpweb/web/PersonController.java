@@ -71,6 +71,13 @@ public class PersonController implements Serializable {
         clearPerson();
     }
     
+    public void deleteThePerson() {
+        System.out.println("Deleting person " + newPerson);
+        service.removePerson(newPerson);
+        System.out.println("Clearing person " + newPerson);
+        clearPerson();
+    }
+    
     public void editSelected(){
         service.addPerson(selected);
     }
