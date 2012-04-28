@@ -56,6 +56,15 @@ public class CourseService {
     }
     
     @GET
+    @Path("/videos/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Video> findVideosInCourse(@PathParam("id") Integer id) {
+        TypedQuery<Video> q = em.createQuery("SELECT v.videos from Course v where v.id = :id", Video.class);
+        q.setParameter("id", id);
+        return q.getResultList();
+    }
+    
+    @GET
     @Path("edit/{cid}/{themeid}/{taskid}/{val}")
     public String setTask(@PathParam("cid") Integer cid,
     @PathParam("themeid") Integer themeid,
@@ -189,6 +198,24 @@ public class CourseService {
         editCourse(c);
     }
     
+    public void addVideo(Course course, Video video){
+        
+        video.addCourse(course);
+        editCourse(course);
+    }
+    
+    public void editVideo(Course course, Video video){
+        
+        course.addVideo(video);
+        persist(course);
+    }
+    
+    public void removeVideo(Course course, Video video){
+        
+        course.removeVideo(video);
+        persist(course);
+    }
+    
     public void addQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question newQuestion) {
         selectedTask.addQuestion(newQuestion);
         editTask(selected, selectedTheme, selectedTask);
@@ -310,10 +337,139 @@ public class CourseService {
         retVal.setThemes(themes);
         em.persist(retVal);
         
-        Programme prog = new Programme("Test program", "blablabla");
+        Programme prog = new Programme("Ingeniør IKT", "blablabla");
         prog.addCourse(retVal);
         retVal.addProgramme(prog);
         
+        
+        Course matCourse = makeMatBIKT();;
+        prog.addCourse(matCourse);
+        matCourse.addProgramme(prog);
+        
+        matCourse = em.merge(matCourse);
         retVal = em.merge(retVal);       
+        
+        
+    }
+    
+    public Course makeMatBIKT(){
+        
+        Course retVal = new Course("Matematikk B IKT");
+        retVal.setDetail("Matematikkfag for Ingeniørstudiet.");
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
+        Date date = new Date();
+        retVal.setRevision(1);
+        retVal.setRevision_date(new Date());
+        
+        ArrayList<ObligatoryTask> obligTasks = new ArrayList<ObligatoryTask>();
+        try {
+            date = df.parse("2013-11-28T12:34:56");
+        } catch (ParseException ex) {
+            Logger.getLogger(CourseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ObligatoryTask oblig1 = new ObligatoryTask("Obligatorisk 1");
+        oblig1.setDueDate(date);
+        obligTasks.add(oblig1);
+        oblig1 = new ObligatoryTask("Obligatorisk 2");
+        Calendar c = Calendar.getInstance();
+        int year = 2012;
+        int month = 11;
+        int day = 28;
+        int hour = 12;
+        int minute = 34;
+        c.clear();
+        c.set(year, month, day, hour, minute);
+        oblig1.setDueDate(c.getTime());
+        oblig1.setDone(true);
+        obligTasks.add(oblig1);
+        retVal.setObligatoryTasks(obligTasks); 
+        
+        try {
+            date = df.parse("2011-12-31T12:34:56");
+        } catch (ParseException ex) {
+            Logger.getLogger(CourseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ArrayList<Exam> exams = new ArrayList<Exam>();
+        Exam exam = new Exam("Eksamen 1");
+        exam.setExamDate(date);
+        exams.add(exam);
+        exam = new Exam("Eksamen 2");
+        exam.setExamDate(date);
+        exams.add(exam);
+        retVal.setExams(exams);
+        
+        ArrayList<Theme> themes = new ArrayList<Theme>();
+        
+        Theme theme1 = new Theme("Derivasjon");
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        Task task = new Task("Oppgave 1.1");
+        tasks.add(task);
+        task = new Task("Oppgave 1.2");
+        tasks.add(task);
+        theme1.setTasks(tasks);
+        themes.add(theme1);
+        
+        Theme theme2 = new Theme("Integrasjon");
+        ArrayList<Task> tasks2 = new ArrayList<Task>();
+        task = new Task("Les dette");
+        task.setDone(true);
+        task.setContentType("PDF");
+        tasks2.add(task);
+        
+        task = new Task("Quiz");
+        task.setContentType("Quiz");
+        ArrayList<Question> questions = new ArrayList<Question>();
+        Question q = new Question();
+        q.setName("Spørsmål");
+        ArrayList<Alternative> alts = new ArrayList<Alternative>();
+        Alternative a = new Alternative();
+        a.setName("Alternativ 1");
+        alts.add(a);
+        a = new Alternative();
+        a.setName("Alternativ 2");
+        alts.add(a);
+        q.setAlternatives(alts);
+        questions.add(q);
+        task.setQuestions(questions);
+        tasks2.add(task);
+        
+        task = new Task("Læringsvideo 1");
+        task.setContent_url("XsFR8DbSRQE");
+        task.setContentType("Video");
+        tasks2.add(task);
+        theme2.setTasks(tasks2);
+        themes.add(theme2);
+        
+        retVal.setThemes(themes);
+        em.persist(retVal);
+        
+        Video video = new Video("MOV0002 001", "Youtube/ID", "HYb48BD7-sk", "Matematikkvideo", "Matematikkvideo", "a", "d");
+        retVal.addVideo(video);
+        video.addCourse(retVal);
+        video = new Video("MOV0002-030.avi", "Youtube/ID", "xM8kq4Glh-U", "Matematikkvideo", "Matematikkvideo", "a", "d");
+        retVal.addVideo(video);
+        video.addCourse(retVal);
+        video = new Video("MOV0002 036", "Youtube/ID", "IBQtEy82nb8", "Matematikkvideo", "Matematikkvideo", "a", "d");
+        retVal.addVideo(video);
+        video.addCourse(retVal);
+        video = new Video("MOV0002 034", "Youtube/ID", "4bMK4uD90J8", "Matematikkvideo", "Matematikkvideo", "a", "d");
+        retVal.addVideo(video);
+        video.addCourse(retVal);
+        video = new Video("MOV0002 029", "Youtube/ID", "wdTE-0xAdLE", "Matematikkvideo", "Matematikkvideo", "a", "d");
+        retVal.addVideo(video);
+        video.addCourse(retVal);
+        video = new Video("MOV0002 002", "Youtube/ID", "-CFggSkiLlg", "Matematikkvideo", "Matematikkvideo", "a", "d");
+        retVal.addVideo(video);
+        video.addCourse(retVal);
+        video = new Video("MOV0002 031", "Youtube/ID", "mf9dUbwzjOI", "Matematikkvideo", "Matematikkvideo", "a", "d");
+        retVal.addVideo(video);
+        video.addCourse(retVal);
+        video = new Video("MOV0002 038", "Youtube/ID", "4y2jaadk-lA", "Matematikkvideo", "Matematikkvideo", "a", "d");
+        retVal.addVideo(video);
+        video.addCourse(retVal);
+        
+        
+        return retVal;  
+        
     }
 }

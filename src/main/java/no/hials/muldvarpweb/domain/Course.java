@@ -49,6 +49,9 @@ public class Course implements Serializable {
     @ManyToMany
     List<Person> teachers;
     
+    @ManyToMany
+    List<Video> videos;
+    
     @ManyToMany(mappedBy = "courses")
     List<Programme> programmes;
     
@@ -260,4 +263,29 @@ public class Course implements Serializable {
         }
         programmes.add(p);
     }
+
+    @XmlTransient
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> video) {
+        this.videos = video;
+    }
+    
+    public void addVideo(Video video) {
+        if(videos == null) {
+            videos = new ArrayList<Video>();
+        }
+        videos.add(video);
+    }
+
+    public void removeVideo(Video video){
+        
+        getVideos().remove(video);
+    }
+
+     
+    
+    
 }

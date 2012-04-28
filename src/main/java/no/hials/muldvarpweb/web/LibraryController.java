@@ -1,8 +1,8 @@
 package no.hials.muldvarpweb.web;
 
-import com.sun.istack.internal.logging.Logger;
 import java.io.*;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -139,7 +139,7 @@ public class LibraryController implements Serializable {
                     bos.write(buffer, 0, read);
                 }
             } catch(Exception e) {
-                Logger.getLogger(LibraryController.class).severe("Failed to write file " + destination.getAbsolutePath(), e);
+//                Logger.getLogger(LibraryController.class).severe("Failed to write file " + destination.getAbsolutePath(), e);
                 if(is != null) {
                     try{is.close();}catch(Exception ex){}
                 }

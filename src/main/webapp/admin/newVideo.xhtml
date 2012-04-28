@@ -1,0 +1,59 @@
+<ui:composition template="/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+
+    <ui:define name="title">
+        Create and Add new Video        
+    </ui:define>
+        
+        
+    <ui:define name="right">
+        <h:form id="metaform">
+            <p:fieldset legend="Video: #{videoController.selectedVideo.videoName}">
+            <p:panelGrid columns="2">
+                <f:facet name="header">  
+                    Add video
+                </f:facet> 
+            
+                <h:outputLabel value="Title: " />
+                <p:inputText value="#{videoController.selectedVideo.videoName}"/>
+
+                <h:outputLabel value="Video Type: " />
+                <p:inputText value="#{videoController.selectedVideo.videoType}"/>
+
+                <h:outputLabel value="Video URI: " />
+                <p:inputText value="#{videoController.selectedVideo.videoURI}"/>
+
+                <h:outputLabel value="Video Detail: " />
+                <p:inputText value="#{videoController.selectedVideo.videoDetail}"/>
+
+                <h:outputLabel value="Video Description: " />
+                <p:inputText value="#{videoController.selectedVideo.videoDescription}"/>
+
+                <h:outputLabel value="Video Icon URI: " />
+                <p:inputText value="#{videoController.selectedVideo.videoIconURI}"/>
+
+                <h:outputLabel value="Video Thumbnail URI: " />
+                <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/>
+            
+            </p:panelGrid>
+            
+            <p:panelGrid columns="2" style="margin-top:2%; margin-bottom: 5%">
+                <h:commandButton id="submitButton" value="Submit" actionListener="#{videoController.addVideo()}" ></h:commandButton>
+                <h:commandButton id="testDataButton" type="Submit" value="Testdata" actionListener="#{videoController.makeVideoTestData()}" ></h:commandButton>
+            </p:panelGrid>
+            </p:fieldset>
+       </h:form>
+        
+        
+   </ui:define>    
+            
+        
+       
+</ui:composition>

@@ -40,6 +40,8 @@ public class CourseController implements Serializable {
     Exam selectedExam;
     Question selectedQuestion;
     Alternative selectedAlternative;
+    Video selectedVideo;
+    Video newVideo;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -271,6 +273,37 @@ public class CourseController implements Serializable {
 
     public void setExam(Exam newExam) {
         this.newExam = newExam;
+    }
+    
+    public void addVideo() {
+        if(newVideo != null && selected != null) {
+            service.addVideo(selected, newVideo);
+            newVideo = null;
+        }
+    }
+    
+    public Video getVideo() {
+        if(newVideo == null)
+            newVideo = new Video();
+        return newVideo;
+    }
+    
+    public String editVideo() {
+        if(selectedVideo != null) {
+            service.editVideo(selected, selectedVideo);
+        }
+        return "editVideo?faces-redirect=true";
+    }
+    
+    public String removeVideo(Video video) {
+        if(selected != null) {
+            service.removeVideo(selected, video);
+        }
+        return "editCourse?faces-redirect=true";
+    }
+
+    public void setVideo(Video newVideo) {
+        this.newVideo = newVideo;
     }
 
     public ObligatoryTask getObligatoryTask() {

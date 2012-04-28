@@ -52,6 +52,13 @@ public class VideoService {
         entityManager.remove(video);
     }
     
+    public List<Video> findVideosByName(String videoName){
+        
+        TypedQuery<Video> query = entityManager.createQuery("SELECT v from Video v where v.videoName LIKE :videoName", Video.class);
+        query.setParameter("videoName", "%" + videoName + "%");        
+        return query.getResultList();
+    }
+    
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Video> findVideos() {
@@ -63,9 +70,9 @@ public class VideoService {
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Video getVideos(@PathParam("id") Integer id) {
-        TypedQuery<Video> q = entityManager.createQuery("Select v from Video v where v.id = :id", Video.class);
-        q.setParameter("id", id);        
         
+        TypedQuery<Video> q = entityManager.createQuery("Select v from Video v where v.id = :id", Video.class);
+        q.setParameter("id", id);                
         return q.getSingleResult();
     }
     
@@ -74,23 +81,24 @@ public class VideoService {
      * 
      * @return List of Videos, produces JAYSON
      */
-//////    @GET
-//////    @Produces({MediaType.APPLICATION_JSON})
-//////    public List<Video> findStudentVideos() {
-//////        
-//////        List<Video> videoList = new ArrayList<Video>();
-//////        
-//////        videoList.add(new Video("Et lite stykke Høgskolen i Ålesund",
-//////                                "YouTube/ID",
-//////                                "wjoKkILj9PA",
-//////                                "HiALS Studier",
-//////                                "Presentasjon av studietilbudene ved Høgskolen i Ålesund.",
-//////                                "lol no",
-//////                                "nooope"));
-//////        
-//////        
-//////        return videoList;        
-//////    }    
+    @GET
+    @Path("stud")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Video> findStudentVideos() {
+        
+        List<Video> videoList = new ArrayList<Video>();
+        
+        videoList.add(new Video("Et lite stykke Høgskolen i Ålesund",
+                                "YouTube/ID",
+                                "wjoKkILj9PA",
+                                "HiALS Studier",
+                                "Presentasjon av studietilbudene ved Høgskolen i Ålesund.",
+                                "lol no",
+                                "nooope"));
+        
+        
+        return videoList;        
+    }    
        
        
     /**
@@ -100,8 +108,7 @@ public class VideoService {
      */
     public void makeVideoTestData() {
         
-        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
-        
+        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};        
         
         for (int i = 0; i < 15; i++) {
             
@@ -134,8 +141,7 @@ public class VideoService {
      */
     public List<Video> getVideoTestData() {
         
-        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};
-        
+        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};        
         List<Video> videoList = new ArrayList<Video>();
         
         for (int i = 0; i < 15; i++) {
@@ -146,12 +152,10 @@ public class VideoService {
                 n = 0;
             }
             
-            videoList.add(new Video("Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));
-            
+            videoList.add(new Video("Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));            
         }
         
-        return videoList;
-        
+        return videoList;        
     }
     
     

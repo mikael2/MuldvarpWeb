@@ -5,7 +5,10 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * JPA-class defining a Video
@@ -41,6 +44,11 @@ public class Video implements Serializable{
     
     @Column(name = "videoThumbURI")
     String videoThumbURI;
+    
+    @ManyToMany(mappedBy = "videos")
+    List<Course> courses;
+    
+    
     
     
     /**
@@ -145,6 +153,22 @@ public class Video implements Serializable{
         this.videoThumbURI = videoThumbURI;
     }
 
+    public void setCourses(List<Course> course) {
+        this.courses = course;
+    }
+    
+    @XmlTransient
+    public void addCourse(Course course) {
+        if(courses == null) {
+            courses = new ArrayList<Course>();
+        }
+        courses.add(course);
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
         
+    
     
 }
