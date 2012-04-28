@@ -29,104 +29,85 @@
 
                         <h:outputLabel value="Video Description: " />
                         <h:outputLabel value="#{videoController.selectedVideo.videoDescription}"/>
-                        <p:commandButton id="editAltTitle" value="Edit" onclick="dlg2.show();" type="button" />
+                        <p:commandButton id="editDescription" value="Edit" onclick="dlg2.show();" type="button" />
                         
                         
 
                         <h:outputLabel value="Video Type: " />
                         <h:outputLabel value="#{videoController.selectedVideo.videoType}"/>
-                        <p:commandButton id="editAuthor" value="Edit" onclick="dlg3.show();" type="button" />
+                        <p:commandButton id="editType" value="Edit" onclick="dlg3.show();" type="button" />
                         
                         
 
                         <h:outputLabel value="Video URI: " />
                         <h:outputLabel value="#{videoController.selectedVideo.videoURI}"/>
-                        <p:commandButton id="editCoAuthor" value="Edit" onclick="dlg4.show();" type="button" />
+                        <p:commandButton id="editURI" value="Edit" onclick="dlg4.show();" type="button" />
                         
                         
 
                         <h:outputLabel value="Video Icon URI: " />
                         <h:outputLabel value="#{videoController.selectedVideo.videoIconURI}"/>
-                        <p:commandButton id="editPublished" value="Edit" onclick="dlg5.show();" type="button" />
+                        <p:commandButton id="editIconURI" value="Edit" onclick="dlg5.show();" type="button" />
                         
                        
                         
                         <h:outputLabel value="Video Thumb URI: " />
                         <h:outputLabel value="#{videoController.selectedVideo.videoThumbURI}"/>
+                        <p:commandButton id="editThumbURI" value="Edit" onclick="dlg6.show();" type="button" />
                         <br/>
                         
                         
   
                     <f:facet name="footer">  
                         <p:commandButton id="back" value="Back" ajax="false" action="listVideos?faces-redirect=true" />
-                        <p:commandButton id="deleteButton" value="Delete video" actionListener="#{videoController.deleteVideo()}" ajax="false" action="listVideos?faces-redirect=true" />
-                        <p:commandButton id="helpButton" value="Help" actionListener="#{libraryController.addInfo(2)}"/>
-                        <p:commandButton  id="submitButton" value="save" action="FW?faces-redirect=true" actionListener="#{libraryController.editSelected()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                        <p:commandButton id="deleteButton" value="Delete video" actionListener="#{videoController.removeSelectedVideo()}" ajax="false" action="listVideos?faces-redirect=true" />
+                        <p:commandButton id="helpButton" value="Help" actionListener="#{videoController.addInfo(2)}"/>
+                        <p:commandButton  id="submitButton" value="save" action="listVideos?faces-redirect=true" actionListener="#{videoController.editSelected()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
                     </f:facet>
                 </p:panelGrid>  
             </p:fieldset>
             </h:form>
-            <p:dialog id="summaryDialog" header="Edit summary" widgetVar="dlg10"> 
-                <h:form id="summaryForm">
-                            <p:panelGrid columns="2">
-                            <h:outputText value="New summary: " />  
-                            <p:inputTextarea value="#{libraryController.libraryItem.summary}" rows="5" cols="30"/>
-                            </p:panelGrid>
-                </h:form>
-            </p:dialog>
-            <p:dialog id="thumbURLDialog" header="Edit thumb URL" widgetVar="dlg8"> 
-                <h:form id="thumbURLForm">
-                            <p:panelGrid columns="2">
-                            <h:outputText value="New thumb URL: " />  
-                            <p:inputText value="#{libraryController.selected.thumbURL}"/>
-                            </p:panelGrid>
-                </h:form>
-            </p:dialog>
-            <p:dialog id="iconURLDialog" header="Edit icon URL" widgetVar="dlg7"> 
-                <h:form id="iconURLForm">
-                            <p:panelGrid columns="2">
-                            <h:outputText value="New icon URL: " />  
-                            <p:inputText value="#{libraryController.selected.iconURL}"/>
-                            </p:panelGrid>
-                </h:form>
-            </p:dialog>
-            <p:dialog id="pageNoDialog" header="Edit number of pages" widgetVar="dlg6">
+
+            <p:dialog id="pageNoDialog" header="Edit video thumb URI" widgetVar="dlg6">
                 <h:form id="pageNoForm">
                             <p:panelGrid columns="2">
-                            <h:outputText value="New number of pages: " />  
-                            <p:inputText value="#{libraryController.selected.pageNo}"/>
+                            <h:outputText value="New video thumb IRO: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/>
                             </p:panelGrid>
                 </h:form>
             </p:dialog>
-            <p:dialog id="publishedDialog" header="Edit date of publishing" widgetVar="dlg5"> 
+            <p:dialog id="publishedDialog" header="Edit video icon URI" widgetVar="dlg5"> 
                 <h:form id="publishedForm">
                             <p:panelGrid columns="2">
-                            <h:outputText value="New publishing date: " />  
-                            <p:inputText value="#{libraryController.selected.published}"/>
+                            <h:outputText value="New video icon uri: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoIconURI}"/>
                             </p:panelGrid>
                 </h:form>
             </p:dialog>
-            <p:dialog id="coAuthorDialog" header="Edit co author" widgetVar="dlg4"> 
+            <p:dialog id="coAuthorDialog" header="Edit video URI" widgetVar="dlg4"> 
                 <h:form id="coAuthorForm">
                             <p:panelGrid columns="2">
-                            <h:outputText value="New co author: " />  
-                            <p:inputText value="#{libraryController.selected.coAuthor}"/>
+                            <h:outputText value="New video URI: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoURI}"/>
                             </p:panelGrid>
                 </h:form>
             </p:dialog>
-            <p:dialog id="authorDialog" header="Edit author" widgetVar="dlg3">
+            <p:dialog id="authorDialog" header="Edit type" widgetVar="dlg3">
                 <h:form id="authorForm">
                             <p:panelGrid columns="2">
-                            <h:outputText value="New author: " />  
-                            <p:inputText value="#{libraryController.selected.author}"/>
+                            <h:outputText value="New type: " />  
+                            <h:selectOneListbox value="#{videoController.selectedVideo.videoType}">
+                                <f:selectItem id="item1" itemLabel="Youtube/ID" itemValue="Youtube/ID" />
+                                <f:selectItem id="item2" itemLabel="External" itemValue="External" />
+                            </h:selectOneListbox>
                             </p:panelGrid>
                 </h:form>
             </p:dialog>
-            <p:dialog id="altTitleDialog" header="Edit alternate title" widgetVar="dlg2">
+            <p:dialog id="altTitleDialog" header="Edit video description" widgetVar="dlg2">
                 <h:form id="altTitleForm">
                             <p:panelGrid columns="2">
-                            <h:outputText value="New alternate title: " />  
-                            <p:inputText value="#{libraryController.selected.alternateTitle}"/>
+                            <h:outputText value="New video description: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoDescription}"/>
                             </p:panelGrid>
                 </h:form>
             </p:dialog>
@@ -134,7 +115,7 @@
                 <h:form id="titleForm">
                             <p:panelGrid columns="2">
                             <h:outputText value="New title: " />  
-                            <p:inputText value="#{libraryController.selected.title}"/>
+                            <p:inputText value="#{videoController.selectedVideo.videoName}"/>
                             </p:panelGrid>
                 </h:form>
             </p:dialog>

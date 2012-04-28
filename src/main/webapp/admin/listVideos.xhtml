@@ -28,19 +28,13 @@
                             value="#{videoItem.videoName}" />
                     </p:column>
                     <p:column headerText="Detail">  
-                        <h:commandLink
-                            actionListener="#{videoController.selectVideo(videoItem)}"
-                            action="editVideo?faces-redirect=true}"
-                            value="#{videoItem.videoDetail}" />
+                        <h:outputText value="#{videoItem.videoDetail}"/>
                     </p:column>
                     <p:column headerText="Type">  
-                        <h:commandLink
-                            actionListener="#{videoController.selectVideo(videoItem)}"
-                            action="editVideo?faces-redirect=true}"
-                            value="#{videoItem.videoType}" />
+                        <h:outputText value="#{videoItem.videoType}"/>
                     </p:column>
                     <p:column headerText="Delete">  
-                        <p:commandButton  id="deleteButton" value="Delete Video" action="#{videoController.removeVideo(videoItem)}" actionListener="#{libraryController.addInfo(1, videoItem)}" ajax="false"/>
+                        <p:commandButton  id="deleteButton" value="Delete Video" action="#{videoController.removeVideo(videoItem)}" actionListener="#{videoController.addInfo(1, videoItem)}" ajax="false"/>
                     </p:column>
                 </p:dataTable>          
             </p:fieldset>

@@ -25,7 +25,10 @@
                 <p:inputText value="#{videoController.selectedVideo.videoName}"/>
 
                 <h:outputLabel value="Video Type: " />
-                <p:inputText value="#{videoController.selectedVideo.videoType}"/>
+                <h:selectOneListbox value="#{videoController.selectedVideo.videoType}">
+                    <f:selectItem id="item1" itemLabel="Youtube/ID" itemValue="Youtube/ID" />
+                    <f:selectItem id="item2" itemLabel="External" itemValue="External" />
+                </h:selectOneListbox>
 
                 <h:outputLabel value="Video URI: " />
                 <p:inputText value="#{videoController.selectedVideo.videoURI}"/>
@@ -45,8 +48,8 @@
             </p:panelGrid>
             
             <p:panelGrid columns="2" style="margin-top:2%; margin-bottom: 5%">
-                <h:commandButton id="submitButton" value="Submit" actionListener="#{videoController.addVideo()}" ></h:commandButton>
-                <h:commandButton id="testDataButton" type="Submit" value="Testdata" actionListener="#{videoController.makeVideoTestData()}" ></h:commandButton>
+                <h:commandButton id="submitButton" value="Submit" action="listVideos?faces-redirect=true" actionListener="#{videoController.addVideo()}" ></h:commandButton>
+                
             </p:panelGrid>
             </p:fieldset>
        </h:form>

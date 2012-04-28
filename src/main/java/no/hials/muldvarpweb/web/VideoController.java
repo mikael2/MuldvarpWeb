@@ -98,10 +98,22 @@ public class VideoController implements Serializable {
         }
     }
     
+    public void removeSelectedVideo(){
+        
+        if(selectedVideo != null){
+            videoService.removeVideo(selectedVideo);
+        }
+    }
+    
+    public void editSelected() {
+        videoService.addVideo(selectedVideo);
+        addInfo(3);
+    }
+    
     public void addInfo(int i, Video video){
         
         if (i == 1) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Document deleted: ", video.getVideoName()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Video deleted: ", video.getVideoName()));
         }        
     }
     

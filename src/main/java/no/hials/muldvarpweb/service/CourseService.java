@@ -200,7 +200,7 @@ public class CourseService {
     
     public void addVideo(Course course, Video video){
         
-        video.addCourse(course);
+        course.addVideo(video);
         editCourse(course);
     }
     
