@@ -17,7 +17,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.*;
 
@@ -67,6 +70,7 @@ public class CourseService {
         for(int i = 0; i < themes.size(); i++) {
             if(themes.get(i).getId() == themeid) {
                 theme = themes.get(i);
+                break;
             }
         }
         
@@ -92,20 +96,22 @@ public class CourseService {
     }
     
     public void addCourse(Course course) {
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
+    }
+    
+    public void persist(Course c) {
+        c = em.merge(c);
+        em.persist(c);
     }
     
     public void addNewRevCourse(Course course) {
         course = new Course(course.getName(), course.getDetail(), course.getImageurl(), course.getRevision(), course.getThemes(), course.getObligatoryTasks(), course.getExams(), course.getTeachers(), course.getProgrammes());
         course.setRevision(course.getRevision()+1);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void editCourse(Course course) {        
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void removeCourse(Course course) {
@@ -115,56 +121,47 @@ public class CourseService {
     
     public void addTheme(Course course, Theme theme) {
         course.addTheme(theme);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void editTheme(Course course, Theme theme) {
         course.editTheme(theme);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void removeTheme(Course course, Theme theme) {
         course.removeTheme(theme);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void addTask(Course course, Theme theme, Task task) {
         course.addTask(theme, task);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void editTask(Course course, Theme theme, Task task) {
         course.editTask(theme, task);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void removeTask(Course course, Theme theme, Task task) {
         course.removeTask(theme, task);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void addObligatoryTask(Course course, ObligatoryTask obligtask) {
         course.addObligatoryTask(obligtask);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void editObligatoryTask(Course course, ObligatoryTask obligtask) {
         course.editObligatoryTask(obligtask);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void removeObligatoryTask(Course course, ObligatoryTask obligtask) {
         course.removeObligatoryTask(obligtask);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void acceptObligatoryTask(Course course, ObligatoryTask obligtask) {
@@ -174,20 +171,17 @@ public class CourseService {
     
     public void addExam(Course course, Exam exam) {
         course.addExam(exam);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void editExam(Course course, Exam exam) {
         course.editExam(exam);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void removeExam(Course course, Exam exam) {
         course.removeExam(exam);
-        course = em.merge(course);
-        em.persist(course);
+        persist(course);
     }
     
     public void addProgramme(Course c, Programme p) {
@@ -195,11 +189,43 @@ public class CourseService {
         editCourse(c);
     }
     
+    public void addQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question newQuestion) {
+        selectedTask.addQuestion(newQuestion);
+        editTask(selected, selectedTheme, selectedTask);
+    }
+    
+    public void editQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question q) {
+        selectedTask.editQuestion(q);
+        editTask(selected, selectedTheme, selectedTask);
+    }
+    
+    public void addAlternative(Course selected, Theme selectedTheme, Task selectedTask, Question selectedQuestion, Alternative newAlternative) {
+        selectedQuestion.addAlternative(newAlternative);
+        editQuestion(selected, selectedTheme, selectedTask, selectedQuestion);
+    }
+    
+    public void setAnswer(Course selected, Theme selectedTheme, Task selectedTask, Question q, Alternative a) {
+        q.setAnswer(a);
+        editQuestion(selected, selectedTheme, selectedTask, q);
+    }
+    
+    public void removeQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question q) {
+        selectedTask.removeQuestion(q);
+        editTask(selected, selectedTheme, selectedTask);
+    }
+    
+    public void removeAlternative(Course selected, Theme selectedTheme, Task selectedTask, Question selectedQuestion, Alternative a) {
+        selectedQuestion.removeAlternative(a);
+        editQuestion(selected, selectedTheme, selectedTask, selectedQuestion);
+    }
+    
     public void makeTestData() {     
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm:ss");
         Date date = new Date();
+        retVal.setRevision(1);
+        retVal.setRevision_date(new Date());
         
         ArrayList<ObligatoryTask> obligTasks = new ArrayList<ObligatoryTask>();
         try {
@@ -251,22 +277,43 @@ public class CourseService {
         
         Theme theme2 = new Theme("Dummy tema");
         ArrayList<Task> tasks2 = new ArrayList<Task>();
-        task = new Task("Oppgave 2.1");
+        task = new Task("Les dette");
         task.setDone(true);
+        task.setContentType("PDF");
         tasks2.add(task);
-        task = new Task("Oppgave 2.2");
-        task.setDone(true);
+        
+        task = new Task("Quiz");
+        task.setContentType("Quiz");
+        ArrayList<Question> questions = new ArrayList<Question>();
+        Question q = new Question();
+        q.setName("Spørsmål");
+        ArrayList<Alternative> alts = new ArrayList<Alternative>();
+        Alternative a = new Alternative();
+        a.setName("Alternativ 1");
+        alts.add(a);
+        a = new Alternative();
+        a.setName("Alternativ 2");
+        alts.add(a);
+        q.setAlternatives(alts);
+        questions.add(q);
+        task.setQuestions(questions);
         tasks2.add(task);
+        
         task = new Task("Læringsvideo 1");
         task.setContent_url("XsFR8DbSRQE");
-        task.setDone(true);
+        task.setContentType("Video");
         tasks2.add(task);
         theme2.setTasks(tasks2);
         themes.add(theme2);
         
+      
         retVal.setThemes(themes);
-        
-        retVal = em.merge(retVal);
         em.persist(retVal);
+        
+        Programme prog = new Programme("Test program", "blablabla");
+        prog.addCourse(retVal);
+        retVal.addProgramme(prog);
+        
+        retVal = em.merge(retVal);       
     }
 }

@@ -49,7 +49,16 @@ public class ProgrammeService {
     @Produces({MediaType.APPLICATION_JSON})
     public List<Programme> findProgrammes() {
         return em.createQuery("SELECT v from Programme v", Programme.class).getResultList();
-    }    
+    }
+    
+    @GET
+    @Path("courses/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Course> findCoursesInProgrammes(@PathParam("id") Integer id) {
+        TypedQuery<Course> q = em.createQuery("SELECT v.courses from Programme v where v.id = :id", Course.class);
+        q.setParameter("id", id);
+        return q.getResultList();
+    }
         
     /**
      * Function that returns all Programmes corresponding to one ID.

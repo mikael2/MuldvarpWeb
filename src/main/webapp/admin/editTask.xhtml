@@ -23,14 +23,33 @@
                         <h:inputText value="#{task.name}" />
                     </p:column>
                     <p:column headerText="Type">  
-                        <h:selectOneListbox headerText="Content Type">
-                            <f:selectItem id="item1" itemLabel="External" itemValue="1" />
-                            <f:selectItem id="item2" itemLabel="Video" itemValue="2" />
-                            <f:selectItem id="item3" itemLabel="PDF" itemValue="3" />                            
+                        <h:selectOneListbox value="#{task.contentType}">
+                            <f:selectItem id="item1" itemLabel="External" itemValue="External" />
+                            <f:selectItem id="item2" itemLabel="Video" itemValue="Video" />
+                            <f:selectItem id="item3" itemLabel="PDF" itemValue="PDF" />
+                            <f:selectItem id="item4" itemLabel="Quiz" itemValue="Quiz" />
                         </h:selectOneListbox>
                     </p:column>
                     <p:column headerText="Content URL">  
                         <h:inputText value="#{task.content_url}" />
+                    </p:column>
+                    <p:column headerText="Questions">  
+                        <p:dataTable id="questTable"
+                            value="#{task.questions}" 
+                            var="q">
+                            <p:column headerText="Name">
+                                <h:commandLink value="#{q.name}" action="#{courseController.setSelectedQuestion(q)}"/>
+                            </p:column>
+                            <p:column>  
+                                <h:commandLink value="Delete" action="#{courseController.removeQuestion(q)}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:column>  
+                            <h:inputText value="#{courseController.question.name}" />
+                        </p:column> 
+                        <p:column>
+                            <p:commandButton value="Add Question" action="#{courseController.addQuestion()}" update="questTable"/>
+                        </p:column>
                     </p:column>
                 </p:dataTable>
             </p:fieldset>

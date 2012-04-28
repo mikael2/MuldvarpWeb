@@ -8,3 +8,5 @@ src/main/webapp/Admin/editTask.xhtml
 src/main/webapp/Admin/editTheme.xhtml
 
 src/main/webapp/Admin/listCourses.xhtml
+
+src/main/webapp/Admin/newVideo.xhtml

@@ -1,29 +1,19 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-
-    <h:head>
-        <link rel="stylesheet" href="css/news/html5reset.css" type="text/css" /> 
-        <link rel="stylesheet" href="css/news/style.css" type="text/css" /> 
-        <title>Add video</title>
-    </h:head>
-    <h:body>
+<ui:composition template="/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
 
-        <header>
-            <hgroup id="top">              
-                <h1><img id="logo" src="img/hialsBilde.jpg" alt="hials bilde" width="120" heigth="150"/>HiALS</h1>
-                <h2></h2>
-            </hgroup>
-        </header>
+    <ui:define name="title">
+        Create and Add new Video        
+    </ui:define>
         
         
-        
+    <ui:define name="right">
         <h:form id="metaform">
             <p:panelGrid columns="2">
                 <f:facet name="header">  
@@ -58,11 +48,10 @@
                 <h:commandButton id="testDataButton" type="Submit" value="Testdata" actionListener="#{videoController.makeVideoTestData()}" ></h:commandButton>
             </p:panelGrid>
        </h:form>
+        
+        
+   </ui:define>    
             
         
        
-            
-       
-    </h:body>
-</html>
-
+</ui:composition>

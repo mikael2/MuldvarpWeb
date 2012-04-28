@@ -5,8 +5,10 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.SelectItem;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -27,6 +29,8 @@ public class CourseController implements Serializable {
     Task newTask;
     ObligatoryTask newObligatoryTask;
     Exam newExam;
+    Question newQuestion;
+    Alternative newAlternative;
     List<Course> courses;
     Course selected;
     Course filter;
@@ -34,6 +38,8 @@ public class CourseController implements Serializable {
     Task selectedTask;
     ObligatoryTask selectedObligatoryTask;
     Exam selectedExam;
+    Question selectedQuestion;
+    Alternative selectedAlternative;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -111,6 +117,15 @@ public class CourseController implements Serializable {
     public String setSelectedObligatoryTask(ObligatoryTask selectedObligatoryTask) {
         this.selectedObligatoryTask = selectedObligatoryTask;
         return "editObligTask";
+    }
+
+    public Question getSelectedQuestion() {
+        return selectedQuestion;
+    }
+
+    public String setSelectedQuestion(Question selectedQuestion) {
+        this.selectedQuestion = selectedQuestion;
+        return "editQuestion";
     }
 
     public CourseService getService() {
@@ -292,6 +307,53 @@ public class CourseController implements Serializable {
         service.makeTestData();
     }
     
+     /**
+     * This function retrieves a list of programs and creates a list of Select Items for use with JSF
+     * 
+     * 
+     * @return List of SelectItem
+     */
+    public List<SelectItem> getProgrammeItems(List<Programme> programmeList) {
+        
+                 
+        List<SelectItem> selectItems = new ArrayList<SelectItem>();
+        
+        
+        //Loop once for each element in the supplied List of Programmes
+        for (int i = 0; i < programmeList.size(); i++) {
+            
+            SelectItem currentSelectItem = new SelectItem(programmeList.get(i), programmeList.get(i).getName());
+            
+            //Loop once for every Programme in the selected course
+            for(int n = 0; n < selected.getProgrammes().size() ; n++) {
+                
+                //Compare and check if there are matching ID's between programmes
+                if(programmeList.get(i).getId() == selected.getProgrammes().get(n).getId()){
+                    
+                    //Set checkbox to true
+                    currentSelectItem.setValue(true);
+
+                }
+                
+            }
+            
+            selectItems.add(currentSelectItem);
+            
+        }
+        
+        return selectItems;
+    }
+    
+    /**
+     * 
+     * 
+     */
+    public void setProgrammeItems() {
+        
+        
+    }
+    
+        
     public void addInfo(int i) {  
         switch(i) {
             case 1:
@@ -320,4 +382,65 @@ public class CourseController implements Serializable {
     public void addProgramme(Programme p) {
         selected.addProgramme(p);
     }
+
+    public Question getQuestion() {
+        if(newQuestion == null)
+            newQuestion = new Question();
+        return newQuestion;
+    }
+    
+    public void addQuestion() {
+        if(newQuestion != null && selected != null) {
+            service.addQuestion(selected, selectedTheme, selectedTask, newQuestion);
+            newQuestion = null;
+        }
+    }
+    
+    public String editQuestion() {
+       if(selectedQuestion != null) {
+            service.editQuestion(selected, selectedTheme, selectedTask, selectedQuestion);
+        }
+        return "editTask?faces-redirect=true"; 
+    }
+    
+    public String removeQuestion(Question q) {
+        if(selected != null) {
+            service.removeQuestion(selected, selectedTheme, selectedTask, q);
+        }
+        return "editTask?faces-redirect=true";
+    }
+    
+    public void setAnswer(Alternative a) {
+        if(selectedQuestion != null) {
+            service.setAnswer(selected, selectedTheme, selectedTask, selectedQuestion, a);
+        }
+    }
+    
+    public void addAlternative() {
+        if(newAlternative != null && selected != null) {
+            service.addAlternative(selected, selectedTheme, selectedTask, selectedQuestion, newAlternative);
+            newAlternative = null;
+        }
+    }
+    
+    public String removeAlternative(Alternative a) {
+        if(selected != null) {
+            service.removeAlternative(selected, selectedTheme, selectedTask, selectedQuestion, a);
+        }
+        return "editTask?faces-redirect=true";
+    }
+
+    public Alternative getAlternative() {
+        if(newAlternative == null)
+            newAlternative = new Alternative();
+        return newAlternative;
+    }
+    public Alternative getSelectedAlternative() {
+        return selectedAlternative;
+    }
+
+    public void setSelectedAlternative(Alternative selectedAlternative) {
+        this.selectedAlternative = selectedAlternative;
+    }
+    
 }

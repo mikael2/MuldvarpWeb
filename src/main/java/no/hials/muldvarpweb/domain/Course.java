@@ -1,13 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,8 +24,8 @@ public class Course implements Serializable {
     @Column(name = "detail")
     String detail;
     
-//    @Column(name = "description")
-//    String description;
+    @Column(name = "description")
+    String description;
     
     @Column(name = "imageurl")
     String imageurl;
@@ -52,7 +50,7 @@ public class Course implements Serializable {
     List<Person> teachers;
     
     @ManyToMany(mappedBy = "courses")
-    private List<Programme> programmes;
+    List<Programme> programmes;
     
     public Course() {
         this.revision = 0;
@@ -244,7 +242,11 @@ public class Course implements Serializable {
 //        this.description = description;
 //    }
 
+    @XmlTransient
     public List<Programme> getProgrammes() {
+        if(programmes == null) {
+            programmes = new ArrayList<Programme>();
+        }
         return programmes;
     }
 
@@ -253,6 +255,9 @@ public class Course implements Serializable {
     }
     
     public void addProgramme(Programme p) {
+        if(programmes == null) {
+            programmes = new ArrayList<Programme>();
+        }
         programmes.add(p);
     }
 }

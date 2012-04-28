@@ -5,6 +5,7 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -56,10 +57,12 @@ public class ProgrammeController implements Serializable{
     }
 
     public Programme getProgramme() {
+        if(newProgramme == null)
+            newProgramme = new Programme();
         return newProgramme;
     }
 
-    public void setNewProgramme(Programme newProgramme) {
+    public void setProgramme(Programme newProgramme) {
         this.newProgramme = newProgramme;
     }
     
