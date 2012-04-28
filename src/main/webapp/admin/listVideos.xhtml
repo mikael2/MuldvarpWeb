@@ -15,7 +15,7 @@
                 <p:fieldset legend="Search Functions">
                     <h:inputText id="searchInput" value="#{videoController.filterString}"/>
                     <p:commandButton value="Search" action="#{videoController.getNameFilteredVideos()}"  update="videoTable"/>
-                </p:fieldset>s
+                </p:fieldset>
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
                 <p:dataTable
                     id="videoTable"
