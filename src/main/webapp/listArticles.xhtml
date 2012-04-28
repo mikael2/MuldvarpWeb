@@ -1,0 +1,32 @@
+<ui:composition template="/template.xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        List of Articles
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="docForm">                
+            <p:fieldset legend="Article">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                <p:dataTable
+                    id="articleTable"
+                    value="#{articleController.mostRecentArticles}" 
+                    var="Article">
+                    <p:column headerText="Title" style="width: 800px">  
+                        <h:commandLink
+                            actionListener="#{articleController.select(Article)}"
+                            action="editArticle?faces-redirect=true}"
+                            value="#{Article.title}" />
+                    </p:column>
+                    <p:column headerText="Delete">  
+                        <p:commandButton  id="deleteButton" value="Delete article" action="#{articleController.deleteArticle(Article)}" ajax="false"/>
+                    </p:column>
+                </p:dataTable>          
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+</ui:composition>

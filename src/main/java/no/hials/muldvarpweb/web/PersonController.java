@@ -16,14 +16,14 @@ import no.hials.muldvarpweb.service.PersonService;
 @SessionScoped
 public class PersonController implements Serializable {
     
-    @Inject PersonService personService;
+    @Inject PersonService service;
     Person newPerson;
     List<Person> personList;
-    Person selectedPerson;
+    Person selected;
     Person filter;
     
     public PersonService getService() {     
-        return personService;
+        return service;
     }
     
     public Person getPerson() {
@@ -35,11 +35,15 @@ public class PersonController implements Serializable {
     }
     
     public List<Person> getPeople () { 
-        return personService.findPeople();
+        return service.findPeople();
+    }
+    
+    public void setPeople(List<Person> personList){
+        this.personList = personList;
     }
     
     public Person getPerson(Long id) {
-        return personService.getPerson(id);
+        return service.getPerson(id);
     }
 
     public void setPerson(Person person) {
@@ -50,7 +54,7 @@ public class PersonController implements Serializable {
 
         //if(newArticle != null) {
         System.out.println("Submitting person " + newPerson);
-        newPerson = personService.addPerson(newPerson);
+        newPerson = service.addPerson(newPerson);
         System.out.println("Submitted person " + newPerson);
         clearPerson();
         // }
@@ -60,11 +64,38 @@ public class PersonController implements Serializable {
         newPerson = null;
     }
 
-    public void deletePerson() {
-        System.out.println("Deleting person " + newPerson);
-        personService.removePerson(newPerson);
-        System.out.println("Clearing person " + newPerson);
+    public void deletePerson(Person per) {
+        System.out.println("Deleting person " + per);
+        service.removePerson(per);
+        System.out.println("Clearing person " + per);
         clearPerson();
     }
+    
+    public void editSelected(){
+        service.addPerson(selected);
+    }
+    
+    public String setSelected(Person selected) {
+        if(selected == null) {
+            selected = getPerson();
+        }
+        this.selected = selected;
+        return "editPerson";
+    }
+    
+    public void select(Person p){
+         this.selected = p;
+     }
+    
+     public void deleteSelectedPerson(){
+        if(selected != null) {
+            service.removePerson(selected);
+        }
+    }
+     
+     public Person getSelected(){
+         return selected;
+     }
+
 
 }

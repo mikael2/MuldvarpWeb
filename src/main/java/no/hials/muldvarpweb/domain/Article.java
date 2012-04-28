@@ -3,6 +3,7 @@ package no.hials.muldvarpweb.domain;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Article implements Serializable {
     Date publishdate;
     String ingress;
     String author;
+    @Lob
     String text;
 
     public String getAuthor() {

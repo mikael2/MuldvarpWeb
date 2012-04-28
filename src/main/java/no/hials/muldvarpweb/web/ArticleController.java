@@ -21,6 +21,8 @@ public class ArticleController implements Serializable {
     @Inject
     ArticleService service;
     Article newArticle;
+    Article selected;
+    List<Article> articleList;
     
     public ArticleService getService() {     
         return service;
@@ -39,6 +41,11 @@ public class ArticleController implements Serializable {
         
         return newArticle;
     }
+    
+    public void setArticles(List<Article> articleList){
+        this.articleList = articleList;
+    }
+    
     public List<Article> getMostRecentArticles () { 
         return service.findMostRecentArticles();
     }
@@ -73,12 +80,45 @@ public class ArticleController implements Serializable {
     public void clearArticle() {
         newArticle = null;
     }
-
-    public void deleteArticle() {
+    
+    public void deleteTheArticle() {
         System.out.println("Deleting article " + newArticle);
         service.removeArticle(newArticle);
         System.out.println("Clearing article " + newArticle);
         clearArticle();
     }
+
+    public void deleteArticle(Article art) {
+        System.out.println("Deleting article " + art);
+        service.removeArticle(art);
+        System.out.println("Clearing article " + art);
+        clearArticle();
+    }
+    
+    public void editSelected(){
+        service.addArticle(selected);
+    }
+    
+    public String setSelected(Article selected) {
+        if(selected == null) {
+            selected = getArticle();
+        }
+        this.selected = selected;
+        return "editArticle";
+    }
+    
+    public void select(Article a){
+         this.selected = a;
+     }
+    
+     public void deleteSelectedArticle(){
+        if(selected != null) {
+            service.removeArticle(selected);
+        }
+    }
+     
+     public Article getSelected(){
+         return selected;
+     }
 
 }
