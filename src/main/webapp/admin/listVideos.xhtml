@@ -9,12 +9,17 @@
     </ui:define>
     
     <ui:define name="right">
-        <h:form id="docForm">                
-            <p:fieldset legend="Videos">
+        <h:form id="videoForm">
+            
+            <p:fieldset legend="Videos">               
+                <p:fieldset legend="Search Functions">
+                    <h:inputText id="searchInput" value="#{videoController.filterString}"/>
+                    <p:commandButton value="Search" action="#{videoController.getNameFilteredVideos()}"  update="videoTable"/>
+                </p:fieldset>s
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
                 <p:dataTable
                     id="videoTable"
-                    value="#{videoController.videos}" 
+                    value="#{videoController.getNameFilteredVideos()}" 
                     var="videoItem">
                     <p:column headerText="Name">  
                         <h:commandLink

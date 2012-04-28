@@ -15,6 +15,7 @@
         
     <ui:define name="right">
         <h:form id="metaform">
+            <p:fieldset legend="Video: #{videoController.selectedVideo.videoName}">
             <p:panelGrid columns="2">
                 <f:facet name="header">  
                     Add video
@@ -47,6 +48,7 @@
                 <h:commandButton id="submitButton" value="Submit" actionListener="#{videoController.addVideo()}" ></h:commandButton>
                 <h:commandButton id="testDataButton" type="Submit" value="Testdata" actionListener="#{videoController.makeVideoTestData()}" ></h:commandButton>
             </p:panelGrid>
+            </p:fieldset>
        </h:form>
         
         

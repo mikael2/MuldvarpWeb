@@ -28,6 +28,8 @@ public class VideoController implements Serializable {
     Video selectedVideo;
     Video filter;
     
+    String filterString;
+    
     
     /**
      * This function returns a list of videos.
@@ -52,6 +54,22 @@ public class VideoController implements Serializable {
         }
                 
         return selectedVideo;
+    }
+    
+    /**
+     * This function returns a List of Videos from VideoService based on a
+     * global variable in the VideoController class.
+     * 
+     * @return List of Video
+     */
+    public List<Video> getNameFilteredVideos(){
+        
+        //Make sure the filterString is not null but has a value, even if it's empty
+        if(filterString == null){
+            filterString = "";
+        }
+        
+        return videoService.findVideosByName(filterString);
     }
     
     
@@ -128,5 +146,14 @@ public class VideoController implements Serializable {
         videoService.makeVideoTestData();        
                 
     }
+
+    public String getFilterString() {
+        return filterString;
+    }
+
+    public void setFilterString(String filterString) {
+        this.filterString = filterString;
+    }
+    
     
 }

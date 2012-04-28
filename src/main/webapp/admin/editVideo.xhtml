@@ -17,6 +17,10 @@
                         #{videoController.selectedVideo.videoName}  
                     </f:facet>  
 
+                        <h:outputLabel value="Video ID: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.id}" id="id"/>
+                        <h:outputLabel value="" />
+                        
                         <h:outputLabel value="Video Title: " />
                         <h:outputLabel value="#{videoController.selectedVideo.videoName}" id="title"/>
                         <p:commandButton id="editTitle" value="Edit" onclick="dlg1.show();" type="button" />
