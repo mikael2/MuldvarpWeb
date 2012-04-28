@@ -45,12 +45,14 @@
                 <h:outputLabel value="Video Thumbnail URI: " />
                 <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/>
             
+                <f:facet name="footer">  
+                        <p:commandButton id="back" value="Back" ajax="false" action="listVideos?faces-redirect=true" />
+                        <p:commandButton id="submitButton" value="Submit" action="listVideos?faces-redirect=true" actionListener="#{videoController.addVideo()}" />
+                        <p:commandButton id="helpButton" value="Help" actionListener="#{videoController.addInfo(5)}"/>                        
+                </f:facet>
             </p:panelGrid>
             
-            <p:panelGrid columns="2" style="margin-top:2%; margin-bottom: 5%">
-                <h:commandButton id="submitButton" value="Submit" action="listVideos?faces-redirect=true" actionListener="#{videoController.addVideo()}" ></h:commandButton>
-                
-            </p:panelGrid>
+            
             </p:fieldset>
        </h:form>
         

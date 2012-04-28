@@ -27,7 +27,7 @@ public class VideoController implements Serializable {
     List<Video> videoList;
     Video selectedVideo;
     Video filter;
-    
+    Video videoForDeletion;
     String filterString;
     
     
@@ -110,6 +110,28 @@ public class VideoController implements Serializable {
         addInfo(3);
     }
     
+    public void setVideoForDeletion(Video video){
+        
+        this.videoForDeletion = video;
+    }
+    
+    public void setupVideoForDeletion(Video video){
+        
+        this.videoForDeletion = video;
+    }
+
+    public Video getVideoForDeletion() {
+        return videoForDeletion;
+    }
+    
+    public void deleteVideoForDeletion(){
+        
+        if(videoForDeletion != null){
+            videoService.removeVideo(newVideo);
+        }
+    }
+    
+    
     public void addInfo(int i, Video video){
         
         if (i == 1) {
@@ -134,6 +156,9 @@ public class VideoController implements Serializable {
              case 4:
                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "This method is not yet implemented."));
                  break;
+             case 5:
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFO: ", "Edit the fields and press submit when done."));
+                 break;    
          }
     }
     
