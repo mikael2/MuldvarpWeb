@@ -111,6 +111,7 @@ public class CourseController implements Serializable {
         this.selectedExam = selectedExam;
         return "editExam";
     }
+    
 
     public ObligatoryTask getSelectedObligatoryTask() {
         return selectedObligatoryTask;
@@ -305,6 +306,17 @@ public class CourseController implements Serializable {
     public void setVideo(Video newVideo) {
         this.newVideo = newVideo;
     }
+
+    public Video getSelectedVideo() {
+        return selectedVideo;
+    }
+
+    public String setSelectedVideo(Video selectedVideo) {
+        this.selectedVideo = selectedVideo;
+        return "editVideo";
+    }
+    
+    
 
     public ObligatoryTask getObligatoryTask() {
         if(newObligatoryTask == null)

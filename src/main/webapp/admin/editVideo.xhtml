@@ -34,8 +34,11 @@
                         
 
                         <h:outputLabel value="Video Type: " />
-                        <h:outputLabel value="#{videoController.selectedVideo.videoType}"/>
-                        <p:commandButton id="editType" value="Edit" onclick="dlg3.show();" type="button" />
+                        <h:selectOneListbox value="#{videoController.selectedVideo.videoType}">
+                                <f:selectItem id="item1" itemLabel="Youtube/ID" itemValue="Youtube/ID" />
+                                <f:selectItem id="item2" itemLabel="External" itemValue="External" />
+                            </h:selectOneListbox>
+                        <h:outputLabel value=" " />
                         
                         
 
@@ -100,6 +103,7 @@
                                 <f:selectItem id="item1" itemLabel="Youtube/ID" itemValue="Youtube/ID" />
                                 <f:selectItem id="item2" itemLabel="External" itemValue="External" />
                             </h:selectOneListbox>
+                            <p:commandButton id="confirmTypeButtan" value="Help" onclick="dlg3.hide();" actionListener="#{videoController.selectedVideo.videoType}"/>
                             </p:panelGrid>
                 </h:form>
             </p:dialog>

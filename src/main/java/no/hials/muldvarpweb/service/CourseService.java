@@ -201,7 +201,8 @@ public class CourseService {
     public void addVideo(Course course, Video video){
         
         course.addVideo(video);
-        editCourse(course);
+        video.addCourse(course);
+        em.merge(course);
     }
     
     public void editVideo(Course course, Video video){

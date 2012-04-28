@@ -91,6 +91,7 @@ public class VideoController implements Serializable {
         this.selectedVideo = video;
     }
     
+        
     public void removeVideo(Video video){
         
         if(video != null){

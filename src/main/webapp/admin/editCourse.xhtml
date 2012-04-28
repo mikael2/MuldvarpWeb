@@ -175,20 +175,21 @@
                             value="#{courseController.selected.videos}" 
                             var="videos">
                             <p:column headerText="Name">  
-                                <h:commandLink value="#{videos.videoName}" action="#{videoController.selectVideo(videos)}"/>
+                                <h:commandLink value="#{videos.videoName}" action="#{courseController.setSelectedVideo(videos)}"/>
                             </p:column>
                             <p:column headerText="Details">  
                                 <h:outputText value="#{videos.videoDetail}" />
                             </p:column>
                             <p:column>
-                                <h:commandLink value="Delete" action="#{courseController.removeVideo(video)}"/>
+                                <h:commandLink value="Delete" action="#{courseController.removeVideo(videos)}"/>
                             </p:column>
                         </p:dataTable>
                         <p:column>  
-                            <h:inputText value="#{courseController.exam.name}" />
+                            <h:inputText value="#{courseController.video.videoName}" />
                         </p:column> 
                         <p:column>
                             <p:commandButton value="Add Video" action="#{courseController.addVideo()}" update="videoTable"/>
+                            <p:commandButton value="Add Existing Video (NYI)" action="#{courseController.addVideo()}" update="videoTable"/>
                         </p:column>
                     </p:fieldset>
                 </div>
