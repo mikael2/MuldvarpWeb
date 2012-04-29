@@ -274,7 +274,7 @@ public class CourseService {
         c.clear();
         c.set(year, month, day, hour, minute);
         oblig1.setDueDate(c.getTime());
-        oblig1.setDone(true);
+        oblig1.acceptTask();
         obligTasks.add(oblig1);
         retVal.setObligatoryTasks(obligTasks); 
         
