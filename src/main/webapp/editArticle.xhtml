@@ -9,18 +9,21 @@
     </ui:define>
 
     <ui:define name="right">
-        <h:form id="docForm">                
+        <h:form id="docForm">
             <p:fieldset legend="Artikkel">
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
-                <p:panelGrid columns="3">  
-                    <f:facet name="header">  
-                        #{articleController.selected.title}  
-                    </f:facet>  
+                <p:panelGrid columns="3">
+                    <f:facet name="header">
+                        #{articleController.selected.title}
+                    </f:facet>
 
                     <h:outputLabel value="Tittel: " />
                     <h:outputLabel value="#{articleController.selected.title}" id="title"/>
                     <p:commandButton id="editTitle" value="Edit" onclick="dlg1.show();" type="button" />
 
+
+                    <h:outputLabel value="ID: " />
+                    <h:outputLabel value="#{articleController.selected.id}" id="id"/>
 
 
                     <h:outputLabel value="Kategori: " />
@@ -41,32 +44,32 @@
 
                     <h:outputLabel value="Forfatter: " />
                     <h:outputLabel value="#{articleController.selected.author}"/>
-                    <p:commandButton id="editAuthor" value="Edit" onclick="dlg5.show();" type="button" />        
+                    <p:commandButton id="editAuthor" value="Edit" onclick="dlg5.show();" type="button" />
 
                     <h:outputLabel value="Text " />
-                    <p:editor id="editor" value="#{articleController.selected.text}" width="700" height="350" widgetVar="myEdit" />         
+                    <p:editor id="editor" value="#{articleController.selected.text}" width="700" height="350" widgetVar="myEdit" />
 
-                    <f:facet name="footer">  
+                    <f:facet name="footer">
                         <p:commandButton id="back" value="Back" ajax="false" action="listArticles?faces-redirect=true" />
                         <p:commandButton id="deleteButton" value="Delete document" actionListener="#{articleController.deleteSelectedArticle()}" ajax="false" action="listArticles?faces-redirect=true" />
                         <p:commandButton  id="submitButton" value="save" action="listArticles?faces-redirect=true" actionListener="#{articleController.editSelected()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
                     </f:facet>
-                </p:panelGrid>  
+                </p:panelGrid>
             </p:fieldset>
         </h:form>
-   
-        <p:dialog id="authorDialog" header="Edit author" widgetVar="dlg5"> 
+
+        <p:dialog id="authorDialog" header="Edit author" widgetVar="dlg5">
             <h:form id="authorForm">
                 <p:panelGrid columns="2">
-                    <h:outputText value="New author: " />  
+                    <h:outputText value="New author: " />
                     <p:inputText value="#{articleController.selected.author}"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>
-        <p:dialog id="ingressDialog" header="Edit ingress" widgetVar="dlg4"> 
+        <p:dialog id="ingressDialog" header="Edit ingress" widgetVar="dlg4">
             <h:form id="ingressForm">
                 <p:panelGrid columns="2">
-                    <h:outputText value="New ingress: " />  
+                    <h:outputText value="New ingress: " />
                     <p:inputText value="#{articleController.selected.ingress}"/>
                 </p:panelGrid>
             </h:form>
@@ -74,7 +77,7 @@
         <p:dialog id="categoryDialog" header="Edit category" widgetVar="dlg2">
             <h:form id="categoryForm">
                 <p:panelGrid columns="2">
-                    <h:outputText value="New category: " />  
+                    <h:outputText value="New category: " />
                     <p:inputText value="#{articleController.selected.category}"/>
                 </p:panelGrid>
             </h:form>
@@ -82,7 +85,7 @@
         <p:dialog id="titleDialog" header="Edit title" widgetVar="dlg1">
             <h:form id="titleForm">
                 <p:panelGrid columns="2">
-                    <h:outputText value="New title: " />  
+                    <h:outputText value="New title: " />
                     <p:inputText value="#{articleController.selected.title}"/>
                 </p:panelGrid>
             </h:form>
