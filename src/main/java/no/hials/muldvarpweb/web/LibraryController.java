@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.service.LibraryService;
-import org.primefaces.event.FileUploadEvent;
+//import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -118,39 +118,39 @@ public class LibraryController implements Serializable {
         }
     }
 
-    public void handleFileUpload(FileUploadEvent event) {
-        if(event != null) {
-            FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-            
-            File datadir = new File("MuldvarpData");
-            if(!datadir.exists()) {
-                datadir.mkdir();
-            }
-            
-            File destination = new File(datadir,event.getFile().getFileName());
-            InputStream is = null;
-            BufferedOutputStream bos = null;
-            try {
-                is = event.getFile().getInputstream();
-                bos = new BufferedOutputStream(new FileOutputStream(destination));
-                byte[] buffer = new byte[1024];
-                int read = 0;
-                while((read = is.read(buffer)) != -1) {
-                    bos.write(buffer, 0, read);
-                }
-            } catch(Exception e) {
-//                Logger.getLogger(LibraryController.class).severe("Failed to write file " + destination.getAbsolutePath(), e);
-                if(is != null) {
-                    try{is.close();}catch(Exception ex){}
-                }
-                if(bos != null) {
-                    try{bos.close();}catch(Exception ex){}
-                }
-            }
-            
-            // TODO: Associate destination.getAbsolutePath() with Library Item
-            
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
+//    public void handleFileUpload(FileUploadEvent event) {
+//        if(event != null) {
+//            FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+//            
+//            File datadir = new File("MuldvarpData");
+//            if(!datadir.exists()) {
+//                datadir.mkdir();
+//            }
+//            
+//            File destination = new File(datadir,event.getFile().getFileName());
+//            InputStream is = null;
+//            BufferedOutputStream bos = null;
+//            try {
+//                is = event.getFile().getInputstream();
+//                bos = new BufferedOutputStream(new FileOutputStream(destination));
+//                byte[] buffer = new byte[1024];
+//                int read = 0;
+//                while((read = is.read(buffer)) != -1) {
+//                    bos.write(buffer, 0, read);
+//                }
+//            } catch(Exception e) {
+////                Logger.getLogger(LibraryController.class).severe("Failed to write file " + destination.getAbsolutePath(), e);
+//                if(is != null) {
+//                    try{is.close();}catch(Exception ex){}
+//                }
+//                if(bos != null) {
+//                    try{bos.close();}catch(Exception ex){}
+//                }
+//            }
+//            
+//            // TODO: Associate destination.getAbsolutePath() with Library Item
+//            
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//        }
+//    }
 }
