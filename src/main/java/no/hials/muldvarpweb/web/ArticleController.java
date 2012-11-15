@@ -31,7 +31,11 @@ public class ArticleController implements Serializable {
     public Article getOldArticle() {
         HttpServletRequest hsr = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         long id = Long.parseLong(hsr.getParameter("articleid"));
-        return getService().getArticle((Long)id);
+        Article result = getService().getArticle((Long)id);
+        
+        System.out.println("Article Title: '" + result.getTitle() + "'");
+        
+        return result;
     }
     
     public Article getArticle() {
