@@ -4,22 +4,22 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>  
         <link rel="stylesheet" type="text/css" 
-              href="css/news/androidNews.css" media="only screen and (max-width: 480px)" />
+              href="resources/css/news/androidNews.css" media="only screen and (max-width: 480px)" />
         <link rel="stylesheet" type="text/css" 
-              href="css/news/desktopNews.css" media="screen and (min-width: 481px)" />
+              href="resources/css/news/desktopNews.css" media="screen and (min-width: 481px)" />
         <!--[if IE]>
         <link rel="stylesheet" type="text/css" href="explorer.css" media="all" />
         <![endif]-->
         <meta name="viewport" content="user-scalable=no, width=device-width" />
     </h:head>
-    
+
     <h:body>
         <div id="content">
             <h1 style="text-align: center;"><h:outputText value="#{articleController.oldArticle.title}" escape="false"/></h1>
-                <p>
-                    <h:outputText value="#{articleController.oldArticle.text}" escape="false"/>
-                </p>
-            </div>
+            <p>
+                <h:outputText value="#{articleController.oldArticle.text}" escape="false"/>
+            </p>
+        </div>
     </h:body>
 </html>
 
