@@ -1,3 +1,7 @@
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 85% !important;
+}
+
 body {
     margin: 0;
     padding: 0;
