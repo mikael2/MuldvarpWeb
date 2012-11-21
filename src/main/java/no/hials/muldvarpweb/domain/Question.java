@@ -28,6 +28,15 @@ public class Question implements Serializable {
     List<Alternative> alternatives;    
     @OneToOne
     Alternative answer;
+    
+    public Question(){
+        
+    }
+    
+    public Question(String name, List alternatives){
+        this.name = name;
+        setAlternatives(alternatives);
+    }
 
     public long getId() {
         return id;

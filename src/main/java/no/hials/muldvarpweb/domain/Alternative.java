@@ -71,6 +71,9 @@ public class Alternative implements Serializable {
         this.alternativeType = alternativeType;
     }
     
-    
+    public Alternative(String name, boolean isCorrect) {
+        this.name = name;
+        this.isCorrect = isCorrect;
+    }
     
 }
