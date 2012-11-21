@@ -17,14 +17,27 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "alternative")
 public class Alternative implements Serializable {
+    public enum AlternativeType {
+        CHOICE("Choice"),
+        TEXT("Text");
+        private String alternativeType;        
+        private AlternativeType(String quizType){        
+            this.alternativeType = quizType;
+        }
+        public String getName() {            
+            return alternativeType;
+        }
+    }
     @Id
     @GeneratedValue
-    int id;
-    
+    int id;    
     String name;
+    boolean isCorrect;
+    AlternativeType alternativeType;
 
     public Alternative() {
     }
+    
 
     public String getName() {
         return name;
@@ -33,4 +46,31 @@ public class Alternative implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isIsCorrect() {
+        return isCorrect;
+    }
+
+    public void setIsCorrect(boolean isCorrect) {
+        this.isCorrect = isCorrect;
+    }
+
+    public AlternativeType getAlternativeType() {
+        return alternativeType;
+    }
+
+    public void setAlternativeType(AlternativeType alternativeType) {
+        this.alternativeType = alternativeType;
+    }
+    
+    
+    
 }
