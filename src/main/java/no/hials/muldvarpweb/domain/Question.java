@@ -19,10 +19,13 @@ public class Question implements Serializable {
     @GeneratedValue
     long id;
     String name;
-    
+    public enum QuestionType {
+        SINGLE,
+        MULTIPLE,
+        TEXT
+    }    
     @OneToMany
-    List<Alternative> alternatives;
-    
+    List<Alternative> alternatives;    
     @OneToOne
     Alternative answer;
 
