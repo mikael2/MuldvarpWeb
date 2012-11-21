@@ -4,6 +4,8 @@
  */
 package no.hials.muldvarpweb.service;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,6 +17,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Alternative;
+import no.hials.muldvarpweb.domain.Question;
 import no.hials.muldvarpweb.domain.Quiz;
 
 /**
@@ -62,6 +65,7 @@ public class QuizService {
     public Quiz getQuizzes(@PathParam("id") Integer id) {
         TypedQuery<Quiz> q = em.createQuery("Select q from Quiz q where q.id = :id", Quiz.class);
         q.setParameter("id", id);
+        makeTestData();
         
         return q.getSingleResult();
     }
@@ -79,10 +83,18 @@ public class QuizService {
     public void makeTestData(){
        
         Alternative alt = new Alternative();
-        alt.setName(null);
-        
+        alt.setName("hurr");
+        List<Alternative> alts = new ArrayList<Alternative>();
+        alts.add(alt);
+        Question question = new Question();
+        question.setName("dur");
+        question.setAlternatives(alts);
+        List<Question> questions = new ArrayList<Question>();
+        question.addAlternative(alt);
         Quiz quiz = new Quiz();
-        quiz.setName(null);
-        quiz.setDescription(null);
+        quiz.setName("test");
+        quiz.setDescription("teeeeststst");
+        quiz.setQuestions(questions);
+        addQuiz(quiz);
     }
 }

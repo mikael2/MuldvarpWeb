@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.Programme;
+import no.hials.muldvarpweb.domain.Quiz;
 
 /**
  * Service class for the Programme entities.
@@ -56,6 +57,15 @@ public class ProgrammeService {
     @Produces({MediaType.APPLICATION_JSON})
     public List<Course> findCoursesInProgrammes(@PathParam("id") Integer id) {
         TypedQuery<Course> q = em.createQuery("SELECT v.courses from Programme v where v.id = :id", Course.class);
+        q.setParameter("id", id);
+        return q.getResultList();
+    }
+    
+    @GET
+    @Path("quizzes/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Quiz> findQuizzesInProgrammes(@PathParam("id") Integer id) {
+        TypedQuery<Quiz> q = em.createQuery("SELECT q.quizzes from Programme q where q.id = :id", Quiz.class);
         q.setParameter("id", id);
         return q.getResultList();
     }

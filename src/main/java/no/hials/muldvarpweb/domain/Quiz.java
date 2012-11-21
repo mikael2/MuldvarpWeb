@@ -15,6 +15,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "quiz")
 public class Quiz implements Serializable {
+    @ManyToMany(mappedBy = "quizzes")
+    private List<Programme> programmes;
     public enum QuizType {
         FEEDBACK,
         REMOTE,

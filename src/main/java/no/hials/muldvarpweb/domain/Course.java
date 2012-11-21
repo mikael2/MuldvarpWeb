@@ -55,6 +55,9 @@ public class Course implements Serializable {
     @ManyToMany(mappedBy = "courses")
     List<Programme> programmes;
     
+    @OneToMany
+    List<Quiz> quizzes;
+    
     public Course() {
         this.revision = 0;
         this.revision_date = new Date();
