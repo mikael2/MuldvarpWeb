@@ -65,6 +65,15 @@ public class CourseService {
     }
     
     @GET
+    @Path("quiz/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Quiz> findQuizzesInCourse(@PathParam("id") Integer id) {
+        TypedQuery<Quiz> q = em.createQuery("SELECT q.quizzes from Course q where q.id = :id", Quiz.class);
+        q.setParameter("id", id);
+        return q.getResultList();
+    }
+    
+    @GET
     @Path("edit/{cid}/{themeid}/{taskid}/{val}")
     public String setTask(@PathParam("cid") Integer cid,
     @PathParam("themeid") Integer themeid,

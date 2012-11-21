@@ -62,7 +62,7 @@ public class ProgrammeService {
     }
     
     @GET
-    @Path("quizzes/{id}")
+    @Path("quiz/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Quiz> findQuizzesInProgrammes(@PathParam("id") Integer id) {
         TypedQuery<Quiz> q = em.createQuery("SELECT q.quizzes from Programme q where q.id = :id", Quiz.class);
