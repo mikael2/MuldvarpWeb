@@ -6,10 +6,7 @@ package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -29,6 +26,7 @@ public class Quiz implements Serializable {
     long id;
     String name;
     String description;
+    @OneToMany
     List<Question> questions;
     boolean shuffleQuestions;
 

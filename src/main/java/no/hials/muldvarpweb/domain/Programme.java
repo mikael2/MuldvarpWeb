@@ -32,6 +32,9 @@ public class Programme implements Serializable{
     @ManyToMany
     List<Course> courses;
     
+    @OneToMany
+    List<Quiz> quizzes;
+    
     /**
      * Empty constructor for the Programme JPA class.
      */
@@ -81,8 +84,7 @@ public class Programme implements Serializable{
     public List<Course> getCourses() {
         if(courses == null) {
             courses = new ArrayList<Course>();
-        }
-        
+        }        
         return courses;
     }
 
@@ -94,6 +96,21 @@ public class Programme implements Serializable{
         getCourses().remove(c);
     }
 
+    public List<Quiz> getQuizzes() {
+        if(quizzes == null){
+            quizzes = new ArrayList<Quiz>();
+        }
+        return quizzes;
+    }
+
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+    
+    public void removeQuiz(Quiz quiz){
+        getQuizzes().remove(quiz);
+    }
+    
 //    @Override
 //    public String toString() {
 //        return name;
