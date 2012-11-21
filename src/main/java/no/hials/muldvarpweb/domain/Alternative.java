@@ -17,23 +17,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "alternative")
 public class Alternative implements Serializable {
-    public enum AlternativeType {
-        CHOICE("Choice"),
-        TEXT("Text");
-        private String alternativeType;        
-        private AlternativeType(String quizType){        
-            this.alternativeType = quizType;
-        }
-        public String getName() {            
-            return alternativeType;
-        }
-    }
+    
     @Id
     @GeneratedValue
     int id;    
     String name;
     boolean isCorrect;
-    AlternativeType alternativeType;
+    String alternativeType;
 
     public Alternative() {
     }
@@ -63,17 +53,23 @@ public class Alternative implements Serializable {
         this.isCorrect = isCorrect;
     }
 
-    public AlternativeType getAlternativeType() {
+    public String getAlternativeType() {
         return alternativeType;
     }
 
-    public void setAlternativeType(AlternativeType alternativeType) {
+    public void setAlternativeType(String alternativeType) {
         this.alternativeType = alternativeType;
     }
     
     public Alternative(String name, boolean isCorrect) {
         this.name = name;
         this.isCorrect = isCorrect;
+    }
+    
+    public Alternative(String name, boolean isCorrect, String alternativeType) {
+        this.name = name;
+        this.isCorrect = isCorrect;
+        this.alternativeType = alternativeType;
     }
     
 }

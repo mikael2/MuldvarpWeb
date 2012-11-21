@@ -18,19 +18,7 @@ import javax.persistence.*;
 public class Quiz implements Serializable {
     @ManyToMany(mappedBy = "quizzes")
     private List<Programme> programmes;
-    public enum QuizType {
-        FEEDBACK("Feedback"),
-        REMOTE("Remote"),
-        REMOTEFEEDBACK("Remote med feedback"),
-        GUIDE("Guide");        
-        private String quizType;        
-        private QuizType(String quizType){        
-            this.quizType = quizType;
-        }
-        public String getName() {            
-            return quizType;
-        }
-    }
+    
     @Id
     @GeneratedValue
     long id;
@@ -38,14 +26,14 @@ public class Quiz implements Serializable {
     String description;
     @OneToMany
     List<Question> questions;
-    QuizType quizType; 
+    String quizType; 
     boolean shuffleQuestions;
     
     public Quiz(){
         
     }
     
-    public Quiz(String name, ArrayList<Question> questions, QuizType quizType){
+    public Quiz(String name, ArrayList<Question> questions, String quizType){
         this.name = name;
         this.questions = questions;
         this.quizType = quizType;
@@ -90,4 +78,21 @@ public class Quiz implements Serializable {
     public void setShuffleQuestions(boolean shuffleQuestions) {
         this.shuffleQuestions = shuffleQuestions;
     }
+
+    public List<Programme> getProgrammes() {
+        return programmes;
+    }
+
+    public void setProgrammes(List<Programme> programmes) {
+        this.programmes = programmes;
+    }
+
+    public String getQuizType() {
+        return quizType;
+    }
+
+    public void setQuizType(String quizType) {
+        this.quizType = quizType;
+    }
+    
 }

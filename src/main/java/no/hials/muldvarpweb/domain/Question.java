@@ -19,11 +19,7 @@ public class Question implements Serializable {
     @GeneratedValue
     long id;
     String name;
-    public enum QuestionType {
-        SINGLE,
-        MULTIPLE,
-        TEXT
-    }    
+    String questionType;  
     @OneToMany
     List<Alternative> alternatives;    
     @OneToOne
@@ -65,6 +61,15 @@ public class Question implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
+    }
+    
 
     public void addAlternative(Alternative newAlternative) {
         alternatives.add(newAlternative);
