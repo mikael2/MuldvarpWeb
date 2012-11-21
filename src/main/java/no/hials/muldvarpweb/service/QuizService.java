@@ -50,7 +50,6 @@ public class QuizService {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Quiz> findQuizzes() {
-        makeTestData();
         return em.createQuery("SELECT q from Quiz q", Quiz.class).getResultList();
     }
         
@@ -65,8 +64,7 @@ public class QuizService {
     @Produces({MediaType.APPLICATION_JSON})
     public Quiz getQuizzes(@PathParam("id") Integer id) {        
         TypedQuery<Quiz> q = em.createQuery("Select q from Quiz q where q.id = :id", Quiz.class);
-        q.setParameter("id", id);
-        
+        q.setParameter("id", id);        
         return q.getSingleResult();
     }
 
