@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import no.hials.muldvarpweb.domain.Alternative;
 import no.hials.muldvarpweb.domain.Quiz;
 
 /**
@@ -73,5 +74,15 @@ public class QuizService {
     public void removeQuiz(Quiz q) {
         q = em.merge(q);
         em.remove(q);
+    }
+    
+    public void makeTestData(){
+       
+        Alternative alt = new Alternative();
+        alt.setName(null);
+        
+        Quiz quiz = new Quiz();
+        quiz.setName(null);
+        quiz.setDescription(null);
     }
 }
