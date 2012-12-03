@@ -1,4 +1,4 @@
-<ui:composition template="/template.xhtml"
+<ui:composition template="/templates/layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
@@ -13,16 +13,16 @@
     <ui:define name="mainsingle">
         <p:panelGrid columns="4">
             <h:link outcome="admin/newArticle" >
-                <h:graphicImage value="img/Sites-alt-icon.png" />
+                <h:graphicImage name="Sites-alt-icon.png" library="images"/>
             </h:link>
             <h:link outcome="listDocuments" >
-                <h:graphicImage value="img/Document-icon.png" />
+                <h:graphicImage name="Document-icon.png" library="images"/>
             </h:link>
             <h:link outcome="admin/listVideos" >
-                <h:graphicImage value="img/Movies-icon.png" />
+                <h:graphicImage name="Movies-icon.png" library="images"/>
             </h:link>
             <h:link outcome="admin/listCourses" >
-                <h:graphicImage value="img/Library-alt-icon.png" />
+                <h:graphicImage name="Library-alt-icon.png" library="images"/>
             </h:link>
             <h:outputLabel value="News"/>
             <h:outputLabel value="Documents"/>

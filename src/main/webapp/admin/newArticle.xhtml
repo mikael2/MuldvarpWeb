@@ -1,23 +1,23 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-        <link rel="stylesheet" href="resources/css/news/html5reset.css" type="text/css" /> 
-        <link rel="stylesheet" href="resources/css/news/style.css" type="text/css" /> 
-        <title>HiALS nyheter</title>
-    </h:head>
-    <h:body>
+    <ui:define name="title">
+        New Article
+    </ui:define>
 
-
-
+    <ui:define name="stylesheets">
+        <h:outputStylesheet name="html5reset.css" library="css/news"/>
+        <h:outputStylesheet name="style.css" library="css/news"/>
+    </ui:define>
+    
+    <ui:define name="right">
         <header>
-            <hgroup id="top">              
-                <h1><img id="logo" src="img/hialsBilde.jpg" alt="hials bilde" width="120" heigth="150"/>HiALS</h1>
+            <hgroup id="top">
+                <h1><h:graphicImage id="logo" name="hialsBilde.jpg" library="images" alt="hials bilde" width="120" height="150"/>HiALS</h1>
                 <h2></h2>
             </hgroup>
         </header>
@@ -83,7 +83,5 @@
 
             </section>
         </f:view>
-
-    </h:body>
-</html>
-
+    </ui:define>
+</ui:composition>
