@@ -1,0 +1,43 @@
+<ui:composition template="/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="extrascript">
+        <script>
+            $(function() {
+                var path = '#{facesContext.externalContext.request.contextPath}/services/video';
+                $('#code').load(path);                
+            });
+        </script>
+    </ui:define>
+
+    <ui:define name="title">
+        REST Services
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form id="restmenu">
+            <p:menu>
+                <p:submenu label="REST Services">
+                    <!--  url="/services/programme" -->
+                    <p:menuitem value="Programme" action="#{viewRestController.load()}">
+                        <f:param name="service" value="bar"/>
+                    </p:menuitem>
+                    <p:menuitem value="Courses"   action="viewRest" url="/services/course"/>
+                    <p:menuitem value="Documents" action="viewRest" url="/services/Library"/>
+                    <p:menuitem value="Videos"    action="viewRest" url="/services/video"/>
+                    <p:menuitem value="News"      action="viewRest" url="/services/article/news/"/>
+                    <p:menuitem value="Persons"   action="viewRest" url="/services/person"/>
+                </p:submenu>
+            </p:menu>
+        </h:form>
+        #{param[service]}
+    </ui:define>
+    
+    <ui:define name="right">
+        <div id="code"/>
+    </ui:define>
+</ui:composition>

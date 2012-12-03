@@ -32,6 +32,20 @@ body {
     text-align:center;
 }
 
+#left {
+    float: left;
+    padding: 15px;
+    position:relative;
+}
+
+#right {
+    width:80%;
+    float:left;
+    position: relative;
+    padding:3px;
+}
+
+/*
 #menu {
     text-align:center;
 }
@@ -44,7 +58,7 @@ body {
     float:left;
     padding: 20px;
 }
-
+*/
 #center {
     clear:both;
 }
