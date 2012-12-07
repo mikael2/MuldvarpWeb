@@ -2,6 +2,7 @@ package no.hials.muldvarpweb.web;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -11,7 +12,6 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class ViewRestController {
-    @ManagedProperty(value="#{param.service}")
     String service;
 
     public String getService() {
