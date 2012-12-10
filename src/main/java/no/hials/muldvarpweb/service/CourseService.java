@@ -208,14 +208,17 @@ public class CourseService {
     }
     
     public void addVideo(Course course, Video video){
-        
         course.addVideo(video);
         video.addCourse(course);
-        em.merge(course);
+        persist(course);
+    }
+    
+    public void setVideos(Course c, List<Video> v) {
+        c.setVideos(v);
+        persist(c);
     }
     
     public void editVideo(Course course, Video video){
-        
         course.addVideo(video);
         persist(course);
     }
@@ -223,6 +226,22 @@ public class CourseService {
     public void removeVideo(Course course, Video video){
         
         course.removeVideo(video);
+        persist(course);
+    }
+    
+    public void addDocument(Course course, LibraryItem document) {
+        course.addDocument(document);
+        //document.addCourse(course);
+        em.merge(course);
+    }
+    
+    public void editDocument(Course course, LibraryItem document) {
+        course.addDocument(document);
+        persist(course);
+    }
+    
+    public void removeDocument(Course course, LibraryItem document) {
+        course.removeDocument(document);
         persist(course);
     }
     

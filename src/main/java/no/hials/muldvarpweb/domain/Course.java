@@ -52,11 +52,27 @@ public class Course implements Serializable {
     @ManyToMany
     List<Video> videos;
     
+    @ManyToMany
+    List<LibraryItem> documents;
+    
+    @ManyToMany
+    List<Article> news;
+    
     @ManyToMany(mappedBy = "courses")
     List<Programme> programmes;
     
     @OneToMany
     List<Quiz> quizzes;
+    
+    // temp greier til vi lager noe bedre
+    @ManyToOne
+    Article info;
+    
+    @ManyToOne
+    Article dates;
+    
+    @ManyToOne
+    Article help;
     
     public Course() {
         this.revision = 0;
@@ -288,7 +304,55 @@ public class Course implements Serializable {
         getVideos().remove(video);
     }
 
-     
+    public List<LibraryItem> getDocuments() {
+        return documents;
+    }
     
+    public void addDocument(LibraryItem document) {
+        if(document == null) {
+            documents = new ArrayList<LibraryItem>();
+        }
+        documents.add(document);
+    }
+
+    public void removeDocument(LibraryItem document){
+        getDocuments().remove(document);
+    }
+
+    public void setDocuments(List<LibraryItem> documents) {
+        this.documents = documents;
+    }
+
+    public List<Article> getNews() {
+        return news;
+    }
+
+    public void setNews(List<Article> news) {
+        this.news = news;
+    }
+
+    public List<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+
+    public Article getInfo() {
+        return info;
+    }
+
+    public void setInfo(Article info) {
+        this.info = info;
+    }
+
+    public Article getHelp() {
+        return help;
+    }
+
+    public void setHelp(Article help) {
+        this.help = help;
+    }
     
 }

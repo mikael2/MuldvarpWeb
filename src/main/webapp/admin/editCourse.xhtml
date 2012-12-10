@@ -171,26 +171,12 @@
                 </div>
                 <div class="column">    
                     <p:fieldset legend="Videos">
-                        <p:dataTable id="videoTable"
-                            value="#{courseController.selected.videos}" 
-                            var="videos">
-                            <p:column headerText="Name">  
-                                <h:commandLink value="#{videos.videoName}" action="#{courseController.setSelectedVideo(videos)}"/>
-                            </p:column>
-                            <p:column headerText="Details">  
-                                <h:outputText value="#{videos.videoDetail}" />
-                            </p:column>
-                            <p:column>
-                                <h:commandLink value="Delete" action="#{courseController.removeVideo(videos)}"/>
-                            </p:column>
-                        </p:dataTable>
-                        <p:column>  
-                            <h:inputText value="#{courseController.video.videoName}" />
-                        </p:column> 
-                        <p:column>
-                            <p:commandButton value="Add Video" action="#{courseController.addVideo()}" update="videoTable"/>
-                            <p:commandButton value="Add Existing Video (NYI)" action="editCourse"/>
-                        </p:column>
+                        <p:pickList id="pickList"
+    value="#{courseController.videos}" var="video" itemValue="#{video}" itemLabel="#{video.videoName}" showSourceFilter="true" filterMatchMode="contains">
+                            <f:facet name="sourceCaption">Available</f:facet>  
+                            <f:facet name="targetCaption">Selected</f:facet>  
+                        </p:pickList>  
+                        <p:commandButton value="Submit" action="#{courseController.addVideos()}" update="pickList"/>
                     </p:fieldset>
                 </div>
             </p:fieldset>

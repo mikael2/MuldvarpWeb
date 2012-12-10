@@ -8,13 +8,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.*;
 import no.hials.muldvarpweb.service.CourseService;
+import no.hials.muldvarpweb.service.VideoService;
+import org.primefaces.model.DualListModel;
 
 /**
  *
@@ -42,6 +44,7 @@ public class CourseController implements Serializable {
     Alternative selectedAlternative;
     Video selectedVideo;
     Video newVideo;
+    LibraryItem selectedDocument;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -316,8 +319,6 @@ public class CourseController implements Serializable {
         return "editVideo";
     }
     
-    
-
     public ObligatoryTask getObligatoryTask() {
         if(newObligatoryTask == null)
             newObligatoryTask = new ObligatoryTask();
@@ -487,5 +488,59 @@ public class CourseController implements Serializable {
     public void setSelectedAlternative(Alternative selectedAlternative) {
         this.selectedAlternative = selectedAlternative;
     }
+
+    public LibraryItem getSelectedDocument() {
+        return selectedDocument;
+    }
+
+    public void setSelectedDocument(LibraryItem selectedDocument) {
+        this.selectedDocument = selectedDocument;
+    }
     
+    public void addDocument() {
+        if(selectedDocument != null && selected != null) {
+            service.addDocument(selected, selectedDocument);
+            //newVideo = null;
+        }
+    }
+    
+    public LibraryItem getDocument() {
+//        if(newVideo == null)
+//            newVideo = new Video();
+        return selectedDocument;
+    }
+    
+    public String editDocument() {
+        if(selectedDocument != null) {
+            service.editDocument(selected, selectedDocument);
+        }
+        return "editDocument?faces-redirect=true";
+    }
+    
+    public String removeDocument(LibraryItem document) {
+        if(selected != null) {
+            service.removeDocument(selected, document);
+        }
+        return "editCourse?faces-redirect=true";
+    }
+    
+    
+    // experiment zone
+    private DualListModel<Video> videos;
+    @Inject VideoService videoService;
+
+    public DualListModel<Video> getVideos() {
+        List<Video> videosSource = videoService.findVideos();
+        List<Video> videosTarget = service.findVideosInCourse(selected.getId()); 
+        videos = new DualListModel<Video>(videosSource, videosTarget);
+        return videos;
+    }
+
+    public void setVideos(DualListModel<Video> videos) {
+        this.videos = videos;
+    }
+    
+    public void addVideos() {
+        service.setVideos(selected, videos.getTarget());
+    }
 }
