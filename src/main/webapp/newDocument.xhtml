@@ -16,39 +16,11 @@
                         Document  
                     </f:facet>  
 
-                    <h:outputLabel value="Title: " />
+                        <h:outputLabel value="Title: " />
                         <p:inputText value="#{libraryController.libraryItem.title}"/>
-
-                        <h:outputLabel value="Alternate title: " />
-                        <p:inputText value="#{libraryController.libraryItem.alternateTitle}"/>
-
-                        <h:outputLabel value="Author: " />
-                        <p:inputText value="#{libraryController.libraryItem.author}"/>
-
-                        <h:outputLabel value="Co-Author: " />
-                        <p:inputText value="#{libraryController.libraryItem.coAuthor}"/>
-
-                        <h:outputLabel value="Published: " />
-                        <p:inputText value="#{libraryController.libraryItem.published}"/>
-
-                        <h:outputLabel value="Number of pages: " />
-                        <p:inputText value="#{libraryController.libraryItem.pageNo}"/>
-
-                        <h:outputLabel value="Icon URL: " />
-                        <p:inputText value="#{libraryController.libraryItem.iconURL}"/>
-
-                        <h:outputLabel value="Thumb URL: " />
-                        <p:inputText value="#{libraryController.libraryItem.thumbURL}"/>
-
+                        
                         <h:outputLabel value="Document URL: " />
-                        <h:form enctype="multipart/form-data">  
-                            <p:fileUpload fileUploadListener="#{libraryController.handleFileUpload}"  
-                                    mode="advanced"   
-                                    update="messages"  
-                                    sizeLimit="1000000"   
-                                    allowTypes="/(\.|\/)(pdf|docx|odt)$/"/>
-                            <p:growl id="messages" showDetail="true" />  
-                        </h:form>
+                        <p:inputText value="#{libraryController.libraryItem.URL}"/>
 
                         <h:outputLabel value="Summary: " /> 
                         <p:inputTextarea value="#{libraryController.libraryItem.summary}" rows="5" cols="30"/>

@@ -20,54 +20,7 @@
                         <h:outputLabel value="Title: " />
                         <h:outputLabel value="#{libraryController.selected.title}" id="title"/>
                         <p:commandButton id="editTitle" value="Edit" onclick="dlg1.show();" type="button" />
-                        
-                        
 
-                        <h:outputLabel value="Alternate title: " />
-                        <h:outputLabel value="#{libraryController.selected.alternateTitle}"/>
-                        <p:commandButton id="editAltTitle" value="Edit" onclick="dlg2.show();" type="button" />
-                        
-                        
-
-                        <h:outputLabel value="Author: " />
-                        <h:outputLabel value="#{libraryController.selected.author}"/>
-                        <p:commandButton id="editAuthor" value="Edit" onclick="dlg3.show();" type="button" />
-                        
-                        
-
-                        <h:outputLabel value="Co-Author: " />
-                        <h:outputLabel value="#{libraryController.selected.coAuthor}"/>
-                        <p:commandButton id="editCoAuthor" value="Edit" onclick="dlg4.show();" type="button" />
-                        
-                        
-
-                        <h:outputLabel value="Published: " />
-                        <h:outputLabel value="#{libraryController.selected.published}"/>
-                        <p:commandButton id="editPublished" value="Edit" onclick="dlg5.show();" type="button" />
-                        
-                       
-                        
-                        <h:outputLabel value="Uploaded: " />
-                        <h:outputLabel value="#{libraryController.selected.uploaded}"/>
-                        <br/>
-
-                        <h:outputLabel value="Number of pages: " />
-                        <h:outputLabel value="#{libraryController.selected.pageNo}"/>
-                        <p:commandButton id="editPageNo" value="Edit" onclick="dlg6.show();" type="button" />
-                        
-                        
-
-                        <h:outputLabel value="Icon URL: " />
-                        <h:outputLabel value="#{libraryController.selected.iconURL}"/>
-                        <p:commandButton id="editiconURL" value="Edit" onclick="dlg7.show();" type="button" />
-                        
-                        
-
-                        <h:outputLabel value="Thumb URL: " />
-                        <h:outputLabel value="#{libraryController.selected.thumbURL}"/>
-                        <p:commandButton id="editThumbURL" value="Edit" onclick="dlg8.show();" type="button" />
-                        
-                        
 
                         <h:outputLabel value="Document URL: " />
                         <h:outputLabel value="#{libraryController.selected.URL}"/>
@@ -98,6 +51,8 @@
                             </p:panelGrid>
                 </h:form>
             </p:dialog>
+        
+        <!--
             <p:dialog id="thumbURLDialog" header="Edit thumb URL" widgetVar="dlg8"> 
                 <h:form id="thumbURLForm">
                             <p:panelGrid columns="2">
@@ -154,6 +109,7 @@
                             </p:panelGrid>
                 </h:form>
             </p:dialog>
+        -->
             <p:dialog id="titleDialog" header="Edit title" widgetVar="dlg1">
                 <h:form id="titleForm">
                             <p:panelGrid columns="2">
