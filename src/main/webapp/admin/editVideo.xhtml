@@ -1,0 +1,127 @@
+<ui:composition template="/templates/layout.xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        Document Details
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="docForm">                
+            <p:fieldset legend="Video details">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                <p:panelGrid columns="3">  
+                    <f:facet name="header">  
+                        #{videoController.selectedVideo.videoName}  
+                    </f:facet>  
+
+                        <h:outputLabel value="Video ID: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.id}" id="id"/>
+                        <h:outputLabel value="" />
+                        
+                        <h:outputLabel value="Video Title: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoName}" id="title"/>
+                        <p:commandButton id="editTitle" value="Edit" onclick="dlg1.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Video Description: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoDescription}"/>
+                        <p:commandButton id="editDescription" value="Edit" onclick="dlg2.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Video Type: " />
+                        <h:selectOneListbox value="#{videoController.selectedVideo.videoType}">
+                                <f:selectItem id="item1" itemLabel="Youtube/ID" itemValue="Youtube/ID" />
+                                <f:selectItem id="item2" itemLabel="External" itemValue="External" />
+                            </h:selectOneListbox>
+                        <h:outputLabel value=" " />
+                        
+                        
+
+                        <h:outputLabel value="Video URI: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoURI}"/>
+                        <p:commandButton id="editURI" value="Edit" onclick="dlg4.show();" type="button" />
+                        
+                        
+
+                        <h:outputLabel value="Video Icon URI: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoIconURI}"/>
+                        <p:commandButton id="editIconURI" value="Edit" onclick="dlg5.show();" type="button" />
+                        
+                       
+                        
+                        <h:outputLabel value="Video Thumb URI: " />
+                        <h:outputLabel value="#{videoController.selectedVideo.videoThumbURI}"/>
+                        <p:commandButton id="editThumbURI" value="Edit" onclick="dlg6.show();" type="button" />
+                        <br/>
+                        
+                        
+  
+                    <f:facet name="footer">  
+                        <p:commandButton id="back" value="Back" ajax="false" action="listVideos?faces-redirect=true" />
+                        <p:commandButton id="deleteButton" value="Delete video" actionListener="#{videoController.removeSelectedVideo()}" ajax="false" action="listVideos?faces-redirect=true" />
+                        <p:commandButton id="helpButton" value="Help" actionListener="#{videoController.addInfo(2)}"/>
+                        <p:commandButton  id="submitButton" value="save" action="listVideos?faces-redirect=true" actionListener="#{videoController.editSelected()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                    </f:facet>
+                </p:panelGrid>  
+            </p:fieldset>
+            </h:form>
+
+            <p:dialog id="pageNoDialog" header="Edit video thumb URI" widgetVar="dlg6">
+                <h:form id="pageNoForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New video thumb IRO: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoThumbURI}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="publishedDialog" header="Edit video icon URI" widgetVar="dlg5"> 
+                <h:form id="publishedForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New video icon uri: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoIconURI}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="coAuthorDialog" header="Edit video URI" widgetVar="dlg4"> 
+                <h:form id="coAuthorForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New video URI: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoURI}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="authorDialog" header="Edit type" widgetVar="dlg3">
+                <h:form id="authorForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New type: " />  
+                            <h:selectOneListbox value="#{videoController.selectedVideo.videoType}">
+                                <f:selectItem id="item1" itemLabel="Youtube/ID" itemValue="Youtube/ID" />
+                                <f:selectItem id="item2" itemLabel="External" itemValue="External" />
+                            </h:selectOneListbox>
+                            <p:commandButton id="confirmTypeButtan" value="Help" onclick="dlg3.hide();" actionListener="#{videoController.selectedVideo.videoType}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="altTitleDialog" header="Edit video description" widgetVar="dlg2">
+                <h:form id="altTitleForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New video description: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoDescription}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="titleDialog" header="Edit title" widgetVar="dlg1">
+                <h:form id="titleForm">
+                            <p:panelGrid columns="2">
+                            <h:outputText value="New title: " />  
+                            <p:inputText value="#{videoController.selectedVideo.videoName}"/>
+                            </p:panelGrid>
+                </h:form>
+            </p:dialog>
+    </ui:define>
+</ui:composition>

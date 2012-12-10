@@ -1,0 +1,55 @@
+<ui:composition template="/templates/layout.xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        List of Videos
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="videoForm">
+            
+            <p:fieldset legend="Videos">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                <p:dataTable id="videoTable" value="#{videoController.getNameFilteredVideos()}" var="videoItem">
+                    <f:facet name="header">
+                        <h:inputText id="searchInput" value="#{videoController.filterString}"/>
+                        <p:commandButton value="Search" action="#{videoController.getNameFilteredVideos()}"  update="videoTable"/>
+                    </f:facet>
+                    <p:column headerText="Name">  
+                        <h:commandLink
+                            actionListener="#{videoController.selectVideo(videoItem)}"
+                            action="editVideo?faces-redirect=true}"
+                            value="#{videoItem.videoName}" />
+                    </p:column>
+                    <p:column headerText="Detail">  
+                        <h:outputText value="#{videoItem.videoDetail}"/>
+                    </p:column>
+                    <p:column headerText="Type">  
+                        <h:outputText value="#{videoItem.videoType}"/>
+                    </p:column>
+                    <p:column headerText="Delete">                          
+                        <!--p:commandButton id="deleteVideo" value="Delete video" actionListener="#{videoController.setupVideoForDeletion(videoItem)}" onclick="dlg1.show();" type="button" /-->
+                        <p:commandButton id="confirmDeleteButton" value="Delete" action="#{videoController.removeVideo(videoItem)}" actionListener="#{videoController.addInfo(1, videoItem)}" ajax="false"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton value="Make testdata" action="#{videoController.makeVideoTestData()}" actionListener="#{videoController.addInfo(1)}" update="videoTable"/>
+                        <p:commandButton value="Home" action="index?faces-redirect=true"/>
+                        <p:commandButton value="New Video" action="newVideo?faces-redirect=true"/>                    
+                    </f:facet>
+                </p:dataTable>
+                
+            </p:fieldset>
+            
+        </h:form>
+        <p:dialog id="deleteVideoDialog" header="Delete video #{videoController.videoForDeletion.videoName} ?" widgetVar="dlg1">
+            <h:outputText>Delete video?</h:outputText>
+            <h:form id="deleteVideoDialogForm">
+                <p:commandButton id="confirmDeleteButton" value="Yes" action="#{videoController.deleteVideoForDeletion()}" actionListener="#{videoController.addInfo(1, videoItem)}" ajax="false"/>
+            <p:commandButton id="cancelDeleteButton" value="No" onclick="dlg1.hide();"/>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
