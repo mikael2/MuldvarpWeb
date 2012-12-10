@@ -541,6 +541,7 @@ public class CourseController implements Serializable {
     }
     
     public void addVideos() {
-        service.setVideos(selected, videos.getTarget());
+        //service.setVideos(selected, videos.getTarget());
+        
     }
 }
