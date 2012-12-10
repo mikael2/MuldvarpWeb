@@ -531,7 +531,7 @@ public class CourseController implements Serializable {
 
     public DualListModel<Video> getVideos() {
         List<Video> videosSource = videoService.findVideos();
-        List<Video> videosTarget = service.findVideosInCourse(selected.getId()); 
+        List<Video> videosTarget = selected.getVideos();
         videos = new DualListModel<Video>(videosSource, videosTarget);
         return videos;
     }
