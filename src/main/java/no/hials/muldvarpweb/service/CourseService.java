@@ -117,9 +117,14 @@ public class CourseService {
         persist(course);
     }
     
-    public void persist(Course c) {
-        c = em.merge(c);
-        em.persist(c);
+    public Course persist(Course c) {
+        if(c.getId() == null)
+            em.persist(c);
+        else
+            c = em.merge(c);
+        //em.persist(c);
+        
+        return c;
     }
     
     public void addNewRevCourse(Course course) {
@@ -209,13 +214,12 @@ public class CourseService {
     
     public void addVideo(Course course, Video video){
         course.addVideo(video);
-        video.addCourse(course);
         persist(course);
     }
     
-    public void setVideos(Course c, List<Video> v) {
+    public Course setVideos(Course c, List<Video> v) {
         c.setVideos(v);
-        persist(c);
+        return persist(c);
     }
     
     public void editVideo(Course course, Video video){

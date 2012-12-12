@@ -38,7 +38,7 @@
                                 <h:outputText value="Courses in program: " />
                             </div>
                             <div class="column_right">
-                                <p:dataTable id="programmeTable"
+                                <!--<p:dataTable id="programmeTable"
                                     value="#{programmeController.selected.courses}" 
                                     var="course">
                                     <p:column headerText="Name">  
@@ -47,7 +47,14 @@
                                     <p:column>
                                         <h:commandLink value="Delete" action="#{programmeController.removeCourseFromProgramme(course)}"/>
                                     </p:column>
-                                </p:dataTable>
+                                </p:dataTable>-->
+                                <p:fieldset legend="Courses in programme">
+                                    <p:pickList id="pickList" value="#{programmeController.courses}" var="course" itemValue="#{course}" itemLabel="#{course.name}" showSourceFilter="true" filterMatchMode="contains">
+                                        <f:facet name="sourceCaption">Available</f:facet>  
+                                        <f:facet name="targetCaption">Selected</f:facet>  
+                                    </p:pickList>  
+                                    <p:commandButton value="Submit" action="#{programmeController.addCourses(programmeController.courses.target)}"/>
+                                </p:fieldset>
                             </div>
                         </div>
                     </div>

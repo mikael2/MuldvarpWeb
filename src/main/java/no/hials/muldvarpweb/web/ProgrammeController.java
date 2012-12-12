@@ -5,7 +5,6 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -14,7 +13,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.Programme;
+import no.hials.muldvarpweb.service.CourseService;
 import no.hials.muldvarpweb.service.ProgrammeService;
+import org.primefaces.model.DualListModel;
 
 /**
  * This is the controller for the ProgrammeService.
@@ -131,5 +132,31 @@ public class ProgrammeController implements Serializable{
     
     public void removeCourseFromProgramme(Course c) {
         service.removeCourseFromProgramme(selected, c);
+    }
+    
+    // experiment zone
+    private DualListModel<Course> courses;
+    @Inject CourseService courseService;
+
+    public DualListModel<Course> getCourses() {
+        List<Course> source = courseService.findCourses();
+        List<Course> target = selected.getCourses();
+        courses = new DualListModel<Course>(source, target);
+        
+        return courses;
+    }
+
+    public void setCourses(DualListModel<Course> course) {
+        this.courses = courses;
+    }
+    
+    public void addCourses(List<Course> c) {
+        for(Course cc : c) {
+            selected.addCourse(cc);
+        }
+    }
+    
+    public void setCourses(List<Course> c) {
+        selected.setCourses(c);
     }
 }

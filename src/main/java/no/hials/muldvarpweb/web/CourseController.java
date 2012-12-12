@@ -85,6 +85,7 @@ public class CourseController implements Serializable {
             selected = getCourse();
         }
         this.selected = selected;
+        videos = null;
         return "editCourse?faces-redirect=true";
     }
     
@@ -530,18 +531,50 @@ public class CourseController implements Serializable {
     @Inject VideoService videoService;
 
     public DualListModel<Video> getVideos() {
-        List<Video> videosSource = videoService.findVideos();
-        List<Video> videosTarget = selected.getVideos();
-        videos = new DualListModel<Video>(videosSource, videosTarget);
+        if(videos == null) {
+            List<Video> source = videoService.findVideos();
+            List<Video> target = selected.getVideos();            
+            
+            for(int i = 0; i < videos.getTarget().size(); i++) {
+                Video v = videos.getTarget().get(i);
+                System.out.println("Checking Video " + v.getVideoName());
+                for(int k = 0; k < source.size(); k++) {
+                    Video vv = source.get(k);
+                    System.out.println("Comparing " + v.getVideoName() + " to " + vv.getVideoName());
+                    if(vv.getId().equals(v.getId())) {
+                        System.out.println("It's the same!");
+                        source.remove(vv);
+                        break;
+                    }
+                }
+            }
+            videos = new DualListModel<Video>(source, target);
+        }
+        
         return videos;
     }
+    
 
+    public DualListModel<Video> getVideos2() {
+        DualListModel<Video> result = new DualListModel<Video>(videoService.findVideos(),new ArrayList<Video>());
+        System.out.println("Result is size " + result.getSource().size());
+        return result;
+    }
+    
     public void setVideos(DualListModel<Video> videos) {
         this.videos = videos;
     }
     
-    public void addVideos() {
-        //service.setVideos(selected, videos.getTarget());
-        
+    public void addVideos(List<Video> v) {
+        selected = service.setVideos(selected, videos.getTarget());
+        /*for(Video vv : v) {
+            service.addVideo(selected, vv);
+            //selected.addVideo(vv);
+            //vv.addCourse(selected);
+        }*/
+    }
+    
+    public void setVideos(List<Video> v) {
+        selected.setVideos(v);
     }
 }
