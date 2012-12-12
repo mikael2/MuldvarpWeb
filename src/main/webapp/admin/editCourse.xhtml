@@ -172,11 +172,11 @@
                 <div class="column">    
                     <p:fieldset legend="Videos">
                         <p:pickList id="pickList"
-    value="#{courseController.videos}" var="video" itemValue="#{video}" itemLabel="#{video.videoName}" showSourceFilter="true" filterMatchMode="contains">
+                                    value="#{courseController.videos}" var="video" itemValue="#{video}" itemLabel="#{video.videoName}" showSourceFilter="true" filterMatchMode="contains" converter="#{videoConverter}">
                             <f:facet name="sourceCaption">Available</f:facet>  
-                            <f:facet name="targetCaption">Selected</f:facet>  
+                            <f:facet name="targetCaption">Selected</f:facet>
                         </p:pickList>  
-                        <p:commandButton value="Submit" action="#{courseController.addVideos()}" update="pickList"/>
+                        <p:commandButton value="Submit" action="#{courseController.addVideos(courseController.videos.target)}"/>
                     </p:fieldset>
                 </div>
             </p:fieldset>
