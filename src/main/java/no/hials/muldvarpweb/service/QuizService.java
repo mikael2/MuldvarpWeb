@@ -49,7 +49,8 @@ public class QuizService {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Quiz> findQuizzes() {
-        return em.createQuery("SELECT q from Quiz q", Quiz.class).getResultList();
+        List retval =em.createQuery("SELECT q from Quiz q", Quiz.class).getResultList();
+        return retval;
     }
         
     /**

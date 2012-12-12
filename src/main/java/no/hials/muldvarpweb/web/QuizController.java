@@ -68,10 +68,10 @@ public class QuizController implements Serializable{
         return "listvQuiz";
     }
     
-    public String removeQuiz() {
-        if(selected != null ) {
-            service.removeQuiz(selected);
-        }
+    public String removeQuiz(Quiz q) {
+//        if(selected != null ) {
+            service.removeQuiz(q);
+//        }
         return "listQuiz?faces-redirect=true";
     }
     
@@ -118,4 +118,8 @@ public class QuizController implements Serializable{
          }
     }
     
+    public String makeTestData(){
+        service.makeTestData();
+        return "listQuiz?faces-redirect=true";
+    }
 }

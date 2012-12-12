@@ -1,0 +1,35 @@
+<ui:composition template="/templates/layout.xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        List of Quizzes
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="docForm">                
+            <p:fieldset legend="Quiz">
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                <p:dataTable
+                    id="quizTable"
+                    value="#{quizController.quizzes}" 
+                    var="Quiz">
+                    <p:column headerText="Title" style="width: 800px">  
+                        <h:commandLink
+                            actionListener="#{quizController.setSelected(Quiz)}"
+                            action="editArticle?faces-redirect=true}"
+                            value="#{Quiz.name}" />
+                    </p:column>
+                    <p:column headerText="Delete">  
+                        <p:commandButton  id="deleteButton" value="Delete quiz" action="#{quizController.removeQuiz(Quiz)}" ajax="false"/>
+                    </p:column>
+                </p:dataTable>          
+            </p:fieldset>
+            <p:commandButton value="Home" action="index?faces-redirect=true"/>
+            <p:commandButton value="New quiz" action="newQuiz?faces-redirect=true"/>
+            <p:commandButton value="Make testdata" action="#{quizController.makeTestData()}" ajax="false"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
