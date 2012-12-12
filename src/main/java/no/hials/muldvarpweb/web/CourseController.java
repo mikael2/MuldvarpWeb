@@ -533,21 +533,25 @@ public class CourseController implements Serializable {
     public DualListModel<Video> getVideos() {
         if(videos == null) {
             List<Video> source = videoService.findVideos();
-            List<Video> target = selected.getVideos();            
-            
-            for(int i = 0; i < videos.getTarget().size(); i++) {
-                Video v = videos.getTarget().get(i);
-                System.out.println("Checking Video " + v.getVideoName());
-                for(int k = 0; k < source.size(); k++) {
-                    Video vv = source.get(k);
-                    System.out.println("Comparing " + v.getVideoName() + " to " + vv.getVideoName());
-                    if(vv.getId().equals(v.getId())) {
-                        System.out.println("It's the same!");
-                        source.remove(vv);
-                        break;
+            List<Video> target = new ArrayList<Video>();
+            if(selected.getVideos() != null) {
+                target = selected.getVideos();
+                
+                for(int i = 0; i < target.size(); i++) {
+                    Video v = target.get(i);
+                    System.out.println("Checking Video " + v.getVideoName());
+                    for(int k = 0; k < source.size(); k++) {
+                        Video vv = source.get(k);
+                        System.out.println("Comparing " + v.getVideoName() + " to " + vv.getVideoName());
+                        if(vv.getId().equals(v.getId())) {
+                            System.out.println("It's the same!");
+                            source.remove(vv);
+                            break;
+                        }
                     }
                 }
             }
+            
             videos = new DualListModel<Video>(source, target);
         }
         

@@ -44,13 +44,14 @@
                         </div>                        
                         <div>
                             <div class="column_left">
-                                <h:outputText value="Programme: "/>
-                            </div>
-                            <div class="column_right">
-                                
-                                <h:selectManyListbox value="#{courseController.programmes}">
-                                    <f:selectItems value="#{programmeController.programmes}" var="p" itemLabel="#{p.name}" />
-                                </h:selectManyListbox>
+                            <p:fieldset legend="Part of these programmes">
+                                <p:dataTable id="programmeTable" value="#{courseController.selected.programmes}" 
+                                    var="programme">
+                                    <p:column headerText="Name">  
+                                        <h:commandLink value="#{programme.name}" action="#{programmeController.setSelected(programme)}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:fieldset>
                             </div>
                         </div>
                     </div>
