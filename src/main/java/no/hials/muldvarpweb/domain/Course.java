@@ -58,7 +58,7 @@ public class Course implements Serializable {
     @ManyToMany
     List<Article> news;
     
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany
     List<Programme> programmes;
     
     @OneToMany
@@ -353,6 +353,10 @@ public class Course implements Serializable {
 
     public void setHelp(Article help) {
         this.help = help;
+    }
+
+    public void removeProgramme(Programme p) {
+        programmes.remove(p);
     }
     
 }

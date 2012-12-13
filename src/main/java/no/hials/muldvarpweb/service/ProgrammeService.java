@@ -96,4 +96,51 @@ public class ProgrammeService {
         p = em.merge(p);
         em.remove(p);
     }
+
+    public Programme setCourses(Programme selected, List<Course> target, List<Course> oldItems) {
+//        for(Course c : oldItems) {
+//            for(Course cc : target) {
+//                boolean found = false;
+//                if(c.getId().equals(cc.getId())) {
+//                    found = true;
+//                    break;
+//                }
+//                if(!found) {
+//                    cc.removeProgramme(selected);
+//                }
+//            }
+//        }
+        selected.setCourses(target);
+        return persist(selected);
+    }
+    
+    public Programme persist(Programme p) {
+        if(p.getId() == null)
+            em.persist(p);
+        else
+            p = em.merge(p);
+        
+        return p;
+    }
+
+//    public Programme addCourses(Programme selected, List<Course> target) {
+//        for(int k = 0; k > target.size(); k++) {
+//            boolean found = false;
+//            for(int i = 0; i > selected.getCourses().size(); i++) {
+//                if(target.get(k).getId().equals(selected.getCourses().get(i).getId())) {
+//                    found = true;
+//                    break;
+//                }
+//            }
+//            boolean add = true;
+//            if(!found) {
+//                selected.removeCourse(target.get(k));
+//                add = false;
+//            }
+//            if(add) {
+//                selected.addCourse(target.get(k));
+//            }
+//        }
+//        return persist(selected);
+//    }
 }

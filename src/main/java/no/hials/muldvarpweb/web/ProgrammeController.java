@@ -54,6 +54,7 @@ public class ProgrammeController implements Serializable{
             selected = getProgramme();
         }
         this.selected = selected;
+        courses = null;
         return "editProgramme?faces-redirect=true";
     }
 
@@ -139,21 +140,37 @@ public class ProgrammeController implements Serializable{
     @Inject CourseService courseService;
 
     public DualListModel<Course> getCourses() {
-        List<Course> source = courseService.findCourses();
-        List<Course> target = selected.getCourses();
-        courses = new DualListModel<Course>(source, target);
+        if(courses == null) {
+            List<Course> source = courseService.findCourses();
+            List<Course> target = selected.getCourses();
+            if(selected.getCourses() != null) {
+                target = selected.getCourses();
+                
+                for(int i = 0; i < target.size(); i++) {
+                    Course v = target.get(i);
+                    for(int k = 0; k < source.size(); k++) {
+                        Course vv = source.get(k);
+                        if(vv.getId().equals(v.getId())) {
+                            source.remove(vv);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            courses = new DualListModel<Course>(source, target);
+        }
         
         return courses;
     }
 
     public void setCourses(DualListModel<Course> course) {
-        this.courses = courses;
+        this.courses = course;
     }
     
     public void addCourses(List<Course> c) {
-        for(Course cc : c) {
-            selected.addCourse(cc);
-        }
+        selected = service.setCourses(selected, courses.getTarget(), selected.getCourses());
+        //selected = service.addCourses(selected, courses.getTarget());
     }
     
     public void setCourses(List<Course> c) {

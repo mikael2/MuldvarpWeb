@@ -49,7 +49,14 @@
                                     </p:column>
                                 </p:dataTable>-->
                                 <p:fieldset legend="Courses in programme">
-                                    <p:pickList id="pickList" value="#{programmeController.courses}" var="course" itemValue="#{course}" itemLabel="#{course.name}" showSourceFilter="true" filterMatchMode="contains">
+                                    <p:pickList id="pickList"
+                                                value="#{programmeController.courses}" 
+                                                var="course" 
+                                                itemValue="#{course}" 
+                                                itemLabel="#{course.name}" 
+                                                showSourceFilter="true" 
+                                                filterMatchMode="contains"
+                                                converter="#{courseConverter}">
                                         <f:facet name="sourceCaption">Available</f:facet>  
                                         <f:facet name="targetCaption">Selected</f:facet>  
                                     </p:pickList>  
