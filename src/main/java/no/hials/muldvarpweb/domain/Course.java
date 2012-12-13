@@ -358,5 +358,12 @@ public class Course implements Serializable {
     public void removeProgramme(Programme p) {
         programmes.remove(p);
     }
-    
+
+    public Article getDates() {
+        return dates;
+    }
+
+    public void setDates(Article dates) {
+        this.dates = dates;
+    }
 }

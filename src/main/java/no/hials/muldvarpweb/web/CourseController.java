@@ -14,7 +14,10 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.*;
+import no.hials.muldvarpweb.service.ArticleService;
 import no.hials.muldvarpweb.service.CourseService;
+import no.hials.muldvarpweb.service.LibraryService;
+import no.hials.muldvarpweb.service.QuizService;
 import no.hials.muldvarpweb.service.VideoService;
 import org.primefaces.model.DualListModel;
 
@@ -86,6 +89,8 @@ public class CourseController implements Serializable {
         }
         this.selected = selected;
         videos = null;
+        documents = null;
+        quizzes = null;
         return "editCourse?faces-redirect=true";
     }
     
@@ -526,7 +531,7 @@ public class CourseController implements Serializable {
     }
     
     
-    // experiment zone
+    // Video stuff
     private DualListModel<Video> videos;
     @Inject VideoService videoService;
 
@@ -559,11 +564,11 @@ public class CourseController implements Serializable {
     }
     
 
-    public DualListModel<Video> getVideos2() {
-        DualListModel<Video> result = new DualListModel<Video>(videoService.findVideos(),new ArrayList<Video>());
-        System.out.println("Result is size " + result.getSource().size());
-        return result;
-    }
+//    public DualListModel<Video> getVideos2() {
+//        DualListModel<Video> result = new DualListModel<Video>(videoService.findVideos(),new ArrayList<Video>());
+//        System.out.println("Result is size " + result.getSource().size());
+//        return result;
+//    }
     
     public void setVideos(DualListModel<Video> videos) {
         this.videos = videos;
@@ -580,5 +585,113 @@ public class CourseController implements Serializable {
     
     public void setVideos(List<Video> v) {
         selected.setVideos(v);
+    }
+    
+    // Document stuff
+    private DualListModel<LibraryItem> documents;
+    @Inject LibraryService documentService;
+    
+    public DualListModel<LibraryItem> getDocuments() {
+        if(documents == null) {
+            List<LibraryItem> source = documentService.getLibrary();
+            List<LibraryItem> target = new ArrayList<LibraryItem>();
+            if(selected.getVideos() != null) {
+                target = selected.getDocuments();
+                
+                for(int i = 0; i < target.size(); i++) {
+                    LibraryItem v = target.get(i);
+                    for(int k = 0; k < source.size(); k++) {
+                        LibraryItem vv = source.get(k);
+                        if(vv.getId().equals(v.getId())) {
+                            source.remove(vv);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            documents = new DualListModel<LibraryItem>(source, target);
+        }
+        
+        return documents;
+    }
+    
+    public void setDocuments(DualListModel<LibraryItem> document) {
+        this.documents = document;
+    }
+    
+    public void addDocuments(List<LibraryItem> v) {
+        selected = service.setDocuments(selected, documents.getTarget());
+    }
+    
+    // Quiz stuff
+    private DualListModel<Quiz> quizzes;
+    @Inject QuizService quizService;
+    
+    public DualListModel<Quiz> getQuizzes() {
+        if(quizzes == null) {
+            List<Quiz> source = quizService.findQuizzes();
+            List<Quiz> target = new ArrayList<Quiz>();
+            if(selected.getQuizzes() != null) {
+                target = selected.getQuizzes();
+                
+                for(int i = 0; i < target.size(); i++) {
+                    Quiz v = target.get(i);
+                    for(int k = 0; k < source.size(); k++) {
+                        Quiz vv = source.get(k);
+                        if(vv.getId() == v.getId()) {
+                            source.remove(vv);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            quizzes = new DualListModel<Quiz>(source, target);
+        }
+        
+        return quizzes;
+    }
+    
+    public void setQuizzes(DualListModel<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+    
+    public void addQuizzes(List<Quiz> q) {
+        selected = service.setQuizzes(selected, quizzes.getTarget());
+    }
+    
+    // Article stuff
+    @Inject ArticleService articleService;
+    Article information;
+    Article dates;
+    Article help;
+    
+    public List<Article> getArticles() {
+        return articleService.findMostRecentArticles();
+    }
+
+    public Article getInformation() {
+        return information;
+    }
+
+    public void setInformation(Article information) {
+        this.information = information;
+    }
+
+    public Article getDates() {
+        return dates;
+    }
+
+    public void setDates(Article dates) {
+        this.dates = dates;
+    }
+
+    public Article getHelp() {
+        return help;
+    }
+
+    public void setHelp(Article help) {
+        this.help = help;
     }
 }

@@ -172,7 +172,7 @@
                 </div>
                 <div class="column">    
                     <p:fieldset legend="Videos">
-                        <p:pickList id="pickList"
+                        <p:pickList id="pickListVideos"
                                     value="#{courseController.videos}" var="video" itemValue="#{video}" itemLabel="#{video.videoName}" showSourceFilter="true" filterMatchMode="contains" converter="#{videoConverter}">
                             <f:facet name="sourceCaption">Available</f:facet>  
                             <f:facet name="targetCaption">Selected</f:facet>
@@ -180,6 +180,46 @@
                         <p:commandButton value="Submit" action="#{courseController.addVideos(courseController.videos.target)}"/>
                     </p:fieldset>
                 </div>
+                <div class="column">    
+                    <p:fieldset legend="Documents">
+                        <p:pickList id="pickListDocuments"
+                                    value="#{courseController.documents}" var="document" itemValue="#{document}" itemLabel="#{document.title}" showSourceFilter="true" filterMatchMode="contains" converter="#{documentConverter}">
+                            <f:facet name="sourceCaption">Available</f:facet>  
+                            <f:facet name="targetCaption">Selected</f:facet>
+                        </p:pickList>  
+                        <p:commandButton value="Submit" action="#{courseController.addDocuments(courseController.documents.target)}"/>
+                    </p:fieldset>
+                </div>
+                <div class="column">    
+                    <p:fieldset legend="Quizzes">
+                        <p:pickList id="pickListQuizzes"
+                                    value="#{courseController.quizzes}" var="quiz" itemValue="#{quiz}" itemLabel="#{quiz.name}" showSourceFilter="true" filterMatchMode="contains" converter="#{quizConverter}">
+                            <f:facet name="sourceCaption">Available</f:facet>  
+                            <f:facet name="targetCaption">Selected</f:facet>
+                        </p:pickList>  
+                        <p:commandButton value="Submit" action="#{courseController.addQuizzes(courseController.quizzes.target)}"/>
+                    </p:fieldset>
+                </div>
+                <div class="column">
+                    <p:fieldset legend="Articles">
+                        <h:outputText value="Information:" />
+                        <p:selectOneMenu value="#{courseController.information}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{courseController.articles}" var="article" itemLabel="#{article.title}" itemValue="#{article}"/>  
+                        </p:selectOneMenu>
+                        <h:outputText value="Help:" />
+                        <p:selectOneMenu value="#{courseController.help}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{courseController.articles}" var="article" itemLabel="#{article.title}" itemValue="#{article}"/>  
+                        </p:selectOneMenu>
+                        <h:outputText value="Dates:" />
+                        <p:selectOneMenu value="#{courseController.dates}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{courseController.articles}" var="article" itemLabel="#{article.title}" itemValue="#{article}"/>  
+                        </p:selectOneMenu>
+                    </p:fieldset>
+                </div>
+                
             </p:fieldset>
         </h:form>
     </ui:define>

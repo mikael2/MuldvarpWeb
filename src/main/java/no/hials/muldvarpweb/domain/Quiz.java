@@ -21,7 +21,7 @@ public class Quiz implements Serializable {
     
     @Id
     @GeneratedValue
-    long id;
+    private Long id;
     String name;
     String description;
     @OneToMany
@@ -55,11 +55,11 @@ public class Quiz implements Serializable {
         this.questions = questions;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

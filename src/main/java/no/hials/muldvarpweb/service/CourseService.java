@@ -244,9 +244,19 @@ public class CourseService {
         persist(course);
     }
     
+    public Course setDocuments(Course c, List<LibraryItem> d) {
+        c.setDocuments(d);
+        return persist(c);
+    }
+    
     public void removeDocument(Course course, LibraryItem document) {
         course.removeDocument(document);
         persist(course);
+    }
+    
+    public Course setQuizzes(Course selected, List<Quiz> target) {
+        selected.setQuizzes(target);
+        return persist(selected);
     }
     
     public void addQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question newQuestion) {
