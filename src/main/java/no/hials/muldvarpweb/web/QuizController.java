@@ -11,6 +11,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import no.hials.muldvarpweb.domain.Alternative;
+import no.hials.muldvarpweb.domain.Question;
 import no.hials.muldvarpweb.domain.Quiz;
 import no.hials.muldvarpweb.service.QuizService;
 
@@ -28,6 +30,9 @@ public class QuizController implements Serializable{
     List<Quiz> quizList;
     Quiz newQuiz;
     Quiz selected;
+    Question selectedQuestion;
+    List<Question> newQuestionList;
+    List<Alternative> newAlternativeList;
     
     
     /**
@@ -97,7 +102,7 @@ public class QuizController implements Serializable{
      */
     public Quiz addQuiz() {
                 
-        service.addQuiz(selected);
+        service.addQuiz(newQuiz);
         return newQuiz;
     }
     
@@ -116,6 +121,18 @@ public class QuizController implements Serializable{
                         "INFO: ", "New revision created"));
                 break;
          }
+    }
+    
+    public void setSelectedQuestion(Question q){
+        selectedQuestion = q;
+    }
+    
+    public List<Question> getQuestions(){
+        return newQuestionList;
+    }
+    
+    public List<Alternative> getAlternatives(){
+        return newAlternativeList;
     }
     
     public String makeTestData(){

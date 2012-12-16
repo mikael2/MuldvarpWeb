@@ -1,14 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<ui:composition template="/templates/layout.xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        New quiz
+    </ui:define>
+    
+    <ui:define name="right">
+        <h:form id="docForm">                
+            <p:fieldset legend="New quiz">
+                <p:panelGrid columns="2">
+                <p:panelGrid columns="2">  
+                    <f:facet name="header">  
+                        Quiz  
+                    </f:facet>  
+
+                        <h:outputLabel value="Title: " />
+                        <p:inputText value="#{quizController.quiz.name}"/>
+                        
+                        <h:outputLabel value="Description: " />
+                        <p:inputTextarea value="#{quizController.quiz.description}" rows="5" cols="30"/>
+
+                    <f:facet name="footer">  
+                        <p:commandButton id="back" value="Back" ajax="false" action="listQuizzes?faces-redirect=true" />
+                        <p:commandButton id="submitButton" value="save" action="listQuizzes?faces-redirect=true" 
+                                         actionListener="#{quizController.addQuiz()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                    </f:facet>
+                </p:panelGrid>
+                    <p:panelGrid columns="2">
+                    <f:facet name="header">  
+                        Questions
+                    </f:facet>
+                        <p:dataTable id="questionsTable"
+                                     value="#{quizController.questions}" 
+                            var="questions">
+                            <p:column headerText="question">
+                            </p:column>
+                            <p:column headerText="Alternatives">
+                                <p:dataTable id="alternativesTable"
+                                             value="#{quizController.alternatives}" 
+                                     var="alternative">
+                                </p:dataTable>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panelGrid>
+                </p:panelGrid>
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+</ui:composition>
