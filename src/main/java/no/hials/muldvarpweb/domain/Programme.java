@@ -35,6 +35,16 @@ public class Programme implements Serializable{
     @ManyToMany
     List<Quiz> quizzes;
     
+    // temp greier til vi lager noe bedre
+    @ManyToOne
+    Article info;
+    
+    @ManyToOne
+    Article dates;
+    
+    @ManyToOne
+    Article help;
+    
     /**
      * Empty constructor for the Programme JPA class.
      */
@@ -114,5 +124,29 @@ public class Programme implements Serializable{
     
     public void remvoveQuiz(Quiz q){
         getQuizzes().remove(q);
+    }
+
+    public Article getInfo() {
+        return info;
+    }
+
+    public void setInfo(Article info) {
+        this.info = info;
+    }
+
+    public Article getDates() {
+        return dates;
+    }
+
+    public void setDates(Article dates) {
+        this.dates = dates;
+    }
+
+    public Article getHelp() {
+        return help;
+    }
+
+    public void setHelp(Article help) {
+        this.help = help;
     }
 }

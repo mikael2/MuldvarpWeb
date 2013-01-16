@@ -511,6 +511,8 @@ public class CourseService {
         retVal.addVideo(video);
         video.addCourse(retVal);
         
+        Article article = new Article("Info", "blablabla");
+        retVal.setInfo(article);
         
         return retVal;  
         

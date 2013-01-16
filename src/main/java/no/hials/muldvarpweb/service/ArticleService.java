@@ -58,6 +58,11 @@ public class ArticleService {
         return q.getResultList();
     }
 
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Article> findArticles() {       
+        return em.createQuery("SELECT a from Article a", Article.class).getResultList();
+    }
 
     public Article addArticle(Article newArticle) {
         newArticle= em.merge(newArticle);

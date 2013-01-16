@@ -91,6 +91,7 @@ public class CourseController implements Serializable {
         videos = null;
         documents = null;
         quizzes = null;
+        articles = null;
         return "editCourse?faces-redirect=true";
     }
     
@@ -663,35 +664,34 @@ public class CourseController implements Serializable {
     
     // Article stuff
     @Inject ArticleService articleService;
-    Article information;
-    Article dates;
-    Article help;
+    List<Article> articles;
     
     public List<Article> getArticles() {
-        return articleService.findMostRecentArticles();
+        articles = articleService.findArticles();
+        return articles;
     }
 
     public Article getInformation() {
-        return information;
+        return selected.getInfo();
     }
 
     public void setInformation(Article information) {
-        this.information = information;
+        selected.setInfo(information);
     }
 
     public Article getDates() {
-        return dates;
+        return selected.getDates();
     }
 
     public void setDates(Article dates) {
-        this.dates = dates;
+        selected.setDates(dates);
     }
 
     public Article getHelp() {
-        return help;
+        return selected.getHelp();
     }
 
     public void setHelp(Article help) {
-        this.help = help;
+        selected.setHelp(help);
     }
 }
