@@ -10,15 +10,15 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
- *
- * @author kristoffer
+ * JPA-class defining a Quiz
+ * 
+ * @author johan
  */
 @Entity
 @Table(name = "quiz")
 public class Quiz implements Serializable {
     @ManyToMany(mappedBy = "quizzes")
-    private List<Programme> programmes;
-    
+    private List<Programme> programmes;    
     @Id
     @GeneratedValue
     private Long id;

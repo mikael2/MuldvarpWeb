@@ -20,6 +20,7 @@ public class Question implements Serializable {
     long id;
     String name;
     String questionType;  
+    boolean shuffleAlternatives;
     @OneToMany
     List<Alternative> alternatives;    
     @OneToOne
@@ -38,6 +39,14 @@ public class Question implements Serializable {
         return id;
     }
 
+    public boolean isShuffleAlternatives() {
+        return shuffleAlternatives;
+    }
+
+    public void setShuffleAlternatives(boolean shuffleAlternatives) {
+        this.shuffleAlternatives = shuffleAlternatives;
+    }
+    
     public List<Alternative> getAlternatives() {
         return alternatives;
     }
