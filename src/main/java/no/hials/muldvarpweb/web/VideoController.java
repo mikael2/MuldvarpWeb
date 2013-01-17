@@ -127,7 +127,7 @@ public class VideoController implements Serializable {
     public void deleteVideoForDeletion(){
         
         if(videoForDeletion != null){
-            videoService.removeVideo(newVideo);
+            videoService.removeVideo(videoForDeletion);
         }
     }
     

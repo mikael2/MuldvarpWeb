@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Alternative;
 import no.hials.muldvarpweb.domain.Question;
 import no.hials.muldvarpweb.domain.Quiz;
+import no.hials.muldvarpweb.domain.Video;
 
 /**
  * Service class for the Quiz entities.
@@ -76,6 +77,17 @@ public class QuizService {
     public void removeQuiz(Quiz q) {
         q = em.merge(q);
         em.remove(q);
+    }
+    
+    /**
+     * This method returns a List of Quiz objects based on the name of the Quiz.
+     * @param name
+     * @return 
+     */
+    public List<Quiz> findQuizzesByName(String name){        
+        TypedQuery<Quiz> query = em.createQuery("SELECT q from Quiz q where q.name LIKE :name", Quiz.class);
+        query.setParameter("name", "%" + name + "%");        
+        return query.getResultList();
     }
     
     public void makeTestData(){

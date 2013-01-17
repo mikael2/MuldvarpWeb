@@ -9,27 +9,46 @@
     </ui:define>
     
     <ui:define name="right">
-        <h:form id="docForm">                
-            <p:fieldset legend="Quiz">
+        <h:form id="quizForm">
+            
+            <p:fieldset legend="Quizzes">
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
-                <p:dataTable
-                    id="quizTable"
-                    value="#{quizController.quizzes}" 
-                    var="Quiz">
-                    <p:column headerText="Title" style="width: 800px">  
+                <p:dataTable id="quizTable" value="#{quizController.quizzes}" var="quizItem">
+                    <f:facet name="header">
+                        <h:inputText id="searchInput" value="#{quizController.filterString}"/>
+                        <p:commandButton value="Search" action="#{quizController.nameFilteredQuizzes}"  update="quizTable"/>
+                    </f:facet>
+                    <p:column headerText="Name">  
                         <h:commandLink
-                            actionListener="#{quizController.setSelected(Quiz)}"
-                            action="editArticle?faces-redirect=true}"
-                            value="#{Quiz.name}" />
+                            actionListener="#{quizController.setQuiz(quizItem)}"
+                            action="editQuiz?faces-redirect=true}"
+                            value="#{quizItem.name}" />
                     </p:column>
-                    <p:column headerText="Delete">  
-                        <p:commandButton  id="deleteButton" value="Delete quiz" action="#{quizController.removeQuiz(Quiz)}" ajax="false"/>
+                    <p:column headerText="Detail">  
+                        <h:outputText value="#{quizItem.description}"/>
                     </p:column>
-                </p:dataTable>          
+                    <p:column headerText="Type">  
+                        <h:outputText value="#{quizItem.quizType}"/>
+                    </p:column>
+                    <p:column headerText="Delete">                          
+                        <p:commandButton id="confirmDeleteButton" value="Delete" action="#{quizController.removeQuiz(quizItem)}" actionListener="#{quizController.addInfo(1, quizItem)}" ajax="false"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton value="Make testdata" action="#{quizController.makeTestData()}" actionListener="#{quizController.addInfo(1)}" update="quizTable"/>
+                        <p:commandButton value="Home" action="index?faces-redirect=true"/>
+                        <p:commandButton value="New Quiz" action="newQuiz?faces-redirect=true"/>                    
+                    </f:facet>
+                </p:dataTable>
+                
             </p:fieldset>
-            <p:commandButton value="Home" action="index?faces-redirect=true"/>
-            <p:commandButton value="New quiz" action="newQuiz?faces-redirect=true"/>
-            <p:commandButton value="Make testdata" action="#{quizController.makeTestData()}" ajax="false"/>
+            
         </h:form>
+        <p:dialog id="deleteQuizDialog" header="Delete quiz #{quizController.quizForDeletion.name} ?" widgetVar="dlg1">
+            <h:outputText>Delete quiz?</h:outputText>
+            <h:form id="deleteQuizDialogForm">
+                <p:commandButton id="confirmDeleteButton" value="Yes" action="#{quizController.deleteQuizForDeletion()}" actionListener="#{quizController.addInfo(1, quizItem)}" ajax="false"/>
+            <p:commandButton id="cancelDeleteButton" value="No" onclick="dlg1.hide();"/>
+            </h:form>
+        </p:dialog>
     </ui:define>
 </ui:composition>

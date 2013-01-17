@@ -14,6 +14,7 @@ import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Alternative;
 import no.hials.muldvarpweb.domain.Question;
 import no.hials.muldvarpweb.domain.Quiz;
+import no.hials.muldvarpweb.domain.Video;
 import no.hials.muldvarpweb.service.QuizService;
 
 /**
@@ -30,9 +31,11 @@ public class QuizController implements Serializable{
     List<Quiz> quizList;
     Quiz newQuiz;
     Quiz selected;
+    Quiz quizForDeletion;
     Question selectedQuestion;
     List<Question> newQuestionList;
     List<Alternative> newAlternativeList;
+    String filterString;
     
     
     /**
@@ -89,6 +92,20 @@ public class QuizController implements Serializable{
         quizList = service.findQuizzes();
         return quizList;
     }
+    
+    /**
+     * This function returns a List of Videos from VideoService based on a
+     * global variable in the VideoController class.
+     * 
+     * @return List of Video
+     */
+    public List<Quiz> getNameFilteredQuizzes(){        
+        //Make sure the filterString is not null but has a value, even if it's empty
+        if(filterString == null){
+            filterString = "";
+        }        
+        return service.findQuizzesByName(filterString);
+    }
 
     public void setQuiz(List<Quiz> quizList) {
         this.quizList = quizList;
@@ -121,6 +138,17 @@ public class QuizController implements Serializable{
                         "INFO: ", "New revision created"));
                 break;
          }
+    }
+    
+    public Quiz getQuizForDeletion(){
+        return quizForDeletion;
+    }
+    
+    public void deleteQuizForDeletion(){
+        
+        if(quizForDeletion != null){
+            service.removeQuiz(quizForDeletion);
+        }
     }
     
     public void setSelectedQuestion(Question q){
