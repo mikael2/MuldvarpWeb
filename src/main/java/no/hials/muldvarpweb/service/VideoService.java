@@ -27,8 +27,7 @@ import no.hials.muldvarpweb.domain.Video;
 public class VideoService {
     
     @PersistenceContext
-    EntityManager entityManager;
-    
+    EntityManager entityManager;   
     
     /**
      * This function merges and persists a Video item .

@@ -86,8 +86,7 @@ public class VideoController implements Serializable {
         return newVideo;
     }
     
-    public void selectVideo(Video video){
-        
+    public void selectVideo(Video video){        
         this.selectedVideo = video;
     }
     
