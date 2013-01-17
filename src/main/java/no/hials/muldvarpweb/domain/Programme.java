@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This class represents a programme.
@@ -34,6 +35,15 @@ public class Programme implements Serializable{
     
     @ManyToMany
     List<Quiz> quizzes;
+    
+    @ManyToMany
+    List<LibraryItem> documents;
+    
+    @ManyToMany
+    List<Article> news;
+    
+    @ManyToMany
+    List<Video> videos;
     
     // temp greier til vi lager noe bedre
     @ManyToOne
@@ -149,4 +159,54 @@ public class Programme implements Serializable{
     public void setHelp(Article help) {
         this.help = help;
     }
+    
+    @XmlTransient
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> video) {
+        this.videos = video;
+    }
+    
+    public void addVideo(Video video) {
+        if(videos == null) {
+            videos = new ArrayList<Video>();
+        }
+        videos.add(video);
+    }
+
+    public void removeVideo(Video video){
+        
+        getVideos().remove(video);
+    }
+
+    public List<LibraryItem> getDocuments() {
+        return documents;
+    }
+    
+    public void addDocument(LibraryItem document) {
+        if(document == null) {
+            documents = new ArrayList<LibraryItem>();
+        }
+        documents.add(document);
+    }
+
+    public void removeDocument(LibraryItem document){
+        getDocuments().remove(document);
+    }
+
+    public void setDocuments(List<LibraryItem> documents) {
+        this.documents = documents;
+    }
+
+    public List<Article> getNews() {
+        return news;
+    }
+
+    public void setNews(List<Article> news) {
+        this.news = news;
+    }
+
+
 }

@@ -11,8 +11,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Course;
+import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.domain.Programme;
 import no.hials.muldvarpweb.domain.Quiz;
+import no.hials.muldvarpweb.domain.Video;
 
 /**
  * Service class for the Programme entities.
@@ -143,4 +145,52 @@ public class ProgrammeService {
 //        }
 //        return persist(selected);
 //    }
+    
+    
+    public void addVideo(Programme course, Video video){
+        course.addVideo(video);
+        persist(course);
+    }
+    
+    public Programme setVideos(Programme c, List<Video> v) {
+        c.setVideos(v);
+        return persist(c);
+    }
+    
+    public void editVideo(Programme course, Video video){
+        course.addVideo(video);
+        persist(course);
+    }
+    
+    public void removeVideo(Programme course, Video video){
+        
+        course.removeVideo(video);
+        persist(course);
+    }
+    
+    public void addDocument(Programme course, LibraryItem document) {
+        course.addDocument(document);
+        //document.addCourse(course);
+        em.merge(course);
+    }
+    
+    public void editDocument(Programme course, LibraryItem document) {
+        course.addDocument(document);
+        persist(course);
+    }
+    
+    public Programme setDocuments(Programme c, List<LibraryItem> d) {
+        c.setDocuments(d);
+        return persist(c);
+    }
+    
+    public void removeDocument(Programme course, LibraryItem document) {
+        course.removeDocument(document);
+        persist(course);
+    }
+    
+    public Programme setQuizzes(Programme selected, List<Quiz> target) {
+        selected.setQuizzes(target);
+        return persist(selected);
+    }
 }

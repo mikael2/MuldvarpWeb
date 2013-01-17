@@ -35,7 +35,6 @@
                         
                         <div>
                             <div class="column_left">
-                                <h:outputText value="Courses in program: " />
                             </div>
                             <div class="column_right">
                                 <!--<p:dataTable id="programmeTable"
@@ -64,6 +63,64 @@
                                 </p:fieldset>
                             </div>
                         </div>
+                        <div class="column">    
+                    <p:fieldset legend="Videos">
+                        <p:pickList id="pickListVideos"
+                                    value="#{programmeController.videos}" var="video" itemValue="#{video}" itemLabel="#{video.videoName}" showSourceFilter="true" filterMatchMode="contains" converter="#{videoConverter}">
+                            <f:facet name="sourceCaption">Available</f:facet>  
+                            <f:facet name="targetCaption">Selected</f:facet>
+                        </p:pickList>  
+                        <p:commandButton value="Submit" action="#{programmeController.addVideos(programmeController.videos.target)}"/>
+                    </p:fieldset>
+                </div>
+                <div class="column">    
+                    <p:fieldset legend="Documents">
+                        <p:pickList id="pickListDocuments"
+                                    value="#{programmeController.documents}" var="document" itemValue="#{document}" itemLabel="#{document.title}" showSourceFilter="true" filterMatchMode="contains" converter="#{documentConverter}">
+                            <f:facet name="sourceCaption">Available</f:facet>  
+                            <f:facet name="targetCaption">Selected</f:facet>
+                        </p:pickList>  
+                        <p:commandButton value="Submit" action="#{programmeController.addDocuments(programmeController.documents.target)}"/>
+                    </p:fieldset>
+                </div>
+                <div class="column">    
+                    <p:fieldset legend="Quizzes">
+                        <p:pickList id="pickListQuizzes"
+                                    value="#{programmeController.quizzes}" var="quiz" itemValue="#{quiz}" itemLabel="#{quiz.name}" showSourceFilter="true" filterMatchMode="contains" converter="#{quizConverter}">
+                            <f:facet name="sourceCaption">Available</f:facet>  
+                            <f:facet name="targetCaption">Selected</f:facet>
+                        </p:pickList>  
+                        <p:commandButton value="Submit" action="#{programmeController.addQuizzes(programmeController.quizzes.target)}"/>
+                    </p:fieldset>
+                </div>
+                <div class="column">
+                    <p:fieldset legend="Articles">
+                        <h:outputText value="Information:" />
+                        <p:selectOneMenu value="#{programmeController.information}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{programmeController.articles}" var="article" itemLabel="#{article.title}" itemValue="#{article}"/>
+                            <p:column>  
+                                #{p.title}
+                            </p:column>  
+                        </p:selectOneMenu>
+                        <h:outputText value="Help:" />
+                        <p:selectOneMenu value="#{programmeController.help}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{programmeController.articles}" var="article2" itemLabel="#{article2.title}" itemValue="#{article2}"/>
+                            <p:column>  
+                                #{p.title}
+                            </p:column>  
+                        </p:selectOneMenu>
+                        <h:outputText value="Dates:" />
+                        <p:selectOneMenu value="#{programmeController.dates}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{programmeController.articles}" var="article3" itemLabel="#{article3.title}" itemValue="#{article3}"/>  
+                            <p:column>  
+                                #{p.title}
+                            </p:column>  
+                        </p:selectOneMenu>
+                    </p:fieldset>
+                </div>
                     </div>
                     <div style="float:left; width: 200px;">
                         <h:commandLink value="Save" action="#{programmeController.editProgramme()}" actionListener="#{programmeController.addInfo(1)}"/> <br />

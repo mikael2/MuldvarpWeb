@@ -124,5 +124,11 @@ public class ArticleController implements Serializable {
      public Article getSelected(){
          return selected;
      }
+     
+     public void makeTestData() {
+         Article a = new Article("Nyhet", "blablabla");
+         a.setCategory("news");
+         service.addArticle(a);
+     }
 
 }
