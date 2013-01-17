@@ -13,10 +13,10 @@
             
             <p:fieldset legend="Quizzes">
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
-                <p:dataTable id="quizTable" value="#{quizController.quizzes}" var="quizItem">
+                <p:dataTable id="quizTable" value="#{quizController.getNameFilteredQuizzes()}" var="quizItem">
                     <f:facet name="header">
                         <h:inputText id="searchInput" value="#{quizController.filterString}"/>
-                        <p:commandButton value="Search" action="#{quizController.nameFilteredQuizzes}"  update="quizTable"/>
+                        <p:commandButton value="Search" action="#{quizController.getNameFilteredQuizzes()}"  update="quizTable"/>
                     </f:facet>
                     <p:column headerText="Name">  
                         <h:commandLink

@@ -167,4 +167,12 @@ public class QuizController implements Serializable{
         service.makeTestData();
         return "listQuiz?faces-redirect=true";
     }
+    
+    public String getFilterString() {
+        return filterString;
+    }
+
+    public void setFilterString(String filterString) {
+        this.filterString = filterString;
+    }
 }
