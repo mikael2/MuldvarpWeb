@@ -11,3 +11,4 @@ src/main/webapp/Admin/listCourses.xhtml
 
 src/main/webapp/Admin/newVideo.xhtml
 /src/main/webapp/Muldvarp-debug.apk
+.DS_Store
