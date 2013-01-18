@@ -34,6 +34,12 @@ public class Question implements Serializable {
         this.name = name;
         setAlternatives(alternatives);
     }
+    
+    public Question(String name, List alternatives, String questionType){
+        this.name = name;
+        this.questionType = questionType;
+        setAlternatives(alternatives);
+    }
 
     public long getId() {
         return id;

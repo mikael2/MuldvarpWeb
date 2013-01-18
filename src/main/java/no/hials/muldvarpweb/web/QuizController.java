@@ -131,7 +131,7 @@ public class QuizController implements Serializable{
                 break;
             case 2:
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "INFO: ", "Course deleted"));
+                        "INFO: ", "Quiz deleted"));
                 break;
             case 3:
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -140,12 +140,15 @@ public class QuizController implements Serializable{
          }
     }
     
+    public void setupQuizForDeletion(Quiz quiz){
+        this.quizForDeletion = quiz;
+    }
+    
     public Quiz getQuizForDeletion(){
         return quizForDeletion;
     }
     
-    public void deleteQuizForDeletion(){
-        
+    public void deleteQuizForDeletion(){        
         if(quizForDeletion != null){
             service.removeQuiz(quizForDeletion);
         }

@@ -110,8 +110,7 @@ public class VideoController implements Serializable {
         addInfo(3);
     }
     
-    public void setVideoForDeletion(Video video){
-        
+    public void setVideoForDeletion(Video video){        
         this.videoForDeletion = video;
     }
     

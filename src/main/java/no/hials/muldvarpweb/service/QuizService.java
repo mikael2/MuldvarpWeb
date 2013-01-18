@@ -98,18 +98,18 @@ public class QuizService {
         alternatives.add(new Alternative("0", false));
         
         ArrayList questions = new ArrayList();
-        questions.add(new Question("Den deriverte av 4x er:", alternatives));
+        questions.add(new Question("Den deriverte av 4x er:", alternatives, "Single"));
         
-        alternatives.clear();
+        alternatives = new ArrayList();
         alternatives.add(new Alternative("4", false));
         alternatives.add(new Alternative("9", true));
         alternatives.add(new Alternative("8", false));
         alternatives.add(new Alternative("7", false));
         alternatives.add(new Alternative("0", false));
         
-        questions.add(new Question("Kvadratroten av 81 er:", alternatives));
+        questions.add(new Question("Kvadratroten av 81 er:", alternatives, "Single"));
         
-        alternatives.clear();
+        alternatives = new ArrayList();
         alternatives.add(new Alternative("2/5", false));
         alternatives.add(new Alternative("1/5", false));
         alternatives.add(new Alternative("1/25", true));
@@ -117,7 +117,7 @@ public class QuizService {
         alternatives.add(new Alternative("0", false));
         alternatives.add(new Alternative("0,04", true));
         
-        questions.add(new Question("(1/5) x (1/5) =", alternatives));
+        questions.add(new Question("(1/5) x (1/5) =", alternatives, "Multiple"));
         Quiz quiz = new Quiz("Mattequiz 1", questions, "feedback");
         addQuiz(quiz);
         //        Alternative alt = new Alternative();
