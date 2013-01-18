@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  *
@@ -73,7 +74,7 @@ public class Course implements Serializable {
     
     @ManyToOne
     Article help;
-    
+   
     public Course() {
         this.revision = 0;
         this.revision_date = new Date();
@@ -365,5 +366,27 @@ public class Course implements Serializable {
 
     public void setDates(Article dates) {
         this.dates = dates;
+    }
+    
+    // eksperimentelle greier
+    List<Fragment> fragmentBundle;
+
+    public List<Fragment> getFragmentBundle() {
+        return fragmentBundle;
+    }
+
+    public void setFragmentBundle(List<Fragment> fragmentBundle) {
+        this.fragmentBundle = fragmentBundle;
+    }
+    
+    public void addFragment(Fragment f) {
+        if(fragmentBundle == null) {
+            fragmentBundle = new ArrayList<Fragment>();
+        }
+        fragmentBundle.add(f);
+    }
+    
+    public void removeFragment(Fragment f) {
+        fragmentBundle.remove(f);
     }
 }

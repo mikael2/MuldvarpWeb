@@ -9,5 +9,9 @@ package no.hials.muldvarpweb.fragments;
  * @author Kristoffer
  */
 public class QuizFragment extends Fragment {
+
+    public QuizFragment(String name, int parentID) {
+        super(name, parentID, Type.QUIZ);
+    }
     
 }
