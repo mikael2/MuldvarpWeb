@@ -16,11 +16,14 @@
                     id="articleTable"
                     value="#{articleController.mostRecentArticles}" 
                     var="Article">
-                    <p:column headerText="Title" style="width: 800px">  
+                    <p:column headerText="Title">  
                         <h:commandLink
                             actionListener="#{articleController.select(Article)}"
                             action="editArticle?faces-redirect=true}"
                             value="#{Article.title}" />
+                    </p:column>
+                    <p:column headerText="Category">  
+                        <h:outputText value="#{Article.category}" />
                     </p:column>
                     <p:column headerText="Delete">  
                         <p:commandButton  id="deleteButton" value="Delete article" action="#{articleController.deleteArticle(Article)}" ajax="false"/>
@@ -29,6 +32,7 @@
             </p:fieldset>
             <p:commandButton value="Home" action="index?faces-redirect=true"/>
             <p:commandButton value="New article" action="/admin/newArticle?faces-redirect=true"/>
+            <p:commandButton value="Make testdata" action="#{articleController.makeTestData()}" update="articleTable"/>
         </h:form>
     </ui:define>
 </ui:composition>
