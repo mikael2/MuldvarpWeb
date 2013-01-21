@@ -22,6 +22,7 @@ public class Frontpage implements Serializable{
     @Id
     @GeneratedValue
     private Integer id;
+    String name;
     
     List<Fragment> fragmentBundle;
 
@@ -40,6 +41,21 @@ public class Frontpage implements Serializable{
     public void setFragmentBundle(List<Fragment> fragmentBundle) {
         this.fragmentBundle = fragmentBundle;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
+    public void removeFragment(Fragment f) {
+        fragmentBundle.remove(f);
+    }
+    
+    public void addFragment(Fragment f) {
+        fragmentBundle.add(f);
+    }
     
 }

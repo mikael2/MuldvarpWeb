@@ -7,11 +7,17 @@ package no.hials.muldvarpweb.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Article;
+import no.hials.muldvarpweb.domain.Frontpage;
 import no.hials.muldvarpweb.fragments.ArticleFragment;
 import no.hials.muldvarpweb.fragments.Fragment;
+import no.hials.muldvarpweb.fragments.NewsFragment;
+import no.hials.muldvarpweb.fragments.ProgrammeFragment;
+import no.hials.muldvarpweb.service.FrontpageService;
 
 /**
  *
@@ -20,40 +26,57 @@ import no.hials.muldvarpweb.fragments.Fragment;
 @Named
 @SessionScoped
 public class FrontpageController implements Serializable {
-    List<Fragment> fragmentBundle;
-    String name;
+    String articlename;
+    String newsname;
+    String programmename;
+    String quizname;
+    String category;
     Article article;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    Frontpage frontpage;
+    @Inject FrontpageService service;
     
     public List<Fragment> getFragmentBundle() {
-        return fragmentBundle;
+        return frontpage.getFragmentBundle();
     }
 
     public void setFragmentBundle(List<Fragment> fragmentBundle) {
-        this.fragmentBundle = fragmentBundle;
+        frontpage.setFragmentBundle(fragmentBundle);
     }
     
     public void addArticleFragment() {
-        if(fragmentBundle == null) {
-            fragmentBundle = new ArrayList<Fragment>();
+        if(frontpage.getFragmentBundle() == null) {
+            frontpage.setFragmentBundle(new ArrayList<Fragment>());
         }
-        fragmentBundle.add(new ArticleFragment(name, 0, article.getId()));
+        frontpage.addFragment(new ArticleFragment(articlename, 0, article.getId()));
+        reset();
+    }
+    
+    public void addProgrammeFragment() {
+        if(frontpage.getFragmentBundle() == null) {
+            frontpage.setFragmentBundle(new ArrayList<Fragment>());
+        }
+        frontpage.addFragment(new ProgrammeFragment(programmename, 0));
+        reset();
+    }
+    
+    public void addNewsFragment() {
+        if(frontpage.getFragmentBundle() == null) {
+            frontpage.setFragmentBundle(new ArrayList<Fragment>());
+        }
+        frontpage.addFragment(new NewsFragment(newsname, 0, category));
         reset();
     }
     
     public void removeFragment(Fragment f) {
-        fragmentBundle.remove(f);
+        frontpage.removeFragment(f);
     }
     
     public void reset() {
-        name = "";
+        articlename = "";
+        newsname = "";
+        programmename = "";
+        quizname = "";
+        category = "";
         article = null;
     }
 
@@ -64,4 +87,85 @@ public class FrontpageController implements Serializable {
     public void setArticle(Article article) {
         this.article = article;
     }
+
+    public Frontpage getFrontpage() {
+        System.out.println("GETTINNGGGGG");
+        if(frontpage == null) {
+            try {
+                frontpage = service.getFrontpage(0);
+            } catch(EJBException ex) {
+                System.out.println(ex);
+                frontpage = getDefaultFrontpage();
+            }
+        }
+        return frontpage;
+    }
+    
+    public Frontpage getDefaultFrontpage() {
+        System.out.println("GETTING DEFUALT LOOOOL");
+        Frontpage f = new Frontpage();
+        f.setName("Default name");
+        return f;
+    }
+
+    public void setFrontpage(Frontpage frontpage) {
+        this.frontpage = frontpage;
+    }
+    
+    public String getTitle() {
+        if(frontpage == null)
+            getFrontpage();
+        return frontpage.getName();
+    }
+    
+    public void setTitle(String name) {
+        frontpage.setName(name);
+    }
+    
+    public void save() {
+        System.out.println("SAVINNGGGGG");
+        if(frontpage != null)
+            frontpage = service.persist(frontpage);
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getArticlename() {
+        return articlename;
+    }
+
+    public void setArticlename(String articlename) {
+        this.articlename = articlename;
+    }
+
+    public String getNewsname() {
+        return newsname;
+    }
+
+    public void setNewsname(String newsname) {
+        this.newsname = newsname;
+    }
+
+    public String getProgrammename() {
+        return programmename;
+    }
+
+    public void setProgrammename(String programmename) {
+        this.programmename = programmename;
+    }
+
+    public String getQuizname() {
+        return quizname;
+    }
+
+    public void setQuizname(String quizname) {
+        this.quizname = quizname;
+    }
+    
 }

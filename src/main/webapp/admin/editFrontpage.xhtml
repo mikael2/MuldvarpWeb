@@ -8,44 +8,47 @@
     
     <ui:define name="mainsingle">
         <h:form id="form">
-            <div class="column">    
-                <p:fieldset legend="Fragments">
-                    <p:dataTable id="fragmentTable" value="#{frontpageController.fragmentBundle}" var="fragment">
-                        <p:column headerText="Name">  
-                            <h:outputText value="#{fragment.name}"/>
-                        </p:column>
-                        <p:column headerText="Type">  
-                            <h:outputText value="#{fragment.fragmentType}" />
-                        </p:column>
-                        <p:column>
-                            <h:commandLink value="Delete" action="#{frontpageController.removeFragment(fragment)}"/>
-                        </p:column>
-                    </p:dataTable>
-                    <p:column>
-                        <p:commandButton value="Add Fragment" onclick="dlg.show()" />
+            <p:fieldset legend="Frontpage Info">
+                <h:outputLabel for="title" value="Title:" />  
+                <p:inputText value="#{frontpageController.title}" id="title" required="true" label="title" />
+            </p:fieldset>
+            
+            <p:fieldset legend="Fragments">
+                <p:dataTable id="fragmentTable" value="#{frontpageController.fragmentBundle}" var="fragment">
+                    <p:column headerText="Name">  
+                        <h:outputText value="#{fragment.name}"/>
                     </p:column>
-                </p:fieldset>
-            </div>
+                    <p:column headerText="Type">  
+                        <h:outputText value="#{fragment.fragmentType}" />
+                    </p:column>
+                    <p:column>
+                        <h:commandLink value="Delete" action="#{frontpageController.removeFragment(fragment)}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:column>
+                    <p:commandButton value="Add Fragment" onclick="dlg.show()" />
+                </p:column>
+            </p:fieldset>
 
             <p:dialog id="dialog" header="New Fragment" widgetVar="dlg">  
                 <h:outputLink id="articleFragment" value="javascript:void(0)" onclick="articledlg.show();dlg.hide();" title="New ArticleFragment">     
-                    <p:graphicImage value="article" width="50px" height="50px" />  
+                    <p:graphicImage value="/resources/images/stolen_opptak.png" />  
                 </h:outputLink>  
                 <h:outputLink id="newsFragment" value="javascript:void(0)" onclick="articledlg.show();dlg.hide();" title="New NewsFragment">     
-                    <p:graphicImage value="article" width="50px" height="50px" />  
+                    <p:graphicImage value="/resources/images/stolen_news.png" />  
                 </h:outputLink>  
                 <h:outputLink id="quizFragment" value="javascript:void(0)" onclick="articledlg.show();dlg.hide();" title="New QuizFragment">     
-                    <p:graphicImage value="article" width="50px" height="50px" />  
+                    <p:graphicImage value="/resources/images/stolen_quiz.png" />  
                 </h:outputLink>  
-                <h:outputLink id="courseFragment" value="javascript:void(0)" onclick="articledlg.show();dlg.hide();" title="New CourseFragment">     
-                    <p:graphicImage value="article" width="50px" height="50px" />  
+                <h:outputLink id="programmeFragment" value="javascript:void(0)" onclick="programmedlg.show();dlg.hide();" title="New ProgrammeFragment">     
+                    <p:graphicImage value="/resources/images/stolen_course_programme.png" />  
                 </h:outputLink>  
             </p:dialog>
 
-            <p:dialog id="articleDialog" header="New ArticleFragment" widgetVar="articledlg">  
+            <p:dialog id="newarticleDialog" header="New ArticleFragment" widgetVar="newarticledlg">  
                 <h:panelGrid columns="2" cellpadding="5">  
                     <h:outputLabel for="name" value="Name:" />  
-                    <p:inputText value="#{frontpageController.name}" id="name" required="true" label="name" />
+                    <p:inputText value="#{frontpageController.articlename}" id="name" label="name" />
                     <h:outputLabel for="article" value="Article:" />  
                     <p:selectOneMenu id="article" value="#{frontpageController.article}" converter="#{articleConverter}" panelStyle="width:150px"  
                              effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
@@ -56,11 +59,38 @@
                     </p:selectOneMenu>
                     <f:facet name="footer">  
                         <p:commandButton id="saveButton" value="Submit"   
-                      actionListener="#{frontpageController.addArticleFragment()}" oncomplete="articledlg.hide()" update="fragmentTable"/>  
+                      actionListener="#{frontpageController.addArticleFragment()}" oncomplete="newarticledlg.hide()" update="fragmentTable"/>  
                     </f:facet>  
                 </h:panelGrid>  
             </p:dialog>
             
+            <p:dialog id="newprogrammeDialog" header="New ProgrammeFragment" widgetVar="newprogrammedlg">  
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <h:outputLabel for="namep" value="Name:" />  
+                    <p:inputText value="#{frontpageController.programmename}" id="namep" label="namep" />
+                    <h:outputLabel value="All programmes" />  
+                    <f:facet name="footer">  
+                        <p:commandButton id="saveButtonp" value="Submit"   
+                      actionListener="#{frontpageController.addProgrammeFragment()}" oncomplete="newprogrammedlg.hide()" update="fragmentTable"/>  
+                    </f:facet>  
+                </h:panelGrid>  
+            </p:dialog>
+            
+            <p:dialog id="newnewsDialog" header="New NewsFragment" widgetVar="newnewsdlg">  
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <h:outputLabel for="namen" value="Name:" />  
+                    <p:inputText value="#{frontpageController.newsname}" id="namen" label="namen" />
+                    <h:outputLabel for="category" value="Category:" />  
+                    <p:inputText value="#{frontpageController.category}" id="category" label="category" /> 
+                    <f:facet name="footer">  
+                        <p:commandButton id="saveButtonn" value="Submit"   
+                      actionListener="#{frontpageController.addNewsFragment()}" oncomplete="newnewsdlg.hide()" update="fragmentTable"/>  
+                    </f:facet>  
+                </h:panelGrid>  
+            </p:dialog>
+            
+            
+            <p:commandButton value="Save changes" action="#{frontpageController.save()}"/>
         </h:form>
         
     </ui:define>   

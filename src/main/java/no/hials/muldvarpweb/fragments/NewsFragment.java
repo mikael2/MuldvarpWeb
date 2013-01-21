@@ -11,8 +11,9 @@ package no.hials.muldvarpweb.fragments;
 public class NewsFragment extends Fragment {
     String category;
 
-    public NewsFragment(String name, int parentID) {
+    public NewsFragment(String name, int parentID, String category) {
         super(name, parentID, Type.NEWS);
+        this.category = category;
     }
     
 }

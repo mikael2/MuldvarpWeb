@@ -8,8 +8,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Frontpage;
@@ -26,8 +28,17 @@ public class FrontpageService {
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Frontpage> findFrontpage() {       
+    public List<Frontpage> findFrontpages() {       
         return em.createQuery("SELECT c from Frontpage c", Frontpage.class).getResultList();
+    }
+    
+    @GET
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Frontpage getFrontpage(@PathParam("id") Integer id) {       
+        TypedQuery<Frontpage> q = em.createQuery("Select c from Frontpage c where c.id = :id", Frontpage.class);
+        q.setParameter("id", id);
+        return q.getSingleResult();
     }
     
     public Frontpage persist(Frontpage c) {
@@ -35,7 +46,6 @@ public class FrontpageService {
             em.persist(c);
         else
             c = em.merge(c);
-        //em.persist(c);
         
         return c;
     }
