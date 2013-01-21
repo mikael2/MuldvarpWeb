@@ -14,12 +14,15 @@
             </p:fieldset>
             
             <p:fieldset legend="Fragments">
-                <p:dataTable id="fragmentTable" value="#{frontpageController.fragmentBundle}" var="fragment">
-                    <p:column headerText="Name">  
-                        <h:outputText value="#{fragment.name}"/>
+                <p:dataTable id="fragmentTable" value="#{frontpageController.fragmentModel}" var="fragment" selection="#{frontpageController.selectedFragment}" selectionMode="single">                    
+                    <p:ajax event="rowSelect" oncomplete="editfragmentdlg.show()" update=":form:editfragmentDialog" />
+                    <p:ajax event="rowUnselect" oncomplete="editfragmentdlg.hide()" update="fragmentTable"/> 
+                    
+                    <p:column headerText="Name">
+                        #{fragment.name}
                     </p:column>
                     <p:column headerText="Type">  
-                        <h:outputText value="#{fragment.fragmentType}" />
+                        #{fragment.fragmentType}
                     </p:column>
                     <p:column>
                         <h:commandLink value="Delete" action="#{frontpageController.removeFragment(fragment)}"/>
@@ -30,7 +33,7 @@
                 </p:column>
             </p:fieldset>
 
-            <p:dialog id="dialog" header="New Fragment" widgetVar="dlg">  
+            <p:dialog id="dialog" header="New Fragment" widgetVar="dlg" resizable="false">  
                 <h:outputLink id="articleFragment" value="javascript:void(0)" onclick="newarticledlg.show();dlg.hide();" title="New ArticleFragment">     
                     <p:graphicImage value="/resources/images/stolen_opptak.png" />  
                 </h:outputLink>  
@@ -100,6 +103,22 @@
                 </h:panelGrid>  
             </p:dialog>
             
+            <p:dialog id="editfragmentDialog" header="Edit Fragment" widgetVar="editfragmentdlg" resizable="false">  
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <h:outputLabel for="namepe" value="Name:" />  
+                    <p:inputText value="#{frontpageController.selectedFragment.name}" id="namepe" label="namepe" />
+                    <h:outputLabel for="fragtype" value="Fragment Type:" /> 
+                    <h:outputLabel id="fragtype" value="#{frontpageController.selectedFragment.fragmentType}" />
+                    <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'PROGRAMME'}" for="editprogramme" value="Programmes:" /> 
+                    <h:outputLabel id="editprogramme" rendered="#{frontpageController.selectedFragment.fragmentType == 'PROGRAMME'}" value="All programmes" />  
+                    <f:facet name="footer">  
+                        <p:commandButton id="saveButtonpe" value="Save changes"   
+                       oncomplete="editfragmentdlg.hide()" update="fragmentTable"/>
+                        <p:commandButton id="deleteButtonpe" value="Delete"   
+                       oncomplete="editfragmentdlg.hide()" action="#{frontpageController.removeFragment(selectedFragment)}" update="fragmentTable"/>  
+                    </f:facet>  
+                </h:panelGrid>  
+            </p:dialog>
             
             <p:commandButton value="Save changes" action="#{frontpageController.save()}"/>
         </h:form>

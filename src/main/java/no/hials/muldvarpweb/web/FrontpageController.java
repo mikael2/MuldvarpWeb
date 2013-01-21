@@ -5,7 +5,6 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
@@ -15,6 +14,7 @@ import no.hials.muldvarpweb.domain.Article;
 import no.hials.muldvarpweb.domain.Frontpage;
 import no.hials.muldvarpweb.fragments.ArticleFragment;
 import no.hials.muldvarpweb.fragments.Fragment;
+import no.hials.muldvarpweb.fragments.FragmentModel;
 import no.hials.muldvarpweb.fragments.NewsFragment;
 import no.hials.muldvarpweb.fragments.ProgrammeFragment;
 import no.hials.muldvarpweb.fragments.QuizFragment;
@@ -35,13 +35,19 @@ public class FrontpageController implements Serializable {
     Article article;
     Frontpage frontpage;
     @Inject FrontpageService service;
+    Fragment selectedFragment;
+    FragmentModel fragmentModel;
+    List<Fragment> fragmentBundle;
     
     public List<Fragment> getFragmentBundle() {
-        return frontpage.getFragmentBundle();
+        if(fragmentBundle == null) {
+            fragmentBundle = frontpage.getFragmentBundle();
+        }
+        return fragmentBundle;
     }
 
     public void setFragmentBundle(List<Fragment> fragmentBundle) {
-        frontpage.setFragmentBundle(fragmentBundle);
+        this.fragmentBundle = fragmentBundle;
     }
     
     public void addArticleFragment() {
@@ -61,15 +67,12 @@ public class FrontpageController implements Serializable {
     }
     
     public void addFragment(Fragment f) {
-        if(frontpage.getFragmentBundle() == null) {
-            frontpage.setFragmentBundle(new ArrayList<Fragment>());
-        }
-        frontpage.addFragment(f);
+        fragmentBundle.add(f);
         reset();
     }
     
     public void removeFragment(Fragment f) {
-        frontpage.removeFragment(f);
+        fragmentBundle.remove(f);
     }
     
     public void reset() {
@@ -94,7 +97,7 @@ public class FrontpageController implements Serializable {
             try {
                 frontpage = service.getFrontpage(0);
             } catch(EJBException ex) {
-                System.out.println(ex);
+                System.out.println("getFrontpage()  " + ex);
                 frontpage = getDefaultFrontpage();
             }
         }
@@ -104,6 +107,7 @@ public class FrontpageController implements Serializable {
     public Frontpage getDefaultFrontpage() {
         Frontpage f = new Frontpage();
         f.setName("Default name");
+        f.addFragment(new ProgrammeFragment("asdasdasdsad",0));
         return f;
     }
 
@@ -112,8 +116,9 @@ public class FrontpageController implements Serializable {
     }
     
     public String getTitle() {
-        if(frontpage == null)
+        if(frontpage == null) {
             getFrontpage();
+        }
         return frontpage.getName();
     }
     
@@ -122,8 +127,10 @@ public class FrontpageController implements Serializable {
     }
     
     public void save() {
-        if(frontpage != null)
+        if(frontpage != null) {
+            frontpage.setFragmentBundle(fragmentBundle);
             frontpage = service.persist(frontpage);
+        }            
     }
 
     public String getCategory() {
@@ -165,5 +172,26 @@ public class FrontpageController implements Serializable {
     public void setQuizname(String quizname) {
         this.quizname = quizname;
     }
-    
+
+    public Fragment getSelectedFragment() {
+        if(selectedFragment == null) {
+            selectedFragment = new Fragment();
+        }
+        return selectedFragment;
+    }
+
+    public void setSelectedFragment(Fragment selectedFragment) { 
+        this.selectedFragment = selectedFragment;
+    }
+
+    public FragmentModel getFragmentModel() {
+        if(fragmentModel == null) {
+            fragmentModel = new FragmentModel(getFragmentBundle());
+        }
+        return fragmentModel;
+    }
+
+    public void setFragmentModel(FragmentModel fragmentModel) {
+        this.fragmentModel = fragmentModel;
+    }
 }
