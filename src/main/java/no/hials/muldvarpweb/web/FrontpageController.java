@@ -17,6 +17,7 @@ import no.hials.muldvarpweb.fragments.ArticleFragment;
 import no.hials.muldvarpweb.fragments.Fragment;
 import no.hials.muldvarpweb.fragments.NewsFragment;
 import no.hials.muldvarpweb.fragments.ProgrammeFragment;
+import no.hials.muldvarpweb.fragments.QuizFragment;
 import no.hials.muldvarpweb.service.FrontpageService;
 
 /**
@@ -44,26 +45,26 @@ public class FrontpageController implements Serializable {
     }
     
     public void addArticleFragment() {
-        if(frontpage.getFragmentBundle() == null) {
-            frontpage.setFragmentBundle(new ArrayList<Fragment>());
-        }
-        frontpage.addFragment(new ArticleFragment(articlename, 0, article.getId()));
-        reset();
+        addFragment(new ArticleFragment(articlename, 0, article.getId()));
     }
     
     public void addProgrammeFragment() {
-        if(frontpage.getFragmentBundle() == null) {
-            frontpage.setFragmentBundle(new ArrayList<Fragment>());
-        }
-        frontpage.addFragment(new ProgrammeFragment(programmename, 0));
-        reset();
+        addFragment(new ProgrammeFragment(programmename, 0));
     }
     
     public void addNewsFragment() {
+        addFragment(new NewsFragment(newsname, 0, category));
+    }
+    
+    public void addQuizFragment() {
+        addFragment(new QuizFragment(quizname, 0));
+    }
+    
+    public void addFragment(Fragment f) {
         if(frontpage.getFragmentBundle() == null) {
             frontpage.setFragmentBundle(new ArrayList<Fragment>());
         }
-        frontpage.addFragment(new NewsFragment(newsname, 0, category));
+        frontpage.addFragment(f);
         reset();
     }
     
@@ -89,7 +90,6 @@ public class FrontpageController implements Serializable {
     }
 
     public Frontpage getFrontpage() {
-        System.out.println("GETTINNGGGGG");
         if(frontpage == null) {
             try {
                 frontpage = service.getFrontpage(0);
@@ -102,7 +102,6 @@ public class FrontpageController implements Serializable {
     }
     
     public Frontpage getDefaultFrontpage() {
-        System.out.println("GETTING DEFUALT LOOOOL");
         Frontpage f = new Frontpage();
         f.setName("Default name");
         return f;
@@ -123,7 +122,6 @@ public class FrontpageController implements Serializable {
     }
     
     public void save() {
-        System.out.println("SAVINNGGGGG");
         if(frontpage != null)
             frontpage = service.persist(frontpage);
     }

@@ -31,16 +31,16 @@
             </p:fieldset>
 
             <p:dialog id="dialog" header="New Fragment" widgetVar="dlg">  
-                <h:outputLink id="articleFragment" value="javascript:void(0)" onclick="articledlg.show();dlg.hide();" title="New ArticleFragment">     
+                <h:outputLink id="articleFragment" value="javascript:void(0)" onclick="newarticledlg.show();dlg.hide();" title="New ArticleFragment">     
                     <p:graphicImage value="/resources/images/stolen_opptak.png" />  
                 </h:outputLink>  
-                <h:outputLink id="newsFragment" value="javascript:void(0)" onclick="articledlg.show();dlg.hide();" title="New NewsFragment">     
+                <h:outputLink id="newsFragment" value="javascript:void(0)" onclick="newnewsdlg.show();dlg.hide();" title="New NewsFragment">     
                     <p:graphicImage value="/resources/images/stolen_news.png" />  
                 </h:outputLink>  
-                <h:outputLink id="quizFragment" value="javascript:void(0)" onclick="articledlg.show();dlg.hide();" title="New QuizFragment">     
+                <h:outputLink id="quizFragment" value="javascript:void(0)" onclick="newquizdlg.show();dlg.hide();" title="New QuizFragment">     
                     <p:graphicImage value="/resources/images/stolen_quiz.png" />  
                 </h:outputLink>  
-                <h:outputLink id="programmeFragment" value="javascript:void(0)" onclick="programmedlg.show();dlg.hide();" title="New ProgrammeFragment">     
+                <h:outputLink id="programmeFragment" value="javascript:void(0)" onclick="newprogrammedlg.show();dlg.hide();" title="New ProgrammeFragment">     
                     <p:graphicImage value="/resources/images/stolen_course_programme.png" />  
                 </h:outputLink>  
             </p:dialog>
@@ -85,6 +85,17 @@
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonn" value="Submit"   
                       actionListener="#{frontpageController.addNewsFragment()}" oncomplete="newnewsdlg.hide()" update="fragmentTable"/>  
+                    </f:facet>  
+                </h:panelGrid>  
+            </p:dialog>
+            
+            <p:dialog id="newquizDialog" header="New QuizFragment" widgetVar="newquizdlg">  
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <h:outputLabel for="nameq" value="Name:" />  
+                    <p:inputText value="#{frontpageController.quizname}" id="nameq" label="nameq" />
+                    <f:facet name="footer">  
+                        <p:commandButton id="saveButtonq" value="Submit"   
+                      actionListener="#{frontpageController.addQuizFragment()}" oncomplete="newquizdlg.hide()" update="fragmentTable"/>  
                     </f:facet>  
                 </h:panelGrid>  
             </p:dialog>
