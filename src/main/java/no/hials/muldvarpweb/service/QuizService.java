@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Alternative;
 import no.hials.muldvarpweb.domain.Question;
 import no.hials.muldvarpweb.domain.Quiz;
-import no.hials.muldvarpweb.domain.Video;
 
 /**
  * Service class for the Quiz entities.
@@ -98,7 +97,9 @@ public class QuizService {
         alternatives.add(new Alternative("0", false));
         
         ArrayList questions = new ArrayList();
-        questions.add(new Question("Den deriverte av 4x er:", alternatives, "Single"));
+        Question questionTest = new Question("Den deriverte av 4x er:", alternatives, "Single");
+        questionTest.setShuffleAlternatives(true);
+        questions.add(questionTest);
         
         alternatives = new ArrayList();
         alternatives.add(new Alternative("4", false));
@@ -119,6 +120,8 @@ public class QuizService {
         
         questions.add(new Question("(1/5) x (1/5) =", alternatives, "Multiple"));
         Quiz quiz = new Quiz("Mattequiz 1", questions, "feedback");
+        quiz.setDescription("Dette er en matte-quiz med tre spørsmål.");
+        quiz.setShuffleQuestions(true);
         addQuiz(quiz);
         //        Alternative alt = new Alternative();
         //        alt.setName("hurr");
