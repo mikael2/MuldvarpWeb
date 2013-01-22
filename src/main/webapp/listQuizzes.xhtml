@@ -20,8 +20,8 @@
                     </f:facet>
                     <p:column headerText="Name">  
                         <h:commandLink
-                            actionListener="#{quizController.setQuiz(quizItem)}"
-                            action="editQuiz?faces-redirect=true}"
+                            actionListener="#{quizController.setSelected(quizItem)}"
+                            action="admin/editQuiz?faces-redirect=true"
                             value="#{quizItem.name}" />
                     </p:column>
                     <p:column headerText="Detail">  

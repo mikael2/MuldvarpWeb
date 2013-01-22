@@ -14,7 +14,6 @@ import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Alternative;
 import no.hials.muldvarpweb.domain.Question;
 import no.hials.muldvarpweb.domain.Quiz;
-import no.hials.muldvarpweb.domain.Video;
 import no.hials.muldvarpweb.service.QuizService;
 
 /**
@@ -33,6 +32,7 @@ public class QuizController implements Serializable{
     Quiz selected;
     Quiz quizForDeletion;
     Question selectedQuestion;
+    Question newQuestion;
     List<Question> newQuestionList;
     List<Alternative> newAlternativeList;
     String filterString;
@@ -51,18 +51,47 @@ public class QuizController implements Serializable{
         return selected;
     }
     
-    public String setSelected(Quiz selected) {
+    public void setSelected(Quiz selected) {
         if(selected == null) {
             selected = getQuiz();
         }
         this.selected = selected;
-        return "editQuiz?faces-redirect=true";
     }
 
     public Quiz getQuiz() {
-        if(newQuiz == null)
+        if(newQuiz == null){
             newQuiz = new Quiz();
+        }
         return newQuiz;
+    }
+
+    public Question getNewQuestion(){
+        if(newQuestion == null){
+            newQuestion = new Question();
+        }
+        return newQuestion;
+    }
+    
+    public void removeQuestion(Question q){
+        newQuiz.removeQuestion(q);
+    }
+    
+    public void addQuestion(){
+        if(newQuiz == null){
+            newQuiz = new Quiz();
+        } if(newQuestion == null){
+            newQuestion = new Question();
+        }
+        newQuiz.addQuestion(newQuestion);
+        newQuestion = null;
+    }
+    
+    public void addQuestionToSelectedQuiz(){
+        if(newQuestion == null){
+            newQuestion = new Question();
+        }
+        selected.addQuestion(newQuestion);
+        newQuestion = null;
     }
 
     public void setQuiz(Quiz newQuiz) {
@@ -118,9 +147,14 @@ public class QuizController implements Serializable{
      * @return 
      */
     public Quiz addQuiz() {
-                
         service.addQuiz(newQuiz);
+        clearData();
         return newQuiz;
+    }
+    
+    public void updateQuiz(){
+        service.editQuiz(selected);
+        clearData();
     }
     
     public void addInfo(int i) {  
@@ -177,5 +211,12 @@ public class QuizController implements Serializable{
 
     public void setFilterString(String filterString) {
         this.filterString = filterString;
+    }
+    
+    
+    public void clearData(){
+        newQuiz = null;
+        newQuestion = null;
+        selected = null;
     }
 }

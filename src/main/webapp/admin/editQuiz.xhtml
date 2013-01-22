@@ -18,32 +18,32 @@
                     </f:facet>  
 
                         <h:outputLabel value="Title: " />
-                        <p:inputText value="#{quizController.quiz.name}"/>
+                        <p:inputText value="#{quizController.selected.name}"/>
                         
                         <h:outputLabel value="Description: " />
-                        <p:inputTextarea value="#{quizController.quiz.description}" rows="5" cols="30"/>
+                        <p:inputTextarea value="#{quizController.selected.description}" rows="5" cols="30"/>
 
                 </p:panelGrid>
                         <p:dataTable id="QuestionTable"
-                                     value="#{quizController.quiz.questions}" 
+                                     value="#{quizController.selected.questions}" 
                             var="questions">
                             <p:column headerText="Question">  
                                 <h:commandLink value="#{questions.name}" action="#{quizController.setSelectedQuestion(questions)}"/>
                             </p:column>
                             
                             <p:column>
-                                <h:commandLink value="Delete" action="#{quizController.removeQuestion(questions)}"/>
+                                <h:commandLink value="Delete" action="#{quizController.selected.removeQuestion(questions)}"/>
                             </p:column>
                             <f:facet name="footer">
                                 <h:inputText value="#{quizController.newQuestion.name}" />
-                                <p:commandButton value="Add question" action="#{quizController.addQuestion()}" ajax="false" update="QuestionTable"/>
+                                <p:commandButton value="Add question" action="#{quizController.addQuestionToSelectedQuiz()}" ajax="false" update="QuestionTable"/>
                             </f:facet>
                         </p:dataTable>
                     <f:facet name="footer">  
-                        <p:commandButton id="back" value="Back" ajax="false" action="listQuizzes?faces-redirect=true" 
+                        <p:commandButton id="back" value="Back" ajax="false" action="/listQuizzes?faces-redirect=true" 
                                          actionListener="#{quizController.clearData()}"/>
-                        <p:commandButton id="submitButton" value="save" action="listQuizzes?faces-redirect=true" 
-                                         actionListener="#{quizController.addQuiz()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                        <p:commandButton id="submitButton" value="save" action="/listQuizzes?faces-redirect=true" 
+                                         actionListener="#{quizController.editQuiz()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
                     </f:facet>
                 </p:panelGrid>
             </p:fieldset>

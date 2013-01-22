@@ -30,7 +30,7 @@ public class Quiz implements Serializable {
     boolean shuffleQuestions;
     
     public Quiz(){
-        
+        questions = new ArrayList<Question>();
     }
     
     public Quiz(String name, ArrayList<Question> questions, String quizType){
@@ -93,6 +93,14 @@ public class Quiz implements Serializable {
 
     public void setQuizType(String quizType) {
         this.quizType = quizType;
+    }
+
+    public void removeQuestion(Question q) {
+        questions.remove(q);
+    }
+
+    public void addQuestion(Question newQuestion) {
+        questions.add(newQuestion);
     }
     
 }
