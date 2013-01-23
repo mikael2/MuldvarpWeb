@@ -138,4 +138,8 @@ public class QuizService {
         //        quiz.setQuestions(questions);
         //        addQuiz(quiz);
     }
+    
+    public void addAlternative(Quiz q, Question quest, Alternative a){
+        q.addAlternative(quest, a);
+    }
 }
