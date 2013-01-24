@@ -1,0 +1,39 @@
+<ui:composition template="/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="extrascript">
+        <script>
+            $(function() {
+                var path = '#{facesContext.externalContext.request.contextPath}/services/video';
+                $('#code').load(path);                
+            });
+        </script>
+    </ui:define>
+
+    <ui:define name="title">
+        Documentation
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form id="restmenu">
+            <p:menu>
+                <p:submenu label="Documentation">
+                    <!--  url="/services/programme" -->
+                    <p:menuitem value="Adding new course" action="#{viewRestController.load()}">
+                        <f:param name="page" value="bar"/>
+                    </p:menuitem>
+                    <p:menuitem value="Help" action="viewRest" url="/services/programme"/>
+                </p:submenu>
+            </p:menu>
+        </h:form>
+        #{param[page]}
+    </ui:define>
+    
+    <ui:define name="right">
+        <div id="code"/>
+    </ui:define>
+</ui:composition>
