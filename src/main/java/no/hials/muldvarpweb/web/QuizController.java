@@ -53,7 +53,7 @@ public class QuizController implements Serializable{
     
     public void setSelected(Quiz selected) {
         if(selected == null) {
-            selected = getQuiz();
+            this.selected = getQuiz();
         }
         this.selected = selected;
     }
@@ -102,7 +102,7 @@ public class QuizController implements Serializable{
         if(selected != null) {
             service.editQuiz(selected);
         }
-        return "listvQuiz";
+        return "listQuiz?faces-redirect=true";
     }
     
     public String removeQuiz(Quiz q) {
