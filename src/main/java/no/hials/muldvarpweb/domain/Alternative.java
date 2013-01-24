@@ -45,7 +45,7 @@ public class Alternative implements Serializable {
         this.id = id;
     }
 
-    public boolean isIsCorrect() {
+    public boolean getIsCorrect() {
         return isCorrect;
     }
 

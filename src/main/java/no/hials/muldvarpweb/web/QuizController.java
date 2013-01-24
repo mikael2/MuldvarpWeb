@@ -72,6 +72,12 @@ public class QuizController implements Serializable{
         return newQuestion;
     }
     
+    public Question getQuestion() {
+        if(newQuestion == null)
+            newQuestion = new Question();
+        return newQuestion;
+    }
+        
     public void removeQuestion(Question q){
         newQuiz.removeQuestion(q);
     }
@@ -92,6 +98,9 @@ public class QuizController implements Serializable{
         }
         selected.addQuestion(newQuestion);
         newQuestion = null;
+    }
+    
+    public void removeAlternativeFromQuestion(Alternative alternative){
     }
 
     public void setQuiz(Quiz newQuiz) {
@@ -188,9 +197,15 @@ public class QuizController implements Serializable{
         }
     }
     
-    public void setSelectedQuestion(Question q){
+    public String setSelectedQuestion(Question q){
         selectedQuestion = q;
+        return "editQuestion";
     }
+
+    public Question getSelectedQuestion() {
+        return selectedQuestion;
+    }
+    
     
     public List<Question> getQuestions(){
         return newQuestionList;
@@ -219,4 +234,6 @@ public class QuizController implements Serializable{
         newQuestion = null;
         selected = null;
     }
+    
+    
 }

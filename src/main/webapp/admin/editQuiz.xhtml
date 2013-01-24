@@ -5,40 +5,54 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="title">
-        New quiz
+        New Quiz
     </ui:define>
     
     <ui:define name="right">
-        <h:form id="docForm">                
-            <p:fieldset legend="New Quiz">
-                <p:panelGrid columns="2">
+        <h:form id="quizForm">                
+            <p:fieldset legend="Edit Quiz">
                 <p:panelGrid columns="2">  
-                    <f:facet name="header">  
-                        Quiz  
-                    </f:facet>  
+                        <f:facet name="header">  
+                            Quiz  
+                        </f:facet>  
 
-                        <h:outputLabel value="Title: " />
-                        <p:inputText value="#{quizController.selected.name}"/>
-                        
-                        <h:outputLabel value="Description: " />
-                        <p:inputTextarea value="#{quizController.selected.description}" rows="5" cols="30"/>
+                            <h:outputLabel value="Title: " />
+                            <p:inputText value="#{quizController.selected.name}"/>
+
+                            <h:outputLabel value="Description: " />
+                            <p:inputTextarea value="#{quizController.selected.description}" rows="5" cols="30"/>
 
                 </p:panelGrid>
-                        <p:dataTable id="QuestionTable"
-                                     value="#{quizController.selected.questions}" 
-                            var="questions">
-                            <p:column headerText="Question">  
-                                <h:commandLink value="#{questions.name}" action="#{quizController.setSelectedQuestion(questions)}"/>
-                            </p:column>
-                            
-                            <p:column>
-                                <h:commandLink value="Delete" action="#{quizController.selected.removeQuestion(questions)}"/>
-                            </p:column>
-                            <f:facet name="footer">
-                                <h:inputText value="#{quizController.newQuestion.name}" />
-                                <p:commandButton value="Add question" action="#{quizController.addQuestionToSelectedQuiz()}" ajax="false" update="QuestionTable"/>
-                            </f:facet>
-                        </p:dataTable>
+                <p:panelGrid columns="2">
+                    
+                    <p:dataTable id="questionTable"
+                                    value="#{quizController.selected.questions}" 
+                        var="questions">
+                        <p:column headerText="Question">  
+                            <h:commandLink value="#{questions.name}" action="#{quizController.setSelectedQuestion(questions)}"/>
+                        </p:column>
+
+                        <p:column headerText="Alternatives">  
+                            <p:dataTable id="alternativesTable"
+                                value="#{questions.alternatives}" 
+                                var="alternatives">
+                                <p:column headerText="Name">  
+                                    <h:outputText value="#{alternatives.name}" />
+                                </p:column>
+                                <p:column headerText="Correct">  
+                                    <h:outputText value="#{alternatives.isCorrect}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+
+                        <p:column>
+                            <h:commandLink value="Delete" action="#{quizController.selected.removeQuestion(questions)}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <h:inputText value="#{quizController.newQuestion.name}" />
+                            <p:commandButton value="Add question" action="#{quizController.addQuestionToSelectedQuiz()}" ajax="false" update="questionTable"/>
+                        </f:facet>
+                    </p:dataTable>
                     <f:facet name="footer">  
                         <p:commandButton id="back" value="Back" ajax="false" action="listQuiz?faces-redirect=true" 
                                          actionListener="#{quizController.clearData()}"/>
