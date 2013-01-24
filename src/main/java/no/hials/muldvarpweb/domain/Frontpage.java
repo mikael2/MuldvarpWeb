@@ -5,6 +5,7 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,9 @@ public class Frontpage implements Serializable{
     }
 
     public List<Fragment> getFragmentBundle() {
+        if(fragmentBundle == null) {
+            fragmentBundle = new ArrayList<Fragment>();
+        }
         return fragmentBundle;
     }
 
@@ -55,6 +59,9 @@ public class Frontpage implements Serializable{
     }
     
     public void addFragment(Fragment f) {
+        if(fragmentBundle == null) {
+            fragmentBundle = new ArrayList<Fragment>();
+        }
         fragmentBundle.add(f);
     }
     
