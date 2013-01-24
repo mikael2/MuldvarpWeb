@@ -12,6 +12,11 @@
                 <h:outputLabel for="title" value="Title:" />  
                 <p:inputText value="#{frontpageController.title}" id="title" required="true" label="title" />
             </p:fieldset>
+            <p:fieldset legend="Frontpage Preview">
+                <ui:repeat id="preview" value="#{frontpageController.fragmentBundle}" var="item">  
+                    <h:outputText value="#{item.fragmentType}" style="margin-right:5px" />
+                </ui:repeat>
+            </p:fieldset>
             
             <p:fieldset legend="Fragments">
                 <p:dataTable id="fragmentTable" value="#{frontpageController.fragmentModel}" var="fragment" selection="#{frontpageController.selectedFragment}" selectionMode="single">                    
@@ -98,7 +103,7 @@
                     <p:inputText value="#{frontpageController.quizname}" id="nameq" label="nameq" />
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonq" value="Submit"   
-                      actionListener="#{frontpageController.addQuizFragment()}" oncomplete="newquizdlg.hide()" update="fragmentTable"/>  
+                      actionListener="#{frontpageController.addQuizFragment()}" oncomplete="newquizdlg.hide()" update=":form:fragmentTable :form:preview"/>  
                     </f:facet>  
                 </h:panelGrid>  
             </p:dialog>

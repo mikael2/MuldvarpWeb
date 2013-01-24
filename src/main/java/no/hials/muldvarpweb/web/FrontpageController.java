@@ -12,12 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Article;
 import no.hials.muldvarpweb.domain.Frontpage;
-import no.hials.muldvarpweb.fragments.ArticleFragment;
 import no.hials.muldvarpweb.fragments.Fragment;
 import no.hials.muldvarpweb.fragments.FragmentModel;
-import no.hials.muldvarpweb.fragments.NewsFragment;
-import no.hials.muldvarpweb.fragments.ProgrammeFragment;
-import no.hials.muldvarpweb.fragments.QuizFragment;
 import no.hials.muldvarpweb.service.FrontpageService;
 
 /**
@@ -51,19 +47,25 @@ public class FrontpageController implements Serializable {
     }
     
     public void addArticleFragment() {
-        addFragment(new ArticleFragment(articlename, 0, article.getId()));
+        Fragment f = new Fragment(articlename, 0, Fragment.Type.ARTICLE);
+        f.setArticleID(article.getId());
+        addFragment(f);
     }
     
     public void addProgrammeFragment() {
-        addFragment(new ProgrammeFragment(programmename, 0));
+        Fragment f = new Fragment(programmename, 0, Fragment.Type.PROGRAMME);
+        addFragment(f);
     }
     
     public void addNewsFragment() {
-        addFragment(new NewsFragment(newsname, 0, category));
+        Fragment f = new Fragment(newsname, 0, Fragment.Type.NEWS);
+        f.setCategory(category);
+        addFragment(f);
     }
     
     public void addQuizFragment() {
-        addFragment(new QuizFragment(quizname, 0));
+        Fragment f = new Fragment(quizname, 0, Fragment.Type.QUIZ);
+        addFragment(f);
     }
     
     public void addFragment(Fragment f) {
@@ -95,7 +97,7 @@ public class FrontpageController implements Serializable {
     public Frontpage getFrontpage() {
         if(frontpage == null) {
             try {
-                frontpage = service.getFrontpage(0);
+                frontpage = service.getFrontpage(1);
             } catch(EJBException ex) {
                 System.out.println("getFrontpage()  " + ex);
                 frontpage = getDefaultFrontpage();
@@ -106,8 +108,7 @@ public class FrontpageController implements Serializable {
     
     public Frontpage getDefaultFrontpage() {
         Frontpage f = new Frontpage();
-        f.setName("Default name");
-        f.addFragment(new ProgrammeFragment("asdasdasdsad",0));
+        f.setName("Default name");        
         return f;
     }
 

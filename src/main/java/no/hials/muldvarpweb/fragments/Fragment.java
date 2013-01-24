@@ -14,9 +14,13 @@ public class Fragment implements Serializable {
     String name;
     int parentID;
     public enum Type {
-        PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ
+        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ
     }
     Type fragmentType;
+    
+    long articleID;
+    int programmeID;
+    String category;
 
     public Fragment() {
     }
@@ -49,6 +53,30 @@ public class Fragment implements Serializable {
 
     public void setFragmentType(Type fragmentType) {
         this.fragmentType = fragmentType;
+    }
+
+    public long getArticleID() {
+        return articleID;
+    }
+
+    public void setArticleID(long articleID) {
+        this.articleID = articleID;
+    }
+
+    public int getProgrammeID() {
+        return programmeID;
+    }
+
+    public void setProgrammeID(int programmeID) {
+        this.programmeID = programmeID;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
     
 }
