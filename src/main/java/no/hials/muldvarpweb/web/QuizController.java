@@ -33,8 +33,7 @@ public class QuizController implements Serializable{
     Quiz quizForDeletion;
     Question selectedQuestion;
     Question newQuestion;
-    List<Question> newQuestionList;
-    List<Alternative> newAlternativeList;
+    Alternative alternative;
     String filterString;
     
     
@@ -49,6 +48,33 @@ public class QuizController implements Serializable{
             selected = new Quiz();
         }                
         return selected;
+    }
+    
+    public void switchBoolean(Alternative a){
+        if(a.isIsCorrect() == false){
+            a.setIsCorrect(true);
+        }else{
+            a.setIsCorrect(false);
+        }
+    }
+    
+    public void switchSelectedBoolean(){
+        if(alternative.isIsCorrect() == false){
+            alternative.setIsCorrect(true);
+        }else{
+            alternative.setIsCorrect(false);
+        }
+    }
+
+    public Alternative getAlternative() {
+        if(alternative == null){
+            alternative = new Alternative();
+        }
+        return alternative;
+    }
+
+    public Question getSelectedQuestion() {
+        return selectedQuestion;
     }
     
     public void setSelected(Quiz selected) {
@@ -148,13 +174,17 @@ public class QuizController implements Serializable{
      */
     public Quiz addQuiz() {
         service.addQuiz(newQuiz);
-        clearData();
+        clearQuizData();
         return newQuiz;
     }
     
     public void updateQuiz(){
         service.editQuiz(selected);
-        clearData();
+    }
+    
+    public void updateAndClearQuiz(){
+        service.editQuiz(selected);
+        clearQuizData();
     }
     
     public void addInfo(int i) {  
@@ -188,16 +218,10 @@ public class QuizController implements Serializable{
         }
     }
     
-    public void setSelectedQuestion(Question q){
+    public String setSelectedQuestion(Question q){
+        selected.setBeingEdited(q);
         selectedQuestion = q;
-    }
-    
-    public List<Question> getQuestions(){
-        return newQuestionList;
-    }
-    
-    public List<Alternative> getAlternatives(){
-        return newAlternativeList;
+        return "editQuestion";
     }
     
     public String makeTestData(){
@@ -213,10 +237,51 @@ public class QuizController implements Serializable{
         this.filterString = filterString;
     }
     
+    public void clearQuestionData(){
+        alternative = null;
+        selectedQuestion = null;
+    }
     
-    public void clearData(){
+    public void clearQuestionDataAndSave(){
+//        setQuestionMode(selectedQuestion);
+//        selected.updateQuestion(selectedQuestion);
+        service.editQuiz(selected);
+        alternative = null;
+        selectedQuestion = null;
+    }
+    
+    public void clearQuizData(){
         newQuiz = null;
         newQuestion = null;
         selected = null;
+    }
+    
+    public void addAlternative(){
+        selected.addAlternative(selectedQuestion, alternative);
+//        service.addAlternative(selected, selectedQuestion, alternative);
+        setQuestionMode(selectedQuestion);
+        alternative = null;
+        System.out.println("SUPERDEBUUUUUUUUG!!!!");
+    }
+    
+    public void removeAlternative(Alternative a){
+        selected.removeAlternative(selectedQuestion, a);
+    }
+    
+    public boolean setQuestionMode(Question q){
+        int i = 0;
+        for(Alternative a : q.getAlternatives()){
+            if(a.isIsCorrect() == true){
+                i++;
+            }
+        }
+        if(i<1){return false;}
+        else if(i==1){
+            selectedQuestion.setQuestionType("single");
+            return true;
+        }else{
+            selectedQuestion.setQuestionType("multiple");
+            return true;
+        }
     }
 }

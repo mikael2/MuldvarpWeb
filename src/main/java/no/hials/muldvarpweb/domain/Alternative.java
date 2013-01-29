@@ -26,6 +26,7 @@ public class Alternative implements Serializable {
     String alternativeType;
 
     public Alternative() {
+        isCorrect = false;
     }
     
 

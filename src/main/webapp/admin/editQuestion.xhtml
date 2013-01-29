@@ -8,44 +8,47 @@
 
     <ui:define name="title">
         <h:form>
-            <h:link value="Courses" outcome="listCourses" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selectedTheme.name}" outcome="editTheme" /> -> <h:link value="#{courseController.selectedTask.name}" outcome="editTask" />
+            <h:link value="Quizzes" outcome="listQuizzes" /> -> <h:link value="#{courseController.selected.name}" outcome="editCourse" /> -> <h:link value="#{courseController.selectedTheme.name}" outcome="editTheme" /> -> <h:link value="#{courseController.selectedTask.name}" outcome="editTask" />
         </h:form>
     </ui:define>
     
     <ui:define name="mainsingle">
         <h:form id="questForm">        
             <p:messages id="messages" showDetail="true" autoUpdate="true"/>
-            <p:fieldset legend="#{courseController.selectedQuestion.name}">
+            <p:fieldset legend="#{quizController.selectedQuestion.name}">
                 <p:dataTable 
-                    value="#{courseController.selectedQuestion}" 
+                    value="#{quizController.selectedQuestion}" 
                     var="q">
                     <p:column headerText="Name">  
-                        <h:inputText value="#{q.name}" />
+                        <h:inputText value="#{quizController.selectedQuestion.name}" />
                     </p:column>
+                    <f:facet name="footer">  
+                                <p:commandButton id="submitButton" value="save" action="editQuiz?faces-redirect=true"
+                                                 actionListener="#{quizController.editQuiz()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                            </f:facet>
                     <p:column headerText="Alternatives">  
                         <p:dataTable id="altTable"
-                            value="#{q.alternatives}" 
+                                     value="#{quizController.selectedQuestion.alternatives}" 
                             var="a">
                             <p:column headerText="Name">
-                                <h:commandLink value="#{a.name}" action="#{courseController.setAnswer(a)}"/>
+                                <h:commandLink value="#{a.name}"/>
                             </p:column>
+                            <p:column headerText="Answer">
+                                <h:commandLink value="#{a.isCorrect}" action="#{quizController.switchBoolean(a)}"/>
+                    </p:column>
                             <p:column>  
-                                <h:commandLink value="Delete" action="#{courseController.removeAlternative(a)}"/>
+                                <h:commandLink value="Delete" action="#{quizController.removeAlternative(a)}"/>
                             </p:column>
                         </p:dataTable>
-                        <p:column>  
-                            <h:inputText value="#{courseController.alternative.name}" />
-                        </p:column> 
-                        <p:column>
-                            <p:commandButton value="Add Alternative" action="#{courseController.addAlternative()}" update="altTable"/>
-                        </p:column>
-                    </p:column>
-                    <p:column headerText="Answer">  
-                        <h:outputText value="#{q.answer.name}" />
+                        
+                        <f:facet name="footer">
+                            <h:inputText value="#{quizController.alternative.name}" />
+                            <h:commandLink value="#{quizController.alternative.isCorrect}" action="#{quizController.switchSelectedBoolean()}"/>
+                            <p:commandButton value="Add Alternative" action="#{quizController.addAlternative()}" ajax="false" update="altTable"/>
+                        </f:facet>
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
-            <p:commandButton value="Save" action="#{courseController.editQuestion()}"/>
         </h:form>
     </ui:define>
     
