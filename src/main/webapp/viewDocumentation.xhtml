@@ -5,35 +5,53 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="extrascript">
-        <script>
-            $(function() {
-                var path = '#{facesContext.externalContext.request.contextPath}/services/video';
-                $('#code').load(path);                
-            });
-        </script>
-    </ui:define>
-
     <ui:define name="title">
         Documentation
     </ui:define>
     
     <ui:define name="left">
-        <h:form id="restmenu">
-            <p:menu>
-                <p:submenu label="Documentation">
-                    <!--  url="/services/programme" -->
-                    <p:menuitem value="Adding new course" action="#{viewRestController.load()}">
-                        <f:param name="page" value="bar"/>
-                    </p:menuitem>
-                    <p:menuitem value="Help" action="viewRest" url="/services/programme"/>
-                </p:submenu>
-            </p:menu>
-        </h:form>
-        #{param[page]}
-    </ui:define>
-    
-    <ui:define name="right">
-        <div id="code"/>
+        <h:form id="documentationMenu">
+        <p:menu>
+            <p:submenu label="Documentation">
+                <p:menuitem value="Navigating the site" action="#{documentationController.navigate()}">
+                        <f:param name="page" value="documentation/navigation"/>
+                </p:menuitem>                
+                <p:menuitem value="About MuldvarpWeb" action="#{documentationController.navigate()}">
+                        <f:param name="page" value="documentation/navigation"/>
+                </p:menuitem>
+            </p:submenu>
+            <p:submenu label="Management">
+                <p:menuitem value="Application frontpage" action="#{documentationController.navigate()}">
+                        <f:param name="page" value="documentation/addCourseDoc"/>
+                </p:menuitem>
+                <p:menuitem value="Programmes" action="#{documentationController.navigate()}">
+                    <f:param name="page" value="/documentation/empty"/>
+                </p:menuitem>
+                <p:menuitem value="Courses" action="#{documentationController.navigate()}">
+                    <f:param name="page" value="/documentation/empty"/>
+                </p:menuitem>
+                <p:menuitem value="Documents" action="#{documentationController.navigate()}">
+                    <f:param name="page" value="/documentation/empty"/>
+                </p:menuitem>
+                <p:menuitem value="Quizzes" action="#{documentationController.navigate()}">
+                    <f:param name="page" value="/documentation/empty"/>
+                </p:menuitem>
+                <p:menuitem value="Videos" action="#{documentationController.navigate()}">
+                    <f:param name="page" value="/documentation/empty"/>
+                </p:menuitem>
+                <p:menuitem value="Articles" action="#{documentationController.navigate()}">
+                    <f:param name="page" value="/documentation/empty"/>
+                </p:menuitem>
+                <p:menuitem value="People" action="#{documentationController.navigate()}">
+                    <f:param name="page" value="/documentation/empty"/>
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+    </h:form>
+    </ui:define>    
+    <ui:define id="documentationContent" name="right">
+        <ui:include src="#{documentationController.pageName}.xhtml" />
     </ui:define>
 </ui:composition>
+
+

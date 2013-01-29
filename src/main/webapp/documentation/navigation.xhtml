@@ -1,0 +1,44 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <p:tabView id="tabView">  
+  
+        <p:tab id="tab1" title="Frontpage navigation">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage onclick="dlg1.show()" id="tab1Img1" height="130" width="280"
+                                value="/resources/images/doc/hl_menu.png" />             
+                <h:outputText id="tab1Text1"  
+                    value="MuldvarpWeb is navigated through the main menu pictured to the left. This menu is always present and can always be accessed in the same position." />
+                    <p:graphicImage onclick="dlg2.show()" id="tab1Img2" height="130" width="280"
+                                    value="/resources/images/doc/hl_quick.png" />
+                <h:outputText id="tab1Text2"  
+                    value="Commonly used features can be found more easily visible in the frontpage's main view." />
+                        <p:graphicImage onclick="dlg3.show()" id="tab1Img3" height="130" width="280"
+                                    value="/resources/images/doc/hl_app.png" />
+                <h:outputText id="tab1Text3"  
+                    value="A link to the Muldvarp Android application is located here." />
+            </h:panelGrid>  
+        </p:tab>  
+
+        <p:tab id="tab2" title="Editing a Course">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage id="tab2Img" height="150" width="150"
+                                value="/resources/images/stolen_course_programme.png" />  
+                <h:outputText id="tab2Text"  
+                    value="For å redigere et kurs, gjør slik og slik." />  
+            </h:panelGrid>  
+        </p:tab>  
+    </p:tabView> 
+    <p:dialog header="Main menu" widgetVar="dlg1" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg11Img1" value="/resources/images/doc/hl_menu.png" />  
+    </p:dialog> 
+    <p:dialog header="Commonly used features" widgetVar="dlg2" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg2Img1" value="/resources/images/doc/hl_quick.png" />  
+    </p:dialog>
+    <p:dialog header="Android app" widgetVar="dlg3" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg3Img1" value="/resources/images/doc/hl_app.png" />  
+    </p:dialog>
+</ui:composition>

@@ -48,8 +48,7 @@ public class VideoController implements Serializable {
     public Video getSelectedVideo(){
         
         //Check if the selectedVideo variable is null, and set new Video if it is
-        if (selectedVideo == null) {
-            
+        if (selectedVideo == null) {            
             selectedVideo = new Video();
         }
                 

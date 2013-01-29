@@ -84,7 +84,7 @@ public class QuizService {
      * @return 
      */
     public List<Quiz> findQuizzesByName(String name){        
-        TypedQuery<Quiz> query = em.createQuery("SELECT q from Quiz q where q.name LIKE :name", Quiz.class);
+        TypedQuery<Quiz> query = em.createQuery("SELECT q from Quiz q where UPPER(q.name) LIKE :name", Quiz.class);
         query.setParameter("name", "%" + name + "%");        
         return query.getResultList();
     }

@@ -51,8 +51,7 @@ public class VideoService {
         entityManager.remove(video);
     }
     
-    public List<Video> findVideosByName(String videoName){
-        
+    public List<Video> findVideosByName(String videoName){        
         TypedQuery<Video> query = entityManager.createQuery("SELECT v from Video v where v.videoName LIKE :videoName", Video.class);
         query.setParameter("videoName", "%" + videoName + "%");        
         return query.getResultList();
@@ -105,32 +104,24 @@ public class VideoService {
      * 
      * @return test data
      */
-    public void makeVideoTestData() {
-        
-        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};        
-        
-        for (int i = 0; i < 15; i++) {
-            
+    public void makeVideoTestData() {        
+        String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};                
+        for (int i = 0; i < 15; i++) {            
             //annenhver
             int n = 1;
             if(i % 2 == 0){
                 n = 0;
-            }
-            
+            }            
             Video newVideo = new Video("Video " + i,
                     "Youtube/ID" ,
                     testURL[n],
                     "Video INC",
                     "This video is not an actual video.",
                     "www.db.no",
-                    "www.sWmp.no");
-            
+                    "www.sWmp.no");            
             newVideo = entityManager.merge(newVideo);
-            entityManager.persist(newVideo);
-            
-        }
-        
-                
+            entityManager.persist(newVideo);            
+        }      
     }
     
     /**
@@ -138,22 +129,17 @@ public class VideoService {
      * 
      * @return test data
      */
-    public List<Video> getVideoTestData() {
-        
+    public List<Video> getVideoTestData() {        
         String testURL[] = {"ygI-2F8ApUM", "Vxi7JRJrod4"};        
-        List<Video> videoList = new ArrayList<Video>();
-        
-        for (int i = 0; i < 15; i++) {
-            
+        List<Video> videoList = new ArrayList<Video>();        
+        for (int i = 0; i < 15; i++) {            
             //annenhver
             int n = 1;
             if(i % 2 == 0){
                 n = 0;
-            }
-            
+            }            
             videoList.add(new Video("Video " + i,"Youtube/ID" , testURL[n],"Video INC", "This video is not an actual video.", "www.db.no", "www.smp.no"));            
-        }
-        
+        }        
         return videoList;        
     }
     

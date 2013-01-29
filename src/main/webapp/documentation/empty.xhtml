@@ -1,0 +1,25 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <p:tabView id="tabView">  
+  
+        <p:tab id="tab1" title="Adding a Course">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage id="tab1Img" value="/resources/images/stolen_course_programme.png" />  
+                <h:outputText id="tab1Text"  
+                    value="For å legge til et kurs, gjør slik og slik." />  
+            </h:panelGrid>  
+        </p:tab>  
+
+        <p:tab id="tab2" title="Editing a Course">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage id="tab2Img" value="/resources/images/stolen_course_programme.png" />  
+                <h:outputText id="tab2Text"  
+                    value="For å redigere et kurs, gjør slik og slik." />  
+            </h:panelGrid>  
+        </p:tab>  
+    </p:tabView>  
+</ui:composition>
