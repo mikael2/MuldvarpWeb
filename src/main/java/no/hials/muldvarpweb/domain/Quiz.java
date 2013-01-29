@@ -24,8 +24,10 @@ public class Quiz implements Serializable {
     private Long id;
     String name;
     String description;
-    @OneToMany
+    
+    @OneToMany(cascade = CascadeType.ALL)
     List<Question> questions;
+    
     String quizType; 
     boolean shuffleQuestions;
     @OneToOne

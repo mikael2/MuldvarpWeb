@@ -20,7 +20,8 @@ public class Alternative implements Serializable {
     
     @Id
     @GeneratedValue
-    int id;    
+    Long id;    
+    
     String name;
     boolean isCorrect;
     String alternativeType;
@@ -38,11 +39,11 @@ public class Alternative implements Serializable {
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -17,12 +17,16 @@ import javax.persistence.*;
 public class Question implements Serializable {
     @Id
     @GeneratedValue
-    long id;
+    Long id;
+    
+    
     String name;
     String questionType;  
     boolean shuffleAlternatives;
-    @OneToMany
+    
+    @OneToMany(cascade = CascadeType.ALL)
     List<Alternative> alternatives;    
+    
     @OneToOne
     Alternative answer;
     
@@ -41,7 +45,7 @@ public class Question implements Serializable {
         setAlternatives(alternatives);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

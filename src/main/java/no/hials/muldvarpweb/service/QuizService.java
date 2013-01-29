@@ -70,15 +70,6 @@ public class QuizService {
 
     public void editQuiz(Quiz selected) {
         selected = em.merge(selected);
-        em.persist(selected);
-        
-        System.out.println("Saved " + selected.getName());
-        for(Question q : selected.getQuestions()) {
-            System.out.println("\tQuestion: " + q.getName());            
-            for(Alternative a : q.getAlternatives()) {
-                System.out.println("\t\tAlternative: " + a.getName());
-            }
-        }
     }
 
     public void removeQuiz(Quiz q) {
