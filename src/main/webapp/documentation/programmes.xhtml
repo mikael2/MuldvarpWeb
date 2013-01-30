@@ -1,0 +1,39 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <p:tabView id="tabView">  
+  
+        <p:tab id="tab1" title="Adding a programme">  
+            <h:panelGrid columns="1" cellpadding="10">
+            <h:outputText value="Press the -New programme- button"/>
+            <h:outputText value="Enter the name of the programme"/>
+            <h:outputText value="Select which courses, videos, documents and quizzes to add to the programme with the two list system."/>
+            <h:outputText value="--How to use the two list system--"/>
+            <h:outputText value="The list on the left is all available items"/>
+            <h:outputText value="The list on the right is items attached to the object"/>
+            <h:outputText value="Use the buttons between the list to move items"/>
+            <h:outputText value="You can also drag and drop items"/>
+            <h:outputText value="--"/>
+            <h:outputText value="Select which articles to attach to the programme with the dropdown boxes"/>
+            <h:outputText value="Press save to save your changes"/>
+            </h:panelGrid>
+        </p:tab>  
+        <p:tab id="tab2" title="Editing a programme">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage id="tab2Img" height="150" width="150"
+                                value="/resources/images/stolen_course_programme.png" />  
+                <h:outputText id="tab2Text"  
+                    value="For å redigere et studieløp, gjør slik og slik." />  
+            </h:panelGrid>  
+        </p:tab>  
+    </p:tabView> 
+    <p:dialog header="Adding a programme" widgetVar="dlg1" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg11Img1" value="/resources/images/doc/DocumentList_NewDocument.png" />  
+    </p:dialog> 
+    <p:dialog header="Editing a programme" widgetVar="dlg2" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg2Img1" value="/resources/images/doc/DocumentList_NewDocumentLegend.png" />  
+    </p:dialog>
+</ui:composition>

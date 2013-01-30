@@ -25,6 +25,7 @@
                     <f:facet name="footer">  
                                 <p:commandButton id="submitButton" value="save" action="editQuiz?faces-redirect=true"
                                                  actionListener="#{quizController.editQuiz()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                                                <p:commandButton id="back" value="Back" ajax="false" action="editQuiz?faces-redirect=true"/>
                             </f:facet>
                     <p:column headerText="Alternatives">  
                         <p:dataTable id="altTable"

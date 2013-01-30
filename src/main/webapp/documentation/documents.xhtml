@@ -1,0 +1,39 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <p:tabView id="tabView">  
+  
+        <p:tab id="tab1" title="Adding a document">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage onclick="dlg1.show()" value="/resources/images/DocumentList_NewDocument.png" />
+                <h:outputText value="First, press the -New document- button."/>
+                <h:outputText value="Then the following site will load:"/>
+                <p:graphicImage onclick="dlg2.show()" value="/resources/images/DocumentList_NewDocumentLegend.png" />                
+            </h:panelGrid>  
+            <h:panelGrid columns="1" cellpadding="10">
+            <h:outputText value="1. - Enter the title of the book/document/litterature."/>
+            <h:outputText value="2. - Enter the internet address to the document."/>
+            <h:outputText value="3. - Enter a description of the document."/>
+            <h:outputText value="4. - Press this button to cancel the creation of a new document, and return to the document list."/>
+            <h:outputText value="5. - Press this button to save the document, and return to the document list. The document should now be available in the mobile phone application."/>
+            </h:panelGrid>
+        </p:tab>  
+        <p:tab id="tab2" title="Editing a document">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage id="tab2Img" height="150" width="150"
+                                value="/resources/images/stolen_course_programme.png" />  
+                <h:outputText id="tab2Text"  
+                    value="For å redigere et dokument, gjør slik og slik." />  
+            </h:panelGrid>  
+        </p:tab>  
+    </p:tabView> 
+    <p:dialog header="Adding a document" widgetVar="dlg1" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg11Img1" value="/resources/images/doc/DocumentList_NewDocument.png" />  
+    </p:dialog> 
+    <p:dialog header="Editing a document" widgetVar="dlg2" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg2Img1" value="/resources/images/doc/DocumentList_NewDocumentLegend.png" />  
+    </p:dialog>
+</ui:composition>
