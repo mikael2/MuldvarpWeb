@@ -10,8 +10,7 @@
     
     <ui:define name="right">
         <h:form id="quizForm">
-            
-            <p:fieldset legend="Quiz">
+            <p:fieldset legend="Quizzes">
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
                 <!-- #{quizController.getNameFilteredquizs()}-->
                 <p:dataTable id="quizTable" value="" var="quizItem">
@@ -40,10 +39,8 @@
                         <p:commandButton value="Home" action="index?faces-redirect=true"/>
                         <p:commandButton value="New quiz" action="newquiz?faces-redirect=true"/>                    
                     </f:facet>
-                </p:dataTable>
-                
-            </p:fieldset>
-            
+                </p:dataTable>                
+            </p:fieldset>            
         </h:form>
         <p:dialog id="deletequizDialog" header="Delete quiz #{quizController.quizForDeletion.quizName} ?" widgetVar="dlg1">
             <h:outputText>Delete quiz?</h:outputText>

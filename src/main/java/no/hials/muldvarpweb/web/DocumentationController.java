@@ -16,7 +16,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class DocumentationController implements Serializable {
-    String pageName = "documentation/empty";
+    String pageName = "documentation/navigation";
     
     public DocumentationController(){
         

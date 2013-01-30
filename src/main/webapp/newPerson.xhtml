@@ -38,7 +38,7 @@
                         <p:inputText value="#{personController.person.location}"/>
                         
                     <f:facet name="footer">  
-                        <p:commandButton id="home" value="Home" ajax="false" action="index?faces-redirect=true" />
+                        <p:commandButton id="home" value="Back" ajax="false" action="listPeople?faces-redirect=true" />
                         <p:commandButton id="submitButton" value="Save" action="listPeople?faces-redirect=true" 
                                          actionListener="#{personController.savePerson()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
                     </f:facet>

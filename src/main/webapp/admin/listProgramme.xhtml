@@ -23,10 +23,12 @@
                             action="#{programmeController.setSelected(programme)}" 
                             value="#{programme.name}" />
                     </p:column>
+                    <f:facet name="footer">
+                    <p:commandButton value="New Programme" action="#{programmeController.setSelected(null)}" />
+                    <p:commandButton value="Make testdata" action="#{programmeController.makeTestData()}" update="programmeTable"/>
+                    </f:facet>
                 </p:dataTable>          
             </p:fieldset>
-            <p:commandButton value="New Programme" action="#{programmeController.setSelected(null)}" />
-            <p:commandButton value="Make testdata" action="#{programmeController.makeTestData()}" update="programmeTable"/>
         </h:form>
     </ui:define>
    
