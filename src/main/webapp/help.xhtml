@@ -11,24 +11,73 @@
     
     <ui:define name="left">
         <p:tabView orientation="left">  
-    <p:tab title="Programe">  
+    <p:tab title="Programme">  
         <h:panelGrid columns="2" cellpadding="10">  
             <p:graphicImage value="/resources/images/stolen_course_programme.png" />  
             <h:outputText  
-                value="To use this function, ask Kristoffer..." />  
+                value="Programme" />  
         </h:panelGrid>  
+        <p:fieldset legend="Programme tutorial" toggleable="true" toggleSpeed="500" collapsed="true">
+        <p:ajax event="toggle" />  
+            <h:panelGrid columns="1" cellpadding="10">  
+                <h:outputText value="--Adding a new programme--"/>
+                <h:outputText value="Press the -New programme- button"/>
+                <h:outputText value="Enter the name of the programme"/>
+                <h:outputText value="Select which courses, videos, documents and quizzes to add to the programme with the two list system."/>
+                <h:outputText value="--How to use the two list system--"/>
+                <h:outputText value="The list on the left is all available items"/>
+                <h:outputText value="The list on the right is items attached to the object"/>
+                <h:outputText value="Use the buttons between the list to move items"/>
+                <h:outputText value="You can also drag and drop items"/>
+                <h:outputText value="--"/>
+                <h:outputText value="Select which articles to attach to the programme with the dropdown boxes"/>
+                <h:outputText value="Press save to save your changes"/>
+            </h:panelGrid>
+        </p:fieldset>
     </p:tab>  
     <p:tab title="Course">  
         <h:panelGrid columns="2" cellpadding="10">  
             <p:graphicImage value="/resources/images/stolen_course_programme.png" />  
-            <h:outputText value="Ask Kristoffer"/>  
-        </h:panelGrid>  
+            <h:outputText value="Courses"/>  
+        </h:panelGrid>
+        <p:fieldset legend="Course tutorial" toggleable="true" toggleSpeed="500" collapsed="true">
+        <p:ajax event="toggle" />  
+            <h:panelGrid columns="1" cellpadding="10">  
+                <h:outputText value="--Adding a new course--"/>
+                <h:outputText value="Press the -New course- button"/>
+                <h:outputText value="Enter the name of the course"/>
+                <h:outputText value="Select which videos, documents and quizzes to add to the programme with the two list system."/>
+                <h:outputText value="--How to use the two list system--"/>
+                <h:outputText value="The list on the left is all available items"/>
+                <h:outputText value="The list on the right is items attached to the object"/>
+                <h:outputText value="Use the buttons between the list to move items"/>
+                <h:outputText value="You can also drag and drop items"/>
+                <h:outputText value="--"/>
+                <h:outputText value="Select which articles to attach to the course with the dropdown boxes"/>
+                <h:outputText value="Press save to save your changes"/>
+            </h:panelGrid>
+        </p:fieldset>
     </p:tab>  
     <p:tab title="Frontpage">  
         <h:panelGrid columns="2" cellpadding="10">  
             <p:graphicImage value="/resources/images/hials logo.png" />  
-            <h:outputText value="Kristoffer to the rescue!"/>  
-        </h:panelGrid>  
+            <h:outputText value="Frontpage"/>  
+        </h:panelGrid>
+        <p:fieldset legend="Frontpage tutorial" toggleable="true" toggleSpeed="500" collapsed="true">
+        <p:ajax event="toggle" />  
+            <h:panelGrid columns="1" cellpadding="10">
+                <h:outputText value="Edit the name field change the header text on the frontpage"/>
+                <h:outputText value="--Adding fragments--"/>
+                <h:outputText value="Press the add fragment button"/>
+                <h:outputText value="Select the type of the fragment in the pop up box"/>
+                <h:outputText value="Fill inn the required field and press submit"/>
+                <h:outputText value="--Editing fragments--"/>
+                <h:outputText value="Click on the fragment in the list that you want to edit"/>
+                <h:outputText value="Make your changes and press save changes"/>
+                <h:outputText value="--"/>
+                <h:outputText value="Press save changes to save your changes"/>
+            </h:panelGrid>
+        </p:fieldset>
     </p:tab>  
     <p:tab title="Documents">  
         <h:panelGrid columns="2" cellpadding="10">  
@@ -71,8 +120,20 @@
     <p:tab title="Articles">  
         <h:panelGrid columns="2" cellpadding="10">  
             <p:graphicImage value="/resources/images/stolen_news.png" />  
-            <h:outputText value="Kristoffer to the rescue!"/>  
-        </h:panelGrid>  
+            <h:outputText value="Articles"/>  
+        </h:panelGrid>
+        <p:fieldset legend="Article tutorial" toggleable="true" toggleSpeed="500" collapsed="true">
+        <p:ajax event="toggle" />  
+            <h:panelGrid columns="1" cellpadding="10">  
+                <h:outputText value="--Adding a article--"/>
+                <h:outputText value="Press --New article--"/>
+                <h:outputText value="Fill in the fields"/>
+                <h:outputText value="Press submit to save"/>
+                <h:outputText value="--Editing a article--"/>
+                <h:outputText value="Select the article you wish to edit from the list"/>
+                <h:outputText value="Edit the fields and press save"/>
+            </h:panelGrid>
+        </p:fieldset>
     </p:tab>  
     <p:tab title="Quizzes">  
         <h:panelGrid columns="2" cellpadding="10">  
