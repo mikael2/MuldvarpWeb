@@ -10,21 +10,17 @@
     
     <ui:define name="right">
         <h:form id="quizForm">                
-            <p:fieldset legend="Edit Quiz">
-                <p:panelGrid columns="2">  
+            <p:fieldset legend="#{quizController.selected.name}">
+                <p:panelGrid columns="2">
+                    <h:panelGrid columns="2">
                         <f:facet name="header">  
                             Quiz  
-                        </f:facet>  
-
-                            <h:outputLabel value="Title: " />
-                            <p:inputText value="#{quizController.selected.name}"/>
-
-                            <h:outputLabel value="Description: " />
-                            <p:inputTextarea value="#{quizController.selected.description}" rows="5" cols="30"/>
-
-                </p:panelGrid>
-                <p:panelGrid columns="2">
-                    
+                        </f:facet>
+                        <h:outputLabel value="Title: " />
+                        <p:inputText value="#{quizController.selected.name}"/>
+                        <h:outputLabel value="Description: " />
+                        <p:inputTextarea value="#{quizController.selected.description}" rows="5" cols="30"/>
+                    </h:panelGrid>
                     <p:dataTable id="questionTable"
                                     value="#{quizController.selected.questions}" 
                         var="questions">
@@ -44,7 +40,6 @@
                                 </p:column>
                             </p:dataTable>
                         </p:column>
-
                         <p:column>
                             <h:commandLink value="Delete" action="#{quizController.selected.removeQuestion(questions)}"/>
                         </p:column>
@@ -55,9 +50,9 @@
                     </p:dataTable>
                     <f:facet name="footer">  
                         <p:commandButton id="back" value="Back" ajax="false" action="listQuiz?faces-redirect=true" 
-                                         actionListener="#{quizController.clearData()}"/>
-                        <p:commandButton id="submitButton" value="save" action="listQuiz?faces-redirect=true" 
-                                         actionListener="#{quizController.editQuiz()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
+                                        actionListener="#{quizController.clearData()}"/>
+                        <p:commandButton id="submitButton" value="Save" action="listQuiz?faces-redirect=true" 
+                                        actionListener="#{quizController.editQuiz()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
                     </f:facet>
                 </p:panelGrid>
             </p:fieldset>
