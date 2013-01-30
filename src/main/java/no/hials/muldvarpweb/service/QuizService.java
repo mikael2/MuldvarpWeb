@@ -70,7 +70,6 @@ public class QuizService {
 
     public void editQuiz(Quiz selected) {
         selected = em.merge(selected);
-        em.persist(selected);
     }
 
     public void removeQuiz(Quiz q) {
@@ -137,5 +136,9 @@ public class QuizService {
         //        quiz.setDescription("teeeeststst");
         //        quiz.setQuestions(questions);
         //        addQuiz(quiz);
+    }
+    
+    public void addAlternative(Quiz q, Question quest, Alternative a){
+        q.addAlternative(quest, a);
     }
 }
