@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
@@ -20,12 +16,14 @@ public class Alternative implements Serializable {
     
     @Id
     @GeneratedValue
-    int id;    
+    Long id;    
+    
     String name;
     boolean isCorrect;
     String alternativeType;
 
     public Alternative() {
+        isCorrect = false;
     }
     
 
@@ -37,15 +35,15 @@ public class Alternative implements Serializable {
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public boolean getIsCorrect() {
+    public boolean isIsCorrect() {
         return isCorrect;
     }
 

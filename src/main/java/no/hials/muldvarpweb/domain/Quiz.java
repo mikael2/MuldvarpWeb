@@ -24,10 +24,14 @@ public class Quiz implements Serializable {
     private Long id;
     String name;
     String description;
-    @OneToMany
+    
+    @OneToMany(cascade = CascadeType.ALL)
     List<Question> questions;
+    
     String quizType; 
     boolean shuffleQuestions;
+    @OneToOne
+    Question beingEdited;
     
     public Quiz(){
         questions = new ArrayList<Question>();
@@ -47,12 +51,20 @@ public class Quiz implements Serializable {
         this.name = name;
     }
 
+    public void setBeingEdited(Question beingEdited) {
+        this.beingEdited = beingEdited;
+    }
+
     public List<Question> getQuestions() {
         return questions;
     }
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+    
+    public void setAlternatives(Question q){
+        
     }
 
     public Long getId() {
@@ -103,4 +115,18 @@ public class Quiz implements Serializable {
         questions.add(newQuestion);
     }
     
+    public void addAlternative(Question q, Alternative a){
+        q.addAlternative(a);
+    }
+    
+    public void removeAlternative(Question q, Alternative a){
+        q.removeAlternative(a);
+    }
+    
+    public void updateQuestion(Question q){
+        if(q!=null && beingEdited!=null){
+            questions.remove(beingEdited);
+            questions.add(q);
+        }
+    }
 }
