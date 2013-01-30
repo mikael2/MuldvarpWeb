@@ -49,8 +49,7 @@
                         </f:facet>
                     </p:dataTable>
                     <f:facet name="footer">  
-                        <p:commandButton id="back" value="Back" ajax="false" action="listQuiz?faces-redirect=true" 
-                                        actionListener="#{quizController.clearData()}"/>
+                        <p:commandButton id="back" value="Back" ajax="false" action="listQuiz?faces-redirect=true" />
                         <p:commandButton id="submitButton" value="Save" action="listQuiz?faces-redirect=true" 
                                         actionListener="#{quizController.editQuiz()}" ajax="false" icon="ui-icon-check" style="margin:0"/>
                     </f:facet>

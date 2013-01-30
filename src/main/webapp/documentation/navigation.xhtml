@@ -23,12 +23,13 @@
             </h:panelGrid>  
         </p:tab>  
 
-        <p:tab id="tab2" title="Editing a Course">  
+        <p:tab id="tab2" title="Context navigation">  
             <h:panelGrid columns="2" cellpadding="10">  
-                <p:graphicImage id="tab2Img" height="150" width="150"
-                                value="/resources/images/stolen_course_programme.png" />  
+                <p:graphicImage onclick="dlg4.show()" id="tab2Img1" height="93" width="280"
+                                value="/resources/images/doc/hl_context.png" />   
                 <h:outputText id="tab2Text"  
-                    value="For å redigere et kurs, gjør slik og slik." />  
+                    value="As you navigate through the various parts of this webpage, breadcrumbs will be generated. 
+                    The highlighted text is clickable, and will take you to the corresponding section." />                
             </h:panelGrid>  
         </p:tab>  
     </p:tabView> 
@@ -40,5 +41,8 @@
     </p:dialog>
     <p:dialog header="Android app" widgetVar="dlg3" draggable="false" resizable="false">  
         <p:graphicImage id="dlg3Img1" value="/resources/images/doc/hl_app.png" />  
+    <p:dialog header="Breadcrumb view" widgetVar="dlg4" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg41Img1" value="/resources/images/doc/hl_context.png" />  
+    </p:dialog> 
     </p:dialog>
 </ui:composition>

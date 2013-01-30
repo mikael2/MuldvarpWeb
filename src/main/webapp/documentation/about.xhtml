@@ -6,28 +6,10 @@
     xmlns:f="http://java.sun.com/jsf/core">
     <p:tabView id="tabView">  
   
-        <p:tab id="tab1" title="Frontpage setup">  
+        <p:tab id="tab1" title="About MuldvarpWeb">  
             <h:panelGrid columns="1" cellpadding="10">
-                <h:outputText value="Edit the name field change the header text on the frontpage"/>
-                <h:outputText value="--Adding fragments--"/>
-                <h:outputText value="Press the add fragment button"/>
-                <h:outputText value="Select the type of the fragment in the pop up box"/>
-                <h:outputText value="Fill inn the required field and press submit"/>
+                <h:outputText value="MuldvarpWeb er en web-applikasjon designet for å håndtere innholdet i Muldvarp-applikasjonen."/>
             </h:panelGrid>
-        </p:tab>  
-        <p:tab id="tab2" title="Editing fragments">  
-            <h:panelGrid columns="1" cellpadding="10">
-                <h:outputText value="Click on the fragment in the list that you want to edit"/>
-                <h:outputText value="Make your changes and press save changes"/>
-                <h:outputText value="--"/>
-                <h:outputText value="Press save changes to save your changes"/>
-            </h:panelGrid>
-        </p:tab>  
+        </p:tab>       
     </p:tabView> 
-    <p:dialog header="Adding a programme" widgetVar="dlg1" draggable="false" resizable="false">  
-        <p:graphicImage id="dlg11Img1" value="/resources/images/doc/DocumentList_NewDocument.png" />  
-    </p:dialog> 
-    <p:dialog header="Editing a programme" widgetVar="dlg2" draggable="false" resizable="false">  
-        <p:graphicImage id="dlg2Img1" value="/resources/images/doc/DocumentList_NewDocumentLegend.png" />  
-    </p:dialog>
 </ui:composition>

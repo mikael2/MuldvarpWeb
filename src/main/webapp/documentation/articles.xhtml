@@ -1,0 +1,62 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <p:tabView id="tabView">  
+  
+        <p:tab id="tab1" title="Article">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage id="tab1Img1" 
+                                value="/resources/images/stolen_quiz.png" />             
+                <h:outputText id="tab1Text1"  
+                    value="The Article-section of the web-applications allows you to view, edit and create Quizzes for display in the Muldvarp Android application." />
+                <p:graphicImage onclick="dlg1.show()" id="tab1Img2" height="130" width="468"
+                                value="/resources/images/doc/hl_quizmain.png" />
+                <h:outputText id="tab1Text2"  
+                    value="The highlighted section is the main section, and clicking on the name of the entry in the table will take you to the edit-screen." />                        
+                <p:graphicImage onclick="dlg1.show()" id="tab1Img3" height="130" width="468"
+                                value="/resources/images/doc/hl_quizmain_del.png" />
+                <h:outputText id="tab1Text3"  
+                    value="Quizzes can be deleted by pressing the 'Delete' button at the end of the corresponding row." />
+            </h:panelGrid>  
+            <h:panelGrid columns="1">  
+            <h:outputText id="tab1Text7"  
+                value="Various other functions are also available in the footer, as pictured:" />
+            <h:outputText id="tab1Text4"  
+                    value="1- Create test-data." />
+            <h:outputText id="tab1Text5"  
+                    value="2- Return to main page." />
+            <h:outputText id="tab1Text6"  
+                    value="3- Create new article." />
+            </h:panelGrid>  
+        </p:tab>  
+
+        <p:tab id="tab2" title="Adding a Article">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage onclick="dlg4.show()" id="tab2Img1" height="93" width="280"
+                                value="/resources/images/doc/hl_context.png" />   
+                <h:outputText id="tab2Text"  
+                    value="As you navigate through the various parts of this webpage, breadcrumbs will be generated. 
+                    The highlighted text is clickable, and will take you to the corresponding section." />                
+            </h:panelGrid>  
+        </p:tab>
+        <p:tab id="tab3" title="Editing a Article">  
+            <h:panelGrid columns="2" cellpadding="10">  
+                <p:graphicImage onclick="dlg4.show()" id="tab3Img1" height="93" width="280"
+                                value="/resources/images/doc/hl_context.png" />   
+                <h:outputText id="tab3Text"  
+                    value="As you navigate through the various parts of this webpage, breadcrumbs will be generated. 
+                    The highlighted text is clickable, and will take you to the corresponding section." />                
+            </h:panelGrid>  
+        </p:tab>
+    </p:tabView> 
+    <p:dialog header="Article main" widgetVar="dlg1" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg1Img1" value="/resources/images/doc/hl_quizmain.png" />  
+    </p:dialog>
+    <p:dialog header="Article deletion" widgetVar="dlg2" draggable="false" resizable="false">  
+        <p:graphicImage id="dlg1Img1" value="/resources/images/doc/hl_quizmain_del.png" />  
+    </p:dialog> 
+    </p:dialog>
+</ui:composition>
