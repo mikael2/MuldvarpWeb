@@ -69,7 +69,12 @@ public class QuizService {
     }
 
     public void editQuiz(Quiz selected) {
-        selected = em.merge(selected);
+        if(selected.getId() == null) {
+            em.persist(selected);
+        }
+        else {
+            em.merge(selected);
+        }
     }
 
     public void removeQuiz(Quiz q) {
