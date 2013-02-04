@@ -2,10 +2,14 @@
     font-size: 85% !important;
 }
 
+body, html {
+    height: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
-    background-color: #b0c4de;
+    background-color: darkslategray;
     font-family: arial;
 }
 
@@ -29,7 +33,11 @@ body {
 }
 
 #header {
-    text-align:center;
+    text-align:right;
+    height: 154px;
+    background-image: url("/MuldvarpWeb/resources/images/Logo_648rgb.png");
+    background-repeat: no-repeat;
+    background-position: top left;
 }
 
 #left {
@@ -66,8 +74,42 @@ body {
 #container {
     background-color: #fff;
     margin:auto;
+    border: solid;
+    border-width: 1px;
+    height:100%;
 }
 
 #footer {
     text-align: center;
+}
+
+
+#appicons {
+    text-align: center;
+    width: 900px;
+    margin: auto;
+}
+
+.icon {
+    float: left;
+    width: 300px;
+    height: 200px;
+}
+
+.icontext {
+    padding: 10px;
+    text-align: center;
+}
+
+#frontpageheader {
+    font-size: 40px;
+    padding-top:50px;
+    padding-bottom: 50px;
+}
+
+#bottombanner {
+    width: 500px;
+    height: 256px;
+    font-size: 40px;
+    margin: auto;    
 }

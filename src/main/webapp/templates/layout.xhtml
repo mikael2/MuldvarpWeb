@@ -4,7 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Muldvarp</title>
+        <title>HIALS E-Læringsapp</title>
         <h:outputStylesheet name="css.css" library="css"/>
         <ui:insert name="extrascript"/>
         <ui:insert name="stylesheets"/>
@@ -13,6 +13,9 @@
         <div id="container">
             <div id="header">
                 <h1><ui:insert name="title" /></h1>
+                <div style="padding:20px;">
+                    <p:commandButton value="Login" />
+                </div>
             </div>
             <div id="menu">
                 <ui:include src="menu.xhtml" />
@@ -30,7 +33,7 @@
             </div>
             <div style="clear:both" />
             <div id="footer">
-                © 2012 Muldvarp Organization
+                
             </div>
         </div>
     </h:body>
