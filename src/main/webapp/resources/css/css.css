@@ -5,7 +5,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: darkslategray;
+    background-color: #003468;
     font-family: arial;
 }
 
@@ -31,7 +31,7 @@ body {
 #header {
     text-align:right;
     height: 154px;
-    background-image: url("/MuldvarpWeb/resources/images/Logo_648rgb.png");
+    background-image: url("../resources/images/Logo_648rgb.png");
     background-repeat: no-repeat;
     background-position: top left;
 }
@@ -70,8 +70,6 @@ body {
 #container {
     background-color: #fff;
     margin:auto;
-    border: solid;
-    border-width: 1px;
     height: auto;
 }
 
@@ -109,4 +107,9 @@ body {
     height: 256px;
     font-size: 40px;
     margin: auto;    
+}
+
+#frontpageheader, h1 {
+    color: #003468;
+    font-weight: bold;
 }
