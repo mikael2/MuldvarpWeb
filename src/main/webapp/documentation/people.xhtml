@@ -7,48 +7,34 @@
     <p:tabView id="tabView">  
   
         <p:tab id="tab1" title="people">  
-            <h:panelGrid columns="2" cellpadding="10">  
-                <p:graphicImage id="tab1Img1" 
-                                value="/resources/images/stolen_videos.png" />             
-                <h:outputText id="tab1Text1"  
-                    value="The Quiz-section of the web-applications allows you to view, edit and set up people for display in the Muldvarp Android application." />
-                <p:graphicImage onclick="dlg1.show()" id="tab1Img2" height="130" width="468"
-                                value="/resources/images/doc/hl_quizmain.png" />
-                <h:outputText id="tab1Text2"  
-                    value="The highlighted section is the main section, and clicking on the name of the entry in the table will take you to the edit-screen." />                        
-                <p:graphicImage onclick="dlg1.show()" id="tab1Img3" height="130" width="468"
-                                value="/resources/images/doc/hl_quizmain_del.png" />
-                <h:outputText id="tab1Text3"  
-                    value="Quizzes can be deleted by pressing the 'Delete' button at the end of the corresponding row." />
-            </h:panelGrid>  
-            <h:panelGrid columns="1">  
-            <h:outputText id="tab1Text7"  
-                value="Various other functions are also available in the footer, as pictured:" />
-            <h:outputText id="tab1Text4"  
-                    value="1- Create test-data." />
-            <h:outputText id="tab1Text5"  
-                    value="2- Return to main page." />
-            <h:outputText id="tab1Text6"  
-                    value="3- Create new people." />
+            <h:panelGrid columns="1" cellpadding="10">
+                <h:outputText value="This section is a register of users. At the moment, this only functions as a contact list."/>
+                <br/>
+                <p:graphicImage height="200" width="650" value="/resources/images/PeopleList_Legends.png" />
+                <h:outputText value="1. - Names of registered people."/>
+                <h:outputText value="2. - Button to delete a person from the database."/>
+                <h:outputText value="3. - Button to add a person to the database."/>
             </h:panelGrid>  
         </p:tab>  
 
         <p:tab id="tab2" title="Adding people">  
-            <h:panelGrid columns="2" cellpadding="10">  
-                <p:graphicImage onclick="dlg4.show()" id="tab2Img1" height="93" width="280"
-                                value="/resources/images/doc/hl_context.png" />   
-                <h:outputText id="tab2Text"  
-                    value="As you navigate through the various parts of this webpage, breadcrumbs will be generated. 
-                    The highlighted text is clickable, and will take you to the corresponding section." />                
+            <h:panelGrid columns="1" cellpadding="10">  
+                <h:outputText value="After pressing the -New person- button in the people list(see point 3 under -People-) you get the following page."/>
+                <p:graphicImage height="200" width="650" value="/resources/images/NewPerson_Legends.png" />
+                <h:outputText value="1. - name of the person"/>
+                <h:outputText value="2. - Affiliation of the person. Ex: HIALS, NMK, Police, etc."/>
+                <h:outputText value="3. - Position of the person. Ex: student, theacher, vistor, etc."/>
+                <h:outputText value="4. - Department of the person. Ex: IKT, administration, etc."/>
+                <h:outputText value="5. - Email of the person."/>
+                <h:outputText value="6. - Phone number. Note that this field cannot be empty. Leave it as -0- if the person does not have a phone number."/>
+                <h:outputText value="7. - Location. This is where you can find a person. Ex: office number."/>
             </h:panelGrid>  
         </p:tab>
         <p:tab id="tab3" title="Editing people">  
-            <h:panelGrid columns="2" cellpadding="10">  
-                <p:graphicImage onclick="dlg4.show()" id="tab3Img1" height="93" width="280"
-                                value="/resources/images/doc/hl_context.png" />   
-                <h:outputText id="tab3Text"  
-                    value="As you navigate through the various parts of this webpage, breadcrumbs will be generated. 
-                    The highlighted text is clickable, and will take you to the corresponding section." />                
+            <h:panelGrid columns="1" cellpadding="10">  
+                <h:outputText value="This page contains the same values as found in the -Adding people- section."/>
+                <h:outputText value="Click the -Edit- button for each field to edit it, and then press return(enter button) to finish."/>
+                <h:outputText value="Click -Save- to save changes and return to the people list, or -Back- to return discarding changes."/>
             </h:panelGrid>  
         </p:tab>
     </p:tabView> 
