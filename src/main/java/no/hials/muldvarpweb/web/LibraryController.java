@@ -48,9 +48,9 @@ public class LibraryController implements Serializable {
         addInfo(3);
     }
 
-    public void makeTestData() {
-        service.makeTestData();
-    }
+//    public void makeTestData() {
+//        service.makeTestData();
+//    }
 
     public void clearItem() {
         newLibraryItem = null;

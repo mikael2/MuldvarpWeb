@@ -64,14 +64,9 @@
 
                         <h:panelGrid columns="5" style="margin-top:2%; margin-bottom: 5%">  
 
-                            <p:commandButton  id="submitButton" value="Submit" actionListener="#{articleController.submitArticle()}" ajax="false"/>
-
-                            <p:commandButton id="saveButton" value="Save" actionListener="#{articleController.saveArticle()}" ajax="true" />
-
-                            <p:commandButton id="deleteButton" value="Delete" actionListener="#{articleController.deleteArticle()}" ajax="false"/> 
-
-                            <p:commandButton id="clearButton" type="button" value="Clear Editor"
-                                             onclick="myEdit.clear()"/>
+                            <p:commandButton  id="submitButton" value="Submit" actionListener="#{articleController.submitArticle()}" action="/listArticles?faces-redirect=true" ajax="false"/>
+                            
+                            <p:commandButton id="back" value="Back" ajax="false" action="/listArticles?faces-redirect=true" />
 
                             <p:commandButton id="clearAllButton" type="button" value="Clear All"
                                              onclick="myEdit.clear();document.getElementById('form1').reset()"/>
