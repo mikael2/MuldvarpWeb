@@ -59,7 +59,7 @@ public class Course implements Serializable {
     @ManyToMany
     List<Article> news;
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "courses")
     List<Programme> programmes;
     
     @OneToMany

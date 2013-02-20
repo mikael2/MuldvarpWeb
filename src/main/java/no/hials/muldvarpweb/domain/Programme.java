@@ -30,7 +30,7 @@ public class Programme implements Serializable{
     @Column(name="detail")
     String detail;
 
-    @ManyToMany(mappedBy = "programmes")
+    @ManyToMany
     List<Course> courses;
     
     @ManyToMany

@@ -35,8 +35,7 @@ public class ProgrammeService {
      * @param newProgramme The Programme to be added.
      */
     public void addProgramme(Programme newProgramme){
-        newProgramme = em.merge(newProgramme);
-        em.persist(newProgramme);
+        persist(newProgramme);
     }
     
     /**
