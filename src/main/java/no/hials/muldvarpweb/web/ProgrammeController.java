@@ -156,7 +156,7 @@ public class ProgrammeController implements Serializable{
     public DualListModel<Course> getCourses() {
         if(courses == null) {
             List<Course> source = courseService.findCourses();
-            List<Course> target = selected.getCourses();
+            List<Course> target = new ArrayList<Course>();
             if(selected.getCourses() != null) {
                 target = selected.getCourses();
                 
