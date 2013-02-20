@@ -25,15 +25,17 @@ body {
 }
 
 #container, #header, #menu, #center, #footer {
-    width: 1200px;
+    width: 350px;
 }
 
 #header {
-    text-align:right;
-    height: 154px;
-    background-image: url("../resources/images/Logo_648rgb.png");
-    background-repeat: no-repeat;
-    background-position: top left;
+    text-align:center;
+    height: 50px;
+    background-size: 50%;
+}
+
+#header h1 {
+    text-indent: -9999px;
 }
 
 #left {
@@ -67,6 +69,10 @@ body {
     clear:both;
 }
 
+#menu {
+    display: none;
+}
+
 #container {
     background-color: #fff;
     margin:auto;
@@ -80,15 +86,20 @@ body {
 
 #appicons {
     text-align: center;
-    width: 900px;
+    width: 350px;
     margin: auto;
-    height: 800px;
+    height: 300px;
 }
 
 .icon {
     float: left;
-    width: 300px;
-    height: 200px;
+    width: 33%;
+    height: 100px;
+    font-size: 10px;
+}
+
+.icon img {
+    width: 50px;
 }
 
 .icontext {
@@ -97,24 +108,42 @@ body {
 }
 
 #frontpageheader {
-    font-size: 40px;
-    padding-top:50px;
-    padding-bottom: 50px;
+    font-size: 15px;
+    padding: 10px;
 }
 
 #bottombanner {
-    width: 500px;
-    height: 256px;
-    font-size: 40px;
-    margin: auto;    
+    width: 175px;
+    height: 128px;
+    margin: auto;   
+    font-size: 15px;
+}
+
+#bottombanner img {
+    width: 75px;
 }
 
 #bottombanner span {
-    padding-top: 125px;
-    float:right;
+    padding-top: 30px;
 }
 
 #frontpageheader, h1 {
     color: #003468;
     font-weight: bold;
+}
+
+.ui-dialog {
+    width: 300px;
+}
+
+.ui-widget-header {
+    font-size: 10px;
+}
+
+.ui-dialog-content {
+    font-size: 10px;
+}
+
+.ui-dialog img {
+    width: 100px;
 }

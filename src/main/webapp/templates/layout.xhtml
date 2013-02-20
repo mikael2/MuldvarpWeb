@@ -6,7 +6,8 @@
     <h:head>
         <title>HIALS E-Læringsapp</title>
         <h:outputStylesheet name="css.css" library="css"/>
-        <link rel="stylesheet" href="../resources/css/mobile.css" media="only screen and (max-device-width: 480px" />
+        <link rel="stylesheet" href="resources/css/mobile.css" media="only screen and (max-device-width: 480px" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <ui:insert name="extrascript"/>
         <ui:insert name="stylesheets"/>
     </h:head>
@@ -14,9 +15,6 @@
         <div id="container">
             <div id="header">
                 <h1><ui:insert name="title" /></h1>
-                <div style="padding:20px;">
-                    <p:commandButton value="Login" />
-                </div>
             </div>
             <div id="menu">
                 <ui:include src="menu.xhtml" />
