@@ -85,8 +85,7 @@ public class ProgrammeService {
     }
 
     public void editProgramme(Programme selected) {
-        selected = em.merge(selected);
-        em.persist(selected);
+        persist(selected);
     }
 
     public void removeCourseFromProgramme(Programme selected, Course c) {
@@ -171,7 +170,7 @@ public class ProgrammeService {
     public void addDocument(Programme course, LibraryItem document) {
         course.addDocument(document);
         //document.addCourse(course);
-        em.merge(course);
+        persist(course);
     }
     
     public void editDocument(Programme course, LibraryItem document) {
