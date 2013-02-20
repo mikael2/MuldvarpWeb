@@ -69,8 +69,9 @@ public class CourseController implements Serializable {
     }
 
     public Course getCourse() {
-        if(newCourse == null)
+        if(newCourse == null) {
             newCourse = new Course();
+        }
         
         return newCourse;
     }
@@ -85,6 +86,7 @@ public class CourseController implements Serializable {
 
     public String setSelected(Course selected) {
         if(selected == null) {
+            newCourse = null;
             selected = getCourse();
         }
         this.selected = selected;
