@@ -95,10 +95,14 @@ public class FrontpageController implements Serializable {
     }
 
     public Frontpage getFrontpage() {
-        if(frontpage == null) {
+        if(frontpage == null) { // note to self: kanskje ta vekk ditta for synkroniseringsgrunn??
             try {
-                frontpage = service.getFrontpage(1);
+                List<Frontpage> fs = service.findFrontpages();
+                frontpage = fs.get(0);
             } catch(EJBException ex) {
+                System.out.println("getFrontpage()  " + ex);
+                frontpage = getDefaultFrontpage();
+            } catch(ArrayIndexOutOfBoundsException ex) {
                 System.out.println("getFrontpage()  " + ex);
                 frontpage = getDefaultFrontpage();
             }
