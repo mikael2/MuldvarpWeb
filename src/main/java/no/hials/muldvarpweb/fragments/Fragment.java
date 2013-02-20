@@ -21,6 +21,7 @@ public class Fragment implements Serializable {
     long articleID;
     int programmeID;
     String category;
+    String iconurl;
 
     public Fragment() {
     }
@@ -77,6 +78,30 @@ public class Fragment implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getIconurl() {
+        switch(fragmentType) {
+            case ARTICLE:
+                iconurl = "../resources/images/stolen_contacts.png";
+                break;
+            case COURSE:
+                iconurl = "../resources/images/stolen_course_programme.png";
+                break;
+            case FRONTPAGE:
+                iconurl = "../resources/images/stolen_contacts.png";
+                break;
+            case NEWS:
+                iconurl = "../resources/images/stolen_news.png";
+                break;
+            case PROGRAMME:
+                iconurl = "../resources/images/stolen_course_programme.png";
+                break;
+            case QUIZ:
+                iconurl = "../resources/images/stolen_quiz.png";
+                break;
+        }
+        return iconurl;
     }
     
 }

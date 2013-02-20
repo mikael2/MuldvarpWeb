@@ -98,19 +98,10 @@ public class ProgrammeService {
         em.remove(p);
     }
 
-    public Programme setCourses(Programme selected, List<Course> target, List<Course> oldItems) {
-//        for(Course c : oldItems) {
-//            for(Course cc : target) {
-//                boolean found = false;
-//                if(c.getId().equals(cc.getId())) {
-//                    found = true;
-//                    break;
-//                }
-//                if(!found) {
-//                    cc.removeProgramme(selected);
-//                }
-//            }
-//        }
+    public Programme setCourses(Programme selected, List<Course> target) {
+        for(Course c : target) {
+            c.addProgramme(selected);
+        }
         selected.setCourses(target);
         return persist(selected);
     }

@@ -183,8 +183,7 @@ public class ProgrammeController implements Serializable{
     }
     
     public void addCourses(List<Course> c) {
-        selected = service.setCourses(selected, courses.getTarget(), selected.getCourses());
-        //selected = service.addCourses(selected, courses.getTarget());
+        selected = service.setCourses(selected, courses.getTarget());
     }
     
     public void setCourses(List<Course> c) {

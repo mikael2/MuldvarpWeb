@@ -16,10 +16,18 @@
                 <h:outputLabel for="title" value="Title:" />  
                 <p:inputText value="#{frontpageController.title}" id="title" required="true" label="title" />
             </p:fieldset>
-            <p:fieldset legend="Frontpage Preview">
-                <ui:repeat id="preview" value="#{frontpageController.fragmentBundle}" var="item">  
-                    <h:outputText value="#{item.fragmentType}" style="margin-right:5px" />
-                </ui:repeat>
+            <p:fieldset legend="Frontpage Preview" style="width: 400px; float: left;">
+                <div id="appPreview">
+                    <h1>#{frontpageController.title}</h1>
+                    <ui:repeat id="preview" value="#{frontpageController.fragmentBundle}" var="item">
+                        <div class="previewItems">
+                            <img src="#{item.iconurl}" />
+                            <div class="previewText">
+                                #{item.name}
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
             </p:fieldset>            
             <p:fieldset legend="Fragments">
                 <p:dataTable id="fragmentTable" value="#{frontpageController.fragmentModel}" var="fragment" selection="#{frontpageController.selectedFragment}" selectionMode="single">                    
@@ -127,7 +135,7 @@
                 </h:panelGrid>  
             </p:dialog>
             
-            <p:commandButton value="Save changes" action="#{frontpageController.save()}"/>
+            <h:commandButton value="Save changes" action="#{frontpageController.save()}"/>
         </h:form>
         
     </ui:define>   

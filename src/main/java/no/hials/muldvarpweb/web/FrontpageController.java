@@ -131,11 +131,12 @@ public class FrontpageController implements Serializable {
         frontpage.setName(name);
     }
     
-    public void save() {
+    public String save() {
         if(frontpage != null) {
             frontpage.setFragmentBundle(fragmentBundle);
             frontpage = service.persist(frontpage);
-        }            
+        }
+        return "editFrontpage";
     }
 
     public String getCategory() {

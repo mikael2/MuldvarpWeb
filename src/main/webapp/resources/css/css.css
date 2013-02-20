@@ -118,3 +118,24 @@ body {
     color: #003468;
     font-weight: bold;
 }
+
+#appPreview {
+    text-align: center;
+    width: 350px;
+    margin: auto;
+}
+
+.previewItems {
+    float: left;
+    width: 33%;
+    height: 100px;
+    font-size: 10px;
+}
+
+.previewItems img {
+    width: 50px;
+}
+
+.previewText {
+    text-align: center;
+}
