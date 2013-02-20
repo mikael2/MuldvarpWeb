@@ -60,6 +60,7 @@ public class ProgrammeController implements Serializable{
     
     public String setSelected(Programme selected) {
         if(selected == null) {
+            newProgramme = null;
             selected = getProgramme();
         }
         this.selected = selected;
@@ -68,8 +69,9 @@ public class ProgrammeController implements Serializable{
     }
 
     public Programme getProgramme() {
-        if(newProgramme == null)
+        if(newProgramme == null) {
             newProgramme = new Programme();
+        }
         return newProgramme;
     }
 
