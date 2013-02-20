@@ -65,6 +65,9 @@ public class ProgrammeController implements Serializable{
         }
         this.selected = selected;
         courses = null;
+        videos = null;
+        documents = null;
+        quizzes = null;
         return "editProgramme?faces-redirect=true";
     }
 
