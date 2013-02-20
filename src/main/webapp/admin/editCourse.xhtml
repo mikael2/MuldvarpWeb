@@ -45,7 +45,7 @@
                         <div>
                             <div class="column_left">
                             <p:fieldset legend="Part of these programmes">
-                                <p:dataTable id="programmeTable" value="#{courseController.selected.programmes}" 
+                                <p:dataTable id="programmeTable" value="#{courseController.programmes}" 
                                     var="programme">
                                     <p:column headerText="Name">  
                                         <h:commandLink value="#{programme.name}" action="#{programmeController.setSelected(programme)}" />

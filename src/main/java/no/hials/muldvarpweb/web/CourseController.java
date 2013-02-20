@@ -48,6 +48,7 @@ public class CourseController implements Serializable {
     Video selectedVideo;
     Video newVideo;
     LibraryItem selectedDocument;
+    List<Programme> programmes;
 
     public List<Course> getCourses() {
         //if(courses == null) {
@@ -63,6 +64,7 @@ public class CourseController implements Serializable {
     public Course getFilter() {
         return filter;
     }
+    
 
     public void setFilter(Course filter) {
         this.filter = filter;
@@ -189,7 +191,7 @@ public class CourseController implements Serializable {
     
     public void addTheme() {
         if(newTheme != null && selected != null) {
-            service.addTheme(selected, newTheme);
+            selected = service.addTheme(selected, newTheme);
             newTheme = null;
         }
     }
@@ -210,7 +212,7 @@ public class CourseController implements Serializable {
     
     public void addExam() {
         if(newExam != null && selected != null) {
-            service.addExam(selected, newExam);
+            selected = service.addExam(selected, newExam);
             newExam = null;
         }
     }
@@ -224,7 +226,7 @@ public class CourseController implements Serializable {
     
     public void addTask() {
         if(newTask != null && selected != null) {
-            service.addTask(selected, selectedTheme, newTask);
+            selected = service.addTask(selected, selectedTheme, newTask);
             newTask = null;
         }
     }
@@ -245,7 +247,7 @@ public class CourseController implements Serializable {
     
     public void addObligatoryTask() {
         if(newObligatoryTask != null && selected != null) {
-            service.addObligatoryTask(selected, newObligatoryTask);
+            selected = service.addObligatoryTask(selected, newObligatoryTask);
             newObligatoryTask = null;
         }
     }
@@ -272,8 +274,9 @@ public class CourseController implements Serializable {
     }
 
     public Exam getExam() {
-        if(newExam == null)
+        if(newExam == null) {
             newExam = new Exam();
+        }
         return newExam;
     }
     
@@ -296,8 +299,9 @@ public class CourseController implements Serializable {
     }
     
     public Video getVideo() {
-        if(newVideo == null)
+        if(newVideo == null) {
             newVideo = new Video();
+        }
         return newVideo;
     }
     
@@ -329,8 +333,9 @@ public class CourseController implements Serializable {
     }
     
     public ObligatoryTask getObligatoryTask() {
-        if(newObligatoryTask == null)
+        if(newObligatoryTask == null) {
             newObligatoryTask = new ObligatoryTask();
+        }
         return newObligatoryTask;
     }
 
@@ -339,8 +344,9 @@ public class CourseController implements Serializable {
     }
 
     public Task getTask() {
-        if(newTask == null)
+        if(newTask == null) {
             newTask = new Task();
+        }
         return newTask;
     }
 
@@ -349,8 +355,9 @@ public class CourseController implements Serializable {
     }
 
     public Theme getTheme() {
-        if(newTheme == null)
+        if(newTheme == null) {
             newTheme = new Theme();
+        }
         return newTheme;
     }
 
@@ -427,7 +434,8 @@ public class CourseController implements Serializable {
     }
 
     public List<Programme> getProgrammes() {
-        return selected.getProgrammes();
+        this.programmes = service.getProgrammesInCourse(selected.getId());
+        return programmes;
     }
 
     public void setProgrammes(List<Programme> programmes) {
@@ -439,8 +447,9 @@ public class CourseController implements Serializable {
     }
 
     public Question getQuestion() {
-        if(newQuestion == null)
+        if(newQuestion == null) {
             newQuestion = new Question();
+        }
         return newQuestion;
     }
     
@@ -486,8 +495,9 @@ public class CourseController implements Serializable {
     }
 
     public Alternative getAlternative() {
-        if(newAlternative == null)
+        if(newAlternative == null) {
             newAlternative = new Alternative();
+        }
         return newAlternative;
     }
     public Alternative getSelectedAlternative() {

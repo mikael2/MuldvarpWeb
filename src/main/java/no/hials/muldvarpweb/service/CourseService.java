@@ -55,6 +55,12 @@ public class CourseService {
         return q.getResultList();
     }
     
+    public List<Programme> getProgrammesInCourse(@PathParam("id") Integer id) {
+        TypedQuery<Programme> q = em.createQuery("SELECT v.programmes from Course v where v.id = :id", Programme.class);
+        q.setParameter("id", id);
+        return q.getResultList();
+    }
+    
     @GET
     @Path("/videos/{id}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -142,9 +148,9 @@ public class CourseService {
         em.remove(course);
     }
     
-    public void addTheme(Course course, Theme theme) {
+    public Course addTheme(Course course, Theme theme) {
         course.addTheme(theme);
-        persist(course);
+        return persist(course);
     }
     
     public void editTheme(Course course, Theme theme) {
@@ -157,9 +163,9 @@ public class CourseService {
         persist(course);
     }
     
-    public void addTask(Course course, Theme theme, Task task) {
+    public Course addTask(Course course, Theme theme, Task task) {
         course.addTask(theme, task);
-        persist(course);
+        return persist(course);
     }
     
     public void editTask(Course course, Theme theme, Task task) {
@@ -172,9 +178,9 @@ public class CourseService {
         persist(course);
     }
     
-    public void addObligatoryTask(Course course, ObligatoryTask obligtask) {
+    public Course addObligatoryTask(Course course, ObligatoryTask obligtask) {
         course.addObligatoryTask(obligtask);
-        persist(course);
+        return persist(course);
     }
     
     public void editObligatoryTask(Course course, ObligatoryTask obligtask) {
@@ -192,9 +198,9 @@ public class CourseService {
         editObligatoryTask(course, obligtask);
     }
     
-    public void addExam(Course course, Exam exam) {
+    public Course addExam(Course course, Exam exam) {
         course.addExam(exam);
-        persist(course);
+        return persist(course);
     }
     
     public void editExam(Course course, Exam exam) {
