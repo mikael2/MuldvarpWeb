@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import no.hials.muldvarpweb.fragments.Fragment;
 
@@ -25,6 +26,7 @@ public class Frontpage implements Serializable{
     private Integer id;
     String name;
     
+    @OneToMany
     List<Fragment> fragmentBundle;
 
     public Integer getId() {

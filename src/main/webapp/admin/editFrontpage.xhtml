@@ -113,18 +113,15 @@
                     <p:inputText value="#{frontpageController.quizname}" id="nameq" label="nameq" />
                     
                     <h:outputLabel for="quiz" value="Quiz:" /> 
-                    <p:selectOneMenu id="quiz" 
-                                     value="#{frontpageController.quiz}" converter="#{quizConverter}" panelStyle="width:150px"  
-                                     effect="fade" var="q" style="width:160px"  filter="true" filterMatchMode="startsWith">
-                        <f:selectItems value="#{frontpageController.quizzes}" var="quiz" itemLabel="#{quiz.name}" itemValue="#{quiz}"/>
-                        <p:column>  
-                            #{q.name}
-                        </p:column>  
-                    </p:selectOneMenu>
+                    <p:pickList id="quiz"
+                                value="#{frontpageController.quizzes}" var="quiz" itemValue="#{quiz}" itemLabel="#{quiz.name}" showSourceFilter="true" filterMatchMode="contains" converter="#{quizConverter}">
+                        <f:facet name="sourceCaption">Available</f:facet>  
+                        <f:facet name="targetCaption">Selected</f:facet>
+                    </p:pickList>  
                     
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonq" value="Submit"   
-                      actionListener="#{frontpageController.addQuizFragment()}" oncomplete="newquizdlg.hide()" update=":form:fragmentTable :form:preview"/>  
+                      actionListener="#{frontpageController.addQuizFragment(frontpageController.quizzes.target)}" oncomplete="newquizdlg.hide()" update=":form:fragmentTable :form:preview"/>  
                     </f:facet>  
                 </h:panelGrid>  
             </p:dialog>
@@ -150,20 +147,17 @@
                     </p:selectOneMenu>
                     
                     <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}" for="editquiz" value="Quiz:" /> 
-                    <p:selectOneMenu rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}" id="editquiz" 
-                                     value="#{frontpageController.selectedFragment.quiz}" converter="#{quizConverter}" panelStyle="width:150px"  
-                                     effect="fade" var="q" style="width:160px"  filter="true" filterMatchMode="startsWith">
-                        <f:selectItems value="#{frontpageController.quizzes}" var="quiz" itemLabel="#{quiz.name}" itemValue="#{quiz}"/>
-                        <p:column>  
-                            #{q.name}
-                        </p:column>  
-                    </p:selectOneMenu> 
+                    <p:pickList id="editquiz" rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}"
+                                value="#{frontpageController.quizzes}" var="quiz" itemValue="#{quiz}" itemLabel="#{quiz.name}" showSourceFilter="true" filterMatchMode="contains" converter="#{quizConverter}">
+                        <f:facet name="sourceCaption">Available</f:facet>  
+                        <f:facet name="targetCaption">Selected</f:facet>
+                    </p:pickList>  
+                    <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}" 
+                                     value="Submit" action="#{frontpageController.addQuizzes(frontpageController.quizzes.target)}"/>  
                     
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonpe" value="Save changes"   
-                       oncomplete="editfragmentdlg.hide()" update="fragmentTable"/>
-                        <p:commandButton id="deleteButtonpe" value="Delete"   
-                       oncomplete="editfragmentdlg.hide()" action="#{frontpageController.removeFragment(selectedFragment)}" update="fragmentTable"/>  
+                       oncomplete="editfragmentdlg.hide()" update="fragmentTable"/>  
                     </f:facet>  
                 </h:panelGrid>  
             </p:dialog>

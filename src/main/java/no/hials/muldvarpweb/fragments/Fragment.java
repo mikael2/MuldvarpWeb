@@ -5,34 +5,53 @@
 package no.hials.muldvarpweb.fragments;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import no.hials.muldvarpweb.domain.Article;
+import no.hials.muldvarpweb.domain.Course;
+import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.domain.Quiz;
 
 /**
  *
  * @author Kristoffer
  */
+@Entity
+@Table(name = "fragment")
 public class Fragment implements Serializable {
+    @Id
+    @GeneratedValue
+    private Long id;
     String name;
-    long parentID;
     public enum Type {
-        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ
+        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ, DOCUMENT
     }
     Type fragmentType;
     
+    @ManyToOne
     Article article;
-    int programmeID;
     String category;
     String iconurl;
-    Quiz quiz;
 
     public Fragment() {
     }
 
     public Fragment(String name, long parentID, Type fragmentType) {
         this.name = name;
-        this.parentID = parentID;
         this.fragmentType = fragmentType;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -41,14 +60,6 @@ public class Fragment implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public long getParentID() {
-        return parentID;
-    }
-
-    public void setParentID(long parentID) {
-        this.parentID = parentID;
     }
 
     public Type getFragmentType() {
@@ -65,14 +76,6 @@ public class Fragment implements Serializable {
 
     public void setArticle(Article article) {
         this.article = article;
-    }
-
-    public int getProgrammeID() {
-        return programmeID;
-    }
-
-    public void setProgrammeID(int programmeID) {
-        this.programmeID = programmeID;
     }
 
     public String getCategory() {
@@ -106,13 +109,37 @@ public class Fragment implements Serializable {
         }
         return iconurl;
     }
+    
+    @ManyToMany
+    List<Quiz> quizzes;
 
-    public Quiz getQuiz() {
-        return quiz;
+    public List<Quiz> getQuizzes() {
+        return quizzes;
     }
 
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
     }
     
+    @ManyToMany
+    List<Course> courses;
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+    
+    @ManyToMany
+    List<LibraryItem> documents;
+
+    public List<LibraryItem> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<LibraryItem> documents) {
+        this.documents = documents;
+    }
 }

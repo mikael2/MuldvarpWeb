@@ -5,6 +5,7 @@
 package no.hials.muldvarpweb.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
@@ -17,6 +18,7 @@ import no.hials.muldvarpweb.fragments.Fragment;
 import no.hials.muldvarpweb.fragments.FragmentModel;
 import no.hials.muldvarpweb.service.FrontpageService;
 import no.hials.muldvarpweb.service.QuizService;
+import org.primefaces.model.DualListModel;
 
 /**
  *
@@ -36,7 +38,6 @@ public class FrontpageController implements Serializable {
     Fragment selectedFragment;
     FragmentModel fragmentModel;
     List<Fragment> fragmentBundle;
-    Quiz quiz;
     String coursename;
     long parentId;
     
@@ -68,13 +69,9 @@ public class FrontpageController implements Serializable {
         addFragment(f);
     }
     
-    public void addQuizFragment() {
+    public void addQuizFragment(List<Quiz> quizzes) {
         Fragment f = new Fragment(quizname, parentId, Fragment.Type.QUIZ);
-        f.setQuiz(quiz);
-        System.out.println("selected quiz: " + quiz.getId());
-        for(Quiz q : quizzes) {
-            System.out.println("quizzes: " + q.getId());
-        }
+        f.setQuizzes(quizzes);
         addFragment(f);
     }
     
@@ -99,8 +96,8 @@ public class FrontpageController implements Serializable {
         quizname = "";
         category = "";
         article = null;
-        quiz = null;
         parentId = 0;
+        quizzes = null;
     }
 
     public Article getArticle() {
@@ -217,29 +214,41 @@ public class FrontpageController implements Serializable {
     public void setFragmentModel(FragmentModel fragmentModel) {
         this.fragmentModel = fragmentModel;
     }
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
-    }
     
-    List<Quiz> quizzes;
+    // Quiz stuff
+    private DualListModel<Quiz> quizzes;
     @Inject QuizService quizService;
-    public List<Quiz> getQuizzes() {            
-        quizzes = quizService.findQuizzes();
-        System.out.println("getQuizzes:");
-        for(Quiz q : quizzes) {
-            System.out.println(q.getId());
+    
+    public DualListModel<Quiz> getQuizzes() {
+        if(quizzes == null) {
+            List<Quiz> source = quizService.findQuizzes();
+            List<Quiz> target = new ArrayList<Quiz>();
+            if(selectedFragment.getQuizzes() != null) {
+                target = selectedFragment.getQuizzes();
+                
+                for(int i = 0; i < target.size(); i++) {
+                    Quiz v = target.get(i);
+                    for(int k = 0; k < source.size(); k++) {
+                        Quiz vv = source.get(k);
+                        if(vv.getId() == v.getId()) {
+                            source.remove(vv);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            quizzes = new DualListModel<Quiz>(source, target);
         }
+        
         return quizzes;
     }
-
-    public void setQuizzes(List<Quiz> quizzes) {
+    
+    public void setQuizzes(DualListModel<Quiz> quizzes) {
         this.quizzes = quizzes;
     }
     
-    
+    public void addQuizzes(List<Quiz> q) {
+        selectedFragment.setQuizzes(q);
+    }
 }
