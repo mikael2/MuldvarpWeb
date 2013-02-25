@@ -5,6 +5,8 @@
 package no.hials.muldvarpweb.fragments;
 
 import java.io.Serializable;
+import no.hials.muldvarpweb.domain.Article;
+import no.hials.muldvarpweb.domain.Quiz;
 
 /**
  *
@@ -12,21 +14,22 @@ import java.io.Serializable;
  */
 public class Fragment implements Serializable {
     String name;
-    int parentID;
+    long parentID;
     public enum Type {
         FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ
     }
     Type fragmentType;
     
-    long articleID;
+    Article article;
     int programmeID;
     String category;
     String iconurl;
+    Quiz quiz;
 
     public Fragment() {
     }
 
-    public Fragment(String name, int parentID, Type fragmentType) {
+    public Fragment(String name, long parentID, Type fragmentType) {
         this.name = name;
         this.parentID = parentID;
         this.fragmentType = fragmentType;
@@ -40,11 +43,11 @@ public class Fragment implements Serializable {
         this.name = name;
     }
 
-    public int getParentID() {
+    public long getParentID() {
         return parentID;
     }
 
-    public void setParentID(int parentID) {
+    public void setParentID(long parentID) {
         this.parentID = parentID;
     }
 
@@ -56,12 +59,12 @@ public class Fragment implements Serializable {
         this.fragmentType = fragmentType;
     }
 
-    public long getArticleID() {
-        return articleID;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArticleID(long articleID) {
-        this.articleID = articleID;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public int getProgrammeID() {
@@ -102,6 +105,14 @@ public class Fragment implements Serializable {
                 break;
         }
         return iconurl;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
     
 }

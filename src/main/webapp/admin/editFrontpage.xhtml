@@ -111,6 +111,17 @@
                 <h:panelGrid columns="2" cellpadding="5">  
                     <h:outputLabel for="nameq" value="Name:" />  
                     <p:inputText value="#{frontpageController.quizname}" id="nameq" label="nameq" />
+                    
+                    <h:outputLabel for="quiz" value="Quiz:" /> 
+                    <p:selectOneMenu id="quiz" 
+                                     value="#{frontpageController.quiz}" converter="#{quizConverter}" panelStyle="width:150px"  
+                                     effect="fade" var="q" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{frontpageController.quizzes}" var="quiz" itemLabel="#{quiz.name}" itemValue="#{quiz}"/>
+                        <p:column>  
+                            #{q.name}
+                        </p:column>  
+                    </p:selectOneMenu>
+                    
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonq" value="Submit"   
                       actionListener="#{frontpageController.addQuizFragment()}" oncomplete="newquizdlg.hide()" update=":form:fragmentTable :form:preview"/>  
@@ -124,8 +135,30 @@
                     <p:inputText value="#{frontpageController.selectedFragment.name}" id="namepe" label="namepe" />
                     <h:outputLabel for="fragtype" value="Fragment Type:" /> 
                     <h:outputLabel id="fragtype" value="#{frontpageController.selectedFragment.fragmentType}" />
+                    
                     <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'PROGRAMME'}" for="editprogramme" value="Programmes:" /> 
                     <h:outputLabel id="editprogramme" rendered="#{frontpageController.selectedFragment.fragmentType == 'PROGRAMME'}" value="All programmes" />  
+                    
+                    <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'ARTICLE'}" for="editarticle" value="Article:" /> 
+                    <p:selectOneMenu rendered="#{frontpageController.selectedFragment.fragmentType == 'ARTICLE'}" id="editarticle" 
+                                     value="#{frontpageController.selectedFragment.article}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                     effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{courseController.articles}" var="article" itemLabel="#{article.title}" itemValue="#{article}"/>
+                        <p:column>  
+                            #{p.title}
+                        </p:column>  
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}" for="editquiz" value="Quiz:" /> 
+                    <p:selectOneMenu rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}" id="editquiz" 
+                                     value="#{frontpageController.selectedFragment.quiz}" converter="#{quizConverter}" panelStyle="width:150px"  
+                                     effect="fade" var="q" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{frontpageController.quizzes}" var="quiz" itemLabel="#{quiz.name}" itemValue="#{quiz}"/>
+                        <p:column>  
+                            #{q.name}
+                        </p:column>  
+                    </p:selectOneMenu> 
+                    
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonpe" value="Save changes"   
                        oncomplete="editfragmentdlg.hide()" update="fragmentTable"/>

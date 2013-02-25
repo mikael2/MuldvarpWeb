@@ -129,4 +129,22 @@ public class Quiz implements Serializable {
             questions.add(q);
         }
     }
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if(!(obj instanceof Quiz)) {
+//            return false;
+//        }
+//        
+//        Quiz quiz = (Quiz) obj;
+//        
+//        return (this.id == quiz.id);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 23 * hash + (this.id != null ? this.id.hashCode() : 0);
+//        return hash;
+//    }
 }

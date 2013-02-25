@@ -12,9 +12,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Article;
 import no.hials.muldvarpweb.domain.Frontpage;
+import no.hials.muldvarpweb.domain.Quiz;
 import no.hials.muldvarpweb.fragments.Fragment;
 import no.hials.muldvarpweb.fragments.FragmentModel;
 import no.hials.muldvarpweb.service.FrontpageService;
+import no.hials.muldvarpweb.service.QuizService;
 
 /**
  *
@@ -34,6 +36,9 @@ public class FrontpageController implements Serializable {
     Fragment selectedFragment;
     FragmentModel fragmentModel;
     List<Fragment> fragmentBundle;
+    Quiz quiz;
+    String coursename;
+    long parentId;
     
     public List<Fragment> getFragmentBundle() {
         if(fragmentBundle == null) {
@@ -47,24 +52,34 @@ public class FrontpageController implements Serializable {
     }
     
     public void addArticleFragment() {
-        Fragment f = new Fragment(articlename, 0, Fragment.Type.ARTICLE);
-        f.setArticleID(article.getId());
+        Fragment f = new Fragment(articlename, parentId, Fragment.Type.ARTICLE);
+        f.setArticle(article);
         addFragment(f);
     }
     
     public void addProgrammeFragment() {
-        Fragment f = new Fragment(programmename, 0, Fragment.Type.PROGRAMME);
+        Fragment f = new Fragment(programmename, parentId, Fragment.Type.PROGRAMME);
         addFragment(f);
     }
     
     public void addNewsFragment() {
-        Fragment f = new Fragment(newsname, 0, Fragment.Type.NEWS);
+        Fragment f = new Fragment(newsname, parentId, Fragment.Type.NEWS);
         f.setCategory(category);
         addFragment(f);
     }
     
     public void addQuizFragment() {
-        Fragment f = new Fragment(quizname, 0, Fragment.Type.QUIZ);
+        Fragment f = new Fragment(quizname, parentId, Fragment.Type.QUIZ);
+        f.setQuiz(quiz);
+        System.out.println("selected quiz: " + quiz.getId());
+        for(Quiz q : quizzes) {
+            System.out.println("quizzes: " + q.getId());
+        }
+        addFragment(f);
+    }
+    
+    public void addCourseFragment() {
+        Fragment f = new Fragment(coursename, parentId, Fragment.Type.COURSE);
         addFragment(f);
     }
     
@@ -84,6 +99,8 @@ public class FrontpageController implements Serializable {
         quizname = "";
         category = "";
         article = null;
+        quiz = null;
+        parentId = 0;
     }
 
     public Article getArticle() {
@@ -200,4 +217,29 @@ public class FrontpageController implements Serializable {
     public void setFragmentModel(FragmentModel fragmentModel) {
         this.fragmentModel = fragmentModel;
     }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+    
+    List<Quiz> quizzes;
+    @Inject QuizService quizService;
+    public List<Quiz> getQuizzes() {            
+        quizzes = quizService.findQuizzes();
+        System.out.println("getQuizzes:");
+        for(Quiz q : quizzes) {
+            System.out.println(q.getId());
+        }
+        return quizzes;
+    }
+
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+    
+    
 }
