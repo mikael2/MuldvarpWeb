@@ -17,7 +17,7 @@ import no.hials.muldvarpweb.fragments.Fragment;
 public class Course implements Serializable {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     
     @Column(name = "name")
     String name;
@@ -93,11 +93,11 @@ public class Course implements Serializable {
         this.programmes = programme;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -369,6 +369,7 @@ public class Course implements Serializable {
     }
     
     // eksperimentelle greier
+    @OneToMany
     List<Fragment> fragmentBundle;
 
     public List<Fragment> getFragmentBundle() {

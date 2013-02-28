@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  * This class represents a programme.
@@ -208,5 +209,26 @@ public class Programme implements Serializable{
         this.news = news;
     }
 
+    // eksperimentelle greier
+    @OneToMany
+    List<Fragment> fragmentBundle;
 
+    public List<Fragment> getFragmentBundle() {
+        return fragmentBundle;
+    }
+
+    public void setFragmentBundle(List<Fragment> fragmentBundle) {
+        this.fragmentBundle = fragmentBundle;
+    }
+    
+    public void addFragment(Fragment f) {
+        if(fragmentBundle == null) {
+            fragmentBundle = new ArrayList<Fragment>();
+        }
+        fragmentBundle.add(f);
+    }
+    
+    public void removeFragment(Fragment f) {
+        fragmentBundle.remove(f);
+    }
 }

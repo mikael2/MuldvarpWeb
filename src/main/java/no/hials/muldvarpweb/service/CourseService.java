@@ -43,7 +43,7 @@ public class CourseService {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Course getCourse(@PathParam("id") Integer id) {
+    public Course getCourse(@PathParam("id") Long id) {
         TypedQuery<Course> q = em.createQuery("Select c from Course c where c.id = :id", Course.class);
         q.setParameter("id", id);
         return q.getSingleResult();
@@ -55,7 +55,7 @@ public class CourseService {
         return q.getResultList();
     }
     
-    public List<Programme> getProgrammesInCourse(@PathParam("id") Integer id) {
+    public List<Programme> getProgrammesInCourse(@PathParam("id") Long id) {
         TypedQuery<Programme> q = em.createQuery("SELECT v.programmes from Course v where v.id = :id", Programme.class);
         q.setParameter("id", id);
         return q.getResultList();
@@ -64,7 +64,7 @@ public class CourseService {
     @GET
     @Path("/videos/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Video> findVideosInCourse(@PathParam("id") Integer id) {
+    public List<Video> findVideosInCourse(@PathParam("id") Long id) {
         TypedQuery<Video> q = em.createQuery("SELECT v.videos from Course v where v.id = :id", Video.class);
         q.setParameter("id", id);
         return q.getResultList();
@@ -73,7 +73,7 @@ public class CourseService {
     @GET
     @Path("quiz/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Quiz> findQuizzesInCourse(@PathParam("id") Integer id) {
+    public List<Quiz> findQuizzesInCourse(@PathParam("id") Long id) {
         TypedQuery<Quiz> q = em.createQuery("SELECT q.quizzes from Course q where q.id = :id", Quiz.class);
         q.setParameter("id", id);
         return q.getResultList();
@@ -81,7 +81,7 @@ public class CourseService {
     
     @GET
     @Path("edit/{cid}/{themeid}/{taskid}/{val}")
-    public String setTask(@PathParam("cid") Integer cid,
+    public String setTask(@PathParam("cid") Long cid,
     @PathParam("themeid") Integer themeid,
     @PathParam("taskid") Integer taskid,
     @PathParam("val") Integer val) {

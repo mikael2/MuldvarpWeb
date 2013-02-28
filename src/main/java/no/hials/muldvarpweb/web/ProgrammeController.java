@@ -254,7 +254,7 @@ public class ProgrammeController implements Serializable{
         if(documents == null) {
             List<LibraryItem> source = documentService.getLibrary();
             List<LibraryItem> target = new ArrayList<LibraryItem>();
-            if(selected.getVideos() != null) {
+            if(selected.getDocuments() != null) {
                 target = selected.getDocuments();
                 
                 for(int i = 0; i < target.size(); i++) {

@@ -27,7 +27,7 @@ public class CourseConverter implements Converter, Serializable {
         Object result = null;
         
         try {
-            result = courseService.getCourse(Integer.valueOf(value));
+            result = courseService.getCourse(Long.valueOf(value));
         } catch(Throwable t) {
             System.out.println("Error: " + t.getMessage());
             t.printStackTrace();

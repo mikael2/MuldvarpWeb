@@ -11,11 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import no.hials.muldvarpweb.domain.Article;
 import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.domain.Quiz;
+import no.hials.muldvarpweb.domain.Video;
 
 /**
  *
@@ -29,7 +31,7 @@ public class Fragment implements Serializable {
     private Long id;
     String name;
     public enum Type {
-        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ, DOCUMENT
+        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ, DOCUMENT, VIDEO
     }
     Type fragmentType;
     
@@ -106,11 +108,17 @@ public class Fragment implements Serializable {
             case QUIZ:
                 iconurl = "../resources/images/stolen_quiz.png";
                 break;
+            case VIDEO:
+                iconurl = "../resources/images/stolen_videos.png";
+                break;
+            case DOCUMENT:
+                iconurl = "../resources/images/stolen_docs.png";
+                break;
         }
         return iconurl;
     }
     
-    @ManyToMany
+    @OneToMany
     List<Quiz> quizzes;
 
     public List<Quiz> getQuizzes() {
@@ -121,7 +129,7 @@ public class Fragment implements Serializable {
         this.quizzes = quizzes;
     }
     
-    @ManyToMany
+    @OneToMany
     List<Course> courses;
 
     public List<Course> getCourses() {
@@ -132,7 +140,7 @@ public class Fragment implements Serializable {
         this.courses = courses;
     }
     
-    @ManyToMany
+    @OneToMany
     List<LibraryItem> documents;
 
     public List<LibraryItem> getDocuments() {
@@ -141,5 +149,16 @@ public class Fragment implements Serializable {
 
     public void setDocuments(List<LibraryItem> documents) {
         this.documents = documents;
+    }
+    
+    @OneToMany
+    List<Video> videos;
+
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
     }
 }
