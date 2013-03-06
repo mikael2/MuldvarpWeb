@@ -49,32 +49,10 @@ public class Course implements Serializable {
     
     @ManyToMany
     List<Person> teachers;
-    
-    @ManyToMany
-    List<Video> videos;
-    
-    @ManyToMany
-    List<LibraryItem> documents;
-    
-    @ManyToMany
-    List<Article> news;
-    
+        
     @ManyToMany(mappedBy = "courses")
     List<Programme> programmes;
     
-    @OneToMany
-    List<Quiz> quizzes;
-    
-    // temp greier til vi lager noe bedre
-    @ManyToOne
-    Article info;
-    
-    @ManyToOne
-    Article dates;
-    
-    @ManyToOne
-    Article help;
-   
     public Course() {
         this.revision = 0;
         this.revision_date = new Date();
@@ -282,90 +260,6 @@ public class Course implements Serializable {
             programmes = new ArrayList<Programme>();
         }
         programmes.add(p);
-    }
-
-    @XmlTransient
-    public List<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List<Video> video) {
-        this.videos = video;
-    }
-    
-    public void addVideo(Video video) {
-        if(videos == null) {
-            videos = new ArrayList<Video>();
-        }
-        videos.add(video);
-    }
-
-    public void removeVideo(Video video){
-        
-        getVideos().remove(video);
-    }
-
-    public List<LibraryItem> getDocuments() {
-        return documents;
-    }
-    
-    public void addDocument(LibraryItem document) {
-        if(document == null) {
-            documents = new ArrayList<LibraryItem>();
-        }
-        documents.add(document);
-    }
-
-    public void removeDocument(LibraryItem document){
-        getDocuments().remove(document);
-    }
-
-    public void setDocuments(List<LibraryItem> documents) {
-        this.documents = documents;
-    }
-
-    public List<Article> getNews() {
-        return news;
-    }
-
-    public void setNews(List<Article> news) {
-        this.news = news;
-    }
-
-    public List<Quiz> getQuizzes() {
-        return quizzes;
-    }
-
-    public void setQuizzes(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
-    }
-
-    public Article getInfo() {
-        return info;
-    }
-
-    public void setInfo(Article info) {
-        this.info = info;
-    }
-
-    public Article getHelp() {
-        return help;
-    }
-
-    public void setHelp(Article help) {
-        this.help = help;
-    }
-
-    public void removeProgramme(Programme p) {
-        programmes.remove(p);
-    }
-
-    public Article getDates() {
-        return dates;
-    }
-
-    public void setDates(Article dates) {
-        this.dates = dates;
     }
     
     // eksperimentelle greier

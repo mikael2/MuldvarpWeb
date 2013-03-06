@@ -17,8 +17,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "quiz")
 public class Quiz implements Serializable {
-    @ManyToMany(mappedBy = "quizzes")
-    private List<Programme> programmes;    
     @Id
     @GeneratedValue
     private Long id;
@@ -89,14 +87,6 @@ public class Quiz implements Serializable {
 
     public void setShuffleQuestions(boolean shuffleQuestions) {
         this.shuffleQuestions = shuffleQuestions;
-    }
-
-    public List<Programme> getProgrammes() {
-        return programmes;
-    }
-
-    public void setProgrammes(List<Programme> programmes) {
-        this.programmes = programmes;
     }
 
     public String getQuizType() {

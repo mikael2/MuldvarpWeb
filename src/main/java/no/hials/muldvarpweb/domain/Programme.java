@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
 import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
@@ -19,7 +18,7 @@ import no.hials.muldvarpweb.fragments.Fragment;
 
 @Entity
 @Table(name="Programme")
-public class Programme implements Serializable{
+public class Programme implements Serializable {
     
     @Id
     @GeneratedValue
@@ -33,29 +32,7 @@ public class Programme implements Serializable{
 
     @ManyToMany
     List<Course> courses;
-    
-    @ManyToMany
-    List<Quiz> quizzes;
-    
-    @ManyToMany
-    List<LibraryItem> documents;
-    
-    @ManyToMany
-    List<Article> news;
-    
-    @ManyToMany
-    List<Video> videos;
-    
-    // temp greier til vi lager noe bedre
-    @ManyToOne
-    Article info;
-    
-    @ManyToOne
-    Article dates;
-    
-    @ManyToOne
-    Article help;
-    
+
     /**
      * Empty constructor for the Programme JPA class.
      */
@@ -116,97 +93,6 @@ public class Programme implements Serializable{
 
     public void removeCourse(Course c) {
         getCourses().remove(c);
-    }
-    
-    
-
-//    @Override
-//    public String toString() {
-//        return name;
-//    }
-
-    public List<Quiz> getQuizzes() {
-        return quizzes;
-    }
-
-    public void setQuizzes(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
-    }
-    
-    public void remvoveQuiz(Quiz q){
-        getQuizzes().remove(q);
-    }
-
-    public Article getInfo() {
-        return info;
-    }
-
-    public void setInfo(Article info) {
-        this.info = info;
-    }
-
-    public Article getDates() {
-        return dates;
-    }
-
-    public void setDates(Article dates) {
-        this.dates = dates;
-    }
-
-    public Article getHelp() {
-        return help;
-    }
-
-    public void setHelp(Article help) {
-        this.help = help;
-    }
-    
-    @XmlTransient
-    public List<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List<Video> video) {
-        this.videos = video;
-    }
-    
-    public void addVideo(Video video) {
-        if(videos == null) {
-            videos = new ArrayList<Video>();
-        }
-        videos.add(video);
-    }
-
-    public void removeVideo(Video video){
-        
-        getVideos().remove(video);
-    }
-
-    public List<LibraryItem> getDocuments() {
-        return documents;
-    }
-    
-    public void addDocument(LibraryItem document) {
-        if(document == null) {
-            documents = new ArrayList<LibraryItem>();
-        }
-        documents.add(document);
-    }
-
-    public void removeDocument(LibraryItem document){
-        getDocuments().remove(document);
-    }
-
-    public void setDocuments(List<LibraryItem> documents) {
-        this.documents = documents;
-    }
-
-    public List<Article> getNews() {
-        return news;
-    }
-
-    public void setNews(List<Article> news) {
-        this.news = news;
     }
 
     // eksperimentelle greier

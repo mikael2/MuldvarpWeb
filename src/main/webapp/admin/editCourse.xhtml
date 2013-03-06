@@ -171,62 +171,237 @@
                     </p:fieldset>
                 </div>
                 <div class="column">    
-                    <p:fieldset legend="Videos">
-                        <p:pickList id="pickListVideos"
-                                    value="#{courseController.videos}" var="video" itemValue="#{video}" itemLabel="#{video.videoName}" showSourceFilter="true" filterMatchMode="contains" converter="#{videoConverter}">
-                            <f:facet name="sourceCaption">Available</f:facet>  
-                            <f:facet name="targetCaption">Selected</f:facet>
-                        </p:pickList>  
-                        <p:commandButton value="Submit" action="#{courseController.addVideos(courseController.videos.target)}"/>
+                    <p:fieldset legend="Frontpage Preview" style="width: 400px; float: left;">
+                        <div class="appPreview">
+                            <h1>#{courseController.selected.name}</h1>
+                            <ui:repeat id="preview" value="#{courseController.fragmentBundle}" var="item">
+                                <div class="previewItems">
+                                    <img src="#{item.iconurl}" />
+                                    <div class="previewText">
+                                        #{item.name}
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </p:fieldset>            
+                    <p:fieldset legend="Fragments">
+                        <p:dataTable id="fragmentTable" value="#{courseController.fragmentModel}" var="fragment" selection="#{courseController.selectedFragment}" selectionMode="single">                    
+                            <p:ajax event="rowSelect" oncomplete="editfragmentdlg.show()" update=":courseForm:editfragmentDialog" />
+                            <p:ajax event="rowUnselect" oncomplete="editfragmentdlg.hide()" update="fragmentTable"/> 
+                            <p:column headerText="Name">
+                                #{fragment.name}
+                            </p:column>
+                            <p:column headerText="Type">  
+                                #{fragment.fragmentType}
+                            </p:column>
+                            <p:column>
+                                <h:commandLink value="Delete" action="#{courseController.removeFragment(fragment)}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:column>
+                            <p:commandButton value="Add Fragment" onclick="dlg.show()" />
+                        </p:column>
                     </p:fieldset>
-                </div>
-                <div class="column">    
-                    <p:fieldset legend="Documents">
-                        <p:pickList id="pickListDocuments"
-                                    value="#{courseController.documents}" var="document" itemValue="#{document}" itemLabel="#{document.title}" showSourceFilter="true" filterMatchMode="contains" converter="#{documentConverter}">
-                            <f:facet name="sourceCaption">Available</f:facet>  
-                            <f:facet name="targetCaption">Selected</f:facet>
-                        </p:pickList>  
-                        <p:commandButton value="Submit" action="#{courseController.addDocuments(courseController.documents.target)}"/>
-                    </p:fieldset>
-                </div>
-                <div class="column">    
-                    <p:fieldset legend="Quizzes">
-                        <p:pickList id="pickListQuizzes"
-                                    value="#{courseController.quizzes}" var="quiz" itemValue="#{quiz}" itemLabel="#{quiz.name}" showSourceFilter="true" filterMatchMode="contains" converter="#{quizConverter}">
-                            <f:facet name="sourceCaption">Available</f:facet>  
-                            <f:facet name="targetCaption">Selected</f:facet>
-                        </p:pickList>  
-                        <p:commandButton value="Submit" action="#{courseController.addQuizzes(courseController.quizzes.target)}"/>
-                    </p:fieldset>
-                </div>
-                <div class="column">
-                    <p:fieldset legend="Articles">
-                        <h:outputText value="Information:" />
-                        <p:selectOneMenu value="#{courseController.information}" converter="#{articleConverter}" panelStyle="width:150px"  
-                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
-                            <f:selectItems value="#{courseController.articles}" var="article" itemLabel="#{article.title}" itemValue="#{article}"/>
-                            <p:column>  
-                                #{p.title}
-                            </p:column>  
-                        </p:selectOneMenu>
-                        <h:outputText value="Help:" />
-                        <p:selectOneMenu value="#{courseController.help}" converter="#{articleConverter}" panelStyle="width:150px"  
-                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
-                            <f:selectItems value="#{courseController.articles}" var="article2" itemLabel="#{article2.title}" itemValue="#{article2}"/>
-                            <p:column>  
-                                #{p.title}
-                            </p:column>  
-                        </p:selectOneMenu>
-                        <h:outputText value="Dates:" />
-                        <p:selectOneMenu value="#{courseController.dates}" converter="#{articleConverter}" panelStyle="width:150px"  
-                                 effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
-                            <f:selectItems value="#{courseController.articles}" var="article3" itemLabel="#{article3.title}" itemValue="#{article3}"/>  
-                            <p:column>  
-                                #{p.title}
-                            </p:column>  
-                        </p:selectOneMenu>
-                    </p:fieldset>
+
+                    <p:dialog id="dialog" header="New Fragment" widgetVar="dlg" resizable="false">
+                        <div class="appPreview">
+                            <div class="previewItems">
+                                <h:outputLink id="articleFragment" value="javascript:void(0)" onclick="newarticledlg.show();dlg.hide();" title="New ArticleFragment">     
+                                    <p:graphicImage value="/resources/images/stolen_opptak.png" />
+                                    <div class="previewText">
+                                        Article
+                                    </div>
+                                </h:outputLink>
+                            </div>
+                            <div class="previewItems">  
+                                <h:outputLink id="newsFragment" value="javascript:void(0)" onclick="newnewsdlg.show();dlg.hide();" title="New NewsFragment">     
+                                    <p:graphicImage value="/resources/images/stolen_news.png" />
+                                    <div class="previewText">
+                                        News
+                                    </div>
+                                </h:outputLink>  
+                            </div>
+                            <div class="previewItems">
+                                <h:outputLink id="quizFragment" value="javascript:void(0)" onclick="newquizdlg.show();dlg.hide();" title="New QuizFragment">     
+                                    <p:graphicImage value="/resources/images/stolen_quiz.png" />
+                                    <div class="previewText">
+                                        Quiz
+                                    </div>
+                                </h:outputLink>
+                            </div>
+                            <div class="previewItems">
+                                <h:outputLink id="VideoFragment" value="javascript:void(0)" onclick="newvideodlg.show();dlg.hide();" title="New VideoFragment">     
+                                    <p:graphicImage value="/resources/images/stolen_videos.png" />
+                                    <div class="previewText">
+                                        Video
+                                    </div>
+                                </h:outputLink>
+                            </div>
+                            <div class="previewItems">
+                                <h:outputLink id="documentFragment" value="javascript:void(0)" onclick="newdocumentdlg.show();dlg.hide();" title="New DocumentFragment">     
+                                    <p:graphicImage value="/resources/images/stolen_docs.png" />
+                                    <div class="previewText">
+                                        Document
+                                    </div>
+                                </h:outputLink>
+                            </div>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog id="newarticleDialog" header="New ArticleFragment" widgetVar="newarticledlg">  
+                        <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputLabel for="name" value="Name:" />  
+                            <p:inputText value="#{courseController.articlename}" id="name" label="name" />
+                            <h:outputLabel for="article" value="Article:" />  
+                            <p:selectOneMenu id="article" value="#{courseController.article}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                     effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{courseController.articles}" var="article" itemLabel="#{article.title}" itemValue="#{article}"/>
+                                <p:column>  
+                                    #{p.title}
+                                </p:column>  
+                            </p:selectOneMenu>
+                            <f:facet name="footer">  
+                                <p:commandButton id="saveButton" value="Submit"   
+                              actionListener="#{courseController.addArticleFragment()}" oncomplete="newarticledlg.hide()" update="fragmentTable"/>  
+                            </f:facet>  
+                        </h:panelGrid>  
+                    </p:dialog>
+                    
+                    <p:dialog id="newnewsDialog" header="New NewsFragment" widgetVar="newnewsdlg">  
+                        <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputLabel for="namen" value="Name:" />  
+                            <p:inputText value="#{courseController.newsname}" id="namen" label="namen" />
+                            <h:outputLabel for="category" value="Category:" />  
+                            <p:inputText value="#{courseController.category}" id="category" label="category" /> 
+                            <f:facet name="footer">  
+                                <p:commandButton id="saveButtonn" value="Submit"   
+                              actionListener="#{courseController.addNewsFragment()}" oncomplete="newnewsdlg.hide()" update="fragmentTable"/>  
+                            </f:facet>  
+                        </h:panelGrid>  
+                    </p:dialog>
+
+                    <p:dialog id="newquizDialog" header="New QuizFragment" widgetVar="newquizdlg">  
+                        <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputLabel for="nameq" value="Name:" />  
+                            <p:inputText value="#{courseController.quizname}" id="nameq" label="nameq" />
+
+                            <h:outputLabel for="quiz" value="Quiz:" /> 
+                            <p:pickList id="quiz"
+                                        value="#{courseController.quizzes}" var="quiz" itemValue="#{quiz}" 
+                                        itemLabel="#{quiz.name}" showSourceFilter="true" filterMatchMode="contains" converter="#{quizConverter}">
+                                <f:facet name="sourceCaption">Available</f:facet>  
+                                <f:facet name="targetCaption">Selected</f:facet>
+                            </p:pickList>  
+
+                            <f:facet name="footer">  
+                                <p:commandButton id="saveButtonq" value="Submit"   
+                              actionListener="#{courseController.addQuizFragment(courseController.quizzes.target)}" oncomplete="newquizdlg.hide()" update=":courseForm:fragmentTable :courseForm:preview"/>  
+                            </f:facet>  
+                        </h:panelGrid>  
+                    </p:dialog>
+                    
+                    <p:dialog id="newvideoDialog" header="New VideoFragment" widgetVar="newvideodlg">  
+                        <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputLabel for="nameq" value="Name:" />  
+                            <p:inputText value="#{courseController.videoname}" id="namev" label="namev" />
+
+                            <h:outputLabel for="video" value="Videos:" /> 
+                            <p:pickList id="video"
+                                        value="#{courseController.videos}" var="video" itemValue="#{video}"
+                                        itemLabel="#{video.videoName}" showSourceFilter="true" filterMatchMode="contains" converter="#{videoConverter}">
+                                <f:facet name="sourceCaption">Available</f:facet>  
+                                <f:facet name="targetCaption">Selected</f:facet>
+                            </p:pickList>  
+
+                            <f:facet name="footer">  
+                                <p:commandButton id="saveButtonv" value="Submit"   
+                              actionListener="#{courseController.addVideoFragment(courseController.videos.target)}" 
+                              oncomplete="newvideodlg.hide()" update=":courseForm:fragmentTable :courseForm:preview"/>  
+                            </f:facet>  
+                        </h:panelGrid>  
+                    </p:dialog>
+
+                    <p:dialog id="newdocumentDialog" header="New DocumentFragment" widgetVar="newdocumentdlg">  
+                        <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputLabel for="named" value="Name:" />  
+                            <p:inputText value="#{courseController.documentname}" id="named" label="named" />
+
+                            <h:outputLabel for="document" value="Documents:" /> 
+                            <p:pickList id="document"
+                                        value="#{courseController.documents}" var="document" itemValue="#{document}"
+                                        itemLabel="#{document.title}" showSourceFilter="true" filterMatchMode="contains" converter="#{documentConverter}">
+                                <f:facet name="sourceCaption">Available</f:facet>  
+                                <f:facet name="targetCaption">Selected</f:facet>
+                            </p:pickList>  
+
+                            <f:facet name="footer">  
+                                <p:commandButton id="saveButtond" value="Submit"   
+                              actionListener="#{courseController.addDocumentFragment(courseController.documents.target)}" 
+                              oncomplete="newdocumentdlg.hide()" update=":courseForm:fragmentTable :courseForm:preview"/>  
+                            </f:facet>  
+                        </h:panelGrid>  
+                    </p:dialog>
+                    
+
+                    <p:dialog id="editfragmentDialog" header="Edit Fragment" widgetVar="editfragmentdlg" resizable="false">  
+                        <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputLabel for="namepe" value="Name:" />  
+                            <p:inputText value="#{courseController.selectedFragment.name}" id="namepe" label="namepe" />
+                            <h:outputLabel for="fragtype" value="Fragment Type:" /> 
+                            <h:outputLabel id="fragtype" value="#{courseController.selectedFragment.fragmentType}" />
+
+                            <h:outputLabel rendered="#{courseController.selectedFragment.fragmentType == 'ARTICLE'}" for="editarticle" value="Article:" /> 
+                            <p:selectOneMenu rendered="#{courseController.selectedFragment.fragmentType == 'ARTICLE'}" id="editarticle" 
+                                             value="#{courseController.selectedFragment.article}" converter="#{articleConverter}" panelStyle="width:150px"  
+                                             effect="fade" var="p" style="width:160px"  filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{courseController.articles}" var="article" itemLabel="#{article.title}" itemValue="#{article}"/>
+                                <p:column>  
+                                    #{p.title}
+                                </p:column>  
+                            </p:selectOneMenu>
+
+                            <h:outputLabel rendered="#{courseController.selectedFragment.fragmentType == 'QUIZ'}" for="editquiz" value="Quiz:" /> 
+                            <p:pickList id="editquiz" rendered="#{courseController.selectedFragment.fragmentType == 'QUIZ'}"
+                                        value="#{courseController.quizzes}" var="quiz" itemValue="#{quiz}" itemLabel="#{quiz.name}"
+                                        showSourceFilter="true" filterMatchMode="contains" converter="#{quizConverter}">
+                                <f:facet name="sourceCaption">Available</f:facet>  
+                                <f:facet name="targetCaption">Selected</f:facet>
+                            </p:pickList>  
+                            <p:commandButton rendered="#{courseController.selectedFragment.fragmentType == 'QUIZ'}" 
+                                             value="Submit" action="#{courseController.addQuizzes(courseController.quizzes.target)}" update="editquiz"/>
+
+                            <h:outputLabel rendered="#{courseController.selectedFragment.fragmentType == 'VIDEO'}" for="editvideo" value="Videos:" /> 
+                            <p:pickList id="editvideo" rendered="#{courseController.selectedFragment.fragmentType == 'VIDEO'}"
+                                        value="#{courseController.videos}" var="video" itemValue="#{video}" itemLabel="#{video.videoName}"
+                                        showSourceFilter="true" filterMatchMode="contains" converter="#{videoConverter}">
+                                <f:facet name="sourceCaption">Available</f:facet>  
+                                <f:facet name="targetCaption">Selected</f:facet>
+                            </p:pickList>  
+                            <p:commandButton rendered="#{courseController.selectedFragment.fragmentType == 'VIDEO'}" 
+                                             value="Submit" action="#{courseController.addVideos(courseController.videos.target)}"/>
+
+                            <h:outputLabel rendered="#{courseController.selectedFragment.fragmentType == 'DOCUMENT'}" for="editdocument" value="Documents:" /> 
+                            <p:pickList id="editdocument" rendered="#{courseController.selectedFragment.fragmentType == 'DOCUMENT'}"
+                                        value="#{courseController.documents}" var="document" itemValue="#{document}" itemLabel="#{document.title}" 
+                                        showSourceFilter="true" filterMatchMode="contains" converter="#{documentConverter}">
+                                <f:facet name="sourceCaption">Available</f:facet>  
+                                <f:facet name="targetCaption">Selected</f:facet>
+                            </p:pickList>  
+                            <p:commandButton rendered="#{courseController.selectedFragment.fragmentType == 'DOCUMENT'}" 
+                                             value="Submit" action="#{courseController.addDocuments(courseController.documents.target)}"/>
+
+                            <p:commandButton rendered="#{courseController.selectedFragment.fragmentType == 'QUIZ' 
+                                                         || courseController.selectedFragment.fragmentType == 'DOCUMENT'
+                                                         || courseController.selectedFragment.fragmentType == 'VIDEO'}"
+                                             value="Refresh" action="#{courseController.refreshLists()}" update="editquiz editvideo editdocument"/>
+                            <f:facet name="footer">  
+                                <p:commandButton id="saveButtonpe" value="Save changes"   
+                               oncomplete="editfragmentdlg.hide()" update="fragmentTable" />  
+                            </f:facet>  
+                        </h:panelGrid>  
+                    </p:dialog>
+
+                    <h:commandButton value="Save changes" action="#{courseController.save()}"/>
                 </div>
                 
             </p:fieldset>

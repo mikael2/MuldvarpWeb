@@ -83,14 +83,6 @@
                         </h:outputLink>
                     </div>
                     <div class="previewItems">
-                        <h:outputLink id="courseFragment" value="javascript:void(0)" onclick="newcoursedlg.show();dlg.hide();" title="New CourseFragment">     
-                            <p:graphicImage value="/resources/images/stolen_course_programme.png" />
-                            <div class="previewText">
-                                Course
-                            </div>
-                        </h:outputLink>
-                    </div>
-                    <div class="previewItems">
                         <h:outputLink id="VideoFragment" value="javascript:void(0)" onclick="newvideodlg.show();dlg.hide();" title="New VideoFragment">     
                             <p:graphicImage value="/resources/images/stolen_videos.png" />
                             <div class="previewText">
@@ -173,27 +165,6 @@
                 </h:panelGrid>  
             </p:dialog>
             
-            <p:dialog id="newcourseDialog" header="New CourseFragment" widgetVar="newcoursedlg">  
-                <h:panelGrid columns="2" cellpadding="5">  
-                    <h:outputLabel for="nameq" value="Name:" />  
-                    <p:inputText value="#{frontpageController.coursename}" id="namec" label="namec" />
-                    
-                    <h:outputLabel for="course" value="Courses:" /> 
-                    <p:pickList id="course"
-                                value="#{frontpageController.courses}" var="course" itemValue="#{course}"
-                                itemLabel="#{course.name}" showSourceFilter="true" filterMatchMode="contains" converter="#{courseConverter}">
-                        <f:facet name="sourceCaption">Available</f:facet>  
-                        <f:facet name="targetCaption">Selected</f:facet>
-                    </p:pickList>  
-                    
-                    <f:facet name="footer">  
-                        <p:commandButton id="saveButtonc" value="Submit"   
-                      actionListener="#{frontpageController.addCourseFragment(frontpageController.courses.target)}" 
-                      oncomplete="newcoursedlg.hide()" update=":form:fragmentTable :form:preview"/>  
-                    </f:facet>  
-                </h:panelGrid>  
-            </p:dialog>
-            
             <p:dialog id="newvideoDialog" header="New VideoFragment" widgetVar="newvideodlg">  
                 <h:panelGrid columns="2" cellpadding="5">  
                     <h:outputLabel for="nameq" value="Name:" />  
@@ -237,10 +208,6 @@
             </p:dialog>
             
             
-            
-            
-            
-            
             <p:dialog id="editfragmentDialog" header="Edit Fragment" widgetVar="editfragmentdlg" resizable="false">  
                 <h:panelGrid columns="2" cellpadding="5">  
                     <h:outputLabel for="namepe" value="Name:" />  
@@ -271,16 +238,6 @@
                     <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}" 
                                      value="Submit" action="#{frontpageController.addQuizzes(frontpageController.quizzes.target)}" update="editquiz"/>
                     
-                    <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'COURSE'}" for="editcourse" value="Course:" /> 
-                    <p:pickList id="editcourse" rendered="#{frontpageController.selectedFragment.fragmentType == 'COURSE'}"
-                                value="#{frontpageController.courses}" var="course" itemValue="#{course}" itemLabel="#{course.name}"
-                                showSourceFilter="true" filterMatchMode="contains" converter="#{courseConverter}">
-                        <f:facet name="sourceCaption">Available</f:facet>  
-                        <f:facet name="targetCaption">Selected</f:facet>
-                    </p:pickList>  
-                    <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'COURSE'}" 
-                                     value="Submit" action="#{frontpageController.addCourses(frontpageController.courses.target)}"/>
-                    
                     <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'VIDEO'}" for="editvideo" value="Videos:" /> 
                     <p:pickList id="editvideo" rendered="#{frontpageController.selectedFragment.fragmentType == 'VIDEO'}"
                                 value="#{frontpageController.videos}" var="video" itemValue="#{video}" itemLabel="#{video.videoName}"
@@ -299,15 +256,12 @@
                         <f:facet name="targetCaption">Selected</f:facet>
                     </p:pickList>  
                     <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'DOCUMENT'}" 
-                                     value="Submit" action="#{frontpageController.addCourses(frontpageController.documents.target)}"/>
+                                     value="Submit" action="#{frontpageController.addDocuments(frontpageController.documents.target)}"/> 
                     
-                    
-                    
-                    <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ' 
-                                                 || frontpageController.selectedFragment.fragmentType == 'COURSE' 
+                    <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'
                                                  || frontpageController.selectedFragment.fragmentType == 'DOCUMENT'
                                                  || frontpageController.selectedFragment.fragmentType == 'VIDEO'}"
-                                     value="Refresh" action="#{frontpageController.refreshLists()}" update="editquiz editcourse editvideo editdocument"/>
+                                     value="Refresh" action="#{frontpageController.refreshLists()}" update="editquiz editvideo editdocument"/>
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonpe" value="Save changes"   
                        oncomplete="editfragmentdlg.hide()" update="fragmentTable" />  

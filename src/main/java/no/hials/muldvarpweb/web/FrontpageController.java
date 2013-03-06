@@ -11,16 +11,13 @@ import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.print.attribute.standard.DocumentName;
 import no.hials.muldvarpweb.domain.Article;
-import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.Frontpage;
 import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.domain.Quiz;
 import no.hials.muldvarpweb.domain.Video;
 import no.hials.muldvarpweb.fragments.Fragment;
 import no.hials.muldvarpweb.fragments.FragmentModel;
-import no.hials.muldvarpweb.service.CourseService;
 import no.hials.muldvarpweb.service.FrontpageService;
 import no.hials.muldvarpweb.service.LibraryService;
 import no.hials.muldvarpweb.service.QuizService;
@@ -45,7 +42,6 @@ public class FrontpageController implements Serializable {
     Fragment selectedFragment;
     FragmentModel fragmentModel;
     List<Fragment> fragmentBundle;
-    String coursename;
     long parentId;
     private String videoname;
     private String documentname;
@@ -84,12 +80,6 @@ public class FrontpageController implements Serializable {
         addFragment(f);
     }
     
-    public void addCourseFragment(List<Course> courses) {
-        Fragment f = new Fragment(coursename, parentId, Fragment.Type.COURSE);
-        f.setCourses(courses);
-        addFragment(f);
-    }
-    
     public void addVideoFragment(List<Video> videos) {
         Fragment f = new Fragment(videoname, parentId, Fragment.Type.VIDEO);
         f.setVideos(videos);
@@ -116,7 +106,6 @@ public class FrontpageController implements Serializable {
         newsname = "";
         programmename = "";
         quizname = "";
-        coursename = "";
         videoname = "";
         documentname = "";
         category = "";
@@ -145,13 +134,14 @@ public class FrontpageController implements Serializable {
                 System.out.println("getFrontpage()  " + ex);
                 frontpage = getDefaultFrontpage();
             }
+            save();
         }
         return frontpage;
     }
     
     public Frontpage getDefaultFrontpage() {
         Frontpage f = new Frontpage();
-        f.setName("Default name");        
+        f.setName("Default name");
         return f;
     }
 
@@ -216,14 +206,6 @@ public class FrontpageController implements Serializable {
 
     public void setQuizname(String quizname) {
         this.quizname = quizname;
-    }
-
-    public String getCoursename() {
-        return coursename;
-    }
-
-    public void setCoursename(String coursename) {
-        this.coursename = coursename;
     }
 
     public String getVideoname() {
@@ -299,11 +281,9 @@ public class FrontpageController implements Serializable {
     
     public void refreshLists() {
         quizzes = null;
-        courses = null;
         videos = null;
         documents = null;
         getQuizzes();
-        getCourses();
         getVideos();
         getDocuments();
     }
@@ -391,43 +371,5 @@ public class FrontpageController implements Serializable {
     public void addDocuments(List<LibraryItem> v) {
         selectedFragment.setDocuments(v);
         documents = null;
-    }
-    
-    // experiment zone
-    private DualListModel<Course> courses;
-    @Inject CourseService courseService;
-
-    public DualListModel<Course> getCourses() {
-        if(courses == null) {
-            List<Course> source = courseService.findCourses();
-            List<Course> target = new ArrayList<Course>();
-            if(selectedFragment.getCourses() != null) {
-                target = selectedFragment.getCourses();
-                
-                for(int i = 0; i < target.size(); i++) {
-                    Course v = target.get(i);
-                    for(int k = 0; k < source.size(); k++) {
-                        Course vv = source.get(k);
-                        if(vv.getId().equals(v.getId())) {
-                            source.remove(vv);
-                            break;
-                        }
-                    }
-                }
-            }
-            
-            courses = new DualListModel<Course>(source, target);
-        }
-        
-        return courses;
-    }
-
-    public void setCourses(DualListModel<Course> course) {
-        this.courses = course;
-    }
-    
-    public void addCourses(List<Course> c) {
-        selectedFragment.setCourses(c);
-        courses = null;
     }
 }

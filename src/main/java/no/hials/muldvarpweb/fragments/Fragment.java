@@ -118,7 +118,7 @@ public class Fragment implements Serializable {
         return iconurl;
     }
     
-    @OneToMany
+    @ManyToMany
     List<Quiz> quizzes;
 
     public List<Quiz> getQuizzes() {
@@ -129,7 +129,7 @@ public class Fragment implements Serializable {
         this.quizzes = quizzes;
     }
     
-    @OneToMany
+    @ManyToMany
     List<Course> courses;
 
     public List<Course> getCourses() {
@@ -140,7 +140,7 @@ public class Fragment implements Serializable {
         this.courses = courses;
     }
     
-    @OneToMany
+    @ManyToMany
     List<LibraryItem> documents;
 
     public List<LibraryItem> getDocuments() {
@@ -151,7 +151,7 @@ public class Fragment implements Serializable {
         this.documents = documents;
     }
     
-    @OneToMany
+    @ManyToMany
     List<Video> videos;
 
     public List<Video> getVideos() {

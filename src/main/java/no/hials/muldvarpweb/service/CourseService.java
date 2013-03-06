@@ -124,10 +124,12 @@ public class CourseService {
     }
     
     public Course persist(Course c) {
-        if(c.getId() == null)
+        if(c.getId() == null) {
             em.persist(c);
-        else
+        }
+        else {
             c = em.merge(c);
+        }
         //em.persist(c);
         
         return c;
@@ -217,84 +219,7 @@ public class CourseService {
         c.addProgramme(p);
         editCourse(c);
     }
-    
-    public void addVideo(Course course, Video video){
-        course.addVideo(video);
-        persist(course);
-    }
-    
-    public Course setVideos(Course c, List<Video> v) {
-        c.setVideos(v);
-        return persist(c);
-    }
-    
-    public void editVideo(Course course, Video video){
-        course.addVideo(video);
-        persist(course);
-    }
-    
-    public void removeVideo(Course course, Video video){
         
-        course.removeVideo(video);
-        persist(course);
-    }
-    
-    public void addDocument(Course course, LibraryItem document) {
-        course.addDocument(document);
-        //document.addCourse(course);
-        em.merge(course);
-    }
-    
-    public void editDocument(Course course, LibraryItem document) {
-        course.addDocument(document);
-        persist(course);
-    }
-    
-    public Course setDocuments(Course c, List<LibraryItem> d) {
-        c.setDocuments(d);
-        return persist(c);
-    }
-    
-    public void removeDocument(Course course, LibraryItem document) {
-        course.removeDocument(document);
-        persist(course);
-    }
-    
-    public Course setQuizzes(Course selected, List<Quiz> target) {
-        selected.setQuizzes(target);
-        return persist(selected);
-    }
-    
-    public void addQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question newQuestion) {
-        selectedTask.addQuestion(newQuestion);
-        editTask(selected, selectedTheme, selectedTask);
-    }
-    
-    public void editQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question q) {
-        selectedTask.editQuestion(q);
-        editTask(selected, selectedTheme, selectedTask);
-    }
-    
-    public void addAlternative(Course selected, Theme selectedTheme, Task selectedTask, Question selectedQuestion, Alternative newAlternative) {
-        selectedQuestion.addAlternative(newAlternative);
-        editQuestion(selected, selectedTheme, selectedTask, selectedQuestion);
-    }
-    
-    public void setAnswer(Course selected, Theme selectedTheme, Task selectedTask, Question q, Alternative a) {
-        q.setAnswer(a);
-        editQuestion(selected, selectedTheme, selectedTask, q);
-    }
-    
-    public void removeQuestion(Course selected, Theme selectedTheme, Task selectedTask, Question q) {
-        selectedTask.removeQuestion(q);
-        editTask(selected, selectedTheme, selectedTask);
-    }
-    
-    public void removeAlternative(Course selected, Theme selectedTheme, Task selectedTask, Question selectedQuestion, Alternative a) {
-        selectedQuestion.removeAlternative(a);
-        editQuestion(selected, selectedTheme, selectedTask, selectedQuestion);
-    }
-    
     public void makeTestData() {     
         Course retVal = new Course("Fagnavn");
         retVal.setDetail("Details");
@@ -491,35 +416,7 @@ public class CourseService {
         
         retVal.setThemes(themes);
         em.persist(retVal);
-        
-        Video video = new Video("MOV0002 001", "Youtube/ID", "HYb48BD7-sk", "Matematikkvideo", "Matematikkvideo", "a", "d");
-        retVal.addVideo(video);
-        video.addCourse(retVal);
-        video = new Video("MOV0002-030.avi", "Youtube/ID", "xM8kq4Glh-U", "Matematikkvideo", "Matematikkvideo", "a", "d");
-        retVal.addVideo(video);
-        video.addCourse(retVal);
-        video = new Video("MOV0002 036", "Youtube/ID", "IBQtEy82nb8", "Matematikkvideo", "Matematikkvideo", "a", "d");
-        retVal.addVideo(video);
-        video.addCourse(retVal);
-        video = new Video("MOV0002 034", "Youtube/ID", "4bMK4uD90J8", "Matematikkvideo", "Matematikkvideo", "a", "d");
-        retVal.addVideo(video);
-        video.addCourse(retVal);
-        video = new Video("MOV0002 029", "Youtube/ID", "wdTE-0xAdLE", "Matematikkvideo", "Matematikkvideo", "a", "d");
-        retVal.addVideo(video);
-        video.addCourse(retVal);
-        video = new Video("MOV0002 002", "Youtube/ID", "-CFggSkiLlg", "Matematikkvideo", "Matematikkvideo", "a", "d");
-        retVal.addVideo(video);
-        video.addCourse(retVal);
-        video = new Video("MOV0002 031", "Youtube/ID", "mf9dUbwzjOI", "Matematikkvideo", "Matematikkvideo", "a", "d");
-        retVal.addVideo(video);
-        video.addCourse(retVal);
-        video = new Video("MOV0002 038", "Youtube/ID", "4y2jaadk-lA", "Matematikkvideo", "Matematikkvideo", "a", "d");
-        retVal.addVideo(video);
-        video.addCourse(retVal);
-        
-        Article article = new Article("Info", "blablabla");
-        retVal.setInfo(article);
-        
+                        
         return retVal;  
         
     }

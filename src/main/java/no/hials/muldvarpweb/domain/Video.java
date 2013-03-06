@@ -45,12 +45,6 @@ public class Video implements Serializable{
     @Column(name = "videoThumbURI")
     String videoThumbURI;
     
-    @ManyToMany(mappedBy = "videos")
-    List<Course> courses;
-    
-    
-    
-    
     /**
      * The empty constructor for the Video JPA-entity class.
      */
@@ -152,23 +146,4 @@ public class Video implements Serializable{
     public void setVideoThumbURI(String videoThumbURI) {
         this.videoThumbURI = videoThumbURI;
     }
-
-    public void setCourses(List<Course> course) {
-        this.courses = course;
-    }
-    
-    @XmlTransient
-    public void addCourse(Course course) {
-        if(courses == null) {
-            courses = new ArrayList<Course>();
-        }
-        courses.add(course);
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-        
-    
-    
 }

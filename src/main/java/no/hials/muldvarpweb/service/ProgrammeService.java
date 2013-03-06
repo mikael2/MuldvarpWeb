@@ -106,11 +106,12 @@ public class ProgrammeService {
     }
     
     public Programme persist(Programme p) {
-        if(p.getId() == null)
+        if(p.getId() == null) {
             em.persist(p);
-        else
+        }
+        else {
             p = em.merge(p);
-        
+        }
         return p;
     }
 
@@ -135,51 +136,4 @@ public class ProgrammeService {
 //        return persist(selected);
 //    }
     
-    
-    public void addVideo(Programme course, Video video){
-        course.addVideo(video);
-        persist(course);
-    }
-    
-    public Programme setVideos(Programme c, List<Video> v) {
-        c.setVideos(v);
-        return persist(c);
-    }
-    
-    public void editVideo(Programme course, Video video){
-        course.addVideo(video);
-        persist(course);
-    }
-    
-    public void removeVideo(Programme course, Video video){
-        
-        course.removeVideo(video);
-        persist(course);
-    }
-    
-    public void addDocument(Programme course, LibraryItem document) {
-        course.addDocument(document);
-        //document.addCourse(course);
-        persist(course);
-    }
-    
-    public void editDocument(Programme course, LibraryItem document) {
-        course.addDocument(document);
-        persist(course);
-    }
-    
-    public Programme setDocuments(Programme c, List<LibraryItem> d) {
-        c.setDocuments(d);
-        return persist(c);
-    }
-    
-    public void removeDocument(Programme course, LibraryItem document) {
-        course.removeDocument(document);
-        persist(course);
-    }
-    
-    public Programme setQuizzes(Programme selected, List<Quiz> target) {
-        selected.setQuizzes(target);
-        return persist(selected);
-    }
 }
