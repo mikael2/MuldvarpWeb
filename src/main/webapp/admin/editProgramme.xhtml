@@ -285,8 +285,8 @@
                                 <p:commandButton rendered="#{programmeController.selectedFragment.fragmentType == 'QUIZ'}" 
                                                  value="Submit" action="#{programmeController.addQuizzes(programmeController.quizzes.target)}" update="editquiz"/>
 
-                                <h:outputLabel rendered="#{programmeController.selectedFragment.fragmentType == 'COURSE'}" for="editcourse" value="Course:" /> 
                                 <!--
+                                <h:outputLabel rendered="#{programmeController.selectedFragment.fragmentType == 'COURSE'}" for="editcourse" value="Course:" /> 
                                 <p:pickList id="editcourse" rendered="#{programmeController.selectedFragment.fragmentType == 'COURSE'}"
                                             value="#{programmeController.courses}" var="course" itemValue="#{course}" itemLabel="#{course.name}"
                                             showSourceFilter="true" filterMatchMode="contains" converter="#{courseConverter}">
