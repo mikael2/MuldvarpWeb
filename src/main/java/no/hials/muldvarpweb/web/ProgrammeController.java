@@ -69,12 +69,15 @@ public class ProgrammeController implements Serializable{
         videos = null;
         documents = null;
         quizzes = null;
+        fragmentBundle = null;
+        fragmentModel = null;
         return "editProgramme?faces-redirect=true";
     }
 
     public Programme getProgramme() {
         if(newProgramme == null) {
             newProgramme = new Programme();
+            save();
         }
         return newProgramme;
     }
@@ -236,12 +239,6 @@ public class ProgrammeController implements Serializable{
         addFragment(f);
     }
     
-//    public void addCourseFragment(List<Course> courses) {
-//        Fragment f = new Fragment(coursename, parentId, Fragment.Type.COURSE);
-//        f.setCourses(courses);
-//        addFragment(f);
-//    }
-    
     public void addCourseFragment() {
         Fragment f = new Fragment(coursename, parentId, Fragment.Type.COURSE);
         addFragment(f);
@@ -305,7 +302,13 @@ public class ProgrammeController implements Serializable{
     
     public String save() {
         if(selected != null) {
-            selected.setFragmentBundle(fragmentBundle);
+            try {
+                if(!fragmentBundle.isEmpty()) {
+                    selected.setFragmentBundle(fragmentBundle);
+                }
+            } catch(NullPointerException ex) {
+                System.out.println(ex);
+            }
             selected = service.persist(selected);
         }
         return "editProgramme";

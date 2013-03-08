@@ -10,7 +10,6 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.*;
@@ -70,6 +69,7 @@ public class CourseController implements Serializable {
     public Course getCourse() {
         if(newCourse == null) {
             newCourse = new Course();
+            save();
         }
         
         return newCourse;
@@ -93,6 +93,8 @@ public class CourseController implements Serializable {
         documents = null;
         quizzes = null;
         articles = null;
+        fragmentBundle = null;
+        fragmentModel = null;
         return "editCourse?faces-redirect=true";
     }
     
@@ -316,42 +318,42 @@ public class CourseController implements Serializable {
         service.makeTestData();
     }
     
-     /**
-     * This function retrieves a list of programs and creates a list of Select Items for use with JSF
-     * 
-     * 
-     * @return List of SelectItem
-     */
-    public List<SelectItem> getProgrammeItems(List<Programme> programmeList) {
-        
-                 
-        List<SelectItem> selectItems = new ArrayList<SelectItem>();
-        
-        
-        //Loop once for each element in the supplied List of Programmes
-        for (int i = 0; i < programmeList.size(); i++) {
-            
-            SelectItem currentSelectItem = new SelectItem(programmeList.get(i), programmeList.get(i).getName());
-            
-            //Loop once for every Programme in the selected course
-            for(int n = 0; n < selected.getProgrammes().size() ; n++) {
-                
-                //Compare and check if there are matching ID's between programmes
-                if(programmeList.get(i).getId() == selected.getProgrammes().get(n).getId()){
-                    
-                    //Set checkbox to true
-                    currentSelectItem.setValue(true);
-
-                }
-                
-            }
-            
-            selectItems.add(currentSelectItem);
-            
-        }
-        
-        return selectItems;
-    }  
+//     /**
+//     * This function retrieves a list of programs and creates a list of Select Items for use with JSF
+//     * 
+//     * 
+//     * @return List of SelectItem
+//     */
+//    public List<SelectItem> getProgrammeItems(List<Programme> programmeList) {
+//        
+//                 
+//        List<SelectItem> selectItems = new ArrayList<SelectItem>();
+//        
+//        
+//        //Loop once for each element in the supplied List of Programmes
+//        for (int i = 0; i < programmeList.size(); i++) {
+//            
+//            SelectItem currentSelectItem = new SelectItem(programmeList.get(i), programmeList.get(i).getName());
+//            
+//            //Loop once for every Programme in the selected course
+//            for(int n = 0; n < selected.getProgrammes().size() ; n++) {
+//                
+//                //Compare and check if there are matching ID's between programmes
+//                if(programmeList.get(i).getId() == selected.getProgrammes().get(n).getId()){
+//                    
+//                    //Set checkbox to true
+//                    currentSelectItem.setValue(true);
+//
+//                }
+//                
+//            }
+//            
+//            selectItems.add(currentSelectItem);
+//            
+//        }
+//        
+//        return selectItems;
+//    }  
         
     public void addInfo(int i) {  
         switch(i) {
@@ -598,7 +600,13 @@ public class CourseController implements Serializable {
     
     public String save() {
         if(selected != null) {
-            selected.setFragmentBundle(fragmentBundle);
+            try {
+                if(!fragmentBundle.isEmpty()) {
+                    selected.setFragmentBundle(fragmentBundle);
+                }
+            } catch(NullPointerException ex) {
+                System.out.println(ex);
+            }
             selected = service.persist(selected);
         }
         return "editCourse";
