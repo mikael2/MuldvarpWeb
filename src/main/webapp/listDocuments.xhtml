@@ -26,7 +26,6 @@
                         <p:commandButton  id="deleteButton" value="Delete document" action="#{libraryController.deleteLibraryItem(LibraryItem)}" actionListener="#{libraryController.addInfo(1, LibraryItem)}" ajax="false"/>
                     </p:column>
                     <f:facet name="footer">
-                    <p:commandButton value="Home" action="index?faces-redirect=true"/>
                     <p:commandButton value="New document" action="newDocument?faces-redirect=true"/>
                     </f:facet>
                 </p:dataTable>          

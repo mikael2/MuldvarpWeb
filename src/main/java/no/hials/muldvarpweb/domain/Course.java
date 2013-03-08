@@ -267,6 +267,9 @@ public class Course implements Serializable {
     List<Fragment> fragmentBundle;
 
     public List<Fragment> getFragmentBundle() {
+        if(fragmentBundle == null) {
+            fragmentBundle = new ArrayList<Fragment>();
+        }
         return fragmentBundle;
     }
 

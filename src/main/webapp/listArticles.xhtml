@@ -29,9 +29,7 @@
                         <p:commandButton  id="deleteButton" value="Delete article" action="#{articleController.deleteArticle(Article)}" ajax="false"/>
                     </p:column>
                     <f:facet name="footer">
-                    <p:commandButton value="Home" action="index?faces-redirect=true"/>
                     <p:commandButton value="New article" action="/admin/newArticle?faces-redirect=true"/>
-                    <p:commandButton value="Make testdata" action="#{articleController.makeTestData()}" update="articleTable"/>
                     </f:facet>
                 </p:dataTable>          
             </p:fieldset>            

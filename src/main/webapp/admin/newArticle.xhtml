@@ -1,28 +1,14 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/templates/layout.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>
-        <link rel="stylesheet" href="resources/css/news/html5reset.css" type="text/css" /> 
-        <link rel="stylesheet" href="resources/css/news/style.css" type="text/css" /> 
-        <title>HiALS nyheter</title>
-    </h:head>
-    <h:body>
+    <ui:define name="title">
+        Artikkel
+    </ui:define>
 
-
-
-        <header>
-            <hgroup id="top">              
-                <h1><img id="logo" src="img/hialsBilde.jpg" alt="hials bilde" width="120" heigth="150"/>HiALS</h1>
-                <h2></h2>
-            </hgroup>
-        </header>
-
-
+    <ui:define name="right">
         <f:view>
             <section>
 
@@ -31,7 +17,7 @@
                     <div id="panelgrid">
                         <p:panelGrid columns="2">  
                             <f:facet name="header">  
-                                Ny artikkel  
+                                Ny artikkel
                             </f:facet>  
 
                             <h:outputLabel for="title" value="Tittel: *" />  
@@ -66,18 +52,12 @@
 
                             <p:commandButton  id="submitButton" value="Submit" actionListener="#{articleController.submitArticle()}" action="/listArticles?faces-redirect=true" ajax="false"/>
                             
-                            <p:commandButton id="back" value="Back" ajax="false" action="/listArticles?faces-redirect=true" />
-
                             <p:commandButton id="clearAllButton" type="button" value="Clear All"
                                              onclick="myEdit.clear();document.getElementById('form1').reset()"/>
-
                         </h:panelGrid>  
-
                     </div>
                 </h:form>
-
             </section>
         </f:view>
-
-    </h:body>
-</html>
+        </ui:define>
+</ui:composition>

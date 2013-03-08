@@ -29,11 +29,15 @@ body {
 }
 
 #header {
-    text-align:right;
     height: 154px;
     background-image: url("../resources/images/Logo_648rgb.png");
     background-repeat: no-repeat;
     background-position: top left;
+    position: relative;
+}
+
+#header h1 {
+    text-indent: -9999px;
 }
 
 #left {
