@@ -596,6 +596,7 @@ public class CourseController implements Serializable {
         category = "";
         article = null;
         quizzes = null;
+        documents = null;
     }
     
     public String save() {

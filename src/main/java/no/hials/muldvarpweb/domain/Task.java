@@ -21,28 +21,28 @@ public class Task implements Serializable  {
     
     @Column(name = "name")
     String name;
-    
-    @OneToMany
-    List<Question> questions;
+//    
+//    @OneToMany
+//    List<Question> questions;
     
     @Column(name = "contentType")
     String contentType;
-
-    public void addQuestion(Question newQuestion) {
-        questions.add(newQuestion);
-    }
-
-    public void editQuestion(Question q) {
-        for(int i = 0; i < questions.size(); i++) {
-            if(questions.get(i).getId() == q.getId()) {
-                questions.set(i, q);
-            }
-        }
-    }
-
-    public void removeQuestion(Question q) {
-        questions.remove(q);
-    }
+//
+//    public void addQuestion(Question newQuestion) {
+//        questions.add(newQuestion);
+//    }
+//
+//    public void editQuestion(Question q) {
+//        for(int i = 0; i < questions.size(); i++) {
+//            if(questions.get(i).getId() == q.getId()) {
+//                questions.set(i, q);
+//            }
+//        }
+//    }
+//
+//    public void removeQuestion(Question q) {
+//        questions.remove(q);
+//    }
     
     @Column(name = "done")
     Boolean done = false;
@@ -106,13 +106,13 @@ public class Task implements Serializable  {
 //        this.videos = videos;
 //    }
 
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
+//    public List<Question> getQuestions() {
+//        return questions;
+//    }
+//
+//    public void setQuestions(List<Question> questions) {
+//        this.questions = questions;
+//    }
 
     public String getContentType() {
         return contentType;

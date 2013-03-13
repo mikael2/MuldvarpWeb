@@ -22,7 +22,7 @@ public class Theme implements Serializable {
     @Column(name = "name")
     String name;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     List<Task> tasks;
     
     public Theme() {

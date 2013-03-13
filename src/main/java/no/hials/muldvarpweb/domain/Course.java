@@ -38,7 +38,7 @@ public class Course implements Serializable {
     @Column(name = "revision_date")
     Date revision_date;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     List<Theme> themes;
     
     @OneToMany

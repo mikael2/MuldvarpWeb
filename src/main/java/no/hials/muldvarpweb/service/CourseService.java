@@ -297,7 +297,7 @@ public class CourseService {
         alts.add(a);
         q.setAlternatives(alts);
         questions.add(q);
-        task.setQuestions(questions);
+//        task.setQuestions(questions);
         tasks2.add(task);
         
         task = new Task("Læringsvideo 1");
@@ -404,7 +404,7 @@ public class CourseService {
         alts.add(a);
         q.setAlternatives(alts);
         questions.add(q);
-        task.setQuestions(questions);
+//        task.setQuestions(questions);
         tasks2.add(task);
         
         task = new Task("Læringsvideo 1");
