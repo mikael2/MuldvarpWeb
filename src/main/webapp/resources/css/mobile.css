@@ -157,6 +157,6 @@ body {
     text-align: center;
 }
 
-#articlebody {
-
+#articlebody img {
+    max-width: 400px;
 }

@@ -15,8 +15,23 @@
         <div id="container">
             <div id="header">
                 <h1><ui:insert name="title" /></h1>
-                <div style="position: absolute; right: 20px; bottom: 20px; color: #003468; font-size: 20px;">
-                    Version 1.0
+                <div style="position: absolute; right: 20px; bottom: 20px; color: #003468; font-size: 20px; text-align: center;">
+                    <div style="padding-bottom: 15px;">
+                        Version 1.0
+                    </div>
+                    <h:form id="restmenu">
+                        <p:menuButton value="REST Services">
+                            <p:menuitem value="Programme" url="/services/programme"/>
+                            <p:menuitem value="Courses"   url="/services/course"/>
+                            <p:menuitem value="Documents" url="/services/Library"/>
+                            <p:menuitem value="Quiz"      url="/services/quiz"/>
+                            <p:menuitem value="Videos"    url="/services/video"/>
+                            <p:menuitem value="News"      url="/services/article/news/"/>
+                            <p:menuitem value="Persons"   url="/services/person"/>
+                            <p:menuitem value="Frontpage" url="/services/frontpage"/>
+                            <p:menuitem value="TimeEdit example" url="/services/timeedit/183000"/>
+                        </p:menuButton>
+                    </h:form>
                 </div>
             </div>
             <div id="menu">

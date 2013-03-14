@@ -43,7 +43,7 @@ public class TimeEditService {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Day> getByClass(@PathParam("id") String id) {
+    public List<Day> getByClassOrCourseId(@PathParam("id") String id) {
         Document doc = null;
         try {
             doc = Jsoup.connect(getClassScheduleUrlByClasscode(getCurrentDate(), id)).get();
@@ -112,7 +112,7 @@ public class TimeEditService {
         Date d = new Date();
         String year = "" + (d.getYear() + 1900);
         String month = "";
-        if(d.getMonth() < 10) {
+        if((d.getMonth()+1) < 10) {
             month += "0";
         }
         month += (d.getMonth() + 1);
