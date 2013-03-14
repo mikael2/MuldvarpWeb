@@ -160,3 +160,11 @@ body {
 #articlebody img {
     max-width: 400px;
 }
+
+#restmenu {
+    display: none;
+}
+
+#topleftthingy {
+    font-size: 10px;
+}
