@@ -94,24 +94,6 @@ public class TimeEditService {
                 } catch(NullPointerException ex) {
                 }
             }
-            
-        }
-        
-        for(Day dag : dager) {
-            System.out.println("--------------");
-            System.out.println("Dag: " + dag.day);
-            System.out.println("Dato: " + dag.date);
-            System.out.println("Timer: " + dag.courses.size());
-            System.out.println("-------");
-            for(Course time : dag.courses) {
-                System.out.println("---");
-                System.out.println("Tid:    " + time.time);
-                System.out.println("Fag:    " + time.course);
-                System.out.println("Type:   " + time.type);
-                System.out.println("Klasse: " + time.mClass);
-                System.out.println("Lærer:  " + time.teacher);
-                System.out.println("Rom:    " + time.room);
-            }
         }
         return dager;
     }
@@ -139,7 +121,7 @@ public class TimeEditService {
         return retVal;
     }
     
-    static class Day {
+    public static class Day {
         String day;
         String date;
         List<Course> courses = new ArrayList<Course>();
@@ -173,7 +155,7 @@ public class TimeEditService {
         }
     }
     
-    static class Course {
+    public static class Course {
         String time;
         String course;
         String type;
