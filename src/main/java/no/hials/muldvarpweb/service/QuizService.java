@@ -49,8 +49,7 @@ public class QuizService {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Quiz> findQuizzes() {
-        List retval =em.createQuery("SELECT q from Quiz q", Quiz.class).getResultList();
-        return retval;
+        return em.createQuery("SELECT q from Quiz q", Quiz.class).getResultList();
     }
         
     /**
@@ -62,14 +61,19 @@ public class QuizService {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Quiz getQuizzes(@PathParam("id") Integer id) {        
+    public Quiz getQuiz(@PathParam("id") Long id) {        
         TypedQuery<Quiz> q = em.createQuery("Select q from Quiz q where q.id = :id", Quiz.class);
         q.setParameter("id", id);        
         return q.getSingleResult();
     }
 
     public void editQuiz(Quiz selected) {
-        selected = em.merge(selected);
+        if(selected.getId() == null) {
+            em.persist(selected);
+        }
+        else {
+            em.merge(selected);
+        }
     }
 
     public void removeQuiz(Quiz q) {

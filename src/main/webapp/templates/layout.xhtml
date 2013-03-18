@@ -4,8 +4,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Muldvarp</title>
+        <title>HIALS E-Læringsapp</title>
         <h:outputStylesheet name="css.css" library="css"/>
+        <link rel="stylesheet" href="resources/css/mobile.css" media="handheld, only screen and (max-device-width:800px)"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <ui:insert name="extrascript"/>
         <ui:insert name="stylesheets"/>
     </h:head>
@@ -13,6 +15,24 @@
         <div id="container">
             <div id="header">
                 <h1><ui:insert name="title" /></h1>
+                <div id="topleftthingy">
+                    <div style="padding-bottom: 15px;">
+                        Version 1.0
+                    </div>
+                    <h:form id="restmenu">
+                        <p:menuButton value="REST Services">
+                            <p:menuitem value="Programme" url="/services/programme"/>
+                            <p:menuitem value="Courses"   url="/services/course"/>
+                            <p:menuitem value="Documents" url="/services/Library"/>
+                            <p:menuitem value="Quiz"      url="/services/quiz"/>
+                            <p:menuitem value="Videos"    url="/services/video"/>
+                            <p:menuitem value="News"      url="/services/article/news/"/>
+                            <p:menuitem value="Persons"   url="/services/person"/>
+                            <p:menuitem value="Frontpage" url="/services/frontpage"/>
+                            <p:menuitem value="TimeEdit example" url="/services/timeedit/183000"/>
+                        </p:menuButton>
+                    </h:form>
+                </div>
             </div>
             <div id="menu">
                 <ui:include src="menu.xhtml" />
@@ -30,7 +50,7 @@
             </div>
             <div style="clear:both" />
             <div id="footer">
-                © 2012 Muldvarp Organization
+                
             </div>
         </div>
     </h:body>

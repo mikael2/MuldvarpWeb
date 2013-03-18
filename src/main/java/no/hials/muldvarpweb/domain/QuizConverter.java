@@ -26,7 +26,8 @@ public class QuizConverter implements Converter, Serializable {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Object result = null;
         try {
-            result = service.getQuizzes(Integer.valueOf(value));
+            result = service.getQuiz(Long.valueOf(value));
+            System.out.println("Converting string to Quiz: " + value);
         } catch(Throwable t) {
             System.out.println("Error: " + t.getMessage());
             t.printStackTrace();
@@ -38,6 +39,8 @@ public class QuizConverter implements Converter, Serializable {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         Quiz v = (Quiz)value;
-        return v.getId().toString();
+        System.out.println("Converting Quiz to string: " + v.getId());
+        //return v.getId().toString();
+        return v.getId() != null ? String.valueOf(v.getId()) : null;
     }
 }

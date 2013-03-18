@@ -7,32 +7,146 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="title">
-        Welcome to Muldvarp
+        HIALS E-Læringsapp
     </ui:define>
    
     <ui:define name="mainsingle">
-        <p:panelGrid columns="4">
-            <h:link outcome="admin/newArticle" >
-                <h:graphicImage name="Sites-alt-icon.png" library="images"/>
-            </h:link>
-            <h:link outcome="listDocuments" >
-                <h:graphicImage name="Document-icon.png" library="images"/>
-            </h:link>
-            <h:link outcome="admin/listVideos" >
-                <h:graphicImage name="Movies-icon.png" library="images"/>
-            </h:link>
-            <h:link outcome="admin/listCourses" >
-                <h:graphicImage name="Library-alt-icon.png" library="images"/>
-            </h:link>
-            <h:outputLabel value="News"/>
-            <h:outputLabel value="Documents"/>
-            <h:outputLabel value="Videos"/>
-            <h:outputLabel value="Courses"/>
-        </p:panelGrid>
-
-        <br/><br/>
-        <p>
-            <a href="Muldvarp-debug.apk">Install Android App</a>
-        </p>
+        <div id="appicons">
+            <div id="frontpageheader">
+                HØGSKOLEN I ÅLESUNDS E-LÆRINGSAPP
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="infodlg.show()" >
+                    <h:graphicImage name="stolen_contacts.png" library="images"/>
+                    <div class="icontext">
+                        Informasjon
+                    </div>
+                </p:commandLink>
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="newsdlg.show()" >
+                    <h:graphicImage name="stolen_news.png" library="images"/>
+                    <div class="icontext">
+                        Nyheter
+                    </div>
+                </p:commandLink>
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="progdlg.show()" >
+                    <h:graphicImage name="stolen_course_programme.png" library="images"/>
+                    <div class="icontext">
+                        Studier
+                    </div>
+                </p:commandLink>
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="videodlg.show()" >
+                    <h:graphicImage name="stolen_videos.png" library="images"/>
+                    <div class="icontext">
+                        Video
+                    </div>
+                </p:commandLink>
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="quizdlg.show()" >
+                    <h:graphicImage name="stolen_quiz.png" library="images"/>
+                    <div class="icontext">
+                        Quiz
+                    </div>
+                </p:commandLink>
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="docdlg.show()" >
+                    <h:graphicImage name="stolen_docs.png" library="images"/>
+                    <div class="icontext">
+                        Dokumenter
+                    </div>
+                </p:commandLink>
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="opptakdlg.show()" >
+                    <h:graphicImage name="stolen_opptak.png" library="images"/>
+                    <div class="icontext">
+                        Opptak
+                    </div>
+                </p:commandLink>
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="datedlg.show()" >
+                    <h:graphicImage name="stolen_calender.png" library="images"/>
+                    <div class="icontext">
+                        Datoer
+                    </div>
+                </p:commandLink>
+            </div>
+            <div class="icon">
+                <p:commandLink onclick="helpdlg.show()" >
+                    <h:graphicImage name="stolen_help.png" library="images"/>
+                    <div class="icontext">
+                        Hjelp
+                    </div>
+                </p:commandLink>
+            </div>
+        </div>
+        <div id="bottombanner">
+            <a href="Muldvarp-debug.apk">
+                <h:graphicImage name="android_vector.png" library="images"/>
+                <span>Get the app</span>
+            </a>
+        </div>
+        
+        <p:dialog header="Information" widgetVar="infodlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="infodlg.hide()" value="Close" />
+        </p:dialog>
+        
+        <p:dialog header="Nyheter" widgetVar="newsdlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="newsdlg.hide()" value="Close" />
+        </p:dialog>
+        
+        <p:dialog header="List of programmes/courses" widgetVar="progdlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="progdlg.hide()" value="Close" />
+        </p:dialog>
+        
+        <p:dialog header="Videoer" widgetVar="videodlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="videodlg.hide()" value="Close" />
+        </p:dialog>
+        
+        <p:dialog header="Quiz" widgetVar="quizdlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="quizdlg.hide()" value="Close" />
+        </p:dialog>
+        
+        <p:dialog header="Dokumenter" widgetVar="docdlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="docdlg.hide()" value="Close" />
+        </p:dialog>
+        
+        <p:dialog header="Opptak" widgetVar="opptakdlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="opptakdlg.hide()" value="Close" />
+        </p:dialog>
+        
+        <p:dialog header="Datoer" widgetVar="datedlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="datedlg.hide()" value="Close" />
+        </p:dialog>
+        
+        <p:dialog header="Hjelp" widgetVar="helpdlg" draggable="false" resizable="false">  
+            <h:graphicImage name="studier.png" library="images"/><br/> 
+            <p>Beskrivende tekst</p>
+            <h:commandButton onclick="helpdlg.hide()" value="Close" />
+        </p:dialog>
     </ui:define>
 </ui:composition>

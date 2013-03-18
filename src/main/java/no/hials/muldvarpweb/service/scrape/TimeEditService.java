@@ -20,7 +20,7 @@ import org.primefaces.json.JSONArray;
  * @author johan
  */
 @Stateless
-@Path("timedit")
+@Path("timeedit")
 public class TimeEditService {
     
     //Tar mye lengre tid å laste inn den "grafiske" time-edit siden

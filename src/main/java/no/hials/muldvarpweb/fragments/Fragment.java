@@ -5,30 +5,55 @@
 package no.hials.muldvarpweb.fragments;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import no.hials.muldvarpweb.domain.Article;
+import no.hials.muldvarpweb.domain.Course;
+import no.hials.muldvarpweb.domain.LibraryItem;
+import no.hials.muldvarpweb.domain.Quiz;
+import no.hials.muldvarpweb.domain.Video;
 
 /**
  *
  * @author Kristoffer
  */
+@Entity
+@Table(name = "fragment")
 public class Fragment implements Serializable {
+    @Id
+    @GeneratedValue
+    private Long id;
     String name;
-    int parentID;
     public enum Type {
-        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ
+        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ, DOCUMENT, VIDEO
     }
     Type fragmentType;
     
-    long articleID;
-    int programmeID;
+    @ManyToOne
+    Article article;
     String category;
+    String iconurl;
 
     public Fragment() {
     }
 
-    public Fragment(String name, int parentID, Type fragmentType) {
+    public Fragment(String name, long parentID, Type fragmentType) {
         this.name = name;
-        this.parentID = parentID;
         this.fragmentType = fragmentType;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -39,14 +64,6 @@ public class Fragment implements Serializable {
         this.name = name;
     }
 
-    public int getParentID() {
-        return parentID;
-    }
-
-    public void setParentID(int parentID) {
-        this.parentID = parentID;
-    }
-
     public Type getFragmentType() {
         return fragmentType;
     }
@@ -55,20 +72,12 @@ public class Fragment implements Serializable {
         this.fragmentType = fragmentType;
     }
 
-    public long getArticleID() {
-        return articleID;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArticleID(long articleID) {
-        this.articleID = articleID;
-    }
-
-    public int getProgrammeID() {
-        return programmeID;
-    }
-
-    public void setProgrammeID(int programmeID) {
-        this.programmeID = programmeID;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public String getCategory() {
@@ -78,5 +87,78 @@ public class Fragment implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public String getIconurl() {
+        switch(fragmentType) {
+            case ARTICLE:
+                iconurl = "../resources/images/stolen_contacts.png";
+                break;
+            case COURSE:
+                iconurl = "../resources/images/stolen_course_programme.png";
+                break;
+            case FRONTPAGE:
+                iconurl = "../resources/images/stolen_contacts.png";
+                break;
+            case NEWS:
+                iconurl = "../resources/images/stolen_news.png";
+                break;
+            case PROGRAMME:
+                iconurl = "../resources/images/stolen_course_programme.png";
+                break;
+            case QUIZ:
+                iconurl = "../resources/images/stolen_quiz.png";
+                break;
+            case VIDEO:
+                iconurl = "../resources/images/stolen_videos.png";
+                break;
+            case DOCUMENT:
+                iconurl = "../resources/images/stolen_docs.png";
+                break;
+        }
+        return iconurl;
+    }
     
+    @ManyToMany
+    List<Quiz> quizzes;
+
+    public List<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+    
+    @ManyToMany
+    List<Course> courses;
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+    
+    @ManyToMany
+    List<LibraryItem> documents;
+
+    public List<LibraryItem> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<LibraryItem> documents) {
+        this.documents = documents;
+    }
+    
+    @ManyToMany
+    List<Video> videos;
+
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
 }

@@ -18,7 +18,8 @@ import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.domain.Programme;
 import no.hials.muldvarpweb.domain.Quiz;
 import no.hials.muldvarpweb.domain.Video;
-import no.hials.muldvarpweb.service.ArticleService;
+import no.hials.muldvarpweb.fragments.Fragment;
+import no.hials.muldvarpweb.fragments.FragmentModel;
 import no.hials.muldvarpweb.service.CourseService;
 import no.hials.muldvarpweb.service.LibraryService;
 import no.hials.muldvarpweb.service.ProgrammeService;
@@ -60,16 +61,24 @@ public class ProgrammeController implements Serializable{
     
     public String setSelected(Programme selected) {
         if(selected == null) {
+            newProgramme = null;
             selected = getProgramme();
         }
         this.selected = selected;
         courses = null;
+        videos = null;
+        documents = null;
+        quizzes = null;
+        fragmentBundle = null;
+        fragmentModel = null;
         return "editProgramme?faces-redirect=true";
     }
 
     public Programme getProgramme() {
-        if(newProgramme == null)
+        if(newProgramme == null) {
             newProgramme = new Programme();
+            save();
+        }
         return newProgramme;
     }
 
@@ -151,7 +160,7 @@ public class ProgrammeController implements Serializable{
     public DualListModel<Course> getCourses() {
         if(courses == null) {
             List<Course> source = courseService.findCourses();
-            List<Course> target = selected.getCourses();
+            List<Course> target = new ArrayList<Course>();
             if(selected.getCourses() != null) {
                 target = selected.getCourses();
                 
@@ -178,12 +187,179 @@ public class ProgrammeController implements Serializable{
     }
     
     public void addCourses(List<Course> c) {
-        selected = service.setCourses(selected, courses.getTarget(), selected.getCourses());
-        //selected = service.addCourses(selected, courses.getTarget());
+        selected = service.setCourses(selected, courses.getTarget());
     }
     
     public void setCourses(List<Course> c) {
         selected.setCourses(c);
+    }
+    
+    // end exp zone
+    
+    String articlename;
+    String newsname;
+    String programmename;
+    String quizname;
+    String category;
+    Article article;
+    Fragment selectedFragment;
+    FragmentModel fragmentModel;
+    List<Fragment> fragmentBundle;
+    String coursename;
+    long parentId;
+    private String videoname;
+    private String documentname;
+    
+    public List<Fragment> getFragmentBundle() {
+        if(fragmentBundle == null) {
+            fragmentBundle = selected.getFragmentBundle();
+        }
+        return fragmentBundle;
+    }
+
+    public void setFragmentBundle(List<Fragment> fragmentBundle) {
+        this.fragmentBundle = fragmentBundle;
+    }
+    
+    public void addArticleFragment() {
+        Fragment f = new Fragment(articlename, parentId, Fragment.Type.ARTICLE);
+        f.setArticle(article);
+        addFragment(f);
+    }
+    
+    public void addNewsFragment() {
+        Fragment f = new Fragment(newsname, parentId, Fragment.Type.NEWS);
+        f.setCategory(category);
+        addFragment(f);
+    }
+    
+    public void addQuizFragment(List<Quiz> quizzes) {
+        Fragment f = new Fragment(quizname, parentId, Fragment.Type.QUIZ);
+        f.setQuizzes(quizzes);
+        addFragment(f);
+    }
+    
+    public void addCourseFragment() {
+        Fragment f = new Fragment(coursename, parentId, Fragment.Type.COURSE);
+        addFragment(f);
+    }
+    
+    public void addVideoFragment(List<Video> videos) {
+        Fragment f = new Fragment(videoname, parentId, Fragment.Type.VIDEO);
+        f.setVideos(videos);
+        addFragment(f);
+    }
+    
+    public void addDocumentFragment(List<LibraryItem> documents) {
+        Fragment f = new Fragment(documentname, parentId, Fragment.Type.DOCUMENT);
+        f.setDocuments(documents);
+        addFragment(f);
+    }
+    
+    public void addFragment(Fragment f) {
+        fragmentBundle.add(f);
+        reset();
+    }
+    
+    public void removeFragment(Fragment f) {
+        fragmentBundle.remove(f);
+    }
+    
+    public Fragment getSelectedFragment() {
+        if(selectedFragment == null) {
+            selectedFragment = new Fragment();
+        }
+        return selectedFragment;
+    }
+
+    public void setSelectedFragment(Fragment selectedFragment) { 
+        this.selectedFragment = selectedFragment;
+    }
+
+    public FragmentModel getFragmentModel() {
+        if(fragmentModel == null) {
+            fragmentModel = new FragmentModel(getFragmentBundle());
+        }
+        return fragmentModel;
+    }
+
+    public void setFragmentModel(FragmentModel fragmentModel) {
+        this.fragmentModel = fragmentModel;
+    }
+    
+    public void reset() {
+        articlename = "";
+        newsname = "";
+        quizname = "";
+        coursename = "";
+        videoname = "";
+        documentname = "";
+        category = "";
+        article = null;
+        parentId = 0;
+        quizzes = null;
+    }
+    
+    public String save() {
+        if(selected != null) {
+            try {
+                if(!fragmentBundle.isEmpty()) {
+                    selected.setFragmentBundle(fragmentBundle);
+                }
+            } catch(NullPointerException ex) {
+                System.out.println(ex);
+            }
+            selected = service.persist(selected);
+        }
+        return "editProgramme";
+    }
+    
+    // Quiz stuff
+    private DualListModel<Quiz> quizzes;
+    @Inject QuizService quizService;
+    
+    public DualListModel<Quiz> getQuizzes() {
+        if(quizzes == null) {
+            List<Quiz> source = quizService.findQuizzes();
+            List<Quiz> target = new ArrayList<Quiz>();
+            if(selectedFragment.getQuizzes() != null) {
+                target = selectedFragment.getQuizzes();
+                
+                for(int i = 0; i < target.size(); i++) {
+                    Quiz v = target.get(i);
+                    for(int k = 0; k < source.size(); k++) {
+                        Quiz vv = source.get(k);
+                        if(vv.getId() == v.getId()) {
+                            source.remove(vv);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            quizzes = new DualListModel<Quiz>(source, target);
+        }
+        
+        return quizzes;
+    }
+    
+    public void setQuizzes(DualListModel<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+    
+    public void refreshLists() {
+        quizzes = null;
+        courses = null;
+        videos = null;
+        documents = null;
+        getQuizzes();
+        getCourses();
+        getVideos();
+        getDocuments();
+    }
+    
+    public void addQuizzes(List<Quiz> q) {
+        selectedFragment.setQuizzes(q);
     }
     
     // Video stuff
@@ -194,17 +370,14 @@ public class ProgrammeController implements Serializable{
         if(videos == null) {
             List<Video> source = videoService.findVideos();
             List<Video> target = new ArrayList<Video>();
-            if(selected.getVideos() != null) {
-                target = selected.getVideos();
+            if(selectedFragment.getVideos() != null) {
+                target = selectedFragment.getVideos();
                 
                 for(int i = 0; i < target.size(); i++) {
                     Video v = target.get(i);
-                    System.out.println("Checking Video " + v.getVideoName());
                     for(int k = 0; k < source.size(); k++) {
                         Video vv = source.get(k);
-                        System.out.println("Comparing " + v.getVideoName() + " to " + vv.getVideoName());
                         if(vv.getId().equals(v.getId())) {
-                            System.out.println("It's the same!");
                             source.remove(vv);
                             break;
                         }
@@ -218,28 +391,13 @@ public class ProgrammeController implements Serializable{
         return videos;
     }
     
-
-//    public DualListModel<Video> getVideos2() {
-//        DualListModel<Video> result = new DualListModel<Video>(videoService.findVideos(),new ArrayList<Video>());
-//        System.out.println("Result is size " + result.getSource().size());
-//        return result;
-//    }
-    
     public void setVideos(DualListModel<Video> videos) {
         this.videos = videos;
     }
     
     public void addVideos(List<Video> v) {
-        selected = service.setVideos(selected, videos.getTarget());
-        /*for(Video vv : v) {
-            service.addVideo(selected, vv);
-            //selected.addVideo(vv);
-            //vv.addCourse(selected);
-        }*/
-    }
-    
-    public void setVideos(List<Video> v) {
-        selected.setVideos(v);
+        selectedFragment.setVideos(v);
+        videos = null;
     }
     
     // Document stuff
@@ -247,11 +405,16 @@ public class ProgrammeController implements Serializable{
     @Inject LibraryService documentService;
     
     public DualListModel<LibraryItem> getDocuments() {
+        System.out.println("getDocuments");
         if(documents == null) {
+            System.out.println("getting docs");
             List<LibraryItem> source = documentService.getLibrary();
+            for(LibraryItem d : source) {
+                System.out.println("Got doc: " + d.getTitle());
+            }
             List<LibraryItem> target = new ArrayList<LibraryItem>();
-            if(selected.getVideos() != null) {
-                target = selected.getDocuments();
+            if(selectedFragment.getDocuments() != null) {
+                target = selectedFragment.getDocuments();
                 
                 for(int i = 0; i < target.size(); i++) {
                     LibraryItem v = target.get(i);
@@ -276,76 +439,71 @@ public class ProgrammeController implements Serializable{
     }
     
     public void addDocuments(List<LibraryItem> v) {
-        selected = service.setDocuments(selected, documents.getTarget());
-    }
-    
-    // Quiz stuff
-    private DualListModel<Quiz> quizzes;
-    @Inject QuizService quizService;
-    
-    public DualListModel<Quiz> getQuizzes() {
-        if(quizzes == null) {
-            List<Quiz> source = quizService.findQuizzes();
-            List<Quiz> target = new ArrayList<Quiz>();
-            if(selected.getQuizzes() != null) {
-                target = selected.getQuizzes();
-                
-                for(int i = 0; i < target.size(); i++) {
-                    Quiz v = target.get(i);
-                    for(int k = 0; k < source.size(); k++) {
-                        Quiz vv = source.get(k);
-                        if(vv.getId() == v.getId()) {
-                            source.remove(vv);
-                            break;
-                        }
-                    }
-                }
-            }
-            
-            quizzes = new DualListModel<Quiz>(source, target);
-        }
-        
-        return quizzes;
-    }
-    
-    public void setQuizzes(DualListModel<Quiz> quizzes) {
-        this.quizzes = quizzes;
-    }
-    
-    public void addQuizzes(List<Quiz> q) {
-        selected = service.setQuizzes(selected, quizzes.getTarget());
-    }
-    
-    // Article stuff
-    @Inject ArticleService articleService;
-    List<Article> articles;
-    
-    public List<Article> getArticles() {
-        articles = articleService.findArticles();
-        return articles;
+        selectedFragment.setDocuments(v);
+        documents = null;
     }
 
-    public Article getInformation() {
-        return selected.getInfo();
+    public String getArticlename() {
+        return articlename;
     }
 
-    public void setInformation(Article information) {
-        selected.setInfo(information);
+    public void setArticlename(String articlename) {
+        this.articlename = articlename;
     }
 
-    public Article getDates() {
-        return selected.getDates();
+    public String getNewsname() {
+        return newsname;
     }
 
-    public void setDates(Article dates) {
-        selected.setDates(dates);
+    public void setNewsname(String newsname) {
+        this.newsname = newsname;
     }
 
-    public Article getHelp() {
-        return selected.getHelp();
+    public String getCoursename() {
+        return coursename;
     }
 
-    public void setHelp(Article help) {
-        selected.setHelp(help);
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
+    }
+
+    public String getVideoname() {
+        return videoname;
+    }
+
+    public void setVideoname(String videoname) {
+        this.videoname = videoname;
+    }
+
+    public String getDocumentname() {
+        return documentname;
+    }
+
+    public void setDocumentname(String documentname) {
+        this.documentname = documentname;
+    }
+
+    public String getQuizname() {
+        return quizname;
+    }
+
+    public void setQuizname(String quizname) {
+        this.quizname = quizname;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 }

@@ -83,6 +83,7 @@ public class QuizController implements Serializable{
     public Quiz getQuiz() {
         if(newQuiz == null){
             newQuiz = new Quiz();
+            selected = newQuiz;
         }
         return newQuiz;
     }
@@ -215,8 +216,8 @@ public class QuizController implements Serializable{
     }
     
     public String setSelectedQuestion(Question q){
-        selected.setBeingEdited(q);
         selectedQuestion = q;
+        editQuiz();
         return "editQuestion";
     }
     
@@ -254,10 +255,8 @@ public class QuizController implements Serializable{
     
     public void addAlternative(){
         selected.addAlternative(selectedQuestion, alternative);
-//        service.addAlternative(selected, selectedQuestion, alternative);
         setQuestionMode(selectedQuestion);
         alternative = null;
-        System.out.println("SUPERDEBUUUUUUUUG!!!!");
     }
     
     public void removeAlternative(Alternative a){

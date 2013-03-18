@@ -3,23 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
 
-    <h:head>  
-        <link rel="stylesheet" type="text/css" 
-              href="resources/css/news/androidNews.css" media="only screen and (max-width: 480px)" />
-        <link rel="stylesheet" type="text/css" 
-              href="resources/css/news/desktopNews.css" media="screen and (min-width: 481px)" />
-        <!--[if IE]>
-        <link rel="stylesheet" type="text/css" href="explorer.css" media="all" />
-        <![endif]-->
+    <h:head>
+        <link rel="stylesheet" href="resources/css/mobile.css" />
         <meta name="viewport" content="user-scalable=no, width=device-width" />
     </h:head>
 
     <h:body>
-        <div id="content">
-            <h1 style="text-align: center;"><h:outputText value="#{articleController.oldArticle.title}" escape="false"/></h1>
-            <p>
+        <div id="article">
+            <h1 id="articleheading"><h:outputText value="#{articleController.oldArticle.title}" escape="false"/></h1>
+            <div id="articlebody">
                 <h:outputText value="#{articleController.oldArticle.text}" escape="false"/>
-            </p>
+            </div>
         </div>
     </h:body>
 </html>

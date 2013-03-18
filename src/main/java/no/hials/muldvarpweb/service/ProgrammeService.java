@@ -35,8 +35,7 @@ public class ProgrammeService {
      * @param newProgramme The Programme to be added.
      */
     public void addProgramme(Programme newProgramme){
-        newProgramme = em.merge(newProgramme);
-        em.persist(newProgramme);
+        persist(newProgramme);
     }
     
     /**
@@ -85,8 +84,7 @@ public class ProgrammeService {
     }
 
     public void editProgramme(Programme selected) {
-        selected = em.merge(selected);
-        em.persist(selected);
+        persist(selected);
     }
 
     public void removeCourseFromProgramme(Programme selected, Course c) {
@@ -99,29 +97,21 @@ public class ProgrammeService {
         em.remove(p);
     }
 
-    public Programme setCourses(Programme selected, List<Course> target, List<Course> oldItems) {
-//        for(Course c : oldItems) {
-//            for(Course cc : target) {
-//                boolean found = false;
-//                if(c.getId().equals(cc.getId())) {
-//                    found = true;
-//                    break;
-//                }
-//                if(!found) {
-//                    cc.removeProgramme(selected);
-//                }
-//            }
-//        }
+    public Programme setCourses(Programme selected, List<Course> target) {
+        for(Course c : target) {
+            c.addProgramme(selected);
+        }
         selected.setCourses(target);
         return persist(selected);
     }
     
     public Programme persist(Programme p) {
-        if(p.getId() == null)
+        if(p.getId() == null) {
             em.persist(p);
-        else
+        }
+        else {
             p = em.merge(p);
-        
+        }
         return p;
     }
 
@@ -146,51 +136,4 @@ public class ProgrammeService {
 //        return persist(selected);
 //    }
     
-    
-    public void addVideo(Programme course, Video video){
-        course.addVideo(video);
-        persist(course);
-    }
-    
-    public Programme setVideos(Programme c, List<Video> v) {
-        c.setVideos(v);
-        return persist(c);
-    }
-    
-    public void editVideo(Programme course, Video video){
-        course.addVideo(video);
-        persist(course);
-    }
-    
-    public void removeVideo(Programme course, Video video){
-        
-        course.removeVideo(video);
-        persist(course);
-    }
-    
-    public void addDocument(Programme course, LibraryItem document) {
-        course.addDocument(document);
-        //document.addCourse(course);
-        em.merge(course);
-    }
-    
-    public void editDocument(Programme course, LibraryItem document) {
-        course.addDocument(document);
-        persist(course);
-    }
-    
-    public Programme setDocuments(Programme c, List<LibraryItem> d) {
-        c.setDocuments(d);
-        return persist(c);
-    }
-    
-    public void removeDocument(Programme course, LibraryItem document) {
-        course.removeDocument(document);
-        persist(course);
-    }
-    
-    public Programme setQuizzes(Programme selected, List<Quiz> target) {
-        selected.setQuizzes(target);
-        return persist(selected);
-    }
 }

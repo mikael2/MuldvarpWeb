@@ -34,21 +34,34 @@
         </p:tab>  
 
         <p:tab id="tab2" title="Adding a Quiz">  
-            <h:panelGrid columns="2" cellpadding="10">  
-                <p:graphicImage onclick="dlg4.show()" id="tab2Img1" height="93" width="280"
-                                value="/resources/images/doc/hl_context.png" />   
-                <h:outputText id="tab2Text"  
-                    value="As you navigate through the various parts of this webpage, breadcrumbs will be generated. 
-                    The highlighted text is clickable, and will take you to the corresponding section." />                
+            <h:panelGrid columns="1" cellpadding="10">  
+                <p:graphicImage value="/resources/images/QuizList_NewQuizButton.png" height="200" width="650"/>
+                <h:outputText value="To add a new Quiz, press the -New quiz- Button as indicated above."/>
+                <h:outputText value="For instructions on filling out the form, see -Editing a quiz-. The only difference is that all the fields are now empty."/>
             </h:panelGrid>  
         </p:tab>
         <p:tab id="tab3" title="Editing a Quiz">  
-            <h:panelGrid columns="2" cellpadding="10">  
-                <p:graphicImage onclick="dlg4.show()" id="tab3Img1" height="93" width="280"
-                                value="/resources/images/doc/hl_context.png" />   
-                <h:outputText id="tab3Text"  
-                    value="As you navigate through the various parts of this webpage, breadcrumbs will be generated. 
-                    The highlighted text is clickable, and will take you to the corresponding section." />                
+            <h:panelGrid columns="1" cellpadding="10">  
+                <p:graphicImage value="/resources/images/QuizList_EditButton.png" height="200" width="650"/>
+                <h:outputText  
+                    value="To edit a quiz, press the name of the quiz, as shown on the picture above." /> 
+                <p:graphicImage value="/resources/images/EditQuiz_Legend.png" height="350" width="650"/>
+                <h:outputText value="1. - Name of the quiz"/>
+                <h:outputText value="2. - Description of the quiz"/>
+                <h:outputText value="3. - A question in the list of questions in the quiz. Press this if you want to edit it or the alternative answers to the question."/>
+                <h:outputText value="4. - This lists the alternative answers to the related question and wheter they are correct or not."/>
+                <h:outputText value="5. - Button to delete the question."/>
+                <h:outputText value="6. - Fill in a new question and press the -Add question- button to add a new question to the quiz."/>
+                <h:outputText value="7. - Press the -Save- button to save changes and return to the list, or the -Back- button to return without saving."/>
+                <br/>
+                <h:outputText value="After clicking on a question(as in point 3 in the above picture) you get the following screen."/>
+                <p:graphicImage value="/resources/images/EditQuiz_AlternativesLegend.png" height="200" width="650"/>
+                <h:outputText value="1. - Name of the question."/>
+                <h:outputText value="2. - An alternative in the list of alternatives in th equestion."/>
+                <h:outputText value="3. - This indicates whether the alternative is correct. Click it to switch between wrong and correct."/>
+                <h:outputText value="4. - Button to delete an alternative."/>
+                <h:outputText value="5. - Enter a new alternative here, click the true/false button to indicate whether the alternative is wrong or correct, and press the -Add alternative- button to add the new alternative."/>
+                <h:outputText value="6. - Press -Save- to submit changes and return to the quiz, or press -Cancel- to return without saving."/>
             </h:panelGrid>  
         </p:tab>
     </p:tabView> 
@@ -56,7 +69,6 @@
         <p:graphicImage id="dlg1Img1" value="/resources/images/doc/hl_quizmain.png" />  
     </p:dialog>
     <p:dialog header="Quiz deletion" widgetVar="dlg2" draggable="false" resizable="false">  
-        <p:graphicImage id="dlg1Img1" value="/resources/images/doc/hl_quizmain_del.png" />  
+        <p:graphicImage id="dlg1Img2" value="/resources/images/doc/hl_quizmain_del.png" />  
     </p:dialog> 
-    </p:dialog>
 </ui:composition>

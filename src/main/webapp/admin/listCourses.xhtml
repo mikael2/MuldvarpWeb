@@ -13,25 +13,22 @@
     <ui:define name="right">
         <h:form id="productForm">
             <p:messages id="messages" showDetail="true" autoUpdate="true"/>
-                <p:fieldset legend="Courses">
-                    <p:dataTable
-                        id="courseTable"
-                        value="#{courseController.courses}" 
-                        var="course">
-                        <p:column headerText="Name">
-                            <h:commandLink 
-                                action="#{courseController.setSelected(course)}" 
-                                value="#{course.name}" />
-                        </p:column>
-                        <p:column headerText="Revision">  
-                            <h:outputText value="#{course.revision}" />
-                        </p:column>
-                        <f:facet name="footer">
-                        <p:commandButton value="New Course" action="#{courseController.setSelected(null)}" />
-                        <p:commandButton value="Make testdata" action="#{courseController.makeTestData()}" update="courseTable"/>
-                        </f:facet>
-                    </p:dataTable>          
-                </p:fieldset>
+            <p:fieldset legend="Courses">
+                <p:dataTable
+                    id="courseTable"
+                    value="#{courseController.courses}" 
+                    var="course">
+                    <p:column headerText="Name">
+                        <h:commandLink 
+                            action="#{courseController.setSelected(course)}" 
+                            value="#{course.name}" />
+                    </p:column>
+                    <p:column headerText="Revision">  
+                        <h:outputText value="#{course.revision}" />
+                    </p:column>
+                </p:dataTable>          
+            </p:fieldset>
+            <p:commandButton value="New Course" action="#{courseController.setSelected(null)}" />
         </h:form>
     </ui:define>
    

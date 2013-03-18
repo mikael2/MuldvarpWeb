@@ -42,10 +42,12 @@ public class FrontpageService {
     }
     
     public Frontpage persist(Frontpage c) {
-        if(c.getId() == null)
+        if(c.getId() == null) {
             em.persist(c);
-        else
+        }
+        else {
             c = em.merge(c);
+        }
         
         return c;
     }

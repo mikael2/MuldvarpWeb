@@ -22,11 +22,17 @@
             </h:panelGrid>
         </p:tab>  
         <p:tab id="tab2" title="Editing a document">  
-            <h:panelGrid columns="2" cellpadding="10">  
-                <p:graphicImage id="tab2Img" height="150" width="150"
-                                value="/resources/images/stolen_course_programme.png" />  
+            <h:panelGrid columns="1" cellpadding="10">  
+                <p:graphicImage id="tab2Img" height="200" width="650"
+                                value="/resources/images/DocumentList_EditButton.png" />  
                 <h:outputText id="tab2Text"  
-                    value="For å redigere et dokument, gjør slik og slik." />  
+                    value="To edit a document, press the name of the document, as shown on the picture above." />
+                <p:graphicImage id="tab2Img2" height="200" width="650"
+                                value="/resources/images/EditDocument.png" />
+                <h:outputText id="tab2Text2"  
+                    value="Press the -Edit- button on the right side to edit the details and finish by pressing the return key(enter key)." />
+                <h:outputText id="tab2Text3"  
+                    value="Press the -Save- button to save the document and return to the document list, or -Cancel- to return without saving. " />
             </h:panelGrid>  
         </p:tab>  
     </p:tabView> 

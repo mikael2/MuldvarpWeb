@@ -35,8 +35,6 @@
                         <p:commandButton id="confirmDeleteButton" value="Delete" action="#{videoController.removeVideo(videoItem)}" actionListener="#{videoController.addInfo(1, videoItem)}" ajax="false"/>
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton value="Make testdata" action="#{videoController.makeVideoTestData()}" actionListener="#{videoController.addInfo(1)}" update="videoTable"/>
-                        <p:commandButton value="Home" action="index?faces-redirect=true"/>
                         <p:commandButton value="New Video" action="newVideo?faces-redirect=true"/>                    
                     </f:facet>
                 </p:dataTable>

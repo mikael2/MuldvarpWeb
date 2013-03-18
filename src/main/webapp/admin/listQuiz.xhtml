@@ -37,8 +37,6 @@
                         <p:commandButton id="confirmDeleteButton" value="Delete" action="#{quizController.removeQuiz(quizItem)}" actionListener="#{quizController.addInfo(2)}" ajax="false"/>
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton value="Make testdata" action="#{quizController.makeTestData()}" actionListener="#{quizController.addInfo(1)}" update="quizTable"/>
-                        <p:commandButton value="Home" action="/index?faces-redirect=true"/>
                         <p:commandButton value="New Quiz" action="newQuiz?faces-redirect=true"/>                    
                     </f:facet>
                 </p:dataTable>
