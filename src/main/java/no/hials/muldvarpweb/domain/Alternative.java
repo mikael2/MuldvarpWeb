@@ -24,8 +24,7 @@ public class Alternative implements Serializable {
 
     public Alternative() {
         isCorrect = false;
-    }
-    
+    }    
 
     public String getName() {
         return name;
