@@ -151,6 +151,7 @@ body {
 #article {
     /*background-color: #f9f9f9;*/ 
     padding: 10px;
+    background-color: #fff;
 }
 
 #articleheading {
@@ -158,7 +159,10 @@ body {
 }
 
 #articlebody img {
-    max-width: 400px;
+    width: auto;
+    max-width: 300px;
+    height: auto;
+    max-height: 200px;
 }
 
 #restmenu {
