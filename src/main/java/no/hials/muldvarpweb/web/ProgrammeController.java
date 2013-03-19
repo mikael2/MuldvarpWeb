@@ -4,6 +4,7 @@
  */
 package no.hials.muldvarpweb.web;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import no.hials.muldvarpweb.service.LibraryService;
 import no.hials.muldvarpweb.service.ProgrammeService;
 import no.hials.muldvarpweb.service.QuizService;
 import no.hials.muldvarpweb.service.VideoService;
+import no.hials.muldvarpweb.utility.DataScraperUtility;
 import org.primefaces.model.DualListModel;
 
 /**
@@ -42,6 +44,13 @@ public class ProgrammeController implements Serializable{
     Programme newProgramme;
     Programme selected;
     
+    public void insertData() throws IOException{
+        DataScraperUtility dsu = new DataScraperUtility();
+        List<Programme> list = dsu.getDataAndSetupProgrammes();
+        for(int i = 0; i < list.size(); i++){
+           service.addProgramme(list.get(i));
+        }
+    }    
     
     /**
      * This function returns the selectedProgramme variable.

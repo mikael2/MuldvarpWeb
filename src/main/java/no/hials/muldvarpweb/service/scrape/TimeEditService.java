@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.jsoup.Jsoup;
@@ -21,12 +22,10 @@ import org.primefaces.json.JSONArray;
  */
 @Stateless
 @Path("timeedit")
-public class TimeEditService {
-    
-    //Tar mye lengre tid å laste inn den "grafiske" time-edit siden
-    
+public class TimeEditService {    
+    //Tar mye lengre tid å laste inn den "grafiske" time-edit siden    
     //Below are static variables which define the URL and the various parameters to be used.
-    //Loading the "graphical" version ofthe site takes more time. "Tekstformat" is preferred over "Grafisk".
+    //Loading the "graphical" version ofthe site takes more time. "Tekstformat" or "text" is preferred over "Grafisk".
     private final static String TIMEEDIT_HIALS_URL = "http://timeedit.hials.no/4DACTION/WebShowSearch/1/1-0?";
     private final static String TIMEDIT_SEARCH_TYPE = "wv_type=";
     //Fag/Course = 3
@@ -64,10 +63,26 @@ public class TimeEditService {
         Elements test;
     }
     
+    /**
+     *
+     * @param id The ID of the Object from which the schedule is to be retrieved. The Object ID can represent
+     * a Course (Fag), a Programme(Klasse), or a combination.
+     */
     @GET
-    @Path("{id}")
+    @Path("object/{id1}/{id2}")
     @Produces({MediaType.APPLICATION_JSON})
-    public void getSchedule(){
-        //Check cache etc..
+    public void getScheduleByObjectID(@PathParam("id1") String id1, @PathParam("id2") String id2){
+        
+    }
+    
+    /**
+     *
+     * @param queryThe search string
+     */
+    @GET
+    @Path("search/{query}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public void getScheduleByQuery(@PathParam("query") String query){
+        
     }
 }

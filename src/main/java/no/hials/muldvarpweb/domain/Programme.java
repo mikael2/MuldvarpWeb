@@ -27,9 +27,21 @@ public class Programme implements Serializable {
     @Column(name="name")
     String name;
     
+    @Column(name="description")
+    String description;
+    
     @Column(name="detail")
     String detail;
+    
+    @Column(name="ectscredits")
+    String ECTScredits;
+    
+    @Column(name="prerequisites")
+    String prerequisites;
 
+    @Column(name="structure")
+    String structure;
+    
     @ManyToMany
     List<Course> courses;
 
@@ -57,6 +69,38 @@ public class Programme implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getECTScredits() {
+        return ECTScredits;
+    }
+
+    public void setECTScredits(String ECTScredits) {
+        this.ECTScredits = ECTScredits;
+    }
+
+    public String getPrerequisites() {
+        return prerequisites;
+    }
+
+    public void setPrerequisites(String prerequisites) {
+        this.prerequisites = prerequisites;
+    }
+
+    public String getStructure() {
+        return structure;
+    }
+
+    public void setStructure(String structure) {
+        this.structure = structure;
     }
     
     public String getDetail() {
