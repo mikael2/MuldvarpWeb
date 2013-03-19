@@ -27,7 +27,7 @@ public class Programme implements Serializable {
     @Column(name="name")
     String name;
     
-    @Column(name="description", length = 1024)
+    @Column(name="description", length = 2048)
     String description;
     
     @Column(name="detail")
@@ -39,8 +39,8 @@ public class Programme implements Serializable {
     @Column(name="prerequisites")
     String prerequisites;
 
-    @Column(name="structure", length = 1024)
-    String structure;
+    @Column(name="pstructure", length = 2048)
+    String pstructure;
     
     @ManyToMany
     List<Course> courses;
@@ -95,12 +95,12 @@ public class Programme implements Serializable {
         this.prerequisites = prerequisites;
     }
 
-    public String getStructure() {
-        return structure;
+    public String getPstructure() {
+        return pstructure;
     }
 
-    public void setStructure(String structure) {
-        this.structure = structure;
+    public void setPstructure(String structure) {
+        this.pstructure = structure;
     }
     
     public String getDetail() {

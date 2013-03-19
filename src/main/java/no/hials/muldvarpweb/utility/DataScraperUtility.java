@@ -51,7 +51,7 @@ public class DataScraperUtility {
                 programmeStructure = trimHTML(programmeStructure);
                 Programme thisProgramme = new Programme(programmeName, null);
                 thisProgramme.setDescription(programmeDescription);
-                thisProgramme.setStructure(programmeStructure);
+                thisProgramme.setPstructure(programmeStructure);
                 programmeList.add(thisProgramme);
             }
         }
