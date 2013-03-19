@@ -1,5 +1,5 @@
 .ui-widget, .ui-widget .ui-widget {
-    font-size: 85% !important;
+    font-size: 90% !important;
 }
 
 body {
@@ -150,4 +150,9 @@ body {
     color: #003468; 
     font-size: 20px; 
     text-align: center;
+}
+
+inputTextArea{
+   font-family: inherit;
+   font-size: 95%;
 }
