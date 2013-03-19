@@ -27,7 +27,7 @@ public class Programme implements Serializable {
     @Column(name="name")
     String name;
     
-    @Column(name="description")
+    @Column(name="description", length = 1024)
     String description;
     
     @Column(name="detail")
@@ -39,7 +39,7 @@ public class Programme implements Serializable {
     @Column(name="prerequisites")
     String prerequisites;
 
-    @Column(name="structure")
+    @Column(name="structure", length = 1024)
     String structure;
     
     @ManyToMany
