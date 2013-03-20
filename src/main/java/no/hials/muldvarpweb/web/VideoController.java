@@ -81,7 +81,7 @@ public class VideoController implements Serializable {
     public Video addVideo() {
         
         videoService.addVideo(selectedVideo);
-        
+        selectedVideo = null;
         return newVideo;
     }
     
@@ -106,6 +106,7 @@ public class VideoController implements Serializable {
     
     public void editSelected() {
         videoService.addVideo(selectedVideo);
+        selectedVideo = null;
         addInfo(3);
     }
     
