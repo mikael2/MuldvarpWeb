@@ -19,6 +19,8 @@
 
                         <h:outputLabel value="Title: " />
                         <p:inputText value="#{quizController.quiz.name}"/>
+                        <h:selectOneMenu value="#{quizController.quiz.quizType}">
+                        </h:selectOneMenu>
                         
                         <h:outputLabel value="Description: " />
                         <p:inputTextarea value="#{quizController.quiz.description}" rows="5" cols="30"/>

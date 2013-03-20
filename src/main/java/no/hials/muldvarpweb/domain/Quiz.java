@@ -25,8 +25,20 @@ public class Quiz implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL)
     List<Question> questions;
-    
-    String quizType; 
+    public enum QuizType {
+        FEEDBACK("Feedback"),
+        REMOTE("Remote"),
+        REMOTEFEEDBACK("Remote med feedback"),
+        GUIDE("Guide");        
+        private String quizType;        
+        private QuizType(String quizType){        
+            this.quizType = quizType;
+        }
+        public String getName() {            
+            return quizType;
+        }
+    }
+    QuizType quizType;
     boolean shuffleQuestions;
     @OneToOne
     Question beingEdited;
@@ -35,7 +47,7 @@ public class Quiz implements Serializable {
         questions = new ArrayList<Question>();
     }
     
-    public Quiz(String name, ArrayList<Question> questions, String quizType){
+    public Quiz(String name, ArrayList<Question> questions, QuizType quizType){
         this.name = name;
         this.questions = questions;
         this.quizType = quizType;
@@ -89,13 +101,14 @@ public class Quiz implements Serializable {
         this.shuffleQuestions = shuffleQuestions;
     }
 
-    public String getQuizType() {
+    public QuizType getQuizType() {
         return quizType;
     }
 
-    public void setQuizType(String quizType) {
+    public void setQuizType(QuizType quizType) {
         this.quizType = quizType;
     }
+    
 
     public void removeQuestion(Question q) {
         questions.remove(q);

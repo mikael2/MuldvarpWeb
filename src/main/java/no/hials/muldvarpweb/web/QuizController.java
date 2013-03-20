@@ -10,6 +10,7 @@ import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Alternative;
 import no.hials.muldvarpweb.domain.Question;
 import no.hials.muldvarpweb.domain.Quiz;
+import no.hials.muldvarpweb.domain.Quiz.QuizType;
 import no.hials.muldvarpweb.service.QuizService;
 
 /**
@@ -21,8 +22,7 @@ import no.hials.muldvarpweb.service.QuizService;
 @SessionScoped
 public class QuizController implements Serializable{
     
-    @Inject QuizService service;
-    
+    @Inject QuizService service;    
     List<Quiz> quizList;
     Quiz newQuiz;
     Quiz selected;
@@ -31,7 +31,6 @@ public class QuizController implements Serializable{
     Question newQuestion;
     Alternative alternative;
     String filterString;
-    
     
     /**
      * This function returns the selectedQuiz variable.
@@ -46,20 +45,25 @@ public class QuizController implements Serializable{
         return selected;
     }
     
+    /**
+     * This method returns an Array of strings which represent the values of the QuizType, an enum in the Quiz class.
+     * 
+     * @return Array<QuizType>
+     */
+    public QuizType[] getQuizTypes(){
+        return Quiz.QuizType.values();
+    }
+    
+    /**
+     * Switches the isCorrect boolean.
+     * @param a 
+     */
     public void switchBoolean(Alternative a){
-        if(a.isIsCorrect() == false){
-            a.setIsCorrect(true);
-        }else{
-            a.setIsCorrect(false);
-        }
+        a.setIsCorrect(!a.isIsCorrect());
     }
     
     public void switchSelectedBoolean(){
-        if(alternative.isIsCorrect() == false){
-            alternative.setIsCorrect(true);
-        }else{
-            alternative.setIsCorrect(false);
-        }
+        alternative.setIsCorrect(!alternative.isIsCorrect());
     }
 
     public Alternative getAlternative() {
@@ -222,7 +226,7 @@ public class QuizController implements Serializable{
     }
     
     public String makeTestData(){
-        service.makeTestData();
+//        service.makeTestData();
         return "listQuiz?faces-redirect=true";
     }
     
