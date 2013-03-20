@@ -236,7 +236,7 @@
                         <f:facet name="targetCaption">Selected</f:facet>
                     </p:pickList>  
                     <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}" 
-                                     value="Submit" action="#{frontpageController.addQuizzes(frontpageController.quizzes.target)}" update="editquiz"/>
+                                     value="Submit" action="#{frontpageController.addQuizzes(frontpageController.quizzes.target)}" update="editquiz" oncomplete="editfragmentdlg.hide()" update="fragmentTable"/>
                     
                     <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'VIDEO'}" for="editvideo" value="Videos:" /> 
                     <p:pickList id="editvideo" rendered="#{frontpageController.selectedFragment.fragmentType == 'VIDEO'}"
@@ -246,7 +246,7 @@
                         <f:facet name="targetCaption">Selected</f:facet>
                     </p:pickList>  
                     <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'VIDEO'}" 
-                                     value="Submit" action="#{frontpageController.addVideos(frontpageController.videos.target)}"/>
+                                     value="Submit" action="#{frontpageController.addVideos(frontpageController.videos.target)}" oncomplete="editfragmentdlg.hide()" update="fragmentTable"/>
                     
                     <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'DOCUMENT'}" for="editdocument" value="Documents:" /> 
                     <p:pickList id="editdocument" rendered="#{frontpageController.selectedFragment.fragmentType == 'DOCUMENT'}"
@@ -256,15 +256,13 @@
                         <f:facet name="targetCaption">Selected</f:facet>
                     </p:pickList>  
                     <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'DOCUMENT'}" 
-                                     value="Submit" action="#{frontpageController.addDocuments(frontpageController.documents.target)}"/> 
+                                     value="Submit" action="#{frontpageController.addDocuments(frontpageController.documents.target)}" oncomplete="editfragmentdlg.hide()" update="fragmentTable"/> 
                     
                     <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'
                                                  || frontpageController.selectedFragment.fragmentType == 'DOCUMENT'
                                                  || frontpageController.selectedFragment.fragmentType == 'VIDEO'}"
                                      value="Refresh" action="#{frontpageController.refreshLists()}" update="editquiz editvideo editdocument"/>
-                    <f:facet name="footer">  
-                        <p:commandButton id="saveButtonpe" value="Save changes"   
-                       oncomplete="editfragmentdlg.hide()" update="fragmentTable" />  
+                    <f:facet name="footer"> 
                     </f:facet>  
                 </h:panelGrid>  
             </p:dialog>
