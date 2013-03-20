@@ -144,3 +144,10 @@ body {
     text-align: center;
     padding: 5px;
 }
+
+#topleftthingy {
+    position: absolute; right: 20px; bottom: 20px; 
+    color: #003468; 
+    font-size: 20px; 
+    text-align: center;
+}

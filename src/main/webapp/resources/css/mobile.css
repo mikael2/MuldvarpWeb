@@ -151,12 +151,24 @@ body {
 #article {
     /*background-color: #f9f9f9;*/ 
     padding: 10px;
+    background-color: #fff;
 }
 
 #articleheading {
     text-align: center;
 }
 
-#articlebody {
+#articlebody img {
+    width: auto;
+    max-width: 300px;
+    height: auto;
+    max-height: 200px;
+}
 
+#restmenu {
+    display: none;
+}
+
+#topleftthingy {
+    font-size: 10px;
 }
