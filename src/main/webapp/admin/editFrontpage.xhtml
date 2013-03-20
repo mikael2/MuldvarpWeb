@@ -236,7 +236,7 @@
                         <f:facet name="targetCaption">Selected</f:facet>
                     </p:pickList>  
                     <p:commandButton rendered="#{frontpageController.selectedFragment.fragmentType == 'QUIZ'}" 
-                                     value="Submit" action="#{frontpageController.addQuizzes(frontpageController.quizzes.target)}" update="editquiz" oncomplete="editfragmentdlg.hide()" update="fragmentTable"/>
+                                     value="Submit" action="#{frontpageController.addQuizzes(frontpageController.quizzes.target)}" update="editquiz fragmentTable" oncomplete="editfragmentdlg.hide()" />
                     
                     <h:outputLabel rendered="#{frontpageController.selectedFragment.fragmentType == 'VIDEO'}" for="editvideo" value="Videos:" /> 
                     <p:pickList id="editvideo" rendered="#{frontpageController.selectedFragment.fragmentType == 'VIDEO'}"
