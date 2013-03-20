@@ -18,10 +18,11 @@
                     </f:facet>  
 
                         <h:outputLabel value="Title: " />
-                        <p:inputText value="#{quizController.quiz.name}"/>
+                        <p:inputText value="#{quizController.quiz.name}"/>                        
+                        <h:outputLabel value="Type: "/>                        
                         <h:selectOneMenu value="#{quizController.quiz.quizType}">
-                        </h:selectOneMenu>
-                        
+                            <f:selectItems value="#{quizController.quizTypes}"/>
+                        </h:selectOneMenu>s                        
                         <h:outputLabel value="Description: " />
                         <p:inputTextarea value="#{quizController.quiz.description}" rows="5" cols="30"/>
 
