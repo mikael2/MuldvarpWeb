@@ -163,9 +163,7 @@ public class FrontpageController implements Serializable {
     public String save() {
         if(frontpage != null) {
             try {
-                if(!fragmentBundle.isEmpty()) {
-                    frontpage.setFragmentBundle(fragmentBundle);
-                }
+                frontpage.setFragmentBundle(fragmentBundle);
             } catch(NullPointerException ex) {
                 System.out.println(ex);
             }

@@ -263,7 +263,7 @@ public class Course implements Serializable {
     }
     
     // eksperimentelle greier
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     List<Fragment> fragmentBundle;
 
     public List<Fragment> getFragmentBundle() {

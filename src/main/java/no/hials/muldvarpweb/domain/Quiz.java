@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  * JPA-class defining a Quiz
@@ -42,6 +44,9 @@ public class Quiz implements Serializable {
     boolean shuffleQuestions;
     @OneToOne
     Question beingEdited;
+    
+    @ManyToMany(mappedBy = "quizzes")
+    List<Fragment> fragments;
     
     public Quiz(){
         questions = new ArrayList<Question>();
@@ -150,4 +155,13 @@ public class Quiz implements Serializable {
 //        hash = 23 * hash + (this.id != null ? this.id.hashCode() : 0);
 //        return hash;
 //    }
+
+    @XmlTransient
+    public List<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public void setFragments(List<Fragment> fragments) {
+        this.fragments = fragments;
+    }
 }

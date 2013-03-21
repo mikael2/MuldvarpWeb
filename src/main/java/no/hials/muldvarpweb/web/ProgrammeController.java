@@ -312,9 +312,7 @@ public class ProgrammeController implements Serializable{
     public String save() {
         if(selected != null) {
             try {
-                if(!fragmentBundle.isEmpty()) {
                     selected.setFragmentBundle(fragmentBundle);
-                }
             } catch(NullPointerException ex) {
                 System.out.println(ex);
             }
@@ -368,6 +366,10 @@ public class ProgrammeController implements Serializable{
     }
     
     public void addQuizzes(List<Quiz> q) {
+        System.out.println("Setting quizzes:");
+        for(Quiz qq : q) {
+            System.out.println(qq.getName());
+        }
         selectedFragment.setQuizzes(q);
     }
     
@@ -414,13 +416,8 @@ public class ProgrammeController implements Serializable{
     @Inject LibraryService documentService;
     
     public DualListModel<LibraryItem> getDocuments() {
-        System.out.println("getDocuments");
         if(documents == null) {
-            System.out.println("getting docs");
             List<LibraryItem> source = documentService.getLibrary();
-            for(LibraryItem d : source) {
-                System.out.println("Got doc: " + d.getTitle());
-            }
             List<LibraryItem> target = new ArrayList<LibraryItem>();
             if(selectedFragment.getDocuments() != null) {
                 target = selectedFragment.getDocuments();

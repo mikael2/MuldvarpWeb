@@ -6,12 +6,12 @@ package no.hials.muldvarpweb.fragments;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import no.hials.muldvarpweb.domain.Article;
 import no.hials.muldvarpweb.domain.Course;
@@ -35,7 +35,7 @@ public class Fragment implements Serializable {
     }
     Type fragmentType;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     Article article;
     String category;
     String iconurl;
@@ -118,7 +118,7 @@ public class Fragment implements Serializable {
         return iconurl;
     }
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     List<Quiz> quizzes;
 
     public List<Quiz> getQuizzes() {
@@ -127,9 +127,12 @@ public class Fragment implements Serializable {
 
     public void setQuizzes(List<Quiz> quizzes) {
         this.quizzes = quizzes;
+        for(Quiz q : quizzes) {
+            q.getFragments().add(this);
+        }
     }
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     List<Course> courses;
 
     public List<Course> getCourses() {
@@ -140,7 +143,7 @@ public class Fragment implements Serializable {
         this.courses = courses;
     }
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     List<LibraryItem> documents;
 
     public List<LibraryItem> getDocuments() {
@@ -151,7 +154,7 @@ public class Fragment implements Serializable {
         this.documents = documents;
     }
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     List<Video> videos;
 
     public List<Video> getVideos() {

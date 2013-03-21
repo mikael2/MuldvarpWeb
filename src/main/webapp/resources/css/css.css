@@ -11,7 +11,7 @@ body {
 
 .column {   
     padding: 15px;
-    width: 800px;
+    width: 1100px;
 }
 
 .column_left {
@@ -129,6 +129,10 @@ body {
     margin: auto;
 }
 
+.appPreview h1 {
+    font-size: 20px;
+}
+
 .previewItems {
     float: left;
     width: 33%;
@@ -155,4 +159,14 @@ body {
 inputTextArea{
    font-family: inherit;
    font-size: 95%;
+}
+
+.ui-fieldset-content {
+    font-size: 18px;
+}
+
+input[type="submit"] {
+    width: 500px;
+    height: 200px;
+    font-size: 100px;
 }

@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Alternative;
 import no.hials.muldvarpweb.domain.Question;
 import no.hials.muldvarpweb.domain.Quiz;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  * Service class for the Quiz entities.
@@ -77,6 +78,12 @@ public class QuizService {
     }
 
     public void removeQuiz(Quiz q) {
+        for(Fragment f : q.getFragments()) {
+            if(f.getQuizzes().contains(q)) {
+                f.getQuizzes().remove(q);
+                em.merge(f);
+            }
+        }
         q = em.merge(q);
         em.remove(q);
     }

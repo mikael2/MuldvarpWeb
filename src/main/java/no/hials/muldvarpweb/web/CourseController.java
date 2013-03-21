@@ -602,9 +602,7 @@ public class CourseController implements Serializable {
     public String save() {
         if(selected != null) {
             try {
-                if(!fragmentBundle.isEmpty()) {
                     selected.setFragmentBundle(fragmentBundle);
-                }
             } catch(NullPointerException ex) {
                 System.out.println(ex);
             }
