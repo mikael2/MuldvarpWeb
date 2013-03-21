@@ -4,13 +4,10 @@
  */
 package no.hials.muldvarpweb.utility;
 
-import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import no.hials.muldvarpweb.domain.Programme;
-import no.hials.muldvarpweb.service.ProgrammeService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
