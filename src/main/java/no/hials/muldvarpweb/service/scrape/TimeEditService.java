@@ -20,8 +20,8 @@ import org.primefaces.json.JSONArray;
  *
  * @author johan
  */
-@Stateless
-@Path("timeedit")
+//@Stateless
+//@Path("timeedit")
 public class TimeEditService {    
     //Tar mye lengre tid å laste inn den "grafiske" time-edit siden    
     //Below are static variables which define the URL and the various parameters to be used.

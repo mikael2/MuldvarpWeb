@@ -24,7 +24,7 @@ import org.jsoup.select.Elements;
  * @author kb
  */
 @Stateless
-@Path("timedit")
+@Path("timeedit")
 public class TimeEditService {
     /**
      * TimeEdit info:
