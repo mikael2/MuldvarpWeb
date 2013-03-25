@@ -20,8 +20,8 @@
                         <p:inputText value="#{quizController.selected.name}"/>
                         <h:outputLabel value="Type: "/>                        
                         <h:selectOneMenu value="#{quizController.quiz.quizType}">
-                            <f:selectItems value="#{quizController.quizTypes}"/>
-                        </h:selectOneMenu>
+                            <f:selectItems value="#{quizController.quizTypes}" var="quizType" itemValue="#{quizType}" itemLabel="#{quizType.name}"/>
+                        </h:selectOneMenu>                   
                         <h:outputLabel value="Description: " />
                         <p:inputTextarea value="#{quizController.selected.description}" rows="5" cols="30"/>
                     </h:panelGrid>

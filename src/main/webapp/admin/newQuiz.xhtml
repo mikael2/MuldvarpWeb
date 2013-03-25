@@ -9,7 +9,7 @@
     </ui:define>
     
     <ui:define name="right">
-        <h:form id="docForm">                
+        <h:form id="quizForm">                
             <p:fieldset legend="New quiz">
                 <p:panelGrid columns="2">
                 <p:panelGrid columns="2">  
@@ -21,8 +21,8 @@
                         <p:inputText value="#{quizController.quiz.name}"/>                        
                         <h:outputLabel value="Type: "/>                        
                         <h:selectOneMenu value="#{quizController.quiz.quizType}">
-                            <f:selectItems value="#{quizController.quizTypes}"/>
-                        </h:selectOneMenu>s                        
+                            <f:selectItems value="#{quizController.quizTypes}" var="quizType" itemValue="#{quizType}" itemLabel="#{quizType.name}"/>
+                        </h:selectOneMenu>                       
                         <h:outputLabel value="Description: " />
                         <p:inputTextarea value="#{quizController.quiz.description}" rows="5" cols="30"/>
 

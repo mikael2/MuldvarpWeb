@@ -30,7 +30,7 @@
                         <h:outputText value="#{quizItem.description}"/>
                     </p:column>
                     <p:column headerText="Type">  
-                        <h:outputText value="#{quizItem.quizType}"/>
+                        <h:outputText value="#{quizItem.quizType.name}"/>
                     </p:column>
                     <p:column headerText="Delete">     
                         <!--p:commandButton id="deleteQuiz" value="Delete quiz" actionListener="#{quizController.setupQuizForDeletion(quizItem)}" onclick="dlg1.show();" type="button" /-->
@@ -39,10 +39,8 @@
                     <f:facet name="footer">
                         <p:commandButton value="New Quiz" action="newQuiz?faces-redirect=true"/>                    
                     </f:facet>
-                </p:dataTable>
-                
-            </p:fieldset>
-            
+                </p:dataTable>                
+            </p:fieldset>            
         </h:form>
         <p:dialog id="deleteQuizDialog" header="Delete quiz #{quizController.quizForDeletion.name} ?" widgetVar="dlg1">
             <h:outputText>Delete quiz?</h:outputText>
