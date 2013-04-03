@@ -33,7 +33,7 @@ public class QuizController implements Serializable{
     String filterString;
     
     /**
-     * This function returns the selectedQuiz variable.
+     * This function returns an instantiated selectedQuiz variable.
      * 
      * @return The selected Quiz
      */
@@ -87,7 +87,6 @@ public class QuizController implements Serializable{
     public Quiz getQuiz() {
         if(newQuiz == null){
             newQuiz = new Quiz();
-            selected = newQuiz;
         }
         return newQuiz;
     }

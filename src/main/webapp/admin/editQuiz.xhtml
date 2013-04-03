@@ -19,7 +19,7 @@
                         <h:outputLabel value="Title: " />
                         <p:inputText value="#{quizController.selected.name}"/>
                         <h:outputLabel value="Type: "/>                        
-                        <h:selectOneMenu value="#{quizController.quiz.quizType}">
+                        <h:selectOneMenu value="#{quizController.selected.quizType}">
                             <f:selectItems value="#{quizController.quizTypes}" var="quizType" itemValue="#{quizType}" itemLabel="#{quizType.name}"/>
                         </h:selectOneMenu>                   
                         <h:outputLabel value="Description: " />
