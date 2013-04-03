@@ -149,8 +149,8 @@ public class QuizController implements Serializable{
     }
     
     /**
-     * This function returns a List of Videos from VideoService based on a
-     * global variable in the VideoController class.
+     * This function returns a List of Quizzes from QuizService based on a
+     * global variable in the QuizController class.
      * 
      * @return List of Video
      */

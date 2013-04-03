@@ -43,6 +43,7 @@ public class ProgrammeController implements Serializable{
     List<Programme> programmeList;
     Programme newProgramme;
     Programme selected;
+    String filterString;
     
     public void insertData() throws IOException{
         DataScraperUtility dsu = new DataScraperUtility();
@@ -82,6 +83,8 @@ public class ProgrammeController implements Serializable{
         fragmentModel = null;
         return "editProgramme?faces-redirect=true";
     }
+    
+    
 
     public Programme getProgramme() {
         if(newProgramme == null) {

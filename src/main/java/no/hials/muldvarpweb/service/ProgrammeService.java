@@ -114,6 +114,17 @@ public class ProgrammeService {
         }
         return p;
     }
+    /**
+     * This method returns a List of Programme objects based on the name of the Programme.
+     * @param name
+     * @return 
+     */
+    public List<Programme> findProgrammesByName(String name){        
+        TypedQuery<Programme> query = em.createQuery("SELECT P from Programme p where UPPER(p.name) LIKE :name", Programme.class);
+        query.setParameter("name", "%" + name + "%");        
+        return query.getResultList();
+    }
+    
 
 //    public Programme addCourses(Programme selected, List<Course> target) {
 //        for(int k = 0; k > target.size(); k++) {

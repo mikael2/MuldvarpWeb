@@ -18,6 +18,10 @@
                     id="programmeTable"
                     value="#{programmeController.programmes}" 
                     var="programme">
+                    <f:facet name="header">
+                        <h:inputText id="searchInput" value="#{programmeController.filterString}"/>
+                        <p:commandButton value="Search" action="#{programmeController.getNameFilteredQuizzes()}"  update="programmeTable"/>
+                    </f:facet>
                     <p:column headerText="Name">  
                         <h:commandLink 
                             action="#{programmeController.setSelected(programme)}" 
