@@ -4,7 +4,6 @@
  */
 package no.hials.muldvarpweb.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -103,55 +102,4 @@ public class QuizService {
         q.addAlternative(quest, a);
     }
     
-//    
-//    public void makeTestData(){
-//        ArrayList alternatives = new ArrayList();
-//        alternatives.add(new Alternative("5", false));
-//        alternatives.add(new Alternative("4x²", false));
-//        alternatives.add(new Alternative("4", true));
-//        alternatives.add(new Alternative("0", false));
-//        
-//        ArrayList questions = new ArrayList();
-//        Question questionTest = new Question("Den deriverte av 4x er:", alternatives, "Single");
-//        questionTest.setShuffleAlternatives(true);
-//        questions.add(questionTest);
-//        
-//        alternatives = new ArrayList();
-//        alternatives.add(new Alternative("4", false));
-//        alternatives.add(new Alternative("9", true));
-//        alternatives.add(new Alternative("8", false));
-//        alternatives.add(new Alternative("7", false));
-//        alternatives.add(new Alternative("0", false));
-//        
-//        questions.add(new Question("Kvadratroten av 81 er:", alternatives, "Single"));
-//        
-//        alternatives = new ArrayList();
-//        alternatives.add(new Alternative("2/5", false));
-//        alternatives.add(new Alternative("1/5", false));
-//        alternatives.add(new Alternative("1/25", true));
-//        alternatives.add(new Alternative("4/100", true));
-//        alternatives.add(new Alternative("0", false));
-//        alternatives.add(new Alternative("0,04", true));
-//        
-//        questions.add(new Question("(1/5) x (1/5) =", alternatives, "Multiple"));
-//        Quiz quiz = new Quiz("Mattequiz 1", questions, "feedback");
-//        quiz.setDescription("Dette er en matte-quiz med tre spørsmål.");
-//        quiz.setShuffleQuestions(true);
-//        addQuiz(quiz);
-//        //        Alternative alt = new Alternative();
-//        //        alt.setName("hurr");
-//        //        List<Alternative> alts = new ArrayList<Alternative>();
-//        //        alts.add(alt);
-//        //        Question question = new Question();
-//        //        question.setName("dur");
-//        //        question.setAlternatives(alts);
-//        //        List<Question> questions = new ArrayList<Question>();
-//        //        question.addAlternative(alt);
-//        //        Quiz quiz = new Quiz();
-//        //        quiz.setName("test");
-//        //        quiz.setDescription("teeeeststst");
-//        //        quiz.setQuestions(questions);
-//        //        addQuiz(quiz);
-//    }
-
 }
