@@ -33,6 +33,9 @@ public class Programme implements Serializable {
     @Column(name="detail")
     String detail;
     
+    @Column(name="programCode")
+    String programCode;
+    
     @Column(name="ectscredits")
     String ECTScredits;
     
@@ -79,6 +82,14 @@ public class Programme implements Serializable {
         this.description = description;
     }
 
+    public String getProgramCode() {
+        return programCode;
+    }
+
+    public void setProgramCode(String programCode) {
+        this.programCode = programCode;
+    }
+    
     public String getECTScredits() {
         return ECTScredits;
     }

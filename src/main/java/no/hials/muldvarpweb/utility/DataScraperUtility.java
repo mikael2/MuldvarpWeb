@@ -21,6 +21,7 @@ public class DataScraperUtility {
     private static String URL = "http://www.hials.no/var/storage/cdmu_eksport.xml";
     private static String PROGRAMMETAG = "program";
     private static String PROGRAMMENAMETAG = "programName";
+    private static String PROGRAMMECODETAG = "programCode";
     private static String PROGRAMMEDESCRIPTIONTAG = "programDescription";
     private static String PROGRAMMESTRUCTURETAG = "programStructure";
     
@@ -41,6 +42,7 @@ public class DataScraperUtility {
             System.out.println("size of programme elements: " + programmeElements.size());
             for (Element thisElement : programmeElements) {
                 String programmeName = thisElement.getElementsByTag(PROGRAMMENAMETAG).first().text();
+                String programmeCode = thisElement.getElementsByTag(PROGRAMMECODETAG).first().text();
                 String programmeDescription = thisElement.getElementsByTag(PROGRAMMEDESCRIPTIONTAG).first().text();
                 String programmeStructure= thisElement.getElementsByTag(PROGRAMMESTRUCTURETAG).first().text();
                 //Trim away some unwanted data
@@ -49,6 +51,7 @@ public class DataScraperUtility {
                 Programme thisProgramme = new Programme(programmeName, null);
                 thisProgramme.setDescription(programmeDescription);
                 thisProgramme.setPstructure(programmeStructure);
+                thisProgramme.setProgramCode(programmeCode);
                 programmeList.add(thisProgramme);
             }
         }
