@@ -36,6 +36,9 @@ public class Programme implements Serializable {
     @Column(name="programCode")
     String programCode;
     
+    @Column(name="weblink")
+    String weblink;
+    
     @Column(name="ectscredits")
     String ECTScredits;
     
@@ -84,6 +87,14 @@ public class Programme implements Serializable {
 
     public String getProgramCode() {
         return programCode;
+    }
+
+    public String getWeblink() {
+        return weblink;
+    }
+
+    public void setWeblink(String weblink) {
+        this.weblink = weblink;
     }
 
     public void setProgramCode(String programCode) {

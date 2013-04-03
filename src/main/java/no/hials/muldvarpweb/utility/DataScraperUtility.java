@@ -24,6 +24,7 @@ public class DataScraperUtility {
     private static String PROGRAMMECODETAG = "programCode";
     private static String PROGRAMMEDESCRIPTIONTAG = "programDescription";
     private static String PROGRAMMESTRUCTURETAG = "programStructure";
+    private static String WEBLINKTAG = "webLink";
     
     /**
      * Constructor
@@ -45,6 +46,7 @@ public class DataScraperUtility {
                 String programmeCode = thisElement.getElementsByTag(PROGRAMMECODETAG).first().text();
                 String programmeDescription = thisElement.getElementsByTag(PROGRAMMEDESCRIPTIONTAG).first().text();
                 String programmeStructure= thisElement.getElementsByTag(PROGRAMMESTRUCTURETAG).first().text();
+                String webLink = thisElement.getElementsByTag(WEBLINKTAG).text();
                 //Trim away some unwanted data
                 programmeDescription = trimHTML(programmeDescription);
                 programmeStructure = trimHTML(programmeStructure);
