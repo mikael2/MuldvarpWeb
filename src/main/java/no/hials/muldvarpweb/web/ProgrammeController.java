@@ -515,4 +515,14 @@ public class ProgrammeController implements Serializable{
     public void setArticle(Article article) {
         this.article = article;
     }
+
+    public String getFilterString() {
+        return filterString;
+    }
+
+    public void setFilterString(String filterString) {
+        this.filterString = filterString;
+    }
+    
+    
 }

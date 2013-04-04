@@ -11,10 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Course;
-import no.hials.muldvarpweb.domain.LibraryItem;
 import no.hials.muldvarpweb.domain.Programme;
 import no.hials.muldvarpweb.domain.Quiz;
-import no.hials.muldvarpweb.domain.Video;
 
 /**
  * Service class for the Programme entities.

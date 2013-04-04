@@ -75,7 +75,7 @@ public class Question implements Serializable {
 
     public String getName() {
         if(name == null || name.equals("")){
-            return "NO NAME SPECIFIED";
+            return "Quiz name";
         }
         return name;
     }
