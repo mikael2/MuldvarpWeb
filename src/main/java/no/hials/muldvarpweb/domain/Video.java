@@ -5,10 +5,9 @@
 package no.hials.muldvarpweb.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  * JPA-class defining a Video
@@ -44,6 +43,9 @@ public class Video implements Serializable{
     
     @Column(name = "videoThumbURI")
     String videoThumbURI;
+    
+    @ManyToMany(mappedBy = "videos")
+    List<Fragment> fragments;
     
     /**
      * The empty constructor for the Video JPA-entity class.
@@ -145,5 +147,13 @@ public class Video implements Serializable{
 
     public void setVideoThumbURI(String videoThumbURI) {
         this.videoThumbURI = videoThumbURI;
+    }
+
+    public List<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public void setFragments(List<Fragment> fragments) {
+        this.fragments = fragments;
     }
 }
