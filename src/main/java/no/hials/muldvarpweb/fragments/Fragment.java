@@ -78,7 +78,7 @@ public class Fragment implements Serializable {
 
     public void setArticle(Article article) {
         this.article = article;
-        article.setFragment(this);
+//        article.setFragment(this);
     }
 
     public String getCategory() {

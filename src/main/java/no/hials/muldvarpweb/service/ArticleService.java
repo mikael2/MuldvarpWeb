@@ -72,10 +72,10 @@ public class ArticleService {
         }
 
     public void removeArticle(Article article) {        
-        if(article.getFragment().getArticle().equals(article)) {
-            article.getFragment().setArticle(null);
-            em.merge(article.getFragment());
-        }        
+//        if(article.getFragment().getArticle().equals(article)) {
+//            article.getFragment().setArticle(null);
+//            em.merge(article.getFragment());
+//        }        
         article = em.merge(article);
         em.remove(article);
     }
