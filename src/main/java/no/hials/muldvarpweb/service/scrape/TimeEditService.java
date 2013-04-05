@@ -4,7 +4,9 @@
  */
 package no.hials.muldvarpweb.service.scrape;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
@@ -16,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 import org.jsoup.nodes.Document;
-import org.primefaces.json.JSONArray;
 
 /**
  *
@@ -25,13 +26,11 @@ import org.primefaces.json.JSONArray;
 @Stateless
 @Path("toplel")
 public class TimeEditService {
-    
+
     //Maximum number of object requests that will be parsed by getURL()
     private static int MAX_OBJECT_REQUESTS = 10;
-    
     /**
-     * URI Parameters
-     * Change as needed
+     * URI Parameters Change as needed
      */
     //Tar mye lengre tid å laste inn den "grafiske" time-edit siden    
     //Below are static variables which define the URL and the various parameters to be used.
@@ -46,46 +45,71 @@ public class TimeEditService {
     private final static String TIMEDIT_PARAM_FORMAT = "wv_text"; //Page will not return anything unless this is added first in the set of variables.    
     //The "object" is the variable which defines the course or name. It is an ID unique to the Timeedit system
     private final static String TIMEEDIT_PARAM_OBJECT = "wv_obj";
-    private final static String TIMEEDIT_PARAM_START = "wv_startWeek";
-    private final static String TIMEEDIT_PARAM_STOP = "wv_stopWeek";
+    private final static String TIMEEDIT_PARAM_WEEKSTART = "wv_startWeek";
+    private final static String TIMEEDIT_PARAM_WEEKSTOP = "wv_stopWeek";
+    private final static String TIMEEDIT_PARAM_DATE = "wv_ts";
     String lenke = "http://timeedit.hials.no/4DACTION/WebShowSearch/1/1-0?wv_type=5&wv_ts=20130222T141621X6075&wv_search=&wv_startWeek=1301&wv_stopWeek=1318&wv_addObj=&wv_delObj=&wv_obj1=169000&wv_text=Tekstformat";
     //Static variable types
     private final static String TIMEDIT_PARAM_FORMAT_TEXT = "text";
     private final static String TIMEDIT_PARAM_FORMAT_TEXT2 = "Tekstformat";
     private final static String TIMEDIT_PARAM_FORMAT_GRAPHIC = "Grafisk";
-    //The document variable to be stored in memory
-    Document webDoc;
-    JSONArray cachedResult;
 
     public TimeEditService() {
     }
 
     /**
-     * This method generates an TimEdit URL based on a String Array of objectCodes, a String representation of a starting and ending week.
+     * This method generates an TimEdit URL based on a String Array of
+     * objectCodes, a String representation of a starting and ending week.
+     *
      * @param objectCodes
      * @param startWeek
      * @param stopWeek
-     * @return 
+     * @return
      */
     public String getURL(String[] objectCodes, String startWeek, String stopWeek) {
 
-        String objectString = "";
+        String retVal = TIMEEDIT_HIALS_URL
+                + "&" + TIMEDIT_PARAM_FORMAT + "=" + TIMEDIT_PARAM_FORMAT_TEXT
+                + generateObjectCodeURL(objectCodes);
+
+        if (startWeek != null && !startWeek.isEmpty()) {
+            retVal += "&" + TIMEEDIT_PARAM_WEEKSTART + "=" + startWeek;
+        }
+        if (stopWeek != null && !stopWeek.isEmpty()) {
+            retVal += "&" + TIMEEDIT_PARAM_WEEKSTOP + "=" + stopWeek;
+        }
+        return retVal;
+    }
+    
+    /**
+     * This method generates an TimEdit URL based on a String Array of
+     * objectCodes, a String representation of a date. (YYYYMMDD)
+     *
+     * @param objectCodes
+     * @param date
+     * @return
+     */
+    public String getURL(String[] objectCodes, String date) {
+
+        String retVal = TIMEEDIT_HIALS_URL
+                + "&" + TIMEDIT_PARAM_FORMAT + "=" + TIMEDIT_PARAM_FORMAT_TEXT
+                + generateObjectCodeURL(objectCodes);
+
+        if (date != null && !date.isEmpty()) {
+            retVal += "&" + TIMEEDIT_PARAM_DATE + "=" + date;
+        }
+        return retVal;
+    }
+    
+    
+    public String generateObjectCodeURL(String[] objectCodes){
+        String retVal = "";
         for (int i = 0; i < objectCodes.length; i++) {
             if (i >= MAX_OBJECT_REQUESTS) {
                 break;
             } else {
-                objectString += "&" + TIMEEDIT_PARAM_OBJECT + Integer.toString(i + 1) + "=" + objectCodes[i];   
+                retVal += "&" + TIMEEDIT_PARAM_OBJECT + Integer.toString(i + 1) + "=" + objectCodes[i];
             }
-        }
-        String retVal = TIMEEDIT_HIALS_URL
-                + "&" + TIMEDIT_PARAM_FORMAT + "=" + TIMEDIT_PARAM_FORMAT_TEXT
-                + objectString;
-
-        if (startWeek != null && !startWeek.isEmpty()) {
-            retVal += "&" + TIMEEDIT_PARAM_START + "=" + startWeek;
-        }
-        if (stopWeek != null && !stopWeek.isEmpty()) {
-            retVal += "&" + TIMEEDIT_PARAM_STOP + "=" + stopWeek;
         }
         return retVal;
     }
@@ -99,12 +123,12 @@ public class TimeEditService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public MultivaluedMap get(@Context UriInfo ui) {
-                
+
         System.out.println(ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT));
         String objectCodes[] = ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT).split(",");
-        System.out.println("GET-PARAM:" + getURL(objectCodes, 
-                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_START),
-                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_STOP)));
+        System.out.println("GET-PARAM:" + getURL(objectCodes,
+                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTART),
+                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTOP)));
         return ui.getQueryParameters();
     }
 
@@ -120,6 +144,13 @@ public class TimeEditService {
     public String getScheduleByObjectID(@PathParam("objectstring") String objectstring,
             @PathParam("startweek") String startweek,
             @PathParam("stopweek") String stopweek) {
+
+        //trim away the slashes and names
+        //such is the price for dynamic URL's
+        startweek = startweek.replace("/", "");
+        startweek = startweek.replace("startweek", "");
+        stopweek = stopweek.replace("/", "");
+        stopweek = stopweek.replace("stopweek", "");
         System.out.println(getURL(objectstring.split("/"), startweek, stopweek));
 
         return objectstring + startweek + stopweek;
@@ -132,18 +163,23 @@ public class TimeEditService {
      * Programme(Klasse), or a combination.
      */
     @GET
-    @Path("objects/{objectstring:(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}")
+    @Path("objects/{objectstring:(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
     public String getScheduleByMultipleObjectID(@PathParam("objectstring") String objectstring,
             @PathParam("startweek") String startweek,
-            @PathParam("stopweek") String stopweek) {
+            @PathParam("stopweek") String stopweek,
+            @PathParam("date") String date) {
 
-        startweek = startweek.replace("/", "");
-        startweek = startweek.replace("startweek", "");
-        stopweek = stopweek.replace("/", "");
-        stopweek = stopweek.replace("stopweek", "");
+        if (date != null && !date.isEmpty()) {
+            System.out.println(getURL(objectstring.split("/"), date));
+        } else {
 
-        System.out.println(getURL(objectstring.split("/"), startweek, stopweek));
+            startweek = startweek.replace("/", "");
+            startweek = startweek.replace("startweek", "");
+            stopweek = stopweek.replace("/", "");
+            stopweek = stopweek.replace("stopweek", "");
+            System.out.println(getURL(objectstring.split("/"), startweek, stopweek));
+        }
         Document doc = null;
 
 
@@ -159,6 +195,15 @@ public class TimeEditService {
     @Produces({MediaType.APPLICATION_JSON})
     public String getScheduleByQuery(@PathParam("query") String query) {
         return query;
+    }
+
+    /**
+     * Returns the current date in YYYYMMDD format. ex 20130410
+     *
+     * @return String
+     */
+    public String getCurrentDateYYYYMMDD() {
+        return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
     }
 
     /**
