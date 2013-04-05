@@ -24,115 +24,132 @@ import org.primefaces.json.JSONArray;
  */
 @Stateless
 @Path("toplel")
-public class TimeEditService {    
+public class TimeEditService {
+    
+    //Maximum number of object requests that will be parsed by getURL()
+    private static int MAX_OBJECT_REQUESTS = 10;
+    
+    /**
+     * URI Parameters
+     * Change as needed
+     */
     //Tar mye lengre tid å laste inn den "grafiske" time-edit siden    
     //Below are static variables which define the URL and the various parameters to be used.
     //Loading the "graphical" version ofthe site takes more time. "Tekstformat" or "text" is preferred over "Grafisk".
     private final static String TIMEEDIT_HIALS_URL = "http://timeedit.hials.no/4DACTION/WebShowSearch/1/1-0?";
-    private final static String TIMEDIT_SEARCH_TYPE = "wv_type=";
+    private final static String TIMEDIT_PARAM_SEARCH_TYPE = "wv_type";
     //Fag/Course = 3
     //Klasse/Program = 5
     //Lærer/Teacher/Person = 6
     //Rom/Room = 7
-    private final static String TIMEDIT_SEARCH = "wv_search="; //Search variable. Can be used with course codes or names.
-    private final static String TIMEDIT_FORMAT="wv_text="; //Page will not return anything unless this is added first in the set of variables.    
-    
+    private final static String TIMEDIT_PARAM_SEARCH = "wv_search"; //Search variable. Can be used with course codes or names.
+    private final static String TIMEDIT_PARAM_FORMAT = "wv_text"; //Page will not return anything unless this is added first in the set of variables.    
     //The "object" is the variable which defines the course or name. It is an ID unique to the Timeedit system
-    private final static String TIMEEDIT_OBJECT = "wv_obj=";
-    private final static String TIMEEDIT_OBJECT_NO_EQUALS = "wv_obj";
-    
-    
-    private final static String TIMEEDIT_START = "wv_startWeek=";
-    private final static String TIMEEDIT_STOP = "wv_stopWeek=";
+    private final static String TIMEEDIT_PARAM_OBJECT = "wv_obj";
+    private final static String TIMEEDIT_PARAM_START = "wv_startWeek";
+    private final static String TIMEEDIT_PARAM_STOP = "wv_stopWeek";
     String lenke = "http://timeedit.hials.no/4DACTION/WebShowSearch/1/1-0?wv_type=5&wv_ts=20130222T141621X6075&wv_search=&wv_startWeek=1301&wv_stopWeek=1318&wv_addObj=&wv_delObj=&wv_obj1=169000&wv_text=Tekstformat";
-    
     //Static variable types
-    private final static String TIMEDIT_FORMAT_TEXT="text";
-    private final static String TIMEDIT_FORMAT_TEXT2="Tekstformat";
-    private final static String TIMEDIT_FORMAT_GRAPHIC="Grafisk";
-    
+    private final static String TIMEDIT_PARAM_FORMAT_TEXT = "text";
+    private final static String TIMEDIT_PARAM_FORMAT_TEXT2 = "Tekstformat";
+    private final static String TIMEDIT_PARAM_FORMAT_GRAPHIC = "Grafisk";
     //The document variable to be stored in memory
     Document webDoc;
-    
     JSONArray cachedResult;
-    
-    public TimeEditService(){
-        
+
+    public TimeEditService() {
     }
-    
-    public String getURL(String[] objectCodes, String startWeek, String stopWeek){
-        
+
+    /**
+     * This method generates an TimEdit URL based on a String Array of objectCodes, a String representation of a starting and ending week.
+     * @param objectCodes
+     * @param startWeek
+     * @param stopWeek
+     * @return 
+     */
+    public String getURL(String[] objectCodes, String startWeek, String stopWeek) {
+
         String objectString = "";
-        for(int i = 0; i < objectCodes.length; i++){
-            objectString += "&" + TIMEEDIT_OBJECT_NO_EQUALS + Integer.toString(i+1) + "=" + objectCodes[i];            
+        for (int i = 0; i < objectCodes.length; i++) {
+            if (i >= MAX_OBJECT_REQUESTS) {
+                break;
+            } else {
+                objectString += "&" + TIMEEDIT_PARAM_OBJECT + Integer.toString(i + 1) + "=" + objectCodes[i];   
+            }
         }
-        
-        String retVal = TIMEEDIT_HIALS_URL 
-                + "&" + TIMEDIT_FORMAT + TIMEDIT_FORMAT_TEXT
+        String retVal = TIMEEDIT_HIALS_URL
+                + "&" + TIMEDIT_PARAM_FORMAT + "=" + TIMEDIT_PARAM_FORMAT_TEXT
                 + objectString;
-        
-        if(startWeek != null && !startWeek.isEmpty()){
-            retVal += "&" + TIMEEDIT_START + startWeek;
+
+        if (startWeek != null && !startWeek.isEmpty()) {
+            retVal += "&" + TIMEEDIT_PARAM_START + "=" + startWeek;
         }
-        if(stopWeek != null && !stopWeek.isEmpty()){
-            retVal += "&" + TIMEEDIT_STOP + stopWeek;
-        }                
+        if (stopWeek != null && !stopWeek.isEmpty()) {
+            retVal += "&" + TIMEEDIT_PARAM_STOP + "=" + stopWeek;
+        }
         return retVal;
     }
-   
-   /**
-    * Method which returns JSON based on get requests.
-    * @param ui
-    * @return 
-    */
-   @GET 
-   @Produces(MediaType.APPLICATION_JSON) 
-   public MultivaluedMap get(@Context UriInfo ui) {
-      return ui.getQueryParameters();      
-   }
-   
+
+    /**
+     * Method which returns JSON based on get requests.
+     *
+     * @param ui
+     * @return
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public MultivaluedMap get(@Context UriInfo ui) {
+                
+        System.out.println(ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT));
+        String objectCodes[] = ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT).split(",");
+        System.out.println("GET-PARAM:" + getURL(objectCodes, 
+                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_START),
+                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_STOP)));
+        return ui.getQueryParameters();
+    }
+
     /**
      *
-     * @param id The ID of the Object from which the schedule is to be retrieved. The Object ID can represent
-     * a Course (Fag), a Programme(Klasse), or a combination.
+     * @param id The ID of the Object from which the schedule is to be
+     * retrieved. The Object ID can represent a Course (Fag), a
+     * Programme(Klasse), or a combination.
      */
     @GET
     @Path("object/{objectstring:\\d{6}}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
     public String getScheduleByObjectID(@PathParam("objectstring") String objectstring,
-                                              @PathParam("startweek") String startweek,
-                                              @PathParam("stopweek") String stopweek){
+            @PathParam("startweek") String startweek,
+            @PathParam("stopweek") String stopweek) {
         System.out.println(getURL(objectstring.split("/"), startweek, stopweek));
-    
+
         return objectstring + startweek + stopweek;
     }
-    
-    
+
     /**
      *
-     * @param id The ID of the Object from which the schedule is to be retrieved. The Object ID can represent
-     * a Course (Fag), a Programme(Klasse), or a combination.
+     * @param id The ID of the Object from which the schedule is to be
+     * retrieved. The Object ID can represent a Course (Fag), a
+     * Programme(Klasse), or a combination.
      */
     @GET
     @Path("objects/{objectstring:(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
     public String getScheduleByMultipleObjectID(@PathParam("objectstring") String objectstring,
-                                              @PathParam("startweek") String startweek,
-                                              @PathParam("stopweek") String stopweek){
-        
-        startweek = startweek.replace("/", "");    
+            @PathParam("startweek") String startweek,
+            @PathParam("stopweek") String stopweek) {
+
+        startweek = startweek.replace("/", "");
         startweek = startweek.replace("startweek", "");
-        stopweek = stopweek.replace("/", "");    
+        stopweek = stopweek.replace("/", "");
         stopweek = stopweek.replace("stopweek", "");
-        
+
         System.out.println(getURL(objectstring.split("/"), startweek, stopweek));
         Document doc = null;
-        
-        
+
+
         return objectstring + startweek + stopweek;
     }
-   
-       
+
     /**
      *
      * @param queryThe search string
@@ -140,15 +157,15 @@ public class TimeEditService {
     @GET
     @Path("search/{query:.+}")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getScheduleByQuery(@PathParam("query") String query){
+    public String getScheduleByQuery(@PathParam("query") String query) {
         return query;
     }
-    
 
     /**
      * Inner class Day
      */
-     public static class Day {
+    public static class Day {
+
         String day;
         String date;
         List<no.hials.muldvarpweb.service.TimeEditService.Course> courses = new ArrayList<no.hials.muldvarpweb.service.TimeEditService.Course>();
@@ -181,11 +198,12 @@ public class TimeEditService {
             this.courses = courses;
         }
     }
-    
-     /**
-      * Inner class Course
-      */
+
+    /**
+     * Inner class Course
+     */
     public static class Course {
+
         String time;
         String course;
         String type;
@@ -245,6 +263,4 @@ public class TimeEditService {
             this.room = room;
         }
     }
-    
-    
 }
