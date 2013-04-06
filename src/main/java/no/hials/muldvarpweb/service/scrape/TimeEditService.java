@@ -4,10 +4,13 @@
  */
 package no.hials.muldvarpweb.service.scrape;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,7 +20,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  *
@@ -35,6 +41,9 @@ public class TimeEditService {
     //Tar mye lengre tid å laste inn den "grafiske" time-edit siden    
     //Below are static variables which define the URL and the various parameters to be used.
     //Loading the "graphical" version ofthe site takes more time. "Tekstformat" or "text" is preferred over "Grafisk".
+    //ORDER:
+    //DATE (date, first/last week)--> OBJECTS(object codes) ---> presentation format
+    //Won't work if the order is any different than this.
     private final static String TIMEEDIT_HIALS_URL = "http://timeedit.hials.no/4DACTION/WebShowSearch/1/1-0?";
     private final static String TIMEDIT_PARAM_SEARCH_TYPE = "wv_type";
     //Fag/Course = 3
@@ -67,11 +76,9 @@ public class TimeEditService {
      * @return
      */
     public String getURL(String[] objectCodes, String startWeek, String stopWeek) {
-
-        String retVal = TIMEEDIT_HIALS_URL
-                + "&" + TIMEDIT_PARAM_FORMAT + "=" + TIMEEDIT_VALUE_FORMAT_TEXT
-                + generateObjectCodeURL(objectCodes);
-
+        String retVal = TIMEEDIT_HIALS_URL                
+                + generateObjectCodeURL(objectCodes)
+                + TIMEDIT_PARAM_FORMAT + "=" + TIMEEDIT_VALUE_FORMAT_TEXT;
         if (startWeek != null && !startWeek.isEmpty()) {
             retVal += "&" + TIMEEDIT_PARAM_WEEKSTART + "=" + startWeek;
         }
@@ -90,14 +97,12 @@ public class TimeEditService {
      * @return
      */
     public String getURL(String[] objectCodes, String date) {
-
-        String retVal = TIMEEDIT_HIALS_URL
-                + "&" + TIMEDIT_PARAM_FORMAT + "=" + TIMEEDIT_VALUE_FORMAT_TEXT
-                + generateObjectCodeURL(objectCodes);
-
+        String retVal = TIMEEDIT_HIALS_URL;
         if (date != null && !date.isEmpty()) {
-            retVal += "&" + TIMEEDIT_PARAM_DATE + "=" + date;
+            retVal += TIMEEDIT_PARAM_DATE + "=" + date + "&";
         }
+        retVal += generateObjectCodeURL(objectCodes)
+                + TIMEDIT_PARAM_FORMAT + "=" + TIMEEDIT_VALUE_FORMAT_TEXT;
         return retVal;
     }
     
@@ -113,7 +118,7 @@ public class TimeEditService {
             if (i >= MAX_OBJECT_REQUESTS) {
                 break;
             } else {
-                retVal += "&" + TIMEEDIT_PARAM_OBJECT + Integer.toString(i + 1) + "=" + objectCodes[i];
+                retVal += TIMEEDIT_PARAM_OBJECT + Integer.toString(i + 1) + "=" + objectCodes[i] + "&";
             }
         }
         return retVal;
@@ -127,8 +132,8 @@ public class TimeEditService {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public MultivaluedMap get(@Context UriInfo ui) {
-
+    public MultivaluedMap getParameters(@Context UriInfo ui) {
+                
         System.out.println(ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT));
         String objectCodes[] = ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT).split(",");
         System.out.println("GET-PARAM:" + getURL(objectCodes,
@@ -136,7 +141,6 @@ public class TimeEditService {
                 ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTOP)));
         return ui.getQueryParameters();
     }
-
 
     /**
      *
@@ -147,25 +151,25 @@ public class TimeEditService {
     @GET
     @Path("objects/{objectstring:(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getScheduleByMultipleObjectID(@PathParam("objectstring") String objectstring,
+    public List<Day> getScheduleByMultipleObjectID(@PathParam("objectstring") String objectString,
             @PathParam("startweek") String startweek,
             @PathParam("stopweek") String stopweek,
             @PathParam("date") String date) {
-
+        
+        String[] objectCodes = objectString.split("/");        
         if (date != null && !date.isEmpty()) {
-            System.out.println(getURL(objectstring.split("/"), date));
+            date = date.replace("/", "");
+            date = date.replace("date","");
+            System.out.println(getURL(objectCodes, date));
+            return getSchedule(getURL(objectCodes, date));
         } else {
-
             startweek = startweek.replace("/", "");
             startweek = startweek.replace("startweek", "");
             stopweek = stopweek.replace("/", "");
             stopweek = stopweek.replace("stopweek", "");
-            System.out.println(getURL(objectstring.split("/"), startweek, stopweek));
+            System.out.println(getURL(objectCodes, startweek, stopweek));
+            return getSchedule(getURL(objectCodes, startweek, stopweek));
         }
-        Document doc = null;
-
-
-        return objectstring + startweek + stopweek;
     }
 
     /**
@@ -178,6 +182,25 @@ public class TimeEditService {
     public String getScheduleByQuery(@PathParam("query") String query) {
         return query;
     }
+    
+    //    
+//    /**
+//     * Method which returns JSON based on get requests.
+//     *
+//     * @param ui
+//     * @return
+//     */
+//    @GET
+//    @Path("{string}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getScheduleFromString(@PathParam("string") String string) {
+//        if (string != null && !string.isEmpty()) {
+//            System.out.println("shit got called yo");
+//            return string;
+//        } else {
+//            return "tom";
+//        }
+//    }
 
     /**
      * Returns the current date in YYYYMMDD format. ex 20130410
@@ -187,6 +210,63 @@ public class TimeEditService {
     public String getCurrentDateYYYYMMDD() {
         return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
     }
+    
+    public List<Day> getSchedule(String siteURL){
+        
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(siteURL).get();
+        } catch (IOException ex) {
+            Logger.getLogger(TimeEditService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Element content = doc.getElementsByClass("booking").first();
+        Elements rows = content.getElementsByTag("tr");
+        List<Day> days = new ArrayList<Day>();
+        Day day = null;
+        Course course = null;
+        for(Element row : rows) {
+            for(int i = 0; i < row.getElementsByTag("td").size(); i++) {
+                try {
+                    String data = row.getElementsByTag("td").get(i).getElementsByTag("font").first().text();
+                    if(data.contains("Uke")) { // Skreller vekk uke radene
+                        break;
+                    } else if(data.matches(".*\\w.*")) { // Bruker bare kolonnene med innhold
+                        switch(i) {
+                            case 2:
+                                day = new Day(data);
+                                days.add(day);
+                                break;
+                            case 3:
+                                day.date = data;
+                                break;
+                            case 4:
+                                course = new Course(data);
+                                break;
+                            case 5:
+                                course.course = data;
+                                break;
+                            case 6:
+                                course.type = data;
+                                break;
+                            case 7:
+                                course.mClass = data;
+                                break;
+                            case 8:
+                                course.teacher = data;
+                                break;
+                            case 9:
+                                course.room = data;
+                                day.courses.add(course);
+                                break;
+                        }
+                    }
+                } catch(NullPointerException ex) {
+                }
+            }
+        }
+        
+        return days;
+    }
 
     /**
      * Inner class Day
@@ -195,7 +275,7 @@ public class TimeEditService {
 
         String day;
         String date;
-        List<no.hials.muldvarpweb.service.TimeEditService.Course> courses = new ArrayList<no.hials.muldvarpweb.service.TimeEditService.Course>();
+        List<Course> courses = new ArrayList<Course>();
 
         private Day(String dag) {
             this.day = dag;
@@ -217,11 +297,11 @@ public class TimeEditService {
             this.date = date;
         }
 
-        public List<no.hials.muldvarpweb.service.TimeEditService.Course> getCourses() {
+        public List<Course> getCourses() {
             return courses;
         }
 
-        public void setCourses(List<no.hials.muldvarpweb.service.TimeEditService.Course> courses) {
+        public void setCourses(List<Course> courses) {
             this.courses = courses;
         }
     }
