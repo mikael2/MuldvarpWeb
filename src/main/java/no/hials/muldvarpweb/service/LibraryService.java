@@ -4,7 +4,6 @@
  */
 package no.hials.muldvarpweb.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,9 +14,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import no.hials.muldvarpweb.domain.Article;
-import no.hials.muldvarpweb.domain.Course;
 import no.hials.muldvarpweb.domain.LibraryItem;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  *
@@ -42,6 +40,12 @@ public class LibraryService {
         }
         
         public void removeLibraryItem(LibraryItem lI){
+            for(Fragment f : lI.getFragments()) {
+                if(f.getDocuments().contains(lI)) {
+                    f.getDocuments().remove(lI);
+                    entityManager.merge(f);
+                }
+            }
             lI = entityManager.merge(lI);
             entityManager.remove(lI);
         }

@@ -3,7 +3,7 @@ package no.hials.muldvarpweb.domain;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  *
@@ -24,6 +24,9 @@ public class Article implements Serializable {
     String author;
     @Lob
     String text;
+    
+//    @OneToMany(mappedBy = "article")
+//    Fragment fragment;
 
     public Article() {
     }
@@ -126,5 +129,13 @@ public class Article implements Serializable {
     public String toString() {
         return "no.hials.muldvarp.web.Article[ id=" + id + " ]";
     }
+
+//    public Fragment getFragment() {
+//        return fragment;
+//    }
+//
+//    public void setFragment(Fragment fragment) {
+//        this.fragment = fragment;
+//    }
 
 }

@@ -7,8 +7,10 @@ package no.hials.muldvarpweb.domain;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  *
@@ -56,6 +58,9 @@ public class LibraryItem implements Serializable {
     
     @Column(name="URL")
     String URL;
+    
+    @ManyToMany(mappedBy = "documents")
+    List<Fragment> fragments;
 
     public LibraryItem() {
         Calendar cal = new GregorianCalendar();
@@ -182,6 +187,14 @@ public class LibraryItem implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public void setFragments(List<Fragment> fragments) {
+        this.fragments = fragments;
     }
     
 }

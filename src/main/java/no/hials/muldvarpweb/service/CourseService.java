@@ -23,6 +23,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.*;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  *
@@ -146,6 +147,12 @@ public class CourseService {
     }
     
     public void removeCourse(Course course) {
+        for(Fragment f : course.getFragments()) {
+            if(f.getCourses().contains(course)) {
+                f.getCourses().remove(course);
+                em.merge(f);
+            }
+        }
         course = em.merge(course);
         em.remove(course);
     }

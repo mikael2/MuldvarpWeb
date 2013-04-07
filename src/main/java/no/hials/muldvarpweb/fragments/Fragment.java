@@ -78,6 +78,7 @@ public class Fragment implements Serializable {
 
     public void setArticle(Article article) {
         this.article = article;
+//        article.setFragment(this);
     }
 
     public String getCategory() {
@@ -141,6 +142,9 @@ public class Fragment implements Serializable {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+        for(Course c : courses) {
+            c.getFragments().add(this);
+        }
     }
     
     @ManyToMany(cascade = CascadeType.ALL)
@@ -152,6 +156,9 @@ public class Fragment implements Serializable {
 
     public void setDocuments(List<LibraryItem> documents) {
         this.documents = documents;
+        for(LibraryItem d : documents) {
+            d.getFragments().add(this);
+        }
     }
     
     @ManyToMany(cascade = CascadeType.ALL)
@@ -163,5 +170,8 @@ public class Fragment implements Serializable {
 
     public void setVideos(List<Video> videos) {
         this.videos = videos;
+        for(Video v : videos) {
+            v.getFragments().add(this);
+        }
     }
 }

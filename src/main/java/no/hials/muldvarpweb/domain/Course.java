@@ -53,6 +53,9 @@ public class Course implements Serializable {
     @ManyToMany(mappedBy = "courses")
     List<Programme> programmes;
     
+    @ManyToMany(mappedBy = "courses")
+    List<Fragment> fragments;
+    
     public Course() {
         this.revision = 0;
         this.revision_date = new Date();
@@ -286,5 +289,13 @@ public class Course implements Serializable {
     
     public void removeFragment(Fragment f) {
         fragmentBundle.remove(f);
+    }
+
+    public List<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public void setFragments(List<Fragment> fragments) {
+        this.fragments = fragments;
     }
 }

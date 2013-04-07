@@ -16,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Video;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  * Video service class providing EM functionality.
@@ -46,7 +47,12 @@ public class VideoService {
      * @param video video The Video to be removed.
      */
     public void removeVideo(Video video){
-        
+        for(Fragment f : video.getFragments()) {
+            if(f.getVideos().contains(video)) {
+                f.getVideos().remove(video);
+                entityManager.merge(f);
+            }
+        }
         video = entityManager.merge(video);
         entityManager.remove(video);
     }

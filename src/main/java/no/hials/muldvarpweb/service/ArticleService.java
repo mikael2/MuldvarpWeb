@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import no.hials.muldvarpweb.domain.Article;
+import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
  *
@@ -70,7 +71,11 @@ public class ArticleService {
         return newArticle;
         }
 
-    public void removeArticle(Article article) {
+    public void removeArticle(Article article) {        
+//        if(article.getFragment().getArticle().equals(article)) {
+//            article.getFragment().setArticle(null);
+//            em.merge(article.getFragment());
+//        }        
         article = em.merge(article);
         em.remove(article);
     }
