@@ -8,9 +8,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,6 +22,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,9 +34,8 @@ import org.jsoup.select.Elements;
  * @author johan
  */
 @Stateless
-@Path("toplel")
+@Path("timeedit")
 public class TimeEditService {
-
     //Maximum number of object requests that will be parsed by getURL()
     private static int MAX_OBJECT_REQUESTS = 10;
     /**
@@ -57,7 +60,6 @@ public class TimeEditService {
     private final static String TIMEEDIT_PARAM_WEEKSTART = "wv_startWeek";
     private final static String TIMEEDIT_PARAM_WEEKSTOP = "wv_stopWeek";
     private final static String TIMEEDIT_PARAM_DATE = "wv_ts";
-    String lenke = "http://timeedit.hials.no/4DACTION/WebShowSearch/1/1-0?wv_type=5&wv_ts=20130222T141621X6075&wv_search=&wv_startWeek=1301&wv_stopWeek=1318&wv_addObj=&wv_delObj=&wv_obj1=169000&wv_text=Tekstformat";
     //Static variable types
     private final static String TIMEEDIT_VALUE_FORMAT_TEXT = "text";
     private final static String TIMEEDIT_VALUE_FORMAT_TEXT2 = "Tekstformat";
@@ -149,27 +151,55 @@ public class TimeEditService {
      * Programme(Klasse), or a combination.
      */
     @GET
-    @Path("objects/{objectstring:(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Path("{objectstring:|(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Day> getScheduleByMultipleObjectID(@PathParam("objectstring") String objectString,
+    public Response getScheduleByMultipleObjectID(@PathParam("objectstring") String objectString,
             @PathParam("startweek") String startweek,
             @PathParam("stopweek") String stopweek,
             @PathParam("date") String date) {
         
         String[] objectCodes = objectString.split("/");        
+        if(objectCodes == null 
+                || objectCodes.length == 0 
+                || objectCodes[0].isEmpty()){
+            return Response.ok(Response.Status.OK)
+                    .entity("Malformed or no objects supplied. Read the API documentation for instructions.")
+                    .type(MediaType.APPLICATION_JSON).build();
+        }
         if (date != null && !date.isEmpty()) {
             date = date.replace("/", "");
             date = date.replace("date","");
             System.out.println(getURL(objectCodes, date));
-            return getSchedule(getURL(objectCodes, date));
+            return Response.ok(getTimeEditSchedule(getURL(objectCodes, date)), MediaType.APPLICATION_JSON).build();
         } else {
             startweek = startweek.replace("/", "");
             startweek = startweek.replace("startweek", "");
             stopweek = stopweek.replace("/", "");
             stopweek = stopweek.replace("stopweek", "");
             System.out.println(getURL(objectCodes, startweek, stopweek));
-            return getSchedule(getURL(objectCodes, startweek, stopweek));
+            return Response.ok(getTimeEditSchedule(getURL(objectCodes, startweek, stopweek)), MediaType.APPLICATION_JSON).build();
         }
+    }
+    
+    /**
+     * This method mirrors the TimeEdit parameter input exactly. Any input that will work on the TimEdit
+     * site will also work here. This method returns a JSONObject. The entire URL can also be accepted, but for the time being will be reconstructed.
+     * 
+     * @param parameterString
+     * @return List<Day>
+     */
+    @GET
+    @Path("params/{parameterString:.+}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getScheduleByMirrorParameters(@PathParam("parameterString") String parameterString) {
+        //Match everything after(and including) a question mark
+        //Trim away the URL part if supplied and reconstruct the URL
+        Pattern pattern = Pattern.compile("\\?(.*)");
+        Matcher matcher = pattern.matcher(parameterString);
+        if(matcher.find()){
+            return Response.ok(getTimeEditSchedule(TIMEEDIT_HIALS_URL + matcher.group().replace("?", "")), MediaType.APPLICATION_JSON).build();    
+        }        
+        return Response.ok(getTimeEditSchedule(TIMEEDIT_HIALS_URL + parameterString), MediaType.APPLICATION_JSON).build();
     }
 
     /**
@@ -180,27 +210,9 @@ public class TimeEditService {
     @Path("search/{query:.+}")
     @Produces({MediaType.APPLICATION_JSON})
     public String getScheduleByQuery(@PathParam("query") String query) {
+        //NYI
         return query;
     }
-    
-    //    
-//    /**
-//     * Method which returns JSON based on get requests.
-//     *
-//     * @param ui
-//     * @return
-//     */
-//    @GET
-//    @Path("{string}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getScheduleFromString(@PathParam("string") String string) {
-//        if (string != null && !string.isEmpty()) {
-//            System.out.println("shit got called yo");
-//            return string;
-//        } else {
-//            return "tom";
-//        }
-//    }
 
     /**
      * Returns the current date in YYYYMMDD format. ex 20130410
@@ -211,73 +223,242 @@ public class TimeEditService {
         return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
     }
     
-    public List<Day> getSchedule(String siteURL){
-        
+    public TimeEditSchedule getTimeEditSchedule(String siteURL){      
+        TimeEditSchedule timeEditSchedule = new TimeEditSchedule();
         Document doc = null;
+        //Objects to return and/or manage during parsing
+            ScheduleWeek week = null;
+            List<ScheduleWeek> weeks = new ArrayList<ScheduleWeek>();
+            ScheduleDay day = null;
+            List<ScheduleDay> days = new ArrayList<ScheduleDay>();
+            ScheduleLecture lecture = null;
+            List<ScheduleLecture> lectures = new ArrayList<ScheduleLecture>();
+            ScheduleCourse course = null;
+            List<ScheduleCourse> courses = new ArrayList<ScheduleCourse>();
         try {
             doc = Jsoup.connect(siteURL).get();
         } catch (IOException ex) {
             Logger.getLogger(TimeEditService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Element content = doc.getElementsByClass("booking").first();
-        Elements rows = content.getElementsByTag("tr");
-        List<Day> days = new ArrayList<Day>();
-        Day day = null;
-        Course course = null;
-        for(Element row : rows) {
-            for(int i = 0; i < row.getElementsByTag("td").size(); i++) {
-                try {
-                    String data = row.getElementsByTag("td").get(i).getElementsByTag("font").first().text();
-                    if(data.contains("Uke")) { // Skreller vekk uke radene
-                        break;
-                    } else if(data.matches(".*\\w.*")) { // Bruker bare kolonnene med innhold
-                        switch(i) {
-                            case 2:
-                                day = new Day(data);
-                                days.add(day);
-                                break;
-                            case 3:
-                                day.date = data;
-                                break;
-                            case 4:
-                                course = new Course(data);
-                                break;
-                            case 5:
-                                course.course = data;
-                                break;
-                            case 6:
-                                course.type = data;
-                                break;
-                            case 7:
-                                course.mClass = data;
-                                break;
-                            case 8:
-                                course.teacher = data;
-                                break;
-                            case 9:
-                                course.room = data;
-                                day.courses.add(course);
-                                break;
-                        }
-                    }
-                } catch(NullPointerException ex) {
-                }
+        }        
+        //Catch NullPointerException during parsing, and return a null object should it fail.
+        try {
+            String head1 = doc.getElementsByClass("head1").first().text();
+            System.out.println("LELELELE head1: " + head1);
+            Pattern p1 = Pattern.compile("\\d+");
+            Matcher m1 = p1.matcher(head1);
+            List<String> matches = new ArrayList<String>();
+            while (m1.find()) {            
+                matches.add(m1.group());
             }
+            if(matches.size() == 3){
+                timeEditSchedule.setWeekStart(matches.get(0));
+                timeEditSchedule.setWeeekEnd(matches.get(1));
+                timeEditSchedule.setScheduleYear(matches.get(2));
+            }            
+            //items to iterate over
+            Element content = doc.getElementsByClass("booking").first();
+            Elements rows = content.getElementsByTag("tr");
+            for(Element row : rows) {
+                Elements tableColumns = row.getElementsByTag("td");
+                for(int i = 0; i < tableColumns.size(); i++) {
+                    //Check if there are any elements with a tag that match "font" is present, do nothing if not.
+                    String stringData;
+                    if(!tableColumns.get(i).getElementsByTag("font").isEmpty()){
+                        stringData = tableColumns.get(i).getElementsByTag("font").first().text();
+                        if(stringData.contains("Uke")){ //create new week and break loop if the first element contains Uke
+                            System.out.println("NEW WEEK: " + stringData);
+                            week = new ScheduleWeek(stringData);
+                            weeks.add(week);
+                            break;
+                        } else if(stringData.matches(".*\\w.*") && (week != null)){
+    //                        System.out.println(stringData);
+                            switch(i){
+                                case 2: //Dag (Man, Tir, Ons etc)
+                                    day = new ScheduleDay(stringData);
+                                    System.out.println(stringData);
+                                    break;
+                                case 3: //Dato (1 Jan, 1 Apr, 4 Okt, etc)
+                                    if(day != null){
+                                        day.setDate(stringData);
+                                        week.days.add(day);
+                                    }                                
+                                    System.out.println(stringData);
+                                    break;
+                                case 4: //Tid (8:15-12:00, to klokkeslett separert med bindestrek)
+                                    lecture = new ScheduleLecture(stringData);
+                                    System.out.println(stringData);
+                                    break;
+                                case 5: //Fag (Patologi, Matematikk osv, flere separert med komma)
+                                    String[] courseArray = stringData.split(",");
+                                    courses = new ArrayList<ScheduleCourse>();
+                                    for(int n = 0; n < courseArray.length; n++){
+                                        course = new ScheduleCourse(courseArray[n]);
+                                        courses.add(course);
+                                    }
+                                    System.out.println(stringData);
+                                    break;
+                                case 6: //Type (Forelesning, eller øving)
+                                    if(lecture != null){
+                                        lecture.setType(stringData);
+                                    }
+                                    break;
+                                case 7: //Klasse (BIO2, DA3 etc.. separert med komma)
+                                    if(lecture != null){
+                                        lecture.setClassId(stringData);
+                                    }
+                                    break;
+                                case 8: //Lærer (etternavn+fornavn separert med komma)
+                                    if(lecture != null){
+                                        lecture.setTeachers(stringData);
+                                    }
+                                    break;
+                                case 9: //Rom (C331, B423 etc)
+                                    if(lecture != null){
+                                        lecture.setRoom(stringData);
+                                    }
+                                    break;
+                                case 10: //Kommentar
+                                    if(lecture != null){
+                                        lecture.setComment(stringData);
+                                    }
+                                    break;                            
+                            }
+                        }
+                        if(i >= 10){
+                            if(day != null && lecture != null){
+                                lecture.courses = courses;
+                                day.lectures.add(lecture);
+                                days.add(day);
+                            }
+                        }
+                    } else {
+                        System.out.println("elements with tag 'font' was empty");
+                    }
+                }
+            }        
+        } catch (NullPointerException ex) {
+            return timeEditSchedule;
+        }
+        timeEditSchedule.setWeeks(weeks);
+        return timeEditSchedule;
+    }
+    
+
+    /**
+     * Inner Class TimeEditSchedule
+     * This class defines a TimeEdit schedule.
+     */
+    public static class TimeEditSchedule{
+        String scheduleYear;
+        String weekStart;
+        String weeekEnd;
+        int numberOfWeeks;
+        List<ScheduleWeek> weeks;
+        private TimeEditSchedule(){
+            this.weeks = new ArrayList<ScheduleWeek>();
+        }
+
+        public String getScheduleYear() {
+            return scheduleYear;
+        }
+
+        public void setScheduleYear(String scheduleYear) {
+            this.scheduleYear = scheduleYear;
+        }
+
+        public String getWeekStart() {
+            return weekStart;
+        }
+
+        public void setWeekStart(String weekStart) {
+            this.weekStart = weekStart;
+        }
+
+        public String getWeeekEnd() {
+            return weeekEnd;
+        }
+
+        public void setWeeekEnd(String weeekEnd) {
+            this.weeekEnd = weeekEnd;
         }
         
-        return days;
+        public int getNumberOfWeeks(){
+            if(weeks != null){
+                numberOfWeeks = weeks.size();
+                return numberOfWeeks;
+            } else {
+                return 0;
+            }
+        }
+
+        public List<ScheduleWeek> getWeeks() {
+            return weeks;
+        }
+
+        public void setWeeks(List<ScheduleWeek> weeks) {
+            this.weeks = weeks;
+        }
+    }
+    
+    /**
+     * Inner Class ScheduleWeek
+     * This class defines a Week in the schedule.
+     */
+    public static class ScheduleWeek{
+        String weekString;
+        String weekNo;
+        List<ScheduleDay> days;
+        private ScheduleWeek(String weekString){
+            this.days = new ArrayList<ScheduleDay>();
+            this.weekString = weekString;
+        }
+
+        public String getWeekString() {
+            return weekString;
+        }
+
+        public void setWeekString(String weekString) {
+            this.weekString = weekString;
+        }
+
+        public String getWeekNo() {
+            if((weekNo == null || weekNo.isEmpty()) && !weekString.isEmpty()){
+                Pattern pattern = Pattern.compile("\\d+");
+                Matcher matcher = pattern.matcher(weekString);
+                if(matcher.find()){
+                    weekNo = matcher.group();
+                    return weekNo;
+                }
+                return "";
+            }
+            return weekNo;
+        }
+
+        public void setWeekNo(String weekNo) {
+            this.weekNo = weekNo;
+        }
+
+        public List<ScheduleDay> getDays() {
+            return days;
+        }
+
+        public void setDays(List<ScheduleDay> days) {
+            this.days = days;
+        }
+        
+        
     }
 
     /**
-     * Inner class Day
+     * Inner class ScheduleDay
      */
-    public static class Day {
-
+    public static class ScheduleDay {
         String day;
         String date;
-        List<Course> courses = new ArrayList<Course>();
+        List<ScheduleLecture> lectures;
 
-        private Day(String dag) {
+        private ScheduleDay(String dag) {
+            this.lectures = new ArrayList<ScheduleLecture>();
             this.day = dag;
         }
 
@@ -297,45 +478,82 @@ public class TimeEditService {
             this.date = date;
         }
 
-        public List<Course> getCourses() {
-            return courses;
+        public List<ScheduleLecture> getLectures() {
+            return lectures;
         }
 
-        public void setCourses(List<Course> courses) {
-            this.courses = courses;
+        public void setLectures(List<ScheduleLecture> lectures) {
+            this.lectures = lectures;
         }
     }
-
+    
     /**
-     * Inner class Course
+     * Inner class ScheduleLecture
      */
-    public static class Course {
-
+    public static class ScheduleLecture{
         String time;
-        String course;
+        String lectureStart;
+        String lectureEnd;
         String type;
-        String mClass;
-        String teacher;
+        String classId;
         String room;
-
-        private Course(String tid) {
-            this.time = tid;
+        String teachers;
+        String comment;
+        List<ScheduleCourse> courses;  
+        
+        public ScheduleLecture(String time){
+            this.courses = new ArrayList<ScheduleCourse>();
+            this.time = time;
+            String[] tempString;
+            tempString = time.split("-");
+            if(tempString.length >= 2){
+                lectureStart = tempString[0];
+                lectureEnd = tempString[1];
+            }
         }
-
-        public String getTime() {
-            return time;
-        }
-
+        
         public void setTime(String time) {
             this.time = time;
         }
 
-        public String getCourse() {
-            return course;
+        public String getLectureStart() {
+            if(lectureStart.isEmpty()){
+                if (time.isEmpty()) {
+                    return "";
+                } else {
+                    String[] s = time.split("-");
+                    return s[0];
+                }
+            } 
+            return lectureStart;
         }
 
-        public void setCourse(String course) {
-            this.course = course;
+        public void setLectureStart(String lectureStart) {
+            this.lectureStart = lectureStart;
+        }
+
+        public String getLectureEnd() {
+            if(lectureEnd.isEmpty()){
+                if (time.isEmpty()) {
+                    return "";
+                } else {
+                    String[] s = time.split("-");
+                    return s[1];
+                }
+            } 
+            return lectureEnd;
+        }
+
+        public void setLectureEnd(String lectureEnd) {
+            this.lectureEnd = lectureEnd;
+        }
+        
+        public List<ScheduleCourse> getCourses() {
+            return courses;
+        }
+
+        public void setCourses(List<ScheduleCourse> courses) {
+            this.courses = courses;
         }
 
         public String getType() {
@@ -346,28 +564,69 @@ public class TimeEditService {
             this.type = type;
         }
 
-        public String getmClass() {
-            return mClass;
+        public String getClassId() {
+            return classId;
         }
 
-        public void setmClass(String mClass) {
-            this.mClass = mClass;
+        public void setClassId(String classId) {
+            this.classId = classId;
         }
-
-        public String getTeacher() {
-            return teacher;
-        }
-
-        public void setTeacher(String teacher) {
-            this.teacher = teacher;
-        }
-
+        
         public String getRoom() {
             return room;
         }
 
         public void setRoom(String room) {
             this.room = room;
+        }
+
+        public String getTeachers() {
+            return teachers;
+        }
+
+        public void setTeachers(String teachers) {
+            this.teachers = teachers;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+        }
+        
+        public void addCourseToLecture(ScheduleCourse course){
+            courses.add(course);
+        }
+    }
+
+    /**
+     * Inner class Course
+     */
+    public static class ScheduleCourse {
+
+        String courseName;
+        String courseID;
+
+        private ScheduleCourse(String courseName) {
+            this.courseName = courseName;
+        }
+        
+        public String getCourseID() {
+            return courseID;
+        }
+
+        public void setCourseID(String courseID) {
+            this.courseID = courseID;
+        }
+
+        public String getCourseName() {
+            return courseName;
+        }
+
+        public void setCourseName(String courseName) {
+            this.courseName = courseName;
         }
     }
 }
