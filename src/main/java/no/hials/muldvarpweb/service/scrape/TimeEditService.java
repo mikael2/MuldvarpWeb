@@ -149,6 +149,11 @@ public class TimeEditService {
      * @param id The ID of the Object from which the schedule is to be
      * retrieved. The Object ID can represent a Course (Fag), a
      * Programme(Klasse), or a combination.
+     * @param objectString
+     * @param startweek
+     * @param stopweek
+     * @param date
+     * @return Response
      */
     @GET
     @Path("{objectstring:|(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
@@ -186,7 +191,7 @@ public class TimeEditService {
      * site will also work here. This method returns a JSONObject. The entire URL can also be accepted, but for the time being will be reconstructed.
      * 
      * @param parameterString
-     * @return List<Day>
+     * @return Response
      */
     @GET
     @Path("params/{parameterString:.+}")
