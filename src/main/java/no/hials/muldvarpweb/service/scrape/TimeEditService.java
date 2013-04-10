@@ -5,6 +5,7 @@
 package no.hials.muldvarpweb.service.scrape;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,7 +69,7 @@ public class TimeEditService {
     }
     
     /**
-     * This method generates an TimEdit URL based on a String Array of
+     * This method generates an TimeEdit URL based on a String Array of
      * objectCodes, a String representation of a starting and ending week.
      *
      * @param objectCodes
@@ -90,7 +91,7 @@ public class TimeEditService {
     }
     
     /**
-     * This method generates an TimEdit URL based on a String Array of
+     * This method generates an TimeEdit URL based on a String Array of
      * objectCodes, a String representation of a date. (YYYYMMDD)
      *
      * @param objectCodes
@@ -150,7 +151,7 @@ public class TimeEditService {
                 || objectCodes[0].isEmpty()){
             return Response.ok(Response.Status.OK)
                     .entity("Malformed or no objects supplied. Read the API documentation for instructions. (Not yet available)")
-                    .type(MediaType.APPLICATION_JSON).build();
+                    .type(MediaType.TEXT_PLAIN).build();
         }
         if (date != null && !date.isEmpty()) {
             date = date.replace("/", "");
@@ -163,7 +164,7 @@ public class TimeEditService {
             startWeek = startWeek.replace("startweek", "");
             stopWeek = stopWeek.replace("/", "");
             stopWeek = stopWeek.replace("stopweek", "");
-//            System.out.println(getURL(objectCodes, startWeek, stopWeek));
+            System.out.println(getURL(objectCodes, startWeek, stopWeek));
             responseEntitity = getTimeEditSchedule(getURL(objectCodes, startWeek, stopWeek));
         }
         
@@ -187,7 +188,7 @@ public class TimeEditService {
      * Programme(Klasse), or a combination.
      */
     @GET
-    @Path("simple/{objectstring:|(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Path("simple/{objectstring:|((\\d{6}|\\d{7})/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getSimpleScheduleByMultipleObjectID(@PathParam("objectstring") String objectString,
             @PathParam("startweek") String startweek,
@@ -205,15 +206,15 @@ public class TimeEditService {
      * Programme(Klasse), or a combination.
      */
     @GET
-    @Path("{objectstring:|(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Path("{objectstring:|((\\d{6}|\\d{7})/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getScheduleByMultipleObjectID(@PathParam("objectstring") String objectString,
             @PathParam("startweek") String startweek,
             @PathParam("stopweek") String stopweek,
             @PathParam("date") String date) {
-        
+       
         String[] objectCodes = objectString.split("/");        
-       return getResponse(objectCodes, date, startweek, stopweek, false);
+        return getResponse(objectCodes, date, startweek, stopweek, false);
     }
     
     /**
@@ -237,6 +238,20 @@ public class TimeEditService {
         return Response.ok(getTimeEditSchedule(TIMEEDIT_HIALS_URL + parameterString), MediaType.APPLICATION_JSON).build();
     }
 
+    @GET
+    @Path("coursecode/{coursecode}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getScheduleByCourseCode(@PathParam("coursecode") String courseCode,
+            @PathParam("startweek") String startweek,
+            @PathParam("stopweek") String stopweek,
+            @PathParam("date") String date) {
+        
+        System.out.println("course code: " + courseCode);
+        String[] objectCodes = getObjectCodeFromCourseCode(courseCode).split("/");
+        System.out.println("objectCode[0]: " + objectCodes[0]);
+        return getResponse(objectCodes, date, startweek, stopweek, true);
+    }
+    
     /**
      *
      * @param queryThe search string
@@ -257,6 +272,42 @@ public class TimeEditService {
     public String getCurrentDateYYYYMMDD() {
         return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
     } 
+    
+    /**
+     * Returns an empty string if no match is found.
+     * @param courseCode
+     * @return 
+     */
+    public String getObjectCodeFromCourseCode(String courseCode){
+        String searchURL = TIMEEDIT_HIALS_URL + TIMEDIT_PARAM_SEARCH_TYPE + "=3&" + TIMEDIT_PARAM_SEARCH + "=" + courseCode;
+        System.out.println("searchURL:" + searchURL);
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(searchURL).get();
+        } catch (IOException ex) {
+            Logger.getLogger(TimeEditService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Elements elements = doc.select("a");
+        System.out.println("Elements size: " + elements.size());
+        //Regex is just a very lazy guess that none of the links contains six digits in a row.
+        //Should be expanded to match the javascript function "addObject". DONE
+        Pattern pattern = Pattern.compile("javascript:addObject\\((\\d{6}|\\d{7})\\)");
+        Matcher matcher;
+        for(Element e : elements){
+            String currentString = e.attr("href");
+            System.out.println("currentString: " + currentString);
+            if(currentString != null && !currentString.isEmpty()){
+                matcher = pattern.matcher(currentString);
+                if(matcher.find()){
+                    System.out.println("matcher: " + matcher.group());
+                    String retVal = matcher.group().replace("javascript:addObject(", "");
+                    retVal = retVal.replace(")", "");
+                    return retVal;
+                }
+            }
+        }
+        return "";
+    }
     
     /**
      * 
