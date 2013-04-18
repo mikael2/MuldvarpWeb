@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJBException;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import no.hials.muldvarpweb.domain.Article;
@@ -29,7 +29,7 @@ import org.primefaces.model.DualListModel;
  * @author kristoffer
  */
 @Named
-@SessionScoped
+@ApplicationScoped
 public class FrontpageController implements Serializable {
     String articlename;
     String newsname;
