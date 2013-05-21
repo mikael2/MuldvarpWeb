@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
@@ -189,6 +190,7 @@ public class LibraryItem implements Serializable {
         this.id = id;
     }
 
+    @XmlTransient
     public List<Fragment> getFragments() {
         return fragments;
     }
