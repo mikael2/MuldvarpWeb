@@ -241,6 +241,14 @@
                                                 </div>
                                             </h:outputLink>
                                         </div>
+                                        <div class="previewItems">
+                                            <h:outputLink id="fronterFragment" value="javascript:void(0)" onclick="newfronterdlg.show();dlg.hide();" title="New FronterFragment">     
+                                                <p:graphicImage value="/resources/images/fronter.png" />
+                                                <div class="previewText">
+                                                    Fronter
+                                                </div>
+                                            </h:outputLink>
+                                        </div>
                                     </div>
                                 </p:dialog>
 
@@ -337,6 +345,19 @@
                                         </f:facet>  
                                     </h:panelGrid>  
                                 </p:dialog>
+                             
+                                 <p:dialog id="newfronterDialog" header="New FronterFragment" widgetVar="newfronterdlg">  
+                                        <h:panelGrid columns="2" cellpadding="5">  
+                                            <h:outputLabel for="namef" value="Name:" />  
+                                            <p:inputText value="#{courseController.frontername}" id="namef" label="namef" />
+
+                                            <f:facet name="footer">  
+                                                <p:commandButton id="saveButtonf" value="Submit"   
+                                              actionListener="#{courseController.addFronterFragment()}" 
+                                              oncomplete="newfronterdlg.hide()" update=":courseForm:accordionTabs:fragmentTable :courseForm:accordionTabs:preview"/>  
+                                            </f:facet>  
+                                        </h:panelGrid>  
+                                    </p:dialog>
 
 
                                 <p:dialog id="editfragmentDialog" header="Edit Fragment" widgetVar="editfragmentdlg" resizable="false">  
