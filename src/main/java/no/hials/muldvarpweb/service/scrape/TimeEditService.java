@@ -247,7 +247,21 @@ public class TimeEditService {
             @PathParam("date") String date) {
         
         System.out.println("course code: " + courseCode);
-        String[] objectCodes = getObjectCodeFromCourseCode(courseCode).split("/");
+        String[] objectCodes = getObjectCodeFromQuery(courseCode,3).split("/");
+        System.out.println("objectCode[0]: " + objectCodes[0]);
+        return getResponse(objectCodes, date, startweek, stopweek, true);
+    }
+    
+    @GET
+    @Path("classcode/{coursecode}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getScheduleByClassCode(@PathParam("coursecode") String classCode,
+            @PathParam("startweek") String startweek,
+            @PathParam("stopweek") String stopweek,
+            @PathParam("date") String date) {
+        
+        System.out.println("course code: " + classCode);
+        String[] objectCodes = getObjectCodeFromQuery(classCode,5).split("/");
         System.out.println("objectCode[0]: " + objectCodes[0]);
         return getResponse(objectCodes, date, startweek, stopweek, true);
     }
@@ -275,11 +289,17 @@ public class TimeEditService {
     
     /**
      * Returns an empty string if no match is found.
-     * @param courseCode
+     * WARNING: MAGIC NUMBERS
+     * Fag/Course = 3
+     * Klasse/Program = 5
+     * Lærer/Teacher/Person = 6
+     * Rom/Room = 7
+     * @param query
+     * @param int
      * @return 
      */
-    public String getObjectCodeFromCourseCode(String courseCode){
-        String searchURL = TIMEEDIT_HIALS_URL + TIMEDIT_PARAM_SEARCH_TYPE + "=3&" + TIMEDIT_PARAM_SEARCH + "=" + courseCode;
+    public String getObjectCodeFromQuery(String query, int type){
+        String searchURL = TIMEEDIT_HIALS_URL + TIMEDIT_PARAM_SEARCH_TYPE + "=" + type + "&" + TIMEDIT_PARAM_SEARCH + "=" + query;
         System.out.println("searchURL:" + searchURL);
         Document doc = null;
         try {
@@ -310,7 +330,7 @@ public class TimeEditService {
     }
     
     /**
-     * 
+     * This function returns a TimeEditSchedule based on a correctly formatted URL string.
      * @param siteURL
      * @return 
      */
