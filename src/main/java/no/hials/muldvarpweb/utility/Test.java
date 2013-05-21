@@ -22,10 +22,10 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        String query = "powell";
-        String host = "http://sru.bibsys.no/search/biblio?version=1.2&operation=searchRetrieve&maximumRecords=5&query=" + query;
+        String query = "ibsen";
+        String host = "http://sru.bibsys.no/search/biblio?version=1.2&operation=searchRetrieve&startRecord=1&maximumRecords=10&query=bs.bibkode=xb%20AND%20bs.tittel=" + query;
         Document doc = Jsoup.connect(host).get();
-        doc = Jsoup.parse(doc.html(), "", Parser.xmlParser());
+//        doc = Jsoup.parse(doc.html(), "", Parser.xmlParser());
         for (Iterator<Element> it = doc.getElementsByTag("marc:record").iterator(); it.hasNext();) { //Splits the result into seperate books
             Element e = it.next();
             for (Iterator<Element> it1 = e.getElementsByTag("marc:datafield").iterator(); it1.hasNext();) { //Splits the result into seperate infofields
