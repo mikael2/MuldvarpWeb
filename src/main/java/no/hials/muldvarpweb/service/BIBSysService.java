@@ -24,15 +24,15 @@ import org.jsoup.parser.Parser;
  * @author Nospherus
  */
 @Stateless
-@Path("BIBSys")
+@Path("bibsys")
 public class BIBSysService {
-    
+
     static String host = "http://sru.bibsys.no/search/biblio?version=1.2&operation=searchRetrieve&startRecord=1&maximumRecords=10&query=bs.bibkode=xb%20AND%20bs.tittel=";
-    
+
     @GET
     @Path("{query}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List getResultsByTitle(@PathParam("query")String query) throws IOException {
+    public List getResultsByTitle(@PathParam("query") String query) throws IOException {
         String URL = host + query;
         List results = new ArrayList();
         Document doc = Jsoup.connect(URL).get();
@@ -43,12 +43,18 @@ public class BIBSysService {
                 if (e1.toString().contains("245")) {       //Separates the info from field 245, which contains the title and the name of the author
                     String title = null;
                     String author = null;
-                    String[] array = e1.toString().split("\n");
-                    title = array[2].substring(2);
-                    if (!e1.toString().contains("code=\"b\">")) {       //Checks whether the element contains a subtitle, in which case the author is on line 11, not 8.
-                        author = array[8].substring(2);
-                    } else {
-                        author = array[11].substring(2);
+                    for (Iterator<Element> it2 = e1.getElementsByTag("marc:subfield").iterator(); it2.hasNext();) { //Splits the result into seperate sub-infofields
+                        Element e2 = it2.next();
+                        if (e2.toString().contains("code=\"a\"")) {
+                            String[] array = e2.toString().split("\n");
+                            title = array[1].substring(1);
+                        } else if (e2.toString().contains("code=\"b\"")) {
+                            String[] array = e2.toString().split("\n");
+                            title = title + array[1];
+                        } else if (e2.toString().contains("code=\"c\"")) {
+                            String[] array = e2.toString().split("\n");
+                            author = array[1].substring(1);
+                        }
                     }
                     results.add(new Book(title, author));
                 }
@@ -56,9 +62,9 @@ public class BIBSysService {
         }
         return results;
     }
-    
+
     static class Book {     //Inner entityclass to hold the data
-        
+
         private String title;
         private String Author;
 
@@ -82,6 +88,5 @@ public class BIBSysService {
         public void setAuthor(String Author) {
             this.Author = Author;
         }
-        
     }
 }
