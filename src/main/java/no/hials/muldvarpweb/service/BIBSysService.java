@@ -48,12 +48,15 @@ public class BIBSysService {
                         if (e2.toString().contains("code=\"a\"")) {
                             String[] array = e2.toString().split("\n");
                             title = array[1].substring(1);
+                            title = title.replaceAll("&Oslash;", "Ø").replaceAll("&oslash;", "ø").replaceAll("&aelig;", "æ").replaceAll("&AElig;", "Æ").replace("&aring;", "å").replace("&aring;", "Å");
                         } else if (e2.toString().contains("code=\"b\"")) {
                             String[] array = e2.toString().split("\n");
                             title = title + array[1];
+                            title = title.replaceAll("&Oslash;", "Ø").replaceAll("&oslash;", "ø").replaceAll("&aelig;", "æ").replaceAll("&AElig;", "Æ").replace("&aring;", "å").replace("&aring;", "Å");
                         } else if (e2.toString().contains("code=\"c\"")) {
                             String[] array = e2.toString().split("\n");
                             author = array[1].substring(1);
+                            author = author.replaceAll("&Oslash;", "Ø").replaceAll("&oslash;", "ø").replaceAll("&aelig;", "æ").replaceAll("&AElig;", "Æ").replace("&aring;", "å").replace("&aring;", "Å");
                         }
                     }
                     results.add(new Book(title, author));
