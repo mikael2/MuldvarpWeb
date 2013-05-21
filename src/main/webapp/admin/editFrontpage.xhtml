@@ -98,6 +98,14 @@
                             </div>
                         </h:outputLink>
                     </div>
+                    <div class="previewItems">
+                        <h:outputLink id="bibSysFragment" value="javascript:void(0)" onclick="newbibsysdlg.show();dlg.hide();" title="New BibSysFragment">     
+                            <p:graphicImage value="/resources/images/bibsys.png" />
+                            <div class="previewText">
+                                BibSys
+                            </div>
+                        </h:outputLink>
+                    </div>
                 </div>
             </p:dialog>
 
@@ -128,6 +136,18 @@
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonp" value="Submit"   
                       actionListener="#{frontpageController.addProgrammeFragment()}" oncomplete="newprogrammedlg.hide()" update="fragmentTable"/>  
+                    </f:facet>  
+                </h:panelGrid>  
+            </p:dialog>
+            
+            <p:dialog id="newbibsysDialog" header="New BibSysFragment" widgetVar="newbibsysdlg">  
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <h:outputLabel for="nameb" value="Name:" />  
+                    <p:inputText value="#{frontpageController.bibsys}" id="nameb" label="nameb" />
+                    <h:outputLabel value="No options" />  
+                    <f:facet name="footer">  
+                        <p:commandButton id="saveButtonb" value="Submit"   
+                      actionListener="#{frontpageController.addBibSysFragment()}" oncomplete="newbibsysdlg.hide()" update="fragmentTable"/>  
                     </f:facet>  
                 </h:panelGrid>  
             </p:dialog>

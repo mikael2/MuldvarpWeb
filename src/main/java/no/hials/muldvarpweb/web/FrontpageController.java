@@ -45,6 +45,7 @@ public class FrontpageController implements Serializable {
     long parentId;
     private String videoname;
     private String documentname;
+    private String bibsysname;
     
     public List<Fragment> getFragmentBundle() {
         if(fragmentBundle == null) {
@@ -65,6 +66,11 @@ public class FrontpageController implements Serializable {
     
     public void addProgrammeFragment() {
         Fragment f = new Fragment(programmename, parentId, Fragment.Type.PROGRAMME);
+        addFragment(f);
+    }
+    
+    public void addBibSysFragment() {
+        Fragment f = new Fragment(bibsysname, parentId, Fragment.Type.BIBSYS);
         addFragment(f);
     }
     
@@ -108,6 +114,7 @@ public class FrontpageController implements Serializable {
         quizname = "";
         videoname = "";
         documentname = "";
+        bibsysname = "";
         category = "";
         article = null;
         parentId = 0;
@@ -226,6 +233,14 @@ public class FrontpageController implements Serializable {
 
     public void setDocumentname(String documentname) {
         this.documentname = documentname;
+    }
+
+    public String getBibsysname() {
+        return bibsysname;
+    }
+
+    public void setBibsysname(String bibsysname) {
+        this.bibsysname = bibsysname;
     }
 
     public Fragment getSelectedFragment() {
