@@ -536,6 +536,7 @@ public class CourseController implements Serializable {
     long parentId;
     private String videoname;
     private String documentname;
+    private String frontername;
     
     public List<Fragment> getFragmentBundle() {
         if(fragmentBundle == null) {
@@ -578,6 +579,11 @@ public class CourseController implements Serializable {
         addFragment(f);
     }
     
+    public void addFronterFragment() {
+        Fragment f = new Fragment(frontername, parentId, Fragment.Type.FRONTER);
+        addFragment(f);
+    }
+    
     public void addFragment(Fragment f) {
         fragmentBundle.add(f);
         reset();
@@ -593,6 +599,7 @@ public class CourseController implements Serializable {
         quizname = "";
         videoname = "";
         documentname = "";
+        frontername = "";
         category = "";
         article = null;
         quizzes = null;
@@ -687,5 +694,13 @@ public class CourseController implements Serializable {
 
     public void setNewsname(String newsname) {
         this.newsname = newsname;
+    }
+
+    public String getFrontername() {
+        return frontername;
+    }
+
+    public void setFrontername(String frontername) {
+        this.frontername = frontername;
     }
 }

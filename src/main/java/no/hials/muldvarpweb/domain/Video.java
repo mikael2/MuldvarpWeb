@@ -7,6 +7,7 @@ package no.hials.muldvarpweb.domain;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import no.hials.muldvarpweb.fragments.Fragment;
 
 /**
@@ -149,6 +150,7 @@ public class Video implements Serializable{
         this.videoThumbURI = videoThumbURI;
     }
 
+    @XmlTransient
     public List<Fragment> getFragments() {
         return fragments;
     }
