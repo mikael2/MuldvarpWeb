@@ -1,5 +1,6 @@
 package no.hials.muldvarpweb.service.scrape;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -18,16 +19,16 @@ public class FronterService {
     @Produces({MediaType.APPLICATION_JSON})
     public Fronter getRoomData(@PathParam("id") String id) {
         Fronter f = new Fronter();
-        List<String> messages = new ArrayList<String>();
-        List<String> documents = new ArrayList<String>();
+        List<Message> messages = new ArrayList<Message>();
+        List<Document> documents = new ArrayList<Document>();
         List<Innlevering> innleveringer = new ArrayList<Innlevering>();
         
-        messages.add("Husk obligatorisk innlevering 3!! Siste frist idag!!");
-        messages.add("Obligatorisk 3 ligger nå ute på fronter.");
+        messages.add(new Message("Husk obligatorisk innlevering 3!! Siste frist idag!!", "29.04.13"));
+        messages.add(new Message("Obligatorisk 3 ligger nå ute på fronter.", "14.04.13"));
         
-        documents.add("Oblig3.pdf");
-        documents.add("Oblig2.pdf");
-        documents.add("Oblig1.pdf");
+        documents.add(new Document("Oblig3.pdf", "14.04.13", "http://domene.no/filer/oblig3.pdf"));
+        documents.add(new Document("Oblig2.pdf", "10.03.13", "http://domene.no/filer/oblig2.pdf"));
+        documents.add(new Document("Oblig1.pdf", "03.02.13", "http://domene.no/filer/oblig1.pdf"));
         
         innleveringer.add(new Innlevering("Obligatorisk 1", "Godkjent"));
         innleveringer.add(new Innlevering("Obligatorisk 2", "Godkjent"));
@@ -40,27 +41,27 @@ public class FronterService {
         return f;
     }
     
-    static class Fronter {
-        List<String> messages;
-        List<String> documents;
+    public static class Fronter implements Serializable {
+        List<Message> messages;
+        List<Document> documents;
         List<Innlevering> innleveringer;
 
         public Fronter() {
         }
 
-        public List<String> getMessages() {
+        public List<Message> getMessages() {
             return messages;
         }
 
-        public void setMessages(List<String> messages) {
+        public void setMessages(List<Message> messages) {
             this.messages = messages;
         }
 
-        public List<String> getDocuments() {
+        public List<Document> getDocuments() {
             return documents;
         }
 
-        public void setDocuments(List<String> documents) {
+        public void setDocuments(List<Document> documents) {
             this.documents = documents;
         }
 
@@ -73,12 +74,9 @@ public class FronterService {
         }
     }
 
-    private static class Innlevering {
+    public static class Innlevering implements Serializable {
         String navn;
         String status;
-
-        public Innlevering() {
-        }
 
         public Innlevering(String navn, String status) {
             this.navn = navn;
@@ -99,6 +97,68 @@ public class FronterService {
 
         public void setStatus(String status) {
             this.status = status;
+        }
+    }
+
+    public static class Message implements Serializable {
+        String message;
+        String date;
+
+        public Message(String message, String date) {
+            this.message = message;
+            this.date = date;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+    }
+
+    public static class Document implements Serializable {
+        String name;
+        String date;
+        String url;
+
+        public Document(String name, String date, String url) {
+            this.name = name;
+            this.date = date;
+            this.url = url;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
     }
 }
