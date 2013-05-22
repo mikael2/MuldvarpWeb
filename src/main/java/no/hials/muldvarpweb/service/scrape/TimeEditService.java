@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -248,7 +247,6 @@ public class TimeEditService {
         //Catch NullPointerException during parsing, and return a null object should it fail.
         try {
             String head1 = doc.getElementsByClass("head1").first().text();
-            System.out.println("LELELELE head1: " + head1);
             Pattern p1 = Pattern.compile("\\d+");
             Matcher m1 = p1.matcher(head1);
             List<String> matches = new ArrayList<String>();
@@ -271,7 +269,7 @@ public class TimeEditService {
                     if(!tableColumns.get(i).getElementsByTag("font").isEmpty()){
                         stringData = tableColumns.get(i).getElementsByTag("font").first().text();
                         if(stringData.contains("Uke")){ //create new week and break loop if the first element contains Uke
-                            System.out.println("NEW WEEK: " + stringData);
+//                            System.out.println("NEW WEEK: " + stringData);
                             week = new ScheduleWeek(stringData);
                             weeks.add(week);
                             break;
@@ -280,18 +278,18 @@ public class TimeEditService {
                             switch(i){
                                 case 2: //Dag (Man, Tir, Ons etc)
                                     day = new ScheduleDay(stringData);
-                                    System.out.println(stringData);
+//                                    System.out.println(stringData);
                                     break;
                                 case 3: //Dato (1 Jan, 1 Apr, 4 Okt, etc)
                                     if(day != null){
                                         day.setDate(stringData);
                                         week.days.add(day);
                                     }                                
-                                    System.out.println(stringData);
+//                                    System.out.println(stringData);
                                     break;
                                 case 4: //Tid (8:15-12:00, to klokkeslett separert med bindestrek)
                                     lecture = new ScheduleLecture(stringData);
-                                    System.out.println(stringData);
+//                                    System.out.println(stringData);
                                     break;
                                 case 5: //Fag (Patologi, Matematikk osv, flere separert med komma)
                                     String[] courseArray = stringData.split(",");
@@ -300,7 +298,7 @@ public class TimeEditService {
                                         course = new ScheduleCourse(courseArray[n]);
                                         courses.add(course);
                                     }
-                                    System.out.println(stringData);
+//                                    System.out.println(stringData);
                                     break;
                                 case 6: //Type (Forelesning, eller øving)
                                     if(lecture != null){
