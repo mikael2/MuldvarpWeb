@@ -125,24 +125,6 @@ public class TimeEditService {
         }
         return retVal;
     }
-
-    /**
-     * Method which returns JSON based on get requests.
-     *
-     * @param ui
-     * @return
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public MultivaluedMap getParameters(@Context UriInfo ui) {
-                
-        System.out.println(ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT));
-        String objectCodes[] = ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT).split(",");
-        System.out.println("GET-PARAM:" + getURL(objectCodes,
-                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTART),
-                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTOP)));
-        return ui.getQueryParameters();
-    }
     
     public Response getResponse(String[] objectCodes, String date, String startWeek, String stopWeek, boolean simple){
         TimeEditSchedule responseEntitity = null;
@@ -180,8 +162,26 @@ public class TimeEditService {
             return Response.ok(responseEntitity, MediaType.APPLICATION_JSON).build();
         }       
     }
+    
+    /**
+     * Method which returns JSON based on get requests.
+     *
+     * @param ui
+     * @return
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public MultivaluedMap getParameters(@Context UriInfo ui) {
+                
+        System.out.println(ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT));
+        String objectCodes[] = ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT).split(",");
+        System.out.println("GET-PARAM:" + getURL(objectCodes,
+                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTART),
+                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTOP)));
+        return ui.getQueryParameters();
+    }
 
-        /**
+     /**
      *
      * @param id The ID of the Object from which the schedule is to be
      * retrieved. The Object ID can represent a Course (Fag), a
@@ -204,6 +204,11 @@ public class TimeEditService {
      * @param id The ID of the Object from which the schedule is to be
      * retrieved. The Object ID can represent a Course (Fag), a
      * Programme(Klasse), or a combination.
+     * @param objectString
+     * @param startweek
+     * @param stopweek
+     * @param date
+     * @return Response
      */
     @GET
     @Path("{objectstring:|((\\d{6}|\\d{7})/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
@@ -385,18 +390,18 @@ public class TimeEditService {
                             switch(i){
                                 case 2: //Dag (Man, Tir, Ons etc)
                                     day = new ScheduleDay(stringData);
-                                    System.out.println(stringData);
+//                                    System.out.println(stringData);
                                     break;
                                 case 3: //Dato (1 Jan, 1 Apr, 4 Okt, etc)
                                     if(day != null){
                                         day.setDate(stringData);
                                         week.days.add(day);
                                     }                                
-                                    System.out.println(stringData);
+//                                    System.out.println(stringData);
                                     break;
                                 case 4: //Tid (8:15-12:00, to klokkeslett separert med bindestrek)
                                     lecture = new ScheduleLecture(stringData);
-                                    System.out.println(stringData);
+//                                    System.out.println(stringData);
                                     break;
                                 case 5: //Fag (Patologi, Matematikk osv, flere separert med komma)
                                     String[] courseArray = stringData.split(",");
@@ -405,7 +410,7 @@ public class TimeEditService {
                                         course = new ScheduleCourse(courseArray[n]);
                                         courses.add(course);
                                     }
-                                    System.out.println(stringData);
+//                                    System.out.println(stringData);
                                     break;
                                 case 6: //Type (Forelesning, eller øving)
                                     if(lecture != null){
@@ -555,8 +560,6 @@ public class TimeEditService {
         public void setDays(List<ScheduleDay> days) {
             this.days = days;
         }
-        
-        
     }
 
     /**
