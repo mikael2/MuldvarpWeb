@@ -162,14 +162,14 @@ public class CourseService {
         return persist(course);
     }
     
-    public void editTheme(Course course, Theme theme) {
+    public Course editTheme(Course course, Theme theme) {
         course.editTheme(theme);
-        persist(course);
+        return persist(course);
     }
     
-    public void removeTheme(Course course, Theme theme) {
+    public Course removeTheme(Course course, Theme theme) {
         course.removeTheme(theme);
-        persist(course);
+        return persist(course);
     }
     
     public Course addTask(Course course, Theme theme, Task task) {
@@ -177,14 +177,14 @@ public class CourseService {
         return persist(course);
     }
     
-    public void editTask(Course course, Theme theme, Task task) {
+    public Course editTask(Course course, Theme theme, Task task) {
         course.editTask(theme, task);
-        persist(course);
+        return persist(course);
     }
     
-    public void removeTask(Course course, Theme theme, Task task) {
+    public Course removeTask(Course course, Theme theme, Task task) {
         course.removeTask(theme, task);
-        persist(course);
+        return persist(course);
     }
     
     public Course addObligatoryTask(Course course, ObligatoryTask obligtask) {
@@ -192,14 +192,14 @@ public class CourseService {
         return persist(course);
     }
     
-    public void editObligatoryTask(Course course, ObligatoryTask obligtask) {
+    public Course editObligatoryTask(Course course, ObligatoryTask obligtask) {
         course.editObligatoryTask(obligtask);
-        persist(course);
+        return persist(course);
     }
     
-    public void removeObligatoryTask(Course course, ObligatoryTask obligtask) {
+    public Course removeObligatoryTask(Course course, ObligatoryTask obligtask) {
         course.removeObligatoryTask(obligtask);
-        persist(course);
+        return persist(course);
     }
     
     public void acceptObligatoryTask(Course course, ObligatoryTask obligtask) {
@@ -212,14 +212,14 @@ public class CourseService {
         return persist(course);
     }
     
-    public void editExam(Course course, Exam exam) {
+    public Course editExam(Course course, Exam exam) {
         course.editExam(exam);
-        persist(course);
+        return persist(course);
     }
     
-    public void removeExam(Course course, Exam exam) {
+    public Course removeExam(Course course, Exam exam) {
         course.removeExam(exam);
-        persist(course);
+        return persist(course);
     }
     
     public void addProgramme(Course c, Programme p) {
