@@ -35,6 +35,7 @@ public class FrontpageController implements Serializable {
     String newsname;
     String programmename;
     String quizname;
+    String timeeditname;
     String category;
     Article article;
     Frontpage frontpage;
@@ -66,6 +67,11 @@ public class FrontpageController implements Serializable {
     
     public void addProgrammeFragment() {
         Fragment f = new Fragment(programmename, parentId, Fragment.Type.PROGRAMME);
+        addFragment(f);
+    }
+    
+    public void addTimeEditFragment() {
+        Fragment f = new Fragment(timeeditname, parentId, Fragment.Type.TIMEEDIT);
         addFragment(f);
     }
     
@@ -114,6 +120,7 @@ public class FrontpageController implements Serializable {
         quizname = "";
         videoname = "";
         documentname = "";
+        timeeditname = "";
         bibsysname = "";
         category = "";
         article = null;
@@ -214,6 +221,14 @@ public class FrontpageController implements Serializable {
     public String getQuizname() {
         return quizname;
     }
+
+    public String getTimeeditname() {
+        return timeeditname;
+    }
+
+    public void setTimeeditname(String timeeditname) {
+        this.timeeditname = timeeditname;
+    }    
 
     public void setQuizname(String quizname) {
         this.quizname = quizname;

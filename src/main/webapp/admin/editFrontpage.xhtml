@@ -99,6 +99,14 @@
                         </h:outputLink>
                     </div>
                     <div class="previewItems">
+                        <h:outputLink id="timeEditFragment" value="javascript:void(0)" onclick="newtimeeditdlg.show();dlg.hide();" title="New TimeEditFragment">     
+                            <p:graphicImage value="/resources/images/timeedit.png" />
+                            <div class="previewText">
+                                TimeEdit
+                            </div>
+                        </h:outputLink>
+                    </div>
+                    <div class="previewItems">
                         <h:outputLink id="bibSysFragment" value="javascript:void(0)" onclick="newbibsysdlg.show();dlg.hide();" title="New BibSysFragment">     
                             <p:graphicImage value="/resources/images/bibsys.png" />
                             <div class="previewText">
@@ -136,6 +144,18 @@
                     <f:facet name="footer">  
                         <p:commandButton id="saveButtonp" value="Submit"   
                       actionListener="#{frontpageController.addProgrammeFragment()}" oncomplete="newprogrammedlg.hide()" update="fragmentTable"/>  
+                    </f:facet>  
+                </h:panelGrid>  
+            </p:dialog>
+            
+            <p:dialog id="newtimeeditdlg" header="New TimeEditFragment" widgetVar="newtimeeditdlg">  
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <h:outputLabel for="namet" value="Name:" />  
+                    <p:inputText value="#{frontpageController.timeeditname}" id="namet" label="namet" />
+                    <h:outputLabel value="No options" />  
+                    <f:facet name="footer">  
+                        <p:commandButton id="saveButtont" value="Submit"   
+                                         actionListener="#{frontpageController.addTimeEditFragment()}" oncomplete="newtimeeditdlg.hide()" update="fragmentTable"/>  
                     </f:facet>  
                 </h:panelGrid>  
             </p:dialog>

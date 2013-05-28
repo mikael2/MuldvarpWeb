@@ -125,24 +125,6 @@ public class TimeEditService {
         }
         return retVal;
     }
-
-    /**
-     * Method which returns JSON based on get requests.
-     *
-     * @param ui
-     * @return
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public MultivaluedMap getParameters(@Context UriInfo ui) {
-                
-        System.out.println(ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT));
-        String objectCodes[] = ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT).split(",");
-        System.out.println("GET-PARAM:" + getURL(objectCodes,
-                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTART),
-                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTOP)));
-        return ui.getQueryParameters();
-    }
     
     public Response getResponse(String[] objectCodes, String date, String startWeek, String stopWeek, boolean simple){
         TimeEditSchedule responseEntitity = null;
@@ -180,8 +162,26 @@ public class TimeEditService {
             return Response.ok(responseEntitity, MediaType.APPLICATION_JSON).build();
         }       
     }
+    
+    /**
+     * Method which returns JSON based on get requests.
+     *
+     * @param ui
+     * @return
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public MultivaluedMap getParameters(@Context UriInfo ui) {
+                
+        System.out.println(ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT));
+        String objectCodes[] = ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_OBJECT).split(",");
+        System.out.println("GET-PARAM:" + getURL(objectCodes,
+                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTART),
+                ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTOP)));
+        return ui.getQueryParameters();
+    }
 
-        /**
+     /**
      *
      * @param id The ID of the Object from which the schedule is to be
      * retrieved. The Object ID can represent a Course (Fag), a
@@ -560,8 +560,6 @@ public class TimeEditService {
         public void setDays(List<ScheduleDay> days) {
             this.days = days;
         }
-        
-        
     }
 
     /**
