@@ -5,6 +5,7 @@
 package no.hials.muldvarpweb.service.scrape;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,9 +67,9 @@ public class TimeEditService {
 
     public TimeEditService() {
     }
-
+    
     /**
-     * This method generates an TimEdit URL based on a String Array of
+     * This method generates an TimeEdit URL based on a String Array of
      * objectCodes, a String representation of a starting and ending week.
      *
      * @param objectCodes
@@ -90,7 +91,7 @@ public class TimeEditService {
     }
     
     /**
-     * This method generates an TimEdit URL based on a String Array of
+     * This method generates an TimeEdit URL based on a String Array of
      * objectCodes, a String representation of a date. (YYYYMMDD)
      *
      * @param objectCodes
@@ -142,7 +143,62 @@ public class TimeEditService {
                 ui.getQueryParameters().getFirst(TIMEEDIT_PARAM_WEEKSTOP)));
         return ui.getQueryParameters();
     }
+    
+    public Response getResponse(String[] objectCodes, String date, String startWeek, String stopWeek, boolean simple){
+        TimeEditSchedule responseEntitity = null;
+        if(objectCodes == null 
+                || objectCodes.length == 0 
+                || objectCodes[0].isEmpty()){
+            return Response.ok(Response.Status.OK)
+                    .entity("Malformed or no objects supplied. Read the API documentation for instructions. (Not yet available)")
+                    .type(MediaType.TEXT_PLAIN).build();
+        }
+        if (date != null && !date.isEmpty()) {
+            date = date.replace("/", "");
+            date = date.replace("date","");
+//            System.out.println(getURL(objectCodes, date));
+            responseEntitity = getTimeEditSchedule(getURL(objectCodes, date));
+            
+        } else {
+            startWeek = startWeek.replace("/", "");
+            startWeek = startWeek.replace("startweek", "");
+            stopWeek = stopWeek.replace("/", "");
+            stopWeek = stopWeek.replace("stopweek", "");
+            System.out.println(getURL(objectCodes, startWeek, stopWeek));
+            responseEntitity = getTimeEditSchedule(getURL(objectCodes, startWeek, stopWeek));
+        }
+        
+        if (simple) {
+            List<ScheduleDay> days = new ArrayList<ScheduleDay>();
+            for(int i = 0; i < responseEntitity.getWeeks().size(); i++){
+                for(int n = 0; n < responseEntitity.getWeeks().get(i).getDays().size(); n++){
+                    days.add(responseEntitity.getWeeks().get(i).getDays().get(n));
+                }
+            }
+            return Response.ok(days, MediaType.APPLICATION_JSON).build();
+        } else {
+            return Response.ok(responseEntitity, MediaType.APPLICATION_JSON).build();
+        }       
+    }
 
+        /**
+     *
+     * @param id The ID of the Object from which the schedule is to be
+     * retrieved. The Object ID can represent a Course (Fag), a
+     * Programme(Klasse), or a combination.
+     */
+    @GET
+    @Path("simple/{objectstring:|((\\d{6}|\\d{7})/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getSimpleScheduleByMultipleObjectID(@PathParam("objectstring") String objectString,
+            @PathParam("startweek") String startweek,
+            @PathParam("stopweek") String stopweek,
+            @PathParam("date") String date) {
+        String[] objectCodes = objectString.split("/");
+        return getResponse(objectCodes, date, startweek, stopweek, true);
+    }
+    
+    
     /**
      *
      * @param id The ID of the Object from which the schedule is to be
@@ -155,34 +211,15 @@ public class TimeEditService {
      * @return Response
      */
     @GET
-    @Path("{objectstring:|(\\d{6}/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Path("{objectstring:|((\\d{6}|\\d{7})/?)+}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getScheduleByMultipleObjectID(@PathParam("objectstring") String objectString,
             @PathParam("startweek") String startweek,
             @PathParam("stopweek") String stopweek,
             @PathParam("date") String date) {
-        
+       
         String[] objectCodes = objectString.split("/");        
-        if(objectCodes == null 
-                || objectCodes.length == 0 
-                || objectCodes[0].isEmpty()){
-            return Response.ok(Response.Status.OK)
-                    .entity("Malformed or no objects supplied. Read the API documentation for instructions.")
-                    .type(MediaType.APPLICATION_JSON).build();
-        }
-        if (date != null && !date.isEmpty()) {
-            date = date.replace("/", "");
-            date = date.replace("date","");
-            System.out.println(getURL(objectCodes, date));
-            return Response.ok(getTimeEditSchedule(getURL(objectCodes, date)), MediaType.APPLICATION_JSON).build();
-        } else {
-            startweek = startweek.replace("/", "");
-            startweek = startweek.replace("startweek", "");
-            stopweek = stopweek.replace("/", "");
-            stopweek = stopweek.replace("stopweek", "");
-            System.out.println(getURL(objectCodes, startweek, stopweek));
-            return Response.ok(getTimeEditSchedule(getURL(objectCodes, startweek, stopweek)), MediaType.APPLICATION_JSON).build();
-        }
+        return getResponse(objectCodes, date, startweek, stopweek, false);
     }
     
     /**
@@ -206,6 +243,34 @@ public class TimeEditService {
         return Response.ok(getTimeEditSchedule(TIMEEDIT_HIALS_URL + parameterString), MediaType.APPLICATION_JSON).build();
     }
 
+    @GET
+    @Path("coursecode/{coursecode}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getScheduleByCourseCode(@PathParam("coursecode") String courseCode,
+            @PathParam("startweek") String startweek,
+            @PathParam("stopweek") String stopweek,
+            @PathParam("date") String date) {
+        
+        System.out.println("course code: " + courseCode);
+        String[] objectCodes = getObjectCodeFromQuery(courseCode,3).split("/");
+        System.out.println("objectCode[0]: " + objectCodes[0]);
+        return getResponse(objectCodes, date, startweek, stopweek, true);
+    }
+    
+    @GET
+    @Path("classcode/{coursecode}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getScheduleByClassCode(@PathParam("coursecode") String classCode,
+            @PathParam("startweek") String startweek,
+            @PathParam("stopweek") String stopweek,
+            @PathParam("date") String date) {
+        
+        System.out.println("course code: " + classCode);
+        String[] objectCodes = getObjectCodeFromQuery(classCode,5).split("/");
+        System.out.println("objectCode[0]: " + objectCodes[0]);
+        return getResponse(objectCodes, date, startweek, stopweek, true);
+    }
+    
     /**
      *
      * @param queryThe search string
@@ -225,8 +290,55 @@ public class TimeEditService {
      */
     public String getCurrentDateYYYYMMDD() {
         return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+    } 
+    
+    /**
+     * Returns an empty string if no match is found.
+     * WARNING: MAGIC NUMBERS
+     * Fag/Course = 3
+     * Klasse/Program = 5
+     * Lærer/Teacher/Person = 6
+     * Rom/Room = 7
+     * @param query
+     * @param int
+     * @return 
+     */
+    public String getObjectCodeFromQuery(String query, int type){
+        String searchURL = TIMEEDIT_HIALS_URL + TIMEDIT_PARAM_SEARCH_TYPE + "=" + type + "&" + TIMEDIT_PARAM_SEARCH + "=" + query;
+        System.out.println("searchURL:" + searchURL);
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(searchURL).get();
+        } catch (IOException ex) {
+            Logger.getLogger(TimeEditService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Elements elements = doc.select("a");
+        System.out.println("Elements size: " + elements.size());
+        //Regex is just a very lazy guess that none of the links contains six digits in a row.
+        //Should be expanded to match the javascript function "addObject". DONE
+        Pattern pattern = Pattern.compile("javascript:addObject\\((\\d{6}|\\d{7})\\)");
+        Matcher matcher;
+        for(Element e : elements){
+            String currentString = e.attr("href");
+            System.out.println("currentString: " + currentString);
+            if(currentString != null && !currentString.isEmpty()){
+                matcher = pattern.matcher(currentString);
+                if(matcher.find()){
+                    System.out.println("matcher: " + matcher.group());
+                    String retVal = matcher.group().replace("javascript:addObject(", "");
+                    retVal = retVal.replace(")", "");
+                    return retVal;
+                }
+            }
+        }
+        return "";
     }
     
+    /**
+     * This function returns a TimeEditSchedule based on a correctly formatted URL string.
+     * @param siteURL
+     * @return 
+     */
     public TimeEditSchedule getTimeEditSchedule(String siteURL){      
         TimeEditSchedule timeEditSchedule = new TimeEditSchedule();
         Document doc = null;
@@ -269,7 +381,7 @@ public class TimeEditService {
                     if(!tableColumns.get(i).getElementsByTag("font").isEmpty()){
                         stringData = tableColumns.get(i).getElementsByTag("font").first().text();
                         if(stringData.contains("Uke")){ //create new week and break loop if the first element contains Uke
-//                            System.out.println("NEW WEEK: " + stringData);
+//                            System.out.println("NEWs WEEK: " + stringData);
                             week = new ScheduleWeek(stringData);
                             weeks.add(week);
                             break;

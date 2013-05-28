@@ -31,7 +31,7 @@ public class Fragment implements Serializable {
     private Long id;
     String name;
     public enum Type {
-        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ, DOCUMENT, VIDEO
+        FRONTPAGE, PROGRAMME, COURSE, NEWS, ARTICLE, QUIZ, DOCUMENT, VIDEO, BIBSYS, FRONTER
     }
     Type fragmentType;
     
@@ -114,6 +114,12 @@ public class Fragment implements Serializable {
                 break;
             case DOCUMENT:
                 iconurl = "../resources/images/stolen_docs.png";
+                break;
+            case BIBSYS:
+                iconurl = "../resources/images/bibsys.png";
+                break;
+            case FRONTER:
+                iconurl = "../resources/images/fronter.png";
                 break;
         }
         return iconurl;
