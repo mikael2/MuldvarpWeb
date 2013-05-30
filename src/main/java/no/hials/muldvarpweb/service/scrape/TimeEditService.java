@@ -5,7 +5,6 @@
 package no.hials.muldvarpweb.service.scrape;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,6 +64,9 @@ public class TimeEditService {
     private final static String TIMEEDIT_VALUE_FORMAT_TEXT2 = "Tekstformat";
     private final static String TIMEEDIT_VALUE_FORMAT_GRAPHIC = "Grafisk";
 
+    /**
+     * Empty constructor for the TimeEditService class.
+     */
     public TimeEditService() {
     }
     
@@ -126,6 +128,18 @@ public class TimeEditService {
         return retVal;
     }
     
+    /**
+     * This method generates a response object based on a String array of Object codes, a String date, and string values of a starting and stopping week. 
+     * The startWeek and stopWeek parameters must be formatted with the last two digits in the desire year, and the two-digit number of the desired week. Week 1 would be
+     * for instance "01", and if the year was 2013, the full string would be "1301".
+     * The simple-boolean denotes whether the returned Response object should contain a simple version of the TimeEdit schedule or an advanced one. 
+     * @param objectCodes
+     * @param date
+     * @param startWeek
+     * @param stopWeek
+     * @param simple
+     * @return 
+     */
     public Response getResponse(String[] objectCodes, String date, String startWeek, String stopWeek, boolean simple){
         TimeEditSchedule responseEntitity = null;
         if(objectCodes == null 
@@ -182,7 +196,7 @@ public class TimeEditService {
     }
 
      /**
-     *
+     * This method serves GET-requests to retrieve a Simple schedule based on multiple object ID's.
      * @param id The ID of the Object from which the schedule is to be
      * retrieved. The Object ID can represent a Course (Fag), a
      * Programme(Klasse), or a combination.
@@ -200,7 +214,7 @@ public class TimeEditService {
     
     
     /**
-     *
+     * This method serves GET-requests to retrieve a schedule based on multiple object ID's.
      * @param id The ID of the Object from which the schedule is to be
      * retrieved. The Object ID can represent a Course (Fag), a
      * Programme(Klasse), or a combination.
@@ -243,6 +257,14 @@ public class TimeEditService {
         return Response.ok(getTimeEditSchedule(TIMEEDIT_HIALS_URL + parameterString), MediaType.APPLICATION_JSON).build();
     }
 
+    /**
+     * This method returns a simple Schedule based on HIALS course codes.
+     * @param courseCode
+     * @param startweek
+     * @param stopweek
+     * @param date
+     * @return 
+     */
     @GET
     @Path("coursecode/{coursecode}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -257,6 +279,14 @@ public class TimeEditService {
         return getResponse(objectCodes, date, startweek, stopweek, true);
     }
     
+    /**
+     * This method returns a simple Schedule based on HIALS class codes.
+     * @param classCode
+     * @param startweek
+     * @param stopweek
+     * @param date
+     * @return 
+     */
     @GET
     @Path("classcode/{coursecode}{startweek:(/startweek/[^/]+?)?}{stopweek:(/stopweek/[^/]+?)?}{date:(/date/[^/]+?)?}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -272,7 +302,7 @@ public class TimeEditService {
     }
     
     /**
-     *
+     * Not fully implemented function that returns a query string as plaintext.
      * @param queryThe search string
      */
     @GET
@@ -335,7 +365,7 @@ public class TimeEditService {
     }
     
     /**
-     * This function returns a TimeEditSchedule based on a correctly formatted URL string.
+     * This function returns a TimeEditSchedule object based on a correctly formatted URL string.
      * @param siteURL
      * @return 
      */
